@@ -1,4 +1,4 @@
-package it.polimi.ingsw.pcXX;
+package it.polimi.ingsw.GC_31;
 
 /**
  * Hello world!
