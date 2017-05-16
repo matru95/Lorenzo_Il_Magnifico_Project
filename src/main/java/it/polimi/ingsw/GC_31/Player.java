@@ -1,7 +1,16 @@
 package it.polimi.ingsw.GC_31;
 
 enum PlayerColor {
-	RED, BLUE, GREEN, YELLOW
+	RED, BLUE, GREEN, YELLOW;
+	
+	public static Boolean contains(String value) {
+		for(PlayerColor color : PlayerColor.values()) {
+			if(color.name().equals(value)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 public class Player {
