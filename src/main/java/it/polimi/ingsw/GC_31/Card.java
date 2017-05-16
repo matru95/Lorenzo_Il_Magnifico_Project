@@ -23,7 +23,7 @@ public abstract class Card {
 		this.deck = true;
 	}
 	
-	public execEffect(Effect effect) {
+	public void execEffect(Effect effect) {
 		effect.runEffect();
 	}
 	
