@@ -41,10 +41,10 @@ public class GameInstance {
 			System.out.println(numOfPlayers);
 			
 			if(numOfPlayers < 2) {
-				System.out.println("Il numero minimo dei giocatori e 2");
+				System.out.println("Il numero minimo dei giocatori è 2");
 				return askNumOfPlayers();
 			} else if(numOfPlayers > 4) {
-				System.out.println("Il numero massimo dei giocatori e 4");
+				System.out.println("Il numero massimo dei giocatori è 4");
 				return askNumOfPlayers();
 			} else {
 				return numOfPlayers;
@@ -83,7 +83,7 @@ public class GameInstance {
 					availableColors.remove(chosenColor);
 					break;
 				} else {
-					System.out.println("Quel colore e gia stato scelto!");
+					System.out.println("Quel colore è già stato scelto!");
 				}
 
 			}
