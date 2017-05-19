@@ -1,9 +1,5 @@
 package it.polimi.ingsw.GC_31;
 
-enum CardColor {
-	YELLOW, BLUE, GREEN, PURPLE
-}
-
 public class Card {
 	private final String cardName;
 	private final int cardID;
