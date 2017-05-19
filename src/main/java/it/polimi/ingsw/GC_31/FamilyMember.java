@@ -29,6 +29,10 @@ public class FamilyMember {
 
 	}
 	
+	public DiceColor getDiceColor() {
+		return this.diceColor;
+	}
+	
 	public void moveToPosition(SpaceWrapper position) {
 		this.currentPosition = position;
 		return;

@@ -6,6 +6,8 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import it.polimi.ingsw.GC_31.board.GameBoard;
+
 public class GameInstance {
 	private Scanner in = new Scanner(System.in);
 	private List<PlayerColor> availableColors = new LinkedList<PlayerColor>(Arrays.asList(PlayerColor.values()));
@@ -89,7 +91,7 @@ public class GameInstance {
 			}
 		}
 		
-		Player player = new Player(id, playerName, chosenColor);
+		Player player = new Player(id, playerName, chosenColor, gameBoard);
 		return player;
 		
 		
