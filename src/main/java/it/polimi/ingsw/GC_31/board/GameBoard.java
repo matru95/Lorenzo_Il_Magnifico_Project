@@ -22,6 +22,17 @@ public class GameBoard {
 
         }
     }
+    
+    public ArrayList<SpaceWrapper> openSpaces() {
+    	ArrayList<SpaceWrapper> availablePlaces = new ArrayList<SpaceWrapper>(); 
+
+    	for(SpaceWrapper space : board) {
+    		if(!space.isOccupied) {
+    			availablePlaces.add(space);
+    		}
+    	}
+    	return availablePlaces;
+    }
 
     public SpaceWrapper[] getSpace() {
         return board;
