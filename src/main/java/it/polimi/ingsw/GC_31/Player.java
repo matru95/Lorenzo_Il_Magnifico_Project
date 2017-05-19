@@ -29,10 +29,7 @@ public class Player {
 	private int victoryPoints;
 	
 //	Cards
-	private BlueCard[] blueCards;
-	private GreenCard[] greenCards;
-	private PurpleCard[] purpleCards;
-	private YellowCard[] yellowCards;
+	private Card[] cards;
 
 // 	TODO Family Members
 	
@@ -48,11 +45,9 @@ public class Player {
 		this.wood = 2;
 
 //		Cards
-		this.blueCards = new BlueCard[6];
-		this.greenCards = new GreenCard[6];
-		this.purpleCards = new PurpleCard[6];
-		this.yellowCards = new YellowCard[6];
+		this.cards = new Card[24];
 	}
+
 	public int getWood() {
 		return wood;
 	}

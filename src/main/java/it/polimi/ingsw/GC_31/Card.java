@@ -1,6 +1,10 @@
 package it.polimi.ingsw.GC_31;
 
-public abstract class Card {
+enum CardColor {
+	YELLOW, BLUE, GREEN, PURPLE
+}
+
+public class Card {
 	private final String cardName;
 	private final int cardID;
 	private final int cardAge;
@@ -9,6 +13,7 @@ public abstract class Card {
 	private Boolean deck;
 	private Effect normalEffect;
 	private Effect instantEffect;
+	private CardColor color;
 	
 	public Card(String cardName, int cardID, int cardAge, int warPointsBond, Effect normalEffect, 
 			Effect instantEffect) {
