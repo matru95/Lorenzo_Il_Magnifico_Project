@@ -1,6 +1,9 @@
 package it.polimi.ingsw.GC_31;
 
 import it.polimi.ingsw.GC_31.board.SpaceWrapper;
+
+import java.util.ArrayList;
+
 import it.polimi.ingsw.GC_31.board.GameBoard;
 
 public class FamilyMember {
