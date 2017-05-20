@@ -42,6 +42,17 @@ public class GameBoard {
         pos++;
         board.add(new HarvestWrapper(pos, 3,true));
     }
+    
+    public ArrayList<SpaceWrapper> openSpaces() {
+    	ArrayList<SpaceWrapper> availablePlaces = new ArrayList<SpaceWrapper>(); 
+
+    	for(SpaceWrapper space : board) {
+    		if(!space.isOccupied) {
+    			availablePlaces.add(space);
+    		}
+    	}
+    	return availablePlaces;
+    }
 
     public ArrayList<SpaceWrapper> getBoard() {
         return board;
