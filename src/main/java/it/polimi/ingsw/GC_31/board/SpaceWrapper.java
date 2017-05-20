@@ -5,6 +5,7 @@ public abstract class SpaceWrapper {
     protected int positionID;
     protected int diceBond;
     protected boolean isOccupied;
+    //protected FamilyMember member;
 
     public SpaceWrapper() {
         isOccupied = false;

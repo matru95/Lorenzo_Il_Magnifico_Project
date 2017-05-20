@@ -6,21 +6,22 @@ import it.polimi.ingsw.GC_31.CardColor;
 public class TowerSpaceWrapper extends SpaceWrapper implements SpaceBonus {
 
     private final int floorID;
+    private final CardColor color;
     private Card card;
-    //private final CardColor color;
 
-    public TowerSpaceWrapper(int positionID, int diceBond, int floorID, Card card, CardColor color) {
+    public TowerSpaceWrapper(int positionID, int diceBond, int floorID, CardColor color) {
         super();
         this.positionID = positionID;
         this.diceBond = diceBond;
         this.floorID = floorID;
-        //this.color = color;
-        this.card = card;
+        this.color = color;
+        //TODO Randomize a card
     }
 
     @Override
     public void execWrapper() {
         execBonus();
+        isOccupied = true;
     }
 
     @Override

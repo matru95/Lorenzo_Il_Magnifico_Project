@@ -10,11 +10,12 @@ public class MartWrapper extends SpaceWrapper implements SpaceBonus {
 
     @Override
     public void execWrapper() {
-
+        execBonus();
+        isOccupied = true;
     }
 
     @Override
     public void execBonus() {
-        super.execBonus();
+        //TODO
     }
 }
