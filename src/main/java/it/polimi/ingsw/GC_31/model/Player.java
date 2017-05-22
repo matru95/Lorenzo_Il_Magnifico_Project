@@ -1,6 +1,6 @@
-package it.polimi.ingsw.GC_31;
+package it.polimi.ingsw.GC_31.model;
 
-import it.polimi.ingsw.GC_31.board.GameBoard;
+import it.polimi.ingsw.GC_31.model.board.GameBoard;
 
 enum PlayerColor {
 	RED, BLUE, GREEN, YELLOW;

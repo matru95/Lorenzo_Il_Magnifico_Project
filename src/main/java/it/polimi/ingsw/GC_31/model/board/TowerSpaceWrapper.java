@@ -1,7 +1,7 @@
-package it.polimi.ingsw.GC_31.board;
+package it.polimi.ingsw.GC_31.model.board;
 
-import it.polimi.ingsw.GC_31.Card;
-import it.polimi.ingsw.GC_31.CardColor;
+import it.polimi.ingsw.GC_31.model.Card;
+import it.polimi.ingsw.GC_31.model.CardColor;
 
 public class TowerSpaceWrapper extends SpaceWrapper implements SpaceBonus {
 

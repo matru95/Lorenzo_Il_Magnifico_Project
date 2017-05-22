@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_31.board;
+package it.polimi.ingsw.GC_31.model.board;
 
 public class CouncilsPalaceWrapper extends SpaceWrapper implements SpaceBonus {
 

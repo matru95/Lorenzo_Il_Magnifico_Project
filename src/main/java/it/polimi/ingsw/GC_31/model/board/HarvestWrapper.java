@@ -1,10 +1,10 @@
-package it.polimi.ingsw.GC_31.board;
+package it.polimi.ingsw.GC_31.model.board;
 
-public class ProductionWrapper extends SpaceWrapper {
+public class HarvestWrapper extends SpaceWrapper {
 
     private boolean isMultiple;
 
-    public ProductionWrapper(int positionID, int diceBond, boolean isMultiple) {
+    public HarvestWrapper(int positionID, int diceBond, boolean isMultiple) {
         super();
         this.positionID = positionID;
         this.diceBond = diceBond;
@@ -13,11 +13,11 @@ public class ProductionWrapper extends SpaceWrapper {
 
     @Override
     public void execWrapper() {
-        produce();
+        harvest();
         if (isMultiple = false) { isOccupied = true; }
     }
 
-    private void produce(){
+    private void harvest(){
 
     }
 

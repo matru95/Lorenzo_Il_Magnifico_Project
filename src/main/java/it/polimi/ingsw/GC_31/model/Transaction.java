@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_31;
+package it.polimi.ingsw.GC_31.model;
 
 public abstract class Transaction {
 	private int wood;

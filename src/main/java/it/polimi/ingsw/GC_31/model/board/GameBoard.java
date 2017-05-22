@@ -1,8 +1,9 @@
-package it.polimi.ingsw.GC_31.board;
+package it.polimi.ingsw.GC_31.model.board;
 
 import java.util.ArrayList;
-import it.polimi.ingsw.GC_31.CardColor;
-import it.polimi.ingsw.GC_31.Player;
+
+import it.polimi.ingsw.GC_31.model.CardColor;
+import it.polimi.ingsw.GC_31.model.Player;
 
 public class GameBoard {
 

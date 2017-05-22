@@ -1,5 +1,8 @@
 package it.polimi.ingsw.GC_31;
 
+
+import it.polimi.ingsw.GC_31.model.GameInstance;
+
 /**
  * Hello world!
  *

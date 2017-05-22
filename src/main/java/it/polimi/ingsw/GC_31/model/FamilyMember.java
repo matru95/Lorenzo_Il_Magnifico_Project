@@ -1,10 +1,9 @@
-package it.polimi.ingsw.GC_31;
-
-import it.polimi.ingsw.GC_31.board.SpaceWrapper;
+package it.polimi.ingsw.GC_31.model;
 
 import java.util.ArrayList;
 
-import it.polimi.ingsw.GC_31.board.GameBoard;
+import it.polimi.ingsw.GC_31.model.board.GameBoard;
+import it.polimi.ingsw.GC_31.model.board.SpaceWrapper;
 
 public class FamilyMember {
 	private final DiceColor diceColor;

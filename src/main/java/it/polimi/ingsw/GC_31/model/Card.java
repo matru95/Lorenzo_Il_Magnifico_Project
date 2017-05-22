@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_31;
+package it.polimi.ingsw.GC_31.model;
 
 public class Card {
 	private final String cardName;

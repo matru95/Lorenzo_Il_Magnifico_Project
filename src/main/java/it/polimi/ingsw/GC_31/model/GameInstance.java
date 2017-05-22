@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_31;
+package it.polimi.ingsw.GC_31.model;
 
 import java.util.List;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import it.polimi.ingsw.GC_31.board.GameBoard;
+import it.polimi.ingsw.GC_31.model.board.GameBoard;
 
 public class GameInstance {
 	private Scanner in = new Scanner(System.in);
