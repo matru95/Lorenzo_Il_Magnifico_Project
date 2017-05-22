@@ -1,21 +1,15 @@
 package it.polimi.ingsw.GC_31.model.board;
 
-public class MartWrapper extends SpaceWrapper implements SpaceBonus {
+public class MartWrapper extends SpaceWrapper {
 
-    public MartWrapper(int positionID, int diceBond) {
-        super();
-        this.positionID = positionID;
-        this.diceBond = diceBond;
+    MartWrapper(int positionID, int diceBond) {
+        super(positionID, diceBond);
     }
 
     @Override
     public void execWrapper() {
-        execBonus();
-        isOccupied = true;
+        //TODO
+        setOccupied(true);
     }
 
-    @Override
-    public void execBonus() {
-        //TODO
-    }
 }

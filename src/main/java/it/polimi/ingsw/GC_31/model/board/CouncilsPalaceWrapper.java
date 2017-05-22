@@ -1,23 +1,16 @@
 package it.polimi.ingsw.GC_31.model.board;
 
-public class CouncilsPalaceWrapper extends SpaceWrapper implements SpaceBonus {
+public class CouncilsPalaceWrapper extends SpaceWrapper {
 
-    public CouncilsPalaceWrapper(int positionID, int diceBond) {
-        super();
-        this.positionID = positionID;
-        this.diceBond = diceBond;
+    CouncilsPalaceWrapper(int positionID, int diceBond) {
+        super(positionID, diceBond);
     }
 
     @Override
     public void execWrapper() {
-        execBonus();
-        isOccupied = true;
-    }
-
-    @Override
-    public void execBonus() {
         //TODO
         putPlayerFirst();
+        setOccupied(true);
     }
 
     private void putPlayerFirst() {

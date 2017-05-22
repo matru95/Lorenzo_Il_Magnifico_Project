@@ -4,17 +4,15 @@ public class ProductionWrapper extends SpaceWrapper {
 
     private boolean isMultiple;
 
-    public ProductionWrapper(int positionID, int diceBond, boolean isMultiple) {
-        super();
-        this.positionID = positionID;
-        this.diceBond = diceBond;
+    ProductionWrapper(int positionID, int diceBond, boolean isMultiple) {
+        super(positionID, diceBond);
         this.isMultiple = isMultiple;
     }
 
     @Override
     public void execWrapper() {
         produce();
-        if (isMultiple = false) { isOccupied = true; }
+        if (!isMultiple) setOccupied(true);
     }
 
     private void produce(){

@@ -4,21 +4,19 @@ public class HarvestWrapper extends SpaceWrapper {
 
     private boolean isMultiple;
 
-    public HarvestWrapper(int positionID, int diceBond, boolean isMultiple) {
-        super();
-        this.positionID = positionID;
-        this.diceBond = diceBond;
+    HarvestWrapper(int positionID, int diceBond, boolean isMultiple) {
+        super(positionID, diceBond);
         this.isMultiple = isMultiple;
     }
 
     @Override
     public void execWrapper() {
         harvest();
-        if (isMultiple = false) { isOccupied = true; }
+        if (!isMultiple) setOccupied(true);
     }
 
     private void harvest(){
-
+        //TODO
     }
 
 }
