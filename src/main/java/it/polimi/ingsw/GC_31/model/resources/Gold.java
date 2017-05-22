@@ -1,13 +1,15 @@
 package it.polimi.ingsw.GC_31.model.resources;
 
-public class Gold extends ResourceDecorator {
+public class Gold extends Resource {
 
-    public Gold(Resource resource) {
-        super(resource);
+    private int numOf;
+
+    public Gold(int numOf) {
+        this.numOf = numOf;
     }
 
     @Override
-    public void create() {
-        super.create();
+    public int getNumOf() {
+        return this.numOf;
     }
 }

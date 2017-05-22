@@ -1,14 +1,15 @@
 package it.polimi.ingsw.GC_31.model.resources;
 
+public class Stone extends Resource {
 
-public class Stone extends ResourceDecorator {
+    private int numOf;
 
-    public Stone(Resource resource) {
-        super(resource);
+    public Stone(int numOf) {
+        this.numOf = numOf;
     }
 
     @Override
-    public void create() {
-        super.create();
+    public int getNumOf() {
+        return this.numOf;
     }
 }

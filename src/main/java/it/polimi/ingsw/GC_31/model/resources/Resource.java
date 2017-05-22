@@ -1,7 +1,11 @@
 package it.polimi.ingsw.GC_31.model.resources;
 
-interface Resource {
+public abstract class Resource {
 
-    public void create();
+    public abstract int getNumOf();
+
+    public void foo(){
+        System.out.println("Bella raga");
+    }
 
 }

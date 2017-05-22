@@ -1,13 +1,15 @@
 package it.polimi.ingsw.GC_31.model.resources;
 
-public class FaithPoints extends ResourceDecorator {
+public class FaithPoints extends Resource {
 
-    public FaithPoints(Resource resource) {
-        super(resource);
+    private int numOf;
+
+    public FaithPoints(int numOf) {
+        this.numOf = numOf;
     }
 
     @Override
-    public void create() {
-        super.create();
+    public int getNumOf() {
+        return this.numOf;
     }
 }

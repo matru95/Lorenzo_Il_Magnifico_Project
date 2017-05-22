@@ -1,13 +1,15 @@
 package it.polimi.ingsw.GC_31.model.resources;
 
-public class VictoryPoints extends ResourceDecorator {
+public class VictoryPoints extends Resource {
 
-    public VictoryPoints(Resource resource) {
-        super(resource);
+    private int numOf;
+
+    public VictoryPoints(int numOf) {
+        this.numOf = numOf;
     }
 
     @Override
-    public void create() {
-        super.create();
+    public int getNumOf() {
+        return this.numOf;
     }
 }

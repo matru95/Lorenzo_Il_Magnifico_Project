@@ -1,14 +1,15 @@
 package it.polimi.ingsw.GC_31.model.resources;
 
+public class Wood extends Resource {
 
-public class Wood extends ResourceDecorator {
+    private int numOf;
 
-    public Wood(Resource resource) {
-        super(resource);
+    public Wood(int numOf) {
+        this.numOf = numOf;
     }
 
     @Override
-    public void create() {
-        super.create();
+    public int getNumOf() {
+        return this.numOf;
     }
 }
