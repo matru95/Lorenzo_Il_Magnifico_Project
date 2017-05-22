@@ -1,17 +1,13 @@
 package it.polimi.ingsw.GC_31.model.resources;
 
-public class Servants extends Resource {
-    private static int numOf;
+public class Servants extends ResourceDecorator {
 
-    public Servants(int numOf) {
-        this.numOf = numOf;
+    public Servants(Resource resource) {
+        super(resource);
     }
+
     @Override
-    public int getNumOf() {
-        return this.numOf;
-    }
-    @Override
-    public void setNumOf(int numOf) {
-        this.numOf = numOf;
+    public void create() {
+        super.create();
     }
 }

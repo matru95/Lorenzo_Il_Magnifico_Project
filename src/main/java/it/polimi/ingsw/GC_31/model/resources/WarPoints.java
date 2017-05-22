@@ -1,18 +1,14 @@
 package it.polimi.ingsw.GC_31.model.resources;
 
 
-public class WarPoints extends Resource {
-    private static int numOf;
+public class WarPoints extends ResourceDecorator {
 
-    public WarPoints(int numOf) {
-        this.numOf = numOf;
+    public WarPoints(Resource resource) {
+        super(resource);
     }
+
     @Override
-    public int getNumOf() {
-        return this.numOf;
-    }
-    @Override
-    public void setNumOf(int numOf) {
-        this.numOf = numOf;
+    public void create() {
+        super.create();
     }
 }
