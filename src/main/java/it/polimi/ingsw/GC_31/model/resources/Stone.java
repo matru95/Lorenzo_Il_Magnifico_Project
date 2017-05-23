@@ -12,4 +12,9 @@ public class Stone extends Resource {
     public int getNumOf() {
         return this.numOf;
     }
+
+    @Override
+    public void setNumOf(int numOf) {
+        this.numOf = numOf;
+    }
 }
