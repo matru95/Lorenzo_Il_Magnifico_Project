@@ -1,11 +1,10 @@
 package it.polimi.ingsw.GC_31.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.GC_31.model.board.GameBoard;
-import it.polimi.ingsw.GC_31.model.Dice;
+import it.polimi.ingsw.GC_31.model.cards.Card;
 import it.polimi.ingsw.GC_31.model.resources.Resource;
 import it.polimi.ingsw.GC_31.model.resources.ResourceFactory;
 
