@@ -3,11 +3,7 @@ package it.polimi.ingsw.GC_31;
 
 import it.polimi.ingsw.GC_31.model.GameInstance;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
