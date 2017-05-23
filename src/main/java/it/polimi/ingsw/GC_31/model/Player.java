@@ -1,5 +1,11 @@
 package it.polimi.ingsw.GC_31.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import it.polimi.ingsw.GC_31.model.board.GameBoard;
 
 enum PlayerColor {
@@ -21,7 +27,7 @@ public class Player {
 	private final String playerName;
 	private final PlayerColor playerColor;
 	private final GameBoard board;
-	private Resource[] res;
+	private Map<String, Resource> res;
 	
 //	Cards
 	private Card[] cards;
@@ -35,6 +41,8 @@ public class Player {
 		this.playerColor = playerColor;
 		this.board = board;
 		
+		res = new HashMap<String, Resource>();
+		res.put("Gold", new Gold(5));
 
 //		Cards
 		this.cards = new Card[24];
@@ -57,11 +65,13 @@ public class Player {
 	}
 	
 	public FamilyMember getSpecificFamilyMember(DiceColor color) {
+		FamilyMember memberToReturn = null;
 		for(FamilyMember member: familyMembers) {
 			if(color.equals(member.getDiceColor())) {
-				return member;
+				memberToReturn = member;
 			}
 		}
+		return memberToReturn;
 	}
 	
 	
