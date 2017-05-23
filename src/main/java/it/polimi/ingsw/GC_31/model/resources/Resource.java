@@ -10,5 +10,9 @@ public abstract class Resource {
         this.setNumOf(this.getNumOf() + value);
     }
 
+    public void subNumOf(int value) {
+
+        this.setNumOf(this.getNumOf() - value);
+    }
 }
 
