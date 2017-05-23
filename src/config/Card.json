@@ -1,0 +1,105 @@
+{
+  "age": "",
+  "title": "",
+  "id": "",
+  "color": "",
+  "instantEffect": {
+    "Stone": "",
+    "Gold": "",
+    "Wood": "",
+    "VicoryPoints": "",
+    "WarPoints": "",
+    "Servants": "",
+    "FaithPoints": "",
+    "Parchment": "",
+    "HarvestValue": "",
+    "ProductionValue": "",
+    "LessGoldForCard": "",
+    "LessStoneForCard": "",
+    "LessWoodForCard": "",
+    "CardChoice": [
+      {
+        "CardColor": [
+          {
+            "Purple": true,
+            "Yellow": true,
+            "Blue": true,
+            "Green": true
+          }
+        ],
+        "DiceValue": ""
+      }
+    ],
+    "ResourceperItem": [
+      {
+        "Resource": "Gold",
+        "multiplier": "1",
+        "Item": ""
+      },
+      {
+        "Resource": "null",
+        "multiplier": "null",
+        "Item": "null"
+      }
+    ]
+  },
+    "normalEffect": {
+      "Stone": "",
+      "Gold": "",
+      "VicoryPoints": "",
+      "WarPoints": "",
+      "Servants": "",
+      "FaithPoints": "",
+      "Wood": "",
+      "Parchment": "",
+      "finalVictoryPoint": "",
+      "HarvestValue": "",
+      "ProductionValue": "",
+      "plusHarvestValue": "",
+      "plusProductionValue": "",
+      "plusCardDice": [
+        {
+          "CardColor": "",
+          "plusDice": ""
+        }
+      ],
+      "noMoreIE": {
+        "Tower": [
+          {
+            "3Floor": true,
+            "4Floor": true
+          }
+        ]
+      },
+      "ResourceperItem": [
+        {
+          "Resource": "",
+          "multiplier": "",
+          "Item": ""
+        },
+        {
+          "ResourceNeed": "null",
+          "Multiplier": "",
+          "Item": "Stone|CardColor"
+        }
+      ]
+    },
+      "cost": [
+        {
+          "Gold": "",
+          "Stone": "",
+          "Wood": "",
+          "Servants": "",
+          "WarPointsNeed": "",
+          "WarPointsPay": ""
+        },
+        {
+          "Gold": "",
+          "Stone": "",
+          "Wood": "",
+          "Servants": "",
+          "WarPointsNeed": "",
+          "WarPointsPay": ""
+        }
+      ]
+}
