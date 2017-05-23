@@ -5,7 +5,7 @@ public abstract class Resource {
     public abstract int getNumOf();
     public abstract void setNumOf(int numOf);
 
-    public void addNumOf(int value) throws IllegalArgumentException {
+    public void addNumOf(int value) {
         try {
             if (value > 0) {
                 this.setNumOf(this.getNumOf() + value);
