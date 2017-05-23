@@ -6,6 +6,8 @@ target/
 # ignore Eclipse settings
 .project
 .classpath
+.idea
+GC_31.iml
 .settings
 # ignore all files ending with ~
 *~

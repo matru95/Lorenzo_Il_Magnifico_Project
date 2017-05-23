@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import it.polimi.ingsw.GC_31.model.board.GameBoard;
 import it.polimi.ingsw.GC_31.model.Dice;
+import it.polimi.ingsw.GC_31.model.resources.Resource;
+import it.polimi.ingsw.GC_31.model.resources.ResourceFactory;
 
 enum PlayerColor {
 	RED, BLUE, GREEN, YELLOW;
@@ -43,7 +43,7 @@ public class Player {
 		this.board = board;
 		
 		res = new HashMap<String, Resource>();
-		res.put("Gold", new Gold(5));
+		res.put("Gold", ResourceFactory.getResource("Gold", 5));
 
 //		Cards
 		this.cards = new Card[24];
