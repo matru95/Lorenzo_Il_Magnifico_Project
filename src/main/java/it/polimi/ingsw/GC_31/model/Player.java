@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import it.polimi.ingsw.GC_31.model.board.GameBoard;
-import it.polimi.ingsw.GC_31.model.resources.Resource;
+import it.polimi.ingsw.GC_31.model.Dice;
 
 enum PlayerColor {
 	RED, BLUE, GREEN, YELLOW;
@@ -66,13 +66,12 @@ public class Player {
 	}
 	
 	public FamilyMember getSpecificFamilyMember(DiceColor color) {
-		FamilyMember memberToReturn = null;
 		for(FamilyMember member: familyMembers) {
 			if(color.equals(member.getDiceColor())) {
-				memberToReturn = member;
+				return member;
 			}
 		}
-		return memberToReturn;
+		return null;
 	}
 	
 	
