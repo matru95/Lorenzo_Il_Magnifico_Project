@@ -3,16 +3,6 @@
   "title": "",
   "id": "",
   "color": "",
-  "noMoreIE": [
-    {
-      "Tower": [
-        {
-          "3Floor": true,
-          "4Floor": true
-        }
-      ]
-    }
-  ],
   "instantEffect": {
     "Stone": "",
     "Gold": "",
@@ -40,107 +30,76 @@
         "DiceValue": ""
       }
     ],
-    "ResourcexCard": [
+    "ResourceperItem": [
       {
-        "Resource": "",
-        "multiplier": "",
-        "CardColor": ""
-      }
-    ],
-    "ResourcexResource": [
+        "Resource": "Gold",
+        "multiplier": "1",
+        "Item": ""
+      },
       {
-        "ResourceNeed": "",
-        "multiplier": "",
-        "ResourceTake": ""
+        "Resource": "null",
+        "multiplier": "null",
+        "Item": "null"
       }
     ]
   },
-  "normalEffect": {
-    "Stone": "",
-    "Gold": "",
-    "VicoryPoints": "",
-    "WarPoints": "",
-    "Servants": "",
-    "FaithPoints": "",
-    "Wood": "",
-    "Parchment": "",
-    "finalVictoryPoint": "",
-    "HarvestValue": "",
-    "ProductionValue": "",
-    "plusHarvestValue": "",
-    "plusProductionValue": "",
-    "plusCardDice": [
-      {
-        "CardColor": "",
-        "plusDice": ""
-      }
-    ],
-    "ResourcexCard": [
-      {
-        "Resource": "",
-        "multiplier": "",
-        "CardColor": ""
-      }
-    ],
-    "ResourcexResource": [
-      {
-        "ResourceNeed": "",
-        "multiplier": "",
-        "ResourceTake": ""
-      }
-    ],
-    "changeResources": [
-      {
-        "Gold": "",
-        "Stone": "",
-        "Wood": "",
-        "Servants": "",
-        "FaithPoints": "",
-        "WarPoints": ""
-      },
-      {
-        "Gold": "",
-        "Stone": "",
-        "Wood": "",
-        "Servants": "",
-        "FaithPoints": "",
-        "WarPoints": "",
-        "Victorypoints":""
-      },
-      {
-        "Gold": "",
-        "Stone": "",
-        "Wood": "",
-        "Servants": "",
-        "FaithPoints": "",
-        "WarPoints": ""
-      },
-      {
-        "Gold": "",
-        "Stone": "",
-        "Wood": "",
-        "Servants": "",
-        "FaithPoints": "",
-        "WarPoints": ""
-      }
-    ]
-  },
-  "cost": [
-    {
-      "Gold": "",
+    "normalEffect": {
       "Stone": "",
-      "Wood": "",
+      "Gold": "",
+      "VicoryPoints": "",
+      "WarPoints": "",
       "Servants": "",
-      "WarPointsNeed": "",
-      "WarpointsPay": ""
+      "FaithPoints": "",
+      "Wood": "",
+      "Parchment": "",
+      "finalVictoryPoint": "",
+      "HarvestValue": "",
+      "ProductionValue": "",
+      "plusHarvestValue": "",
+      "plusProductionValue": "",
+      "plusCardDice": [
+        {
+          "CardColor": "",
+          "plusDice": ""
+        }
+      ],
+      "noMoreIE": {
+        "Tower": [
+          {
+            "3Floor": true,
+            "4Floor": true
+          }
+        ]
+      },
+      "ResourceperItem": [
+        {
+          "Resource": "",
+          "multiplier": "",
+          "Item": ""
+        },
+        {
+          "ResourceNeed": "null",
+          "Multiplier": "",
+          "Item": "Stone|CardColor"
+        }
+      ]
     },
-    {
-      "Gold": "",
-      "Stone": "",
-      "Wood": "",
-      "Servants": "",
-      "WarPointsNeed": "",
-      "WarpointsPay": ""
-    }
-  ]
+      "cost": [
+        {
+          "Gold": "",
+          "Stone": "",
+          "Wood": "",
+          "Servants": "",
+          "WarPointsNeed": "",
+          "WarPointsPay": ""
+        },
+        {
+          "Gold": "",
+          "Stone": "",
+          "Wood": "",
+          "Servants": "",
+          "WarPointsNeed": "",
+          "WarPointsPay": ""
+        }
+      ]
 }

@@ -15,6 +15,7 @@ public class GameInstance {
 	private GameBoard gameBoard;
 	private Player[] players;
 
+
 	private int numOfPlayers;
 	private int age;
 	private int turn;
@@ -93,7 +94,24 @@ public class GameInstance {
 		
 		Player player = new Player(id, playerName, chosenColor, gameBoard);
 		return player;
-		
-		
+	}
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public int getAge() {
+
+		return age;
+	}
+
+	public Player[] getPlayers() {
+
+		return players;
+	}
+
+	public int getNumOfPlayers() {
+
+		return numOfPlayers;
 	}
 }
