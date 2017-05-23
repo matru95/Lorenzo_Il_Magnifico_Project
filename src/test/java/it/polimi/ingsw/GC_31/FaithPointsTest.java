@@ -15,8 +15,15 @@ public class FaithPointsTest {
 
     @Test
     public void faithPointsShouldBeAdded() {
-        Resource faithPointsTester = ResourceFactory.getResource("FaithPoint", 5);
+        Resource faithPointsTester = ResourceFactory.getResource("FaithPoints", 5);
         faithPointsTester.addNumOf(2);
         assertEquals("FaithPoints should be 7", faithPointsTester.getNumOf(), 7);
+    }
+
+    @Test
+    public void faithPointsShouldBeSubstracted() {
+        Resource faithPointsTester = ResourceFactory.getResource("FaithPoints", 5);
+        faithPointsTester.subNumOf(2);
+        assertEquals("FaithPoints should be 3", faithPointsTester.getNumOf(), 3);
     }
 }
