@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc_31.model;
 import java.util.*;
 
 import it.polimi.ingsw.gc_31.model.board.GameBoard;
+import it.polimi.ingsw.gc_31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc_31.model.states.GamePrepState;
 import it.polimi.ingsw.gc_31.model.states.State;
 import it.polimi.ingsw.gc_31.model.states.TurnState;
@@ -23,14 +24,15 @@ public class GameInstance {
 	private State turnState;
 
 
-	public GameInstance() {
+	public GameInstance() throws NoResourceMatch {
 
 
 		numOfPlayers = askNumOfPlayers();
 		players = new Player[numOfPlayers];
 		
 		for(int i=0; i<numOfPlayers; i++) {
-			Player player = askPlayerNameAndColor(i);
+			Player player = null;
+			player = askPlayerNameAndColor(i);
 			players[i] = player;
 		}
 		
@@ -93,7 +95,7 @@ public class GameInstance {
 
 	}
 	
-	private Player askPlayerNameAndColor(int id) {
+	private Player askPlayerNameAndColor(int id) throws NoResourceMatch {
 		int currentPlayer = id + 1;
 		String colorName;
 		PlayerColor chosenColor;
@@ -122,7 +124,7 @@ public class GameInstance {
 
 			}
 		}
-		
+
 		return new Player(id, playerName, chosenColor, gameBoard);
 	}
 

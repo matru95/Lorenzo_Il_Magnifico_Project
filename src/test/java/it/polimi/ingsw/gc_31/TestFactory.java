@@ -3,21 +3,13 @@ package it.polimi.ingsw.gc_31;
 import it.polimi.ingsw.gc_31.model.resources.*;
 
 public class TestFactory {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoResourceMatch, it.polimi.ingsw.gc_31.model.resources.NoResourceMatch {
 
         //Istanzio una risorsa di tipo gold, inizializzandola al valore 5.
         Resource g = null;
-        try {
-            g = ResourceFactory.getResource("Gold",5);
-        } catch (NoResourceMatch noResourceMatch) {
-            noResourceMatch.printStackTrace();
-        }
+        g = ResourceFactory.getResource("Gold",5);
         Resource s = null;
-        try {
-            s = ResourceFactory.getResource("Servants",35);
-        } catch (NoResourceMatch noResourceMatch) {
-            noResourceMatch.printStackTrace();
-        }
+        s = ResourceFactory.getResource("Servants",35);
 
         //Stampo il numero di gold, aggiungo 3, e ristampo
         System.out.println(g.getNumOf());
