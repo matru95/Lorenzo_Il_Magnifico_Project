@@ -1,4 +1,4 @@
-package it.polimi.ingsw.GC_31.model.cards;
+package it.polimi.ingsw.gc_31.model.cards;
 
 import it.polimi.ingsw.GC_31.model.Effect;
 

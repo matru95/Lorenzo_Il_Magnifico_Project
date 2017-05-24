@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.polimi.ingsw.gc_31.model.board.GameBoard;
-import it.polimi.ingsw.gc_31.model.Card;
+import it.polimi.ingsw.gc_31.model.cards.Card;
 import it.polimi.ingsw.gc_31.model.resources.Resource;
 import it.polimi.ingsw.gc_31.model.resources.ResourceFactory;
 

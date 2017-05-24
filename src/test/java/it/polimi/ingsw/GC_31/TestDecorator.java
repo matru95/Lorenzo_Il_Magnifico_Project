@@ -1,8 +1,8 @@
 package it.polimi.ingsw.GC_31;
 
-import it.polimi.ingsw.GC_31.model.cards.Card;
-import it.polimi.ingsw.GC_31.model.cards.ConcreteCard;
-import it.polimi.ingsw.GC_31.model.cards.GenericCard;
+import it.polimi.ingsw.gc_31.model.cards.Card;
+import it.polimi.ingsw.gc_31.model.cards.ConcreteCard;
+import it.polimi.ingsw.gc_31.model.cards.GenericCard;
 
 public class TestDecorator {
 
