@@ -27,6 +27,8 @@ public class Player {
 	private final String playerName;
 	private final PlayerColor playerColor;
 	private final GameBoard board;
+	private int playerOrder;
+	private Boolean movedThisTurn;
 	private Map<String, Resource> res;
 	
 //	Cards
@@ -40,6 +42,8 @@ public class Player {
 		this.playerName = playerName;
 		this.playerColor = playerColor;
 		this.board = board;
+
+		this.movedThisTurn = false;
 		
 		res = new HashMap<>();
 		res.put("Gold", ResourceFactory.getResource("Gold", 5));
@@ -56,9 +60,16 @@ public class Player {
 		this.familyMembers[1] = new FamilyMember(DiceColor.WHITE, this.playerColor, false, board);
 		this.familyMembers[2] = new FamilyMember(DiceColor.BLACK, this.playerColor, false, board);
 		this.familyMembers[3] = new FamilyMember(DiceColor.ORANGE, this.playerColor, true, board);
-		return;
 	}
 
+
+	public void setPlayerOrder(int order) {
+		this.playerOrder = order;
+	}
+
+	public int getPlayerOrder() {
+	    return this.playerOrder;
+    }
 
 	public FamilyMember[] getFamilyMembers() {
 		return familyMembers;
