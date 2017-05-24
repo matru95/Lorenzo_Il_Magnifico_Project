@@ -6,8 +6,18 @@ public class TestFactory {
     public static void main(String[] args) {
 
         //Istanzio una risorsa di tipo gold, inizializzandola al valore 5.
-        Resource g = ResourceFactory.getResource("Gold",5);
-        Resource s = ResourceFactory.getResource("Servants",35);
+        Resource g = null;
+        try {
+            g = ResourceFactory.getResource("Gold",5);
+        } catch (NoResourceMatch noResourceMatch) {
+            noResourceMatch.printStackTrace();
+        }
+        Resource s = null;
+        try {
+            s = ResourceFactory.getResource("Servants",35);
+        } catch (NoResourceMatch noResourceMatch) {
+            noResourceMatch.printStackTrace();
+        }
 
         //Stampo il numero di gold, aggiungo 3, e ristampo
         System.out.println(g.getNumOf());

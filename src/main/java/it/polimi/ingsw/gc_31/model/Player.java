@@ -5,6 +5,7 @@ import java.util.Map;
 
 import it.polimi.ingsw.gc_31.model.board.GameBoard;
 import it.polimi.ingsw.gc_31.model.cards.Card;
+import it.polimi.ingsw.gc_31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc_31.model.resources.Resource;
 import it.polimi.ingsw.gc_31.model.resources.ResourceFactory;
 
@@ -35,14 +36,14 @@ public class Player {
 	private FamilyMember[] familyMembers;
 
 	
-	public Player(int playerID, String playerName, PlayerColor playerColor, GameBoard board) {
+	public Player(int playerID, String playerName, PlayerColor playerColor, GameBoard board) throws NoResourceMatch {
 		this.playerID = playerID;
 		this.playerName = playerName;
 		this.playerColor = playerColor;
 		this.board = board;
 		
 		res = new HashMap<>();
-		res.put("Gold", ResourceFactory.getResource("Gold", 5));
+        res.put("Gold", ResourceFactory.getResource("Gold", 5));
 
 //		Cards
 		this.cards = new Card[24];
