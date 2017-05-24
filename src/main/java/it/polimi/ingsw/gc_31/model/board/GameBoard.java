@@ -2,9 +2,7 @@ package it.polimi.ingsw.gc_31.model.board;
 
 import java.util.ArrayList;
 
-=======
 import it.polimi.ingsw.gc_31.model.cards.CardColor;
->>>>>>> 8ed99268d0443b32529f9aecbc6be04b199fe4f5:src/main/java/it/polimi/ingsw/GC_31/model/board/GameBoard.java
 
 public class GameBoard {
 

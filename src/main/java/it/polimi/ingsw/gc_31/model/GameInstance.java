@@ -1,9 +1,11 @@
 package it.polimi.ingsw.gc_31.model;
 
 import java.util.*;
-import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc_31.model.board.GameBoard;
+import it.polimi.ingsw.gc_31.model.states.GamePrepState;
+import it.polimi.ingsw.gc_31.model.states.State;
+import it.polimi.ingsw.gc_31.model.states.TurnState;
 
 public class GameInstance {
 	private Scanner in = new Scanner(System.in);
@@ -16,6 +18,9 @@ public class GameInstance {
 	private int numOfPlayers;
 	private int age;
 	private int turn;
+
+	private State gamePrepState;
+	private State turnState;
 
 
 	public GameInstance() {
@@ -33,12 +38,37 @@ public class GameInstance {
 		age = 1;
 		turn = 1;
 
+//		Randomly assign player order
+        generatePlayerOrders();
+
 		in.close();
-		
+
+		this.gamePrepState = new GamePrepState();
+		gamePrepState.doAction(this);
 	}
-	
+
+	private void playGame() {
+        this.turnState = new TurnState();
+        turnState.doAction(this);
+    }
+
+	private void generatePlayerOrders() {
+
+//	    We need a list of ints that have already been generated;
+        ArrayList<Integer> generatedNumbers = new ArrayList<>();
+        int rnd;
+
+        for(int i=0; i<this.numOfPlayers; i++) {
+            do {
+                rnd = new Random().nextInt(this.numOfPlayers);
+            } while (generatedNumbers.contains(rnd+1));
+            generatedNumbers.add(rnd+1);
+            this.players[i].setPlayerOrder(rnd+1);
+        }
+    }
+
 	private int askNumOfPlayers() {
-		System.err.println("Quanti giocatori ci sono?");
+		System.out.println("Quanti giocatori ci sono?");
 		
 		try {
 			int number = in.nextInt();
