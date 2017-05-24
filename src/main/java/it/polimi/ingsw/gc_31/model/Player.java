@@ -3,10 +3,10 @@ package it.polimi.ingsw.gc_31.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.polimi.ingsw.GC_31.model.board.GameBoard;
-import it.polimi.ingsw.GC_31.model.cards.Card;
-import it.polimi.ingsw.GC_31.model.resources.Resource;
-import it.polimi.ingsw.GC_31.model.resources.ResourceFactory;
+import it.polimi.ingsw.gc_31.model.board.GameBoard;
+import it.polimi.ingsw.gc_31.model.Card;
+import it.polimi.ingsw.gc_31.model.resources.Resource;
+import it.polimi.ingsw.gc_31.model.resources.ResourceFactory;
 
 enum PlayerColor {
 	RED, BLUE, GREEN, YELLOW;
