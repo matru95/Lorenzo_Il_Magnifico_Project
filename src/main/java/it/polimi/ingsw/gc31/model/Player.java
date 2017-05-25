@@ -9,7 +9,7 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
 
-enum PlayerColor {
+public enum PlayerColor {
 	RED, BLUE, GREEN, YELLOW;
 	
 	public static Boolean contains(String value) {
@@ -57,10 +57,10 @@ public class Player {
 	}
 	
 	private void initFamilyMembers() {
-		this.familyMembers[0] = new FamilyMember(DiceColor.NEUTRAL, this.playerColor, true, board);
-		this.familyMembers[1] = new FamilyMember(DiceColor.WHITE, this.playerColor, false, board);
-		this.familyMembers[2] = new FamilyMember(DiceColor.BLACK, this.playerColor, false, board);
-		this.familyMembers[3] = new FamilyMember(DiceColor.ORANGE, this.playerColor, true, board);
+		this.familyMembers[0] = new FamilyMember(DiceColor.NEUTRAL, this.playerColor, board);
+		this.familyMembers[1] = new FamilyMember(DiceColor.WHITE, this.playerColor, board);
+		this.familyMembers[2] = new FamilyMember(DiceColor.BLACK, this.playerColor, board);
+		this.familyMembers[3] = new FamilyMember(DiceColor.ORANGE, this.playerColor, board);
 	}
 
 
@@ -78,7 +78,7 @@ public class Player {
 	
 	public FamilyMember getSpecificFamilyMember(DiceColor color) {
 		for(FamilyMember member: familyMembers) {
-			if(color.equals(member.getDiceColor())) {
+			if(color.equals(member.getColor())) {
 				return member;
 			}
 		}

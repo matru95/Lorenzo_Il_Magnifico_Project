@@ -6,35 +6,60 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 
 public class FamilyMember {
-	private final DiceColor diceColor;
+	private final DiceColor color;
 	private final PlayerColor playerColor;
+	private Dice dice;
+
 	private Boolean isNeutral;
 	private Boolean isPlaced;
+
 	private int dicePoints;
+	private int value;
+
 	private SpaceWrapper currentPosition;
 	private GameBoard board;
 
-	public FamilyMember(DiceColor diceColor, PlayerColor playerColor, Boolean isNeutral, GameBoard board) {
-		this.diceColor = diceColor;
+	public FamilyMember(DiceColor color, PlayerColor playerColor, GameBoard board) {
+		this.color = color;
 		this.playerColor = playerColor;
-		this.isNeutral = isNeutral;
 		this.isPlaced = false;
 		this.board = board;
+
+		if(color == DiceColor.NEUTRAL) {
+		    this.isNeutral = true;
+        }
+
+        this.setMyDice(this.board.getDice());
 	}
+
+	public void setValueFromDice() {
+        this.value = this.dice.getValue();
+
+    }
+
+    private void setMyDice(Dice[] dice) {
+//      Find the dice with this family member's color
+
+        for(Dice singleDice: dice) {
+            if(singleDice.getColor() == this.color) {
+                this.dice = singleDice;
+            }
+        }
+
+    }
 	
 	public List<SpaceWrapper> checkPossibleMovements() {
 		return board.openSpaces();
 
 	}
 	
-	public DiceColor getDiceColor() {
-		return this.diceColor;
+	public DiceColor getColor() {
+		return this.color;
 	}
 	
 	public void moveToPosition(SpaceWrapper position) {
 		this.currentPosition = position;
-		return;
-		
+
 	}
 
 	public SpaceWrapper getCurrentPosition() {
@@ -45,6 +70,11 @@ public class FamilyMember {
 
 		return isPlaced;
 	}
+
+	public int getValue() {
+
+	    return this.value;
+    }
 
 	public Boolean getNeutral() {
 
