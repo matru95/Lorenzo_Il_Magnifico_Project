@@ -128,6 +128,10 @@ public class GameInstance {
 		return new Player(id, playerName, chosenColor, gameBoard);
 	}
 
+	public GameBoard getGameBoard() {
+		return this.gameBoard;
+	}
+
 	public int getTurn() {
 		return turn;
 	}

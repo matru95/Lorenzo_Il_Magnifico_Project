@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class NoResourceMatch extends Throwable {
+public class NoResourceMatchTest extends Throwable {
     @Test
     public void testResourceFactoryGetResourceThrowsNoResourceMatch() {
         boolean thrown = false;

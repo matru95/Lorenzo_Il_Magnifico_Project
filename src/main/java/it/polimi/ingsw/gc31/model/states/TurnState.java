@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model.states;
 
+import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 
@@ -11,7 +12,13 @@ public class TurnState implements State{
         this.orderedPlayers = new Player[context.getNumOfPlayers()];
         Player[] players = context.getPlayers();
 
+//      Get an array of players ordered by turn order
         this.orderedPlayers = orderPlayerActions(players);
+
+//      Throw the dice
+        Dice[] dice = context.getGameBoard().getDice();
+        this.throwDice(dice);
+
 
         for(int i=0; i<this.orderedPlayers.length; i++) {
             this.orderedPlayers[i].doPlayerActions();
@@ -27,5 +34,11 @@ public class TurnState implements State{
         }
 
         return orderedPlayers;
+    }
+
+    private void throwDice(Dice[] dice) {
+        for(Dice singleDice: dice) {
+            singleDice.throwDice();
+        }
     }
 }
