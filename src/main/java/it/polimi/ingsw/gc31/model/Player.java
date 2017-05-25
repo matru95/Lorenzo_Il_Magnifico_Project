@@ -84,6 +84,12 @@ public class Player {
 		}
 		return null;
 	}
+
+	public void doPlayerActions() {
+	    // Temporary
+
+		System.out.println("Doing actions as " + this.playerName);
+	}
 	
 	
 	public int getPlayerID() {

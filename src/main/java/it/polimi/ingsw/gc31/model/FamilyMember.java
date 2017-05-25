@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;

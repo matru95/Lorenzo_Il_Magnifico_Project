@@ -49,7 +49,7 @@ public class GameInstance {
 		gamePrepState.doAction(this);
 	}
 
-	private void playGame() {
+	public void playGame() {
         this.turnState = new TurnState();
         turnState.doAction(this);
     }

@@ -12,6 +12,10 @@ public class TurnState implements State{
         Player[] players = context.getPlayers();
 
         this.orderedPlayers = orderPlayerActions(players);
+
+        for(int i=0; i<this.orderedPlayers.length; i++) {
+            this.orderedPlayers[i].doPlayerActions();
+        }
     }
 
     private Player[] orderPlayerActions(Player[] players) {

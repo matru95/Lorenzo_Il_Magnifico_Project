@@ -8,6 +8,7 @@ public class App
 {
     private App() {}
     public static void main( String[] args ) throws NoResourceMatch {
-        new GameInstance();
+        GameInstance instance = new GameInstance();
+        instance.playGame();
     }
 }
