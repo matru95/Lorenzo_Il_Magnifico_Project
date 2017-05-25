@@ -1,12 +1,13 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 
 public class GameBoard {
 
-    private ArrayList<SpaceWrapper> board = new ArrayList<SpaceWrapper>();
+    private ArrayList<SpaceWrapper> board = new ArrayList<>();
 
     public GameBoard() {
 
@@ -43,8 +44,8 @@ public class GameBoard {
         board.add(new HarvestWrapper(pos, 3,true));
     }
     
-    public ArrayList<SpaceWrapper> openSpaces() {
-    	ArrayList<SpaceWrapper> availablePlaces = new ArrayList<SpaceWrapper>();
+    public List<SpaceWrapper> openSpaces() {
+    	ArrayList<SpaceWrapper> availablePlaces = new ArrayList<>();
 
     	for(SpaceWrapper space : board) {
     		if(!space.isOccupied()) availablePlaces.add(space);
@@ -52,7 +53,7 @@ public class GameBoard {
     	return availablePlaces;
     }
 
-    public ArrayList<SpaceWrapper> getBoard() {
+    public List<SpaceWrapper> getBoard() {
         return board;
     }
 }

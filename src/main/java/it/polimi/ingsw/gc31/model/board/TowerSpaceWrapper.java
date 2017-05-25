@@ -22,4 +22,15 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         setOccupied(true);
     }
 
+    public int getFloorID() {
+        return floorID;
+    }
+
+    public CardColor getColor() {
+        return color;
+    }
+
+    public Card getCard() {
+        return card;
+    }
 }

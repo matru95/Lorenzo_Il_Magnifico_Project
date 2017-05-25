@@ -1,11 +1,13 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import it.polimi.ingsw.gc31.model.FamilyMember;
+
 public abstract class SpaceWrapper {
 
     private final int positionID;
     private final int diceBond;
     private boolean isOccupied;
-    //private FamilyMember member;
+    private FamilyMember member;
 
     public SpaceWrapper(int positionID , int diceBond) {
         this.positionID = positionID;
@@ -21,5 +23,17 @@ public abstract class SpaceWrapper {
 
     public void setOccupied(boolean occupied) {
         isOccupied = occupied;
+    }
+
+    public int getPositionID() {
+        return positionID;
+    }
+
+    public int getDiceBond() {
+        return diceBond;
+    }
+
+    public FamilyMember getMember() {
+        return member;
     }
 }
