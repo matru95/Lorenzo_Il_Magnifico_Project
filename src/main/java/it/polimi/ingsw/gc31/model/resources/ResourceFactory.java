@@ -6,8 +6,8 @@ public class ResourceFactory {
     }
 
     public static Resource getResource(String type, int numOf) throws NoResourceMatch {
-        String control=type.toUpperCase();
-        switch(control){
+
+        switch(type.toUpperCase()) {
             case "GOLD":
                 return new Gold(numOf);
             case "WOOD":
@@ -20,7 +20,8 @@ public class ResourceFactory {
                 return new WarPoints(numOf);
             case "FAITHPOINTS":
                 return new FaithPoints(numOf);
+            default:
+                throw new NoResourceMatch();
         }
-        throw new NoResourceMatch();
     }
 }

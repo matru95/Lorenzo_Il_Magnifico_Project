@@ -1,7 +1,12 @@
 package it.polimi.ingsw.gc31.model.cards;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class GenericCard implements Card {
+
+    private final Logger logger = Logger.getLogger(Card.class.getName());
 /*
     private final String cardName;
     private final int cardID;
@@ -33,7 +38,7 @@ public class GenericCard implements Card {
 
     @Override
     public void create() {
-        System.out.println("Basic Card");
+        logger.log(Level.INFO,"Basic Card");
     }
 
 }
