@@ -12,4 +12,12 @@ public class FaithCard {
 	public void execute() {
 		return;
 	}
+
+    public int getAge() {
+        return age;
+    }
+
+    public FaithEffect getEffect() {
+        return effect;
+    }
 }

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public final class Dice {
 
@@ -9,24 +8,22 @@ public final class Dice {
 	private final DiceColor color;
 
     public Dice(DiceColor color) {
-
         this.color = color;
-    }
-
-    public int getValue() {
-        return value;
     }
 
     public void throwDice() {
 
-        if(color == DiceColor.NEUTRAL) {
+        Random r = new Random();
+
+        if (color == DiceColor.NEUTRAL) {
             this.value = 0;
+        } else {
+            this.value = 1 + r.nextInt(5);
         }
+    }
 
-        int min = 1;
-        int max = 6;
-
-        this.value = ThreadLocalRandom.current().nextInt(min, max+1);
+    public int getValue() {
+        return value;
     }
 
     public DiceColor getColor() {
