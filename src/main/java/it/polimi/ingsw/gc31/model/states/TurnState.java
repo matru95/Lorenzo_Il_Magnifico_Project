@@ -26,6 +26,7 @@ public class TurnState implements State{
     }
 
     private Player[] orderPlayerActions(Player[] players) {
+//      Return the array of playered ordered by their playing order this turn.
         Player[] orderedPlayers = new Player[players.length];
 
         for(int i=0; i<players.length; i++) {

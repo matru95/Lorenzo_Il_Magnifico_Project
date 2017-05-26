@@ -22,4 +22,10 @@ public class GamePrepState implements State{
         }
     }
 
+    private void distributeResources(Player[] players) {
+        for(Player player: players) {
+           int playerOrder = player.getPlayerOrder();
+        }
+    }
+
 }
