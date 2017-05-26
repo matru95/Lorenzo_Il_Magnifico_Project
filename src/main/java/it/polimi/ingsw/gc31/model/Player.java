@@ -2,6 +2,8 @@ package it.polimi.ingsw.gc31.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
@@ -24,7 +26,9 @@ public class Player {
 	private FaithCard[] faithCards;
 	private FamilyMember[] familyMembers;
 
-	
+	private final Logger logger = Logger.getLogger(Player.class.getName());
+
+
 	public Player(int playerID, String playerName, PlayerColor playerColor, GameBoard board) {
 		this.playerID = playerID;
 		this.playerName = playerName;
@@ -53,7 +57,7 @@ public class Player {
                         ResourceFactory.getResource(resourceNameString,
                                 initialNumOf));
             } catch (NoResourceMatch noResourceMatch) {
-                noResourceMatch.printStackTrace();
+            	logger.log(Level.SEVERE, noResourceMatch.getMessage());
             }
         }
 

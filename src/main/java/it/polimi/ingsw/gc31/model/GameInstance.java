@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc31.model;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
@@ -22,6 +24,8 @@ public class GameInstance {
 
 	private State gamePrepState;
 	private State turnState;
+
+	private final Logger logger = Logger.getLogger(GameInstance.class.getName());
 
     //currentPlayer is for saving the order of players that use CouncilsPalace Bonus
     //TODO reinizializza playerOrder a 0 ogni turno
@@ -71,17 +75,17 @@ public class GameInstance {
     }
 
 	private int askNumOfPlayers() {
-		System.out.println("Quanti giocatori ci sono?");
-		
+	    logger.log(Level.FINEST, "Quanti giocatori ci sono?");
+
 		try {
 			int number = in.nextInt();
-			System.err.println(number);
+			logger.log(Level.FINEST,"%s", String.valueOf(number));
 			
 			if(number < 2) {
-				System.err.println("Il numero minimo dei giocatori è 2");
+				logger.log(Level.FINEST, "Il numero minimo dei giocatori è 2");
 				return askNumOfPlayers();
 			} else if(number > 4) {
-				System.err.println("Il numero massimo dei giocatori è 4");
+				logger.log(Level.FINEST,"Il numero massimo dei giocatori è 4");
 				return askNumOfPlayers();
 			} else {
 				return number;
@@ -89,26 +93,26 @@ public class GameInstance {
 
 		} catch(InputMismatchException e) {
 //			Maybe find a way to handle this exception in a better way?
-			System.out.println("Il numero dei giocatori deve essere un numero.");
+			logger.log(Level.FINE,"Il numero dei giocatori deve essere un numero.");
 			System.exit(1);
 			return 0;
 		} 
 
 	}
 	
-	private Player askPlayerNameAndColor(int id) throws NoResourceMatch {
+	private Player askPlayerNameAndColor(int id) {
 		int currentPlayer = id + 1;
 		String colorName;
 		PlayerColor chosenColor;
 		
-		System.out.println("Come si chiama il giocatore numero " + currentPlayer + "?");
+		logger.log(Level.FINEST, "Come si chiama il giocatore numero %d?", currentPlayer);
 		String playerName = in.next();
 		
 		while(true) {
-			System.out.println("Quale colore ha?");
+			logger.log(Level.FINEST, "Quale colore ha?");
 			
 			for(PlayerColor c : availableColors) {
-				System.out.println(c.name());
+				logger.log(Level.FINEST,"%s", c.name());
 			}
 
 			colorName = in.next();
@@ -120,7 +124,7 @@ public class GameInstance {
 					availableColors.remove(chosenColor);
 					break;
 				} else {
-					System.out.println("Quel colore è già stato scelto!");
+					logger.log(Level.FINE,"Quel colore è già stato scelto!");
 				}
 
 			}
