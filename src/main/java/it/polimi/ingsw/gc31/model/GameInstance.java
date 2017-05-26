@@ -9,12 +9,12 @@ import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
 
 public class GameInstance {
+
 	private Scanner in = new Scanner(System.in);
 	private List<PlayerColor> availableColors = new LinkedList<>(Arrays.asList(PlayerColor.values()));
 
 	private GameBoard gameBoard;
 	private Player[] players;
-
 
 	private int numOfPlayers;
 	private int age;
@@ -23,30 +23,31 @@ public class GameInstance {
 	private State gamePrepState;
 	private State turnState;
 
+    //currentPlayer is for saving the order of players that use CouncilsPalace Bonus
+    //TODO reinizializza playerOrder a 0 ogni turno
+    private int playerOrder;
 
 	public GameInstance() throws NoResourceMatch {
-
 
 		numOfPlayers = askNumOfPlayers();
 		players = new Player[numOfPlayers];
 		
-		for(int i=0; i<numOfPlayers; i++) {
-			Player player = null;
-			player = askPlayerNameAndColor(i);
+		for(int i = 0; i < numOfPlayers; i++) {
+			Player player = askPlayerNameAndColor(i);
 			players[i] = player;
 		}
 		
-//		Initialize first turn and first age.
+        //Initialize first turn and first age.
 		age = 1;
 		turn = 1;
 
-//		Randomly assign player order
         generatePlayerOrders();
 
 		in.close();
 
 		this.gamePrepState = new GamePrepState();
 		gamePrepState.doAction(this);
+        playerOrder = 0;
 	}
 
 	public void playGame() {
@@ -60,7 +61,7 @@ public class GameInstance {
         ArrayList<Integer> generatedNumbers = new ArrayList<>();
         int rnd;
 
-        for(int i=0; i<this.numOfPlayers; i++) {
+        for(int i = 0; i < this.numOfPlayers; i++) {
             do {
                 rnd = new Random().nextInt(this.numOfPlayers);
             } while (generatedNumbers.contains(rnd+1));
@@ -128,6 +129,11 @@ public class GameInstance {
 		return new Player(id, playerName, chosenColor, gameBoard);
 	}
 
+    public void putPlayerInQueque(Player p) {
+        p.setPlayerOrder(playerOrder);
+        playerOrder++;
+    }
+
 	public GameBoard getGameBoard() {
 		return this.gameBoard;
 	}
@@ -142,12 +148,11 @@ public class GameInstance {
 	}
 
 	public Player[] getPlayers() {
-
 		return players;
 	}
 
 	public int getNumOfPlayers() {
-
 		return numOfPlayers;
 	}
+
 }

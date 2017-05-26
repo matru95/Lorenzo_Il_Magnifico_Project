@@ -7,7 +7,7 @@ public class Effect extends Transaction{
 	}
 	
 	private Boolean isApplicable() {
-		
+		//TODO
 		return true;
 	}
 	

@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.resources;
 
 
 public class ResourceFactory {
+
     private ResourceFactory() {
     }
 
