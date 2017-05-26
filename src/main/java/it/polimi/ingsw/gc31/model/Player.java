@@ -9,20 +9,6 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
 
-public enum PlayerColor {
-	RED, BLUE, GREEN, YELLOW;
-	
-	public static Boolean contains(String value) {
-		String upperCaseValue = value.toUpperCase();
-		for(PlayerColor color : PlayerColor.values()) {
-			if(color.name().equals(upperCaseValue)) {
-				return true;
-			}
-		}
-		return false;
-	}
-}
-
 public class Player {
 	private final int playerID;
 	private final String playerName;

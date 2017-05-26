@@ -40,12 +40,11 @@ public class FamilyMember {
     private void setMyDice(Dice[] dice) {
 //      Find the dice with this family member's color
 
-        for(Dice singleDice: dice) {
-            if(singleDice.getColor() == this.color) {
-                this.dice = singleDice;
+        for(int i=0; i<dice.length; i++) {
+            if(dice[i].getColor() == this.color) {
+                this.dice = dice[i];
             }
         }
-
     }
 	
 	public List<SpaceWrapper> checkPossibleMovements() {
