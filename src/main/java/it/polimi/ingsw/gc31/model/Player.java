@@ -16,7 +16,7 @@ public class Player {
 	private final int playerID;
 	private final String playerName;
 	private final PlayerColor playerColor;
-	private final GameBoard board;
+	private GameBoard board;
 	private int playerOrder; // From 1 to 4
 	private Boolean isMovedThisTurn;
 	private Map<String, Resource> res;
@@ -29,11 +29,10 @@ public class Player {
 	private final Logger logger = Logger.getLogger(Player.class.getName());
 
 
-	public Player(int playerID, String playerName, PlayerColor playerColor, GameBoard board) {
+	public Player(int playerID, String playerName, PlayerColor playerColor) {
 		this.playerID = playerID;
 		this.playerName = playerName;
 		this.playerColor = playerColor;
-		this.board = board;
 
 		this.isMovedThisTurn = false;
 		
@@ -44,7 +43,10 @@ public class Player {
 		this.familyMembers = new FamilyMember[4];
 
 		initResources();
-		initFamilyMembers();
+	}
+
+	public void setGameBoard(GameBoard gameBoard) {
+		this.board = gameBoard;
 	}
 
     private void initResources() {
@@ -85,7 +87,7 @@ public class Player {
         }
     }
 
-	private void initFamilyMembers() {
+	public void initFamilyMembers() {
 	    int i = 0;
         for (DiceColor diceColor: DiceColor.values()) {
             this.familyMembers[i] = new FamilyMember(diceColor, this, board);

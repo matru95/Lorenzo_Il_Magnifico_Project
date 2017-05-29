@@ -51,7 +51,7 @@ public class GameBoard {
         board.add(new HarvestWrapper(pos, 3,true, this.gameInstance));
 
         //Initialize dice
-        this.dice = new Dice[3];
+        this.dice = new Dice[4];
         createDice();
 
     }
@@ -60,13 +60,25 @@ public class GameBoard {
         int key = 0;
         for(DiceColor color: DiceColor.values()) {
             dice[key] = new Dice(color);
+            key++;
         }
     }
 
     public Dice[] getDice() {
         return dice;
     }
-    
+
+    public Dice getDiceByColor(DiceColor diceColor) {
+
+        for(int i=0; i<dice.length; i++) {
+            if(dice[i].getColor() == diceColor) {
+                return dice[i];
+            }
+        }
+
+        return null;
+    }
+
     public List<SpaceWrapper> openSpaces() {
     	ArrayList<SpaceWrapper> availablePlaces = new ArrayList<>();
 
@@ -80,7 +92,4 @@ public class GameBoard {
         return board;
     }
 
-    public GameInstance getGameInstance() {
-        return gameInstance;
-    }
 }

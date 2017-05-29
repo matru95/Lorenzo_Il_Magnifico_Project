@@ -12,9 +12,6 @@ import it.polimi.ingsw.gc31.model.states.TurnState;
 
 public class GameInstance {
 
-	private Scanner in = new Scanner(System.in);
-	private List<PlayerColor> availableColors = new LinkedList<>(Arrays.asList(PlayerColor.values()));
-
 	private GameBoard gameBoard;
 	private Player[] players;
 
@@ -31,23 +28,17 @@ public class GameInstance {
     //TODO reinizializza playerOrder a 0 ogni turno
     private int playerOrder;
 
-	public GameInstance() throws NoResourceMatch {
+	public GameInstance(int numOfPlayers, Player[] players) throws NoResourceMatch {
 
-		numOfPlayers = askNumOfPlayers();
-		players = new Player[numOfPlayers];
-		
-		for(int i = 0; i < numOfPlayers; i++) {
-			Player player = askPlayerNameAndColor(i);
-			players[i] = player;
-		}
-		
+	    this.numOfPlayers = numOfPlayers;
+	    this.players = players;
+
         //Initialize first turn and first age.
 		age = 1;
 		turn = 1;
 
         generatePlayerOrders();
 
-		in.close();
 
 		this.gamePrepState = new GamePrepState();
 		gamePrepState.doAction(this);
@@ -74,72 +65,18 @@ public class GameInstance {
         }
     }
 
-	private int askNumOfPlayers() {
-	    logger.log(Level.FINEST, "Quanti giocatori ci sono?");
 
-		try {
-			int number = in.nextInt();
-			logger.log(Level.FINEST,"%s", String.valueOf(number));
-			
-			if(number < 2) {
-				logger.log(Level.FINEST, "Il numero minimo dei giocatori è 2");
-				return askNumOfPlayers();
-			} else if(number > 4) {
-				logger.log(Level.FINEST,"Il numero massimo dei giocatori è 4");
-				return askNumOfPlayers();
-			} else {
-				return number;
-			}
-
-		} catch(InputMismatchException e) {
-//			Maybe find a way to handle this exception in a better way?
-			logger.log(Level.FINE,"Il numero dei giocatori deve essere un numero.");
-			System.exit(1);
-			return 0;
-		} 
-
-	}
-	
-	private Player askPlayerNameAndColor(int id) {
-		int currentPlayer = id + 1;
-		String colorName;
-		PlayerColor chosenColor;
-		
-		logger.log(Level.FINEST, "Come si chiama il giocatore numero %d?", currentPlayer);
-		String playerName = in.next();
-		
-		while(true) {
-			logger.log(Level.FINEST, "Quale colore ha?");
-			
-			for(PlayerColor c : availableColors) {
-				logger.log(Level.FINEST,"%s", c.name());
-			}
-
-			colorName = in.next();
-			
-			if(PlayerColor.contains(colorName)) {
-				chosenColor = PlayerColor.valueOf(colorName.toUpperCase());
-				
-				if(availableColors.contains(chosenColor)) {
-					availableColors.remove(chosenColor);
-					break;
-				} else {
-					logger.log(Level.FINE,"Quel colore è già stato scelto!");
-				}
-
-			}
-		}
-
-		return new Player(id, playerName, chosenColor, gameBoard);
-	}
-
-    public void putPlayerInQueque(Player p) {
+    public void putPlayerInQueue(Player p) {
         p.setPlayerOrder(playerOrder);
         playerOrder++;
     }
 
 	public GameBoard getGameBoard() {
 		return this.gameBoard;
+	}
+
+	public void setGameBoard(GameBoard gameBoard) {
+		this.gameBoard = gameBoard;
 	}
 
 	public int getTurn() {

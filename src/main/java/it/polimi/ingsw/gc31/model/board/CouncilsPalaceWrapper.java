@@ -18,7 +18,7 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     public void execWrapper() {
         //TODO
         if(!isPlayerInQueque[getMember().getPlayer().getPlayerOrder()]) {
-            this.getGameInstance().putPlayerInQueque(this.getMember().getPlayer());
+            this.getGameInstance().putPlayerInQueue(this.getMember().getPlayer());
             isPlayerInQueque[getMember().getPlayer().getPlayerOrder()] = true;
         }
     }

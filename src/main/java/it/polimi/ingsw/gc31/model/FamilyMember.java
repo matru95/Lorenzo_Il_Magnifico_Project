@@ -28,7 +28,7 @@ public class FamilyMember {
 		    this.value = 0;
         }
 
-        this.setMyDice(this.board.getDice());
+        this.setMyDice();
 	}
 
 	public void setValueFromDice() {
@@ -36,14 +36,8 @@ public class FamilyMember {
 
     }
 
-    private void setMyDice(Dice[] dice) {
-//      Find the dice with this family member's color
-
-        for(int i=0; i<dice.length; i++) {
-            if(dice[i].getColor() == this.color) {
-                this.dice = dice[i];
-            }
-        }
+    private void setMyDice() {
+		this.dice = this.board.getDiceByColor(this.color);
     }
 
 	public List<SpaceWrapper> checkPossibleMovements() {
