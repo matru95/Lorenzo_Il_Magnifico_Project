@@ -16,9 +16,9 @@ public class GamePrepState implements State{
 
     private void blockSpacesIfNeeded() {
         if(this.numOfPlayers == 2) {
-            // block some spaces
+            //TODO block some spaces
         } else if(this.numOfPlayers == 3) {
-            // block some other spaces
+            //TODO block some other spaces
         }
     }
 
