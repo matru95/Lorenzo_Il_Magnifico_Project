@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31;
 
-
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.PlayerColor;
@@ -20,7 +19,6 @@ public class App
 
     private App() {}
     public static void main( String[] args ) throws NoResourceMatch {
-        System.out.println("Hello");
 
         int numOfPlayers = askNumOfPlayers();
         Player[] players = new Player[numOfPlayers];

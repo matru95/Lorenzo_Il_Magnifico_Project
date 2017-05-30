@@ -12,12 +12,12 @@ public class EffectFactory {
         switch(control) {
             //TODO Da inserire i res e gli adding res direttamente nella creazione della carta
             case "ADDRESOURCE":
-                return new addResource(res,addingres);
+                return new AddResFX(res,addingres);
             case "PARCHEMENT":
-                return new Parchement(res,numparchment);
+                return new ParchementFX(res,numparchment);
 
             //case "RESOURCEXRESOURCE":
-              //  return new effects.resourcePerResource();
+              //  return new effects.ResForResFX();
 
             //case "COST":
               //  return new effects.cost();

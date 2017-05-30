@@ -1,32 +1,38 @@
 package it.polimi.ingsw.gc31.view.cli;
 
 import de.vandermeer.asciitable.AsciiTable;
-import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
+import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.cards.CardColor;
 
 public class AsciiProva {
 
     public static void main(String[] args) {
 
-        AsciiTable at1 = new AsciiTable();
-        at1.addRule();
-        at1.addRow(null, null, null, "TOWER CARDS");
-        at1.addRule();
-        at1.addRow("++++CARD++++", "++++CARD++++", "++++CARD++++", "++++CARD++++");
-        at1.addRule();
-        at1.addRow("++++CARD++++", "++++CARD++++", "++++CARD++++", "++++CARD++++");
-        at1.addRule();
-        at1.addRow("++++CARD++++", "++++CARD++++", "++++CARD++++", "++++CARD++++");
-        at1.addRule();
-        at1.addRow("++++CARD++++", "++++CARD++++", "++++CARD++++", "++++CARD++++");
-        at1.addRule();
-        //at1.setPadding(1);
-        at1.setTextAlignment(TextAlignment.CENTER);
-        String rend1 = at1.render(80);
-
         AsciiTable at = new AsciiTable();
+
         at.addRule();
-        at.addRow(rend1, rend1);
+        at.addRow(null, null, null, "TOWER CARDS");
         at.addRule();
-        System.out.println(at.render(163));
+        at.addRow("Pino", "Remo", "Mario", "Luca");
+        at.addRule();
+        at.addRow("Leo", "Gian", "Simo", "Boh");
+        at.addRule();
+
+        System.out.println(at.render(120));
+
     }
 }
+
+/*
+        String leftAlignFormat = "| %-19s | %-4d |%n";
+        System.out.format("+---------------------+------+%n");
+        System.out.format("|      Card Name      | ID   |%n");
+        System.out.format("+---------------------+------+%n");
+        for (int i = 0; i < 5; i++) {
+            System.out.format(leftAlignFormat, "some data: " + i, i * i);
+        }
+        System.out.format("+---------------------+------+%n");
+        int[] values = {1 ,1 , 0};
+        Card c = new Card(CardColor.GREEN, "Fabbro", values, null, null, null);
+        System.out.println(c.toString());
+*/

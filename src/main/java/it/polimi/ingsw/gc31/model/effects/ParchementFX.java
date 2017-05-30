@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-public class Parchement extends Effect{
+public class ParchementFX extends Effect{
 
     private Map <String, Resource> res;
     int numparchment;
-    Parchement(Map res, int numparchment) {
+    ParchementFX(Map res, int numparchment) {
         this.res = new HashMap();
         this.res= res;
         this.numparchment=numparchment;
