@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class resourcePerResource extends Effect{
+public class ResForResFX extends Effect{
     @Override
     public Map<String, Resource> getRes(){
         return resplayer;
@@ -23,7 +23,7 @@ public class resourcePerResource extends Effect{
     int ratio1=0;
     int ratio2=0;
     String tipoScambio= "";
-    resourcePerResource(Map resplayer,Map res1, Map restake1 , int ratio1, Map res2,Map restake2, int ratio2,String tipoScambio) {
+    ResForResFX(Map resplayer,Map res1, Map restake1 , int ratio1, Map res2,Map restake2, int ratio2,String tipoScambio) {
         this.res1=res1;
         this.restake1=restake1;
         this.ratio1=ratio1;

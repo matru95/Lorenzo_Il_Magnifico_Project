@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 //TODO implementare il controllo nella board o nella classe player o...?
-public class cost extends Effect {
+public class CostFX extends Effect {
     private Map res1;
     private Map subRes1;
     private Map res2;
     private Map subRes2;
-    cost(Map res1, Map subRes1, Map res2, Map subRes2){
+    CostFX(Map res1, Map subRes1, Map res2, Map subRes2){
         this.res1=res1;
         this.res2=res2;
         this.subRes1=subRes1;
