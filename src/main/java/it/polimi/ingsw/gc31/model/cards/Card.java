@@ -2,8 +2,6 @@ package it.polimi.ingsw.gc31.model.cards;
 
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
-import it.polimi.ingsw.gc31.model.effects.Effect;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 
 public class Card {
 
@@ -21,15 +19,6 @@ public class Card {
         this.cardAge = cardAge;
         this.cardEffects = cardEffects;
         isOnDeck = true;
-    }
-
-    /**
-     * Method for executing an array of effects of the card.
-     * @param effect an array of effects (could be either Normals or Instants)
-     * @throws NoResourceMatch
-     */
-    private void execFX(Effect[] effect) throws NoResourceMatch {
-        for (Effect anEffect : effect) anEffect.exec();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.model.cards;
 
 import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.Map;
@@ -17,6 +18,15 @@ public class CardEffects {
         this.normalEffect = normalEffect;
         this.instantEffect = instantEffect;
         this.warPointsBond = warPointsBond;
+    }
+
+    /**
+     * Method for executing an array of effects of the card.
+     * @param effect an array of effects (could be either Normals or Instants)
+     * @throws NoResourceMatch
+     */
+    private void execEffect(Effect[] effect) throws NoResourceMatch {
+        for (Effect anEffect : effect) anEffect.exec();
     }
 
     private CardEffects(){

@@ -8,12 +8,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 //TODO implementare il controllo nella board o nella classe player o...?
-public class CostFX extends Effect {
+public class CostEffect extends Effect {
     private HashMap res1;
     private HashMap subRes1;
     private HashMap res2;
     private HashMap subRes2;
-    CostFX(HashMap res1, HashMap subRes1,HashMap res2, HashMap subRes2){
+    CostEffect(HashMap res1, HashMap subRes1, HashMap res2, HashMap subRes2){
         this.res1=res1;
         this.res2=res2;
         this.subRes1=subRes1;

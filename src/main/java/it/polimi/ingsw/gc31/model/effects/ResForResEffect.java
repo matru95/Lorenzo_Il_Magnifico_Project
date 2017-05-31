@@ -8,7 +8,7 @@ import it.polimi.ingsw.gc31.model.resources.Resource;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class ResForResFX extends Effect{
+public class ResForResEffect extends Effect{
     HashMap <String, Resource> resplayer= new HashMap();
     HashMap <String, Resource> res1= new HashMap();
     HashMap <String, Resource> res2= new HashMap();
@@ -17,7 +17,7 @@ public class ResForResFX extends Effect{
     int ratio1=0;
     int ratio2=0;
     String tipoScambio= "";
-    ResForResFX(HashMap resplayer, HashMap res1, HashMap restake1 , int ratio1, HashMap res2, HashMap restake2, int ratio2, String tipoScambio) {
+    ResForResEffect(HashMap resplayer, HashMap res1, HashMap restake1 , int ratio1, HashMap res2, HashMap restake2, int ratio2, String tipoScambio) {
         this.res1=res1;
         this.restake1=restake1;
         this.ratio1=ratio1;

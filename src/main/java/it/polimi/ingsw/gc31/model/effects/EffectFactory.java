@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.model.effects;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class EffectFactory {
@@ -12,12 +11,12 @@ public class EffectFactory {
         switch(control) {
             //TODO Da inserire i res e gli adding res direttamente nella creazione della carta
             case "ADDRESOURCE":
-                return new AddResFX(res,addingres);
+                return new AddResEffect(res,addingres);
             case "PARCHEMENT":
-                return new ParchementFX(res,numparchment);
+                return new ParchementEffect(res,numparchment);
 
             //case "RESOURCEXRESOURCE":
-              //  return new effects.ResForResFX();
+              //  return new effects.ResForResEffect();
 
             //case "COST":
               //  return new effects.cost();
