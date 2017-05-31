@@ -18,8 +18,8 @@ public class EffectFactory {
             //case "RESOURCEXRESOURCE":
               //  return new effects.ResForResEffect();
 
-            case "COST":
-                return new cost(res,addingres,res2choice,addingres2choice);
+            //case "COST":
+            //    return new cost(res,addingres,res2choice,addingres2choice);
         }
         return null;
     }

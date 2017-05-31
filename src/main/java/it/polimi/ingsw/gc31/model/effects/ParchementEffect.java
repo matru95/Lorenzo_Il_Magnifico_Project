@@ -4,7 +4,6 @@ import it.polimi.ingsw.gc31.model.resources.*;
 
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -118,7 +117,7 @@ public class ParchementEffect extends Effect{
 
             Effect[] effetti=new Effect[5];
             for (int j = 0; j < 5; j++) {
-                effetti[j] = EffectFactory.getEffect("addResource", this.res, mapsEffects[j], 0);
+                effetti[j] = EffectFactory.getEffect("addResource", this.res, mapsEffects[j],null ,null,0);
             }
 //----------------------------------STAMPO I VALORI DELL'EFFETTO
             System.out.println("Valori dell'EFFETTO:\n");

@@ -1,37 +1,31 @@
 {
-  "age": "",
-  "title": "",
-  "id": "",
-  "color": "",
-  "harvestValue":"",
-  "productionValue":"",
+  "cardage": 1,
+  "title": "Ciao",
+  "id": 1,
+  "cardcolor": "yellow",
+  "harvestvalue" : 2,
+  "productionvalue": 0,
   "instantEffect": {
-    /** ADDRESOURCE */ //FATTO
-    "Stone": "",
-    "Gold": "",
-    "Wood": "",
-    "VictoryPoints": "",
-    "WarPoints": "",
-    "Servants": "",
-    "FaithPoints": "",
+    "addresource":{
+      "Stone": 13,
+      "Gold": "",
+      "Wood": "",
+      "VictoryPoints": "",
+      "WarPoints": "",
+      "Servants": "",
+      "FaithPoints": ""
+    },
 
-    /** PARCHMENT */ //FATTO
+
     "Parchment": "",
 
-    /** HARVEST */
     "HarvestValue": "",
 
-    /** PRODUCTION */
     "ProductionValue": "",
 
-
-
-
-    /** CARDCHOICE */ //TODO dopo aver montato le prime carte
     "CardChoice": [
       {
         "DiceValue": "",
-        /** LESSRESOURCEFORCARD */ //TODO dopo aver montato le prime carte
         "LessGoldForCard": "",
         "LessStoneForCard": "",
         "LessWoodForCard": ""
@@ -52,7 +46,7 @@
   },
     "normalEffect": {
 
-      /** ADDRESOURCE */ //FATTO
+
       "Stone": "",
       "Gold": "",
       "VictoryPoints": "",
@@ -61,25 +55,25 @@
       "FaithPoints": "",
       "Wood": "" ,
 
-      /** PARCHMENT */ //FATTO
+
       "Parchment": "",
 
-      /** FINALVICTORYPOINTS */ //FATTO
+
       "finalVictoryPoint": "",
 
-      /** HARVEST */
+
       "HarvestValue": "",
 
-      /** PRODUCTION */
+
       "ProductionValue": "",
 
-      /** PLUSHARVESTVALUE */ //Valore di ritorno da aggiungere a Player
+
       "plusHarvestValue": "",
 
-      /** PLUSPRODUCTIONVALUE*/ //Valore di ritorno da aggiungere a Player
+
       "plusProductionValue": "",
 
-      /** PLUSCARDDICE */
+
       "plusCardDice": [
         {
           "CardColor": "",
@@ -87,7 +81,7 @@
         }
       ],
 
-      /** NOMOREIE */
+
       "noMoreIE": {
         "Tower": [
           {
@@ -96,7 +90,7 @@
           }
         ]
       },
-      /** RESOURCE PER ITEM */
+
       "ResourceperResource": [
         {
           "Resource1": "",
@@ -110,7 +104,7 @@
         }
       ]
     },
-      /** COST */ //FATTO
+
       "cost": [
         {
           "Gold": "",
