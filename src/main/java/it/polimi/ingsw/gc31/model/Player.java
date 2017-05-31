@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,7 +14,7 @@ import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 public class Player {
-	private final int playerID;
+	private final UUID playerID;
 	private final String playerName;
 	private final PlayerColor playerColor;
 	private GameBoard board;
@@ -29,7 +30,7 @@ public class Player {
 	private final Logger logger = Logger.getLogger(Player.class.getName());
 
 
-	public Player(int playerID, String playerName, PlayerColor playerColor) {
+	public Player(UUID playerID, String playerName, PlayerColor playerColor) {
 		this.playerID = playerID;
 		this.playerName = playerName;
 		this.playerColor = playerColor;
@@ -54,7 +55,7 @@ public class Player {
         for(ResourceName resourceName: ResourceName.values()) {
             String resourceNameString = resourceName.toString();
             try {
-                int initialNumOf = resourceInitialNumOf(resourceNameString);
+                int initialNumOf = resInitNumOf(resourceNameString);
                 this.res.put(resourceNameString,
                         ResourceFactory.getResource(resourceNameString,
                                 initialNumOf));
@@ -65,7 +66,7 @@ public class Player {
 
     }
 
-    private int resourceInitialNumOf(String resourceNameString) throws NoResourceMatch {
+    private int resInitNumOf(String resourceNameString) throws NoResourceMatch {
 	    switch (resourceNameString) {
             case "GOLD":
                 return this.getPlayerOrder() + 4;
@@ -122,7 +123,7 @@ public class Player {
 	}
 	
 	
-	public int getPlayerID() {
+	public UUID getPlayerID() {
 		return playerID;
 	}
 

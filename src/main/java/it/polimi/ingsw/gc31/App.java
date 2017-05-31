@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31;
 
+import it.polimi.ingsw.gc31.controller.GameInstanceController;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.PlayerColor;
@@ -29,13 +30,12 @@ public class App
             players[i] = player;
         }
 
-        GameInstance instance = new GameInstance(numOfPlayers, players);
+        GameInstance instance = new GameInstance(UUID.randomUUID(), numOfPlayers, players);
         GameBoard gameBoard = new GameBoard(instance);
         instance.setGameBoard(gameBoard);
 
         initBoardForPlayers(numOfPlayers, players, gameBoard);
 
-        instance.playGame();
     }
 
     private static void initBoardForPlayers(int numOfPlayers, Player[] players, GameBoard board) {
@@ -46,7 +46,7 @@ public class App
     }
 
     private static int askNumOfPlayers() {
-        logger.log(Level.FINEST, "Quanti giocatori ci sono?");
+        logger.log(Level.INFO, "Quanti giocatori ci sono?");
 
         try {
             int number = in.nextInt();
@@ -101,6 +101,6 @@ public class App
             }
         }
 
-        return new Player(id, playerName, chosenColor);
+        return new Player(UUID.randomUUID(), playerName, chosenColor);
     }
 }

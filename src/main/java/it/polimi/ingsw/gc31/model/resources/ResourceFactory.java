@@ -21,6 +21,8 @@ public class ResourceFactory {
                 return new WarPoints(numOf);
             case "FAITHPOINTS":
                 return new FaithPoints(numOf);
+            case "VICTORYPOINTS":
+                return new VictoryPoints(numOf);
             default:
                 throw new NoResourceMatch();
         }

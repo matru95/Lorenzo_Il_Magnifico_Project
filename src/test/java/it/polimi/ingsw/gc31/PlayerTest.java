@@ -1,31 +1,66 @@
 package it.polimi.ingsw.gc31;
 
-import it.polimi.ingsw.gc31.model.GameInstance;
-import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.model.PlayerColor;
+import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import junit.framework.TestCase;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import java.util.UUID;
 
-public class PlayerTest {
+public class PlayerTest extends TestCase {
+
+    private Player player;
+    private Player[] players;
+    private GameInstance gameInstance;
+    private GameBoard gameBoard;
+
+    @Override
+    public void setUp() throws Exception {
+        this.player = new Player(UUID.randomUUID(), "Pippo", PlayerColor.BLUE);
+        this.players = new Player[1];
+        this.players[0] = player;
+
+        this.gameInstance = new GameInstance(UUID.randomUUID(),1, players);
+        this.gameBoard = new GameBoard(gameInstance);
+
+        this.gameInstance.setGameBoard(gameBoard);
+        this.player.setGameBoard(gameBoard);
+
+        player.initFamilyMembers();
+    }
 
     @Test
-    public void playerShouldHaveOrder() throws NoResourceMatch {
-        Player playerForTesting = new Player(0, "Endi", PlayerColor.BLUE);
-        Player[] playerListForTesting = new Player[1];
+    public void testPlayerShouldHaveOrder() throws NoResourceMatch {
+        this.player.setPlayerOrder(1);
 
-        playerListForTesting[0] = playerForTesting;
+        assertEquals(this.player.getPlayerOrder(), 1);
+    }
 
-        GameInstance gameInstanceForTesting = new GameInstance(1, playerListForTesting);
-        GameBoard gameBoardForTesting = new GameBoard(gameInstanceForTesting);
+    @Test
+    public void testPlayerShouldHaveFourFamilyMembers() {
 
-        gameInstanceForTesting.setGameBoard(gameBoardForTesting);
-        playerForTesting.setGameBoard(gameBoardForTesting);
-        playerForTesting.initFamilyMembers();
-        playerForTesting.setPlayerOrder(1);
+        FamilyMember[] familyMembers = this.player.getFamilyMembers();
+        assertEquals(familyMembers.length, 4);
+    }
 
-        assertEquals(playerForTesting.getPlayerOrder(), 1);
+    @Test
+    public void testPlayerShouldGetSpecificFamilyMember() {
+
+        FamilyMember familyMember = this.player.getSpecificFamilyMember(DiceColor.BLACK);
+        assertNotNull(familyMember);
+    }
+
+    @Test
+    public void testPlayerShouldHaveName() {
+
+        assertEquals(this.player.getPlayerName(), "Pippo");
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        System.out.println("Tearing down");
+        this.player = null;
+        assertNull(this.player);
     }
 }
