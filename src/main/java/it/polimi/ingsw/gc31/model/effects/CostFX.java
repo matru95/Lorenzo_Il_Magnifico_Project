@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.model.effects;
 
-
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
@@ -9,17 +8,18 @@ import java.util.Map;
 import java.util.Scanner;
 
 //TODO implementare il controllo nella board o nella classe player o...?
-public class cost extends Effect {
+public class CostFX extends Effect {
     private HashMap res1;
     private HashMap subRes1;
     private HashMap res2;
     private HashMap subRes2;
-    cost(HashMap res1, HashMap subRes1,HashMap res2, HashMap subRes2){
+    CostFX(HashMap res1, HashMap subRes1,HashMap res2, HashMap subRes2){
         this.res1=res1;
         this.res2=res2;
         this.subRes1=subRes1;
         this.subRes2=subRes2;
     }
+
     @Override
     public void exec() throws NoResourceMatch {
 //--------------------CREAZIONE OGGETTI NECESSARI PER EXEC

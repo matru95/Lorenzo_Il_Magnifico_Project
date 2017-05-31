@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class addResource extends Effect{
+public class AddResFX extends Effect{
     private Map res;
     private Map addRes;
-    addResource(Map res, Map addRes){
+    AddResFX(Map res, Map addRes){
         this.res=res;
         this.addRes=addRes;
     }

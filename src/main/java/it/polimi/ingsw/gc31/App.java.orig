@@ -1,6 +1,10 @@
 package it.polimi.ingsw.gc31;
 
+<<<<<<< HEAD
+
 import it.polimi.ingsw.gc31.controller.GameInstanceController;
+=======
+>>>>>>> b8415b1e6c7a421021d27f7cdec6cb100fa03321
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.PlayerColor;
@@ -36,6 +40,8 @@ public class App
 
         initBoardForPlayers(numOfPlayers, players, gameBoard);
 
+        GameInstanceController gameInstanceController = new GameInstanceController(instance);
+        gameInstanceController.startGame();
     }
 
     private static void initBoardForPlayers(int numOfPlayers, Player[] players, GameBoard board) {
