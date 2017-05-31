@@ -1,14 +1,12 @@
 package it.polimi.ingsw.gc31.model.board;
 
-import it.polimi.ingsw.gc31.model.GameInstance;
-
 public class ProductionWrapper extends SpaceWrapper {
 
-    public boolean isFirstPlayer;
+    private boolean isFirstPlayer;
     private boolean isMultiple;
 
-    ProductionWrapper(int positionID, int diceBond, boolean isMultiple, GameInstance gameInstance) {
-        super(positionID, diceBond, gameInstance);
+    ProductionWrapper(int positionID, int diceBond, boolean isMultiple, GameBoard gameBoard) {
+        super(positionID, diceBond, gameBoard);
         this.isMultiple = isMultiple;
     }
 
@@ -22,4 +20,19 @@ public class ProductionWrapper extends SpaceWrapper {
         //TODO
     }
 
+    public boolean isFirstPlayer() {
+        return isFirstPlayer;
+    }
+
+    public void setFirstPlayer(boolean firstPlayer) {
+        isFirstPlayer = firstPlayer;
+    }
+
+    public boolean isMultiple() {
+        return isMultiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        isMultiple = multiple;
+    }
 }

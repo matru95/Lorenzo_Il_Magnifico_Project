@@ -10,50 +10,47 @@ import it.polimi.ingsw.gc31.model.cards.CardColor;
 
 public class GameBoard {
 
+    private Tower[] tower;
     private ArrayList<SpaceWrapper> board = new ArrayList<>();
     private GameInstance gameInstance;
     private Dice[] dice;
+    private int positionIndex;
 
     public GameBoard(GameInstance gameInstance) {
 
         this.gameInstance = gameInstance;
-
-        // positionID starting from value 1
-        int pos = 1;
+        setPositionIndex(1);
 
         // Initialize Tower on GameBoard
-        for (CardColor c: CardColor.values()) {
-            int dice = 1;
-            for(int floor = 0; floor < 4; floor++) {
-                board.add(new TowerSpaceWrapper(pos, dice, this.gameInstance, floor, c));
-                pos++;
-                dice+=2;
-            }
+        int n = 0;
+        for (CardColor color: CardColor.values()) {
+            tower[n] = new Tower(color, this);
+            n++;
         }
-
         //Initialize CouncilsPalace
-        board.add(new CouncilsPalaceWrapper(pos,1, this.gameInstance));
-        pos++;
+        board.add(new CouncilsPalaceWrapper(positionIndex,1, this));
+        incrementPositionIndex();
 
         //Initialize Mart
         for (int i = 0; i < 4; i++) {
-        board.add(new MartWrapper(pos,1, this.gameInstance));
-        pos++;
+        board.add(new MartWrapper(positionIndex,1, this));
+        incrementPositionIndex();
         }
 
         //Initialize Harvest & Production
-        board.add(new ProductionWrapper(pos, 1, false, this.gameInstance));
-        pos++;
-        board.add(new ProductionWrapper(pos, 3,true, this.gameInstance));
-        pos++;
-        board.add(new HarvestWrapper(pos, 1, false, this.gameInstance));
-        pos++;
-        board.add(new HarvestWrapper(pos, 3,true, this.gameInstance));
+        board.add(new ProductionWrapper(positionIndex, 1, false, this));
+        incrementPositionIndex();
+        board.add(new ProductionWrapper(positionIndex, 3,true, this));
+        incrementPositionIndex();
+        board.add(new HarvestWrapper(positionIndex, 1, false, this));
+        incrementPositionIndex();
+        board.add(new HarvestWrapper(positionIndex, 3,true, this));
 
         //Initialize dice
         this.dice = new Dice[4];
         createDice();
 
+        setPositionIndex(1);
     }
 
     private void createDice() {
@@ -70,7 +67,7 @@ public class GameBoard {
 
     public Dice getDiceByColor(DiceColor diceColor) {
 
-        for(int i=0; i<dice.length; i++) {
+        for(int i = 0; i < dice.length; i++) {
             if(dice[i].getColor() == diceColor) {
                 return dice[i];
             }
@@ -90,6 +87,26 @@ public class GameBoard {
 
     public List<SpaceWrapper> getBoard() {
         return board;
+    }
+
+    public void incrementPositionIndex() {
+        positionIndex++;
+    }
+
+    public void setPositionIndex(int value) {
+        positionIndex =  value;
+    }
+
+    public int getPositionIndex() {
+        return positionIndex;
+    }
+
+    public GameInstance getGameInstance() {
+        return gameInstance;
+    }
+
+    public Tower[] getTower() {
+        return tower;
     }
 
 }
