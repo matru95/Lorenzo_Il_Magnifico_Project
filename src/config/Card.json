@@ -3,31 +3,38 @@
   "title": "",
   "id": "",
   "color": "",
+  "harvestValue":"",
+  "productionValue":"",
   "instantEffect": {
+    /** ADDRESOURCE */ //FATTO
     "Stone": "",
     "Gold": "",
     "Wood": "",
-    "VicoryPoints": "",
+    "VictoryPoints": "",
     "WarPoints": "",
     "Servants": "",
     "FaithPoints": "",
+
+    /** PARCHMENT */ //FATTO
     "Parchment": "",
+
+    /** HARVEST */
     "HarvestValue": "",
+
+    /** PRODUCTION */
     "ProductionValue": "",
-    "LessGoldForCard": "",
-    "LessStoneForCard": "",
-    "LessWoodForCard": "",
+
+
+
+
+    /** CARDCHOICE */ //TODO dopo aver montato le prime carte
     "CardChoice": [
       {
-        "CardColor": [
-          {
-            "Purple": true,
-            "Yellow": true,
-            "Blue": true,
-            "Green": true
-          }
-        ],
-        "DiceValue": ""
+        "DiceValue": "",
+        /** LESSRESOURCEFORCARD */ //TODO dopo aver montato le prime carte
+        "LessGoldForCard": "",
+        "LessStoneForCard": "",
+        "LessWoodForCard": ""
       }
     ],
     "ResourceperItem": [
@@ -44,25 +51,43 @@
     ]
   },
     "normalEffect": {
+
+      /** ADDRESOURCE */ //FATTO
       "Stone": "",
       "Gold": "",
       "VictoryPoints": "",
       "WarPoints": "",
       "Servants": "",
       "FaithPoints": "",
-      "Wood": "",
+      "Wood": "" ,
+
+      /** PARCHMENT */ //FATTO
       "Parchment": "",
+
+      /** FINALVICTORYPOINTS */ //FATTO
       "finalVictoryPoint": "",
+
+      /** HARVEST */
       "HarvestValue": "",
+
+      /** PRODUCTION */
       "ProductionValue": "",
+
+      /** PLUSHARVESTVALUE */ //Valore di ritorno da aggiungere a Player
       "plusHarvestValue": "",
+
+      /** PLUSPRODUCTIONVALUE*/ //Valore di ritorno da aggiungere a Player
       "plusProductionValue": "",
+
+      /** PLUSCARDDICE */
       "plusCardDice": [
         {
           "CardColor": "",
           "plusDice": ""
         }
       ],
+
+      /** NOMOREIE */
       "noMoreIE": {
         "Tower": [
           {
@@ -71,19 +96,21 @@
           }
         ]
       },
-      "ResourceperItem": [
+      /** RESOURCE PER ITEM */
+      "ResourceperResource": [
         {
-          "Resource": "",
-          "multiplier": "",
-          "Item": ""
+          "Resource1": "",
+          "Ratio": "",
+          "Resource2": ""
         },
         {
-          "ResourceNeed": "null",
-          "Multiplier": "",
-          "Item": "Stone|CardColor"
+          "Resource1": "null",
+          "Ratio": "",
+          "Resource2": "Stone|CardColor"
         }
       ]
     },
+      /** COST */ //FATTO
       "cost": [
         {
           "Gold": "",

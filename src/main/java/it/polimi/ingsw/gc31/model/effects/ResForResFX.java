@@ -6,18 +6,24 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-public class ResForResFX extends Effect{
-    HashMap <String, Resource> resplayer= new HashMap();
-    HashMap <String, Resource> res1= new HashMap();
-    HashMap <String, Resource> res2= new HashMap();
-    HashMap <String, Resource> restake1= new HashMap();
-    HashMap <String, Resource> restake2= new HashMap();
+public class resourcePerResource extends Effect{
+    @Override
+    public Map<String, Resource> getRes(){
+        return resplayer;
+    }
+
+    Map <String, Resource> resplayer= new HashMap();
+    Map <String, Resource> res1= new HashMap();
+    Map <String, Resource> res2= new HashMap();
+    Map <String, Resource> restake1= new HashMap();
+    Map <String, Resource> restake2= new HashMap();
     int ratio1=0;
     int ratio2=0;
     String tipoScambio= "";
-    ResForResFX(HashMap resplayer, HashMap res1, HashMap restake1 , int ratio1, HashMap res2, HashMap restake2, int ratio2, String tipoScambio) {
+    resourcePerResource(Map resplayer,Map res1, Map restake1 , int ratio1, Map res2,Map restake2, int ratio2,String tipoScambio) {
         this.res1=res1;
         this.restake1=restake1;
         this.ratio1=ratio1;
@@ -42,9 +48,14 @@ public class ResForResFX extends Effect{
 
         if(this.res2==null && this.tipoScambio=="SCAMBIOSINGOLO"){
 
-            //TODO EXEC SCAMBIOSINGOLO--> TODO EFFETTO COST.
             //Prendo un effetto cost e un effetto addResource li monto e li eseguo.
             //Effect cost= EffectFactory.getEffect("Cost",,,)
+
+            Effect cost= EffectFactory.getEffect("Cost",this.resplayer,this.res1,null,null,0);
+            cost.exec();
+            Effect resourcetake =EffectFactory.getEffect("addResource",cost.getRes(),this.restake1,null,null,0);
+            resourcetake.exec();
+            this.resplayer=resourcetake.getRes();
         }
 
         //-----------------------------SCELTA SCAMBIO MULTIPLO

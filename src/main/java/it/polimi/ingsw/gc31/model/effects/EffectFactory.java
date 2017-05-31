@@ -7,7 +7,7 @@ public class EffectFactory {
     EffectFactory(){
     }
     //TODO dividere i metodi per diluire i parametri nei getEffect?!?!
-    public static Effect getEffect(String effetto, Map res, Map addingres, int numparchment){
+    public static Effect getEffect(String effetto, Map res, Map addingres, Map res2choice, Map addingres2choice ,int numparchment){
         String control=effetto.toUpperCase();
         switch(control) {
             //TODO Da inserire i res e gli adding res direttamente nella creazione della carta
@@ -19,8 +19,8 @@ public class EffectFactory {
             //case "RESOURCEXRESOURCE":
               //  return new effects.ResForResFX();
 
-            //case "COST":
-              //  return new effects.cost();
+            case "COST":
+                return new cost(res,addingres,res2choice,addingres2choice);
         }
         return null;
     }
