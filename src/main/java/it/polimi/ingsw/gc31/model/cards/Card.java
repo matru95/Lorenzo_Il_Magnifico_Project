@@ -1,8 +1,5 @@
 package it.polimi.ingsw.gc31.model.cards;
 
-import de.vandermeer.asciitable.AsciiTable;
-import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
-
 public class Card {
 
     private final CardColor cardColor;
@@ -23,12 +20,9 @@ public class Card {
 
     @Override
     public String toString() {
-        AsciiTable at = new AsciiTable();
-        at.addRule();
-        at.addRow(cardName);
-        at.addRule();
-        at.setTextAlignment(TextAlignment.CENTER);
-        return at.render(80);
+        return "Age" + cardAge + " | " + cardColor + " | " + "ID" + cardID +
+                " " + cardName +
+                " Effects:" + cardEffects;
     }
 
     public CardColor getCardColor() {

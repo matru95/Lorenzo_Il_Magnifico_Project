@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -46,7 +47,13 @@ public class Player {
 		initResources();
 	}
 
-	public void setGameBoard(GameBoard gameBoard) {
+    @Override
+    public String toString() {
+	    return null;
+	    //TODO
+    }
+
+    public void setGameBoard(GameBoard gameBoard) {
 		this.board = gameBoard;
 	}
 
@@ -96,7 +103,6 @@ public class Player {
         }
     }
 
-
 	public void setPlayerOrder(int order) {
 		this.playerOrder = order;
 	}
@@ -121,8 +127,7 @@ public class Player {
 	public void doPlayerActions() {
 	    //TODO
 	}
-	
-	
+
 	public UUID getPlayerID() {
 		return playerID;
 	}
@@ -142,5 +147,17 @@ public class Player {
 	public FaithCard[] getFaithCards() {
 		return faithCards;
 	}
+
+    public GameBoard getBoard() {
+        return board;
+    }
+
+    public Map<String, Resource> getRes() {
+        return res;
+    }
+
+    public Card[] getCards() {
+        return cards;
+    }
 
 }
