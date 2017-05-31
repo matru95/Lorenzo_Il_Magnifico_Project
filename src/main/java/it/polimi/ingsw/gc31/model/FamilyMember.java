@@ -32,6 +32,7 @@ public class FamilyMember {
 	}
 
 	public void setValueFromDice() {
+//	    This will be called after the dice is thrown for the first time.
         this.value = this.dice.getValue();
 
     }
@@ -82,7 +83,4 @@ public class FamilyMember {
         return dicePoints;
     }
 
-    public void setDicePoints(int dicePoints) {
-        this.dicePoints = dicePoints;
-    }
 }

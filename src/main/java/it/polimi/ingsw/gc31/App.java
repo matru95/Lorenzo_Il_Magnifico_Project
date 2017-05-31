@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31;
 
 
+import it.polimi.ingsw.gc31.controller.GameInstanceController;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.PlayerColor;
@@ -20,7 +21,6 @@ public class App
 
     private App() {}
     public static void main( String[] args ) throws NoResourceMatch {
-        System.out.println("Hello");
 
         int numOfPlayers = askNumOfPlayers();
         Player[] players = new Player[numOfPlayers];
@@ -37,7 +37,8 @@ public class App
 
         initBoardForPlayers(numOfPlayers, players, gameBoard);
 
-        instance.playGame();
+        GameInstanceController gameInstanceController = new GameInstanceController(instance);
+        gameInstanceController.startGame();
     }
 
     private static void initBoardForPlayers(int numOfPlayers, Player[] players, GameBoard board) {
@@ -48,7 +49,7 @@ public class App
     }
 
     private static int askNumOfPlayers() {
-        logger.log(Level.FINEST, "Quanti giocatori ci sono?");
+        logger.log(Level.INFO, "Quanti giocatori ci sono?");
 
         try {
             int number = in.nextInt();

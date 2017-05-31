@@ -54,7 +54,7 @@ public class Player {
         for(ResourceName resourceName: ResourceName.values()) {
             String resourceNameString = resourceName.toString();
             try {
-                int initialNumOf = resourceInitialNumOf(resourceNameString);
+                int initialNumOf = resInitNumOf(resourceNameString);
                 this.res.put(resourceNameString,
                         ResourceFactory.getResource(resourceNameString,
                                 initialNumOf));
@@ -65,7 +65,7 @@ public class Player {
 
     }
 
-    private int resourceInitialNumOf(String resourceNameString) throws NoResourceMatch {
+    private int resInitNumOf(String resourceNameString) throws NoResourceMatch {
 	    switch (resourceNameString) {
             case "GOLD":
                 return this.getPlayerOrder() + 4;

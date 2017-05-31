@@ -80,6 +80,7 @@ public class GameInstance {
 	}
 
 	public int getTurn() {
+
 		return turn;
 	}
 
