@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.FamilyMember;
-import it.polimi.ingsw.gc31.model.GameInstance;
 
 public abstract class SpaceWrapper {
 
@@ -9,12 +8,12 @@ public abstract class SpaceWrapper {
     private final int diceBond;
     private boolean isOccupied;
     private FamilyMember member;
-    private GameInstance gameInstance;
+    private GameBoard gameBoard;
 
-    public SpaceWrapper(int positionID , int diceBond, GameInstance gameInstance) {
+    public SpaceWrapper(int positionID , int diceBond, GameBoard gameBoard) {
         this.positionID = positionID;
         this.diceBond = diceBond;
-        this.gameInstance = gameInstance;
+        this.gameBoard = gameBoard;
         isOccupied = false;
     }
 
@@ -40,7 +39,7 @@ public abstract class SpaceWrapper {
         return member;
     }
 
-    public GameInstance getGameInstance() {
-        return gameInstance;
+    public GameBoard getGameBoard() {
+        return gameBoard;
     }
 }
