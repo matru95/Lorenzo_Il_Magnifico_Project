@@ -6,7 +6,7 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import java.util.UUID;
 
 public class PlayerTest extends TestCase {
 
@@ -17,11 +17,11 @@ public class PlayerTest extends TestCase {
 
     @Override
     public void setUp() throws Exception {
-        this.player = new Player(0, "Pippo", PlayerColor.BLUE);
+        this.player = new Player(UUID.randomUUID(), "Pippo", PlayerColor.BLUE);
         this.players = new Player[1];
         this.players[0] = player;
 
-        this.gameInstance = new GameInstance(1, players);
+        this.gameInstance = new GameInstance(UUID.randomUUID(),1, players);
         this.gameBoard = new GameBoard(gameInstance);
 
         this.gameInstance.setGameBoard(gameBoard);

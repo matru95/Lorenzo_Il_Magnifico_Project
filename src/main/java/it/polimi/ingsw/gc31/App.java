@@ -30,7 +30,7 @@ public class App
             players[i] = player;
         }
 
-        GameInstance instance = new GameInstance(numOfPlayers, players);
+        GameInstance instance = new GameInstance(UUID.randomUUID(), numOfPlayers, players);
         GameBoard gameBoard = new GameBoard(instance);
         instance.setGameBoard(gameBoard);
 
@@ -101,6 +101,6 @@ public class App
             }
         }
 
-        return new Player(id, playerName, chosenColor);
+        return new Player(UUID.randomUUID(), playerName, chosenColor);
     }
 }

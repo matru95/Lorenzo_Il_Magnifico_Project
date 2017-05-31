@@ -5,6 +5,8 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import java.util.UUID;
+
 import static it.polimi.ingsw.gc31.model.PlayerColor.BLUE;
 import static junit.framework.TestCase.assertEquals;
 
@@ -17,10 +19,10 @@ public class FamilyMemberTest extends TestCase{
     @Override
     public void setUp() throws Exception{
 
-        this.player = new Player(0, "Pippo", PlayerColor.BLUE);
+        this.player = new Player(UUID.randomUUID(), "Pippo", PlayerColor.BLUE);
         Player[] players = new Player[1];
         players[0] = this.player;
-        this.gameInstance = new GameInstance(1, players);
+        this.gameInstance = new GameInstance(UUID.randomUUID(),1, players);
         this.gameBoard = new GameBoard(gameInstance);
 
         this.gameInstance.setGameBoard(gameBoard);

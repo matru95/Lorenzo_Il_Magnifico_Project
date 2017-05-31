@@ -2,6 +2,8 @@ package it.polimi.ingsw.gc31.controller;
 
 import it.polimi.ingsw.gc31.model.*;
 
+import java.util.UUID;
+
 public class PlayerController {
     private Player model;
 
@@ -29,7 +31,7 @@ public class PlayerController {
         return this.model.getSpecificFamilyMember(color);
     }
 
-    public int getPlayerID() {
+    public UUID getPlayerID() {
 
         return this.model.getPlayerID();
     }

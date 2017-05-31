@@ -28,7 +28,7 @@ public class GameInstance {
     //TODO reinizializza playerOrder a 0 ogni turno
     private int playerOrder;
 
-	public GameInstance(int numOfPlayers, Player[] players) throws NoResourceMatch {
+	public GameInstance(UUID instanceID, int numOfPlayers, Player[] players) throws NoResourceMatch {
 
 	    this.numOfPlayers = numOfPlayers;
 	    this.players = players;
