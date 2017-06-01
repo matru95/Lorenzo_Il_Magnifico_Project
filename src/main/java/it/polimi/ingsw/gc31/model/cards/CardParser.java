@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 
 public class CardParser {
@@ -22,48 +22,47 @@ public class CardParser {
     private Effect[] instantEffect;
     private Boolean isOnDeck;
 
-    public CardParser() {
-
+    public CardParser(){
     }
-
     public static void main(String[] args) {
         ObjectMapper mapper =new ObjectMapper();
         try{
             File jsonInputFile=new File("/home/leonardo/IdeaProjects/Lorenzo_Il_Magnifico_Project_Di_Prova/src/config/Card.json");
+            //leggo tutto il card.json
             JsonNode rootNode=mapper.readTree(jsonInputFile);
 
             JsonNode cardAge=rootNode.path("cardage");
             JsonNode title=rootNode.path("title");
             JsonNode id=rootNode.path("id");
             JsonNode cardcolor=rootNode.path("cardcolor");
-            JsonNode harvestvalue = null;
 
-            if(rootNode.has("harvestvalue")){
-                harvestvalue = rootNode.path("harvestvalue");
+            JsonNode activationvalue = null;
+            if(rootNode.has("activationvalue")){
+                activationvalue = rootNode.path("activationvalue");
             }
-            JsonNode productionvalue=null;
-            if(rootNode.has("productionvalue")){
-                productionvalue = rootNode.path("productionvalue");
 
-            }
-            JsonNode instanteffect=null;
-            JsonNode addresource[];
-         /*   if(rootNode.has("instanteffect")){
-                instanteffect=rootNode.path("instanteffect");
-                if(instanteffect.has("addresource")){
-                    instanteffect=rootNode.path("addresource");
-                    for(enum Resource : it.polimi.ingsw.gc31.model.cards.Resource) {
-                        addresource[Resource]=instanteffect.path("Stone");
-                    }
+            //Creando il costo/i costi della carta
+            JsonNode cost1=rootNode.path("cost");
+            Iterator<JsonNode> iterator= cost1.elements();
+            while (iterator.hasNext()){
+                JsonNode costi= iterator.next();
+                JsonNode costo=null;
+                for (CostName resource : CostName.values()){
+                    String risorsa=resource.name();
+                    if (costi.has(risorsa)){
+                        costo=costi.path(risorsa);
+                        System.out.println(risorsa+" = "+costo.asInt());
+                    }           
                 }
-            }*/
+            }
+
+
+
         System.out.println("Age = " + cardAge.asInt());
         System.out.println("Title = " +title.asText());
         System.out.println("Id = " + id.asInt());
         System.out.println("Card Color = " + cardcolor.asText());
-        System.out.println("harvestvalue = " + harvestvalue.asInt());
-        System.out.println("productionvalue = " + productionvalue.asInt());
-        //System.out.println("Instanteffect-> addresource = " +addresource.asInt() );
+        System.out.println("activatiovalue = " + activationvalue.asInt());
         }catch(IOException e){
             e.printStackTrace();
         }
