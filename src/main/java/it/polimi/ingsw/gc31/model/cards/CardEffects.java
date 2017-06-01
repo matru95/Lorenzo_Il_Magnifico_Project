@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model.cards;
 
+import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -25,8 +26,8 @@ public class CardEffects {
      * @param effect an array of effects (could be either Normals or Instants)
      * @throws NoResourceMatch
      */
-    private void execEffect(Effect[] effect) throws NoResourceMatch {
-        for (Effect anEffect : effect) anEffect.exec();
+    private void execEffect(Effect[] effect, Player player) throws NoResourceMatch {
+        for (Effect anEffect : effect) anEffect.exec(player);
     }
 
     private CardEffects(){

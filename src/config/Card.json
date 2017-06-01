@@ -27,14 +27,12 @@
         "stone": 3,
         "gold": 1,
         "wood": 0,
-        "victoryPoints": 3,
-        "warPoints": 2,
+        "victorypoints": 3,
+        "warpoints": 2,
         "servants": 4,
-        "faithPoints": 1
+        "faithpoints": 1
       },
-      "Parchment": "",
-      "HarvestValue": "",
-      "ProductionValue": "",
+      "parchment": "",
       "CardChoice": [
         {
           "DiceValue": "",
@@ -56,7 +54,7 @@
         }
       ]
     },
-    "normalEffect": {
+    "normalEffect":{
       "Stone": "",
       "Gold": "",
       "VictoryPoints": "",

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
-import java.util.Arrays;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +21,7 @@ public class Player {
 	private GameBoard board;
 	private int playerOrder; // From 1 to 4
 	private Boolean isMovedThisTurn;
+
 	private Map<String, Resource> res;
 	
 	//Cards
@@ -160,4 +161,7 @@ public class Player {
         return cards;
     }
 
+	public void setRes(Map<String, Resource> res) {
+		this.res = res;
+	}
 }

@@ -27,7 +27,7 @@ public class CardParser {
     public static void main(String[] args) {
         ObjectMapper mapper =new ObjectMapper();
         try{
-            File jsonInputFile=new File("/home/leonardo/IdeaProjects/Lorenzo_Il_Magnifico_Project_Di_Prova/src/config/Card.json");
+            File jsonInputFile=new File("src/config/Card.json");
             //leggo tutto il card.json
             JsonNode rootNode=mapper.readTree(jsonInputFile);
 
@@ -46,23 +46,42 @@ public class CardParser {
             Iterator<JsonNode> iterator= cost1.elements();
             while (iterator.hasNext()){
                 JsonNode costi= iterator.next();
-                JsonNode costo=null;
+                JsonNode costo;
+                System.out.println("Costo:");
                 for (CostName resource : CostName.values()){
-                    String risorsa=resource.name();
+                    String risorsa=resource.toString().toLowerCase();
                     if (costi.has(risorsa)){
                         costo=costi.path(risorsa);
                         System.out.println(risorsa+" = "+costo.asInt());
-                    }           
+                    }
+                }
+            }
+            JsonNode instanteffect = null;
+            JsonNode addresource=null;
+            if(rootNode.has("instanteffect"))
+            {
+                instanteffect=rootNode.path("instanteffect");
+                Iterator <JsonNode> instanteffects = instanteffect.elements();
+                while(instanteffects.hasNext()) {
+                    JsonNode effetto = instanteffects.next();
+                    String aneffect = effetto.asText();
+                    if (aneffect.equalsIgnoreCase("addresource")) {
+                        addresource = instanteffect.path("addresource");
+                        Iterator<JsonNode> iterator2 = addresource.elements();
+                        while (iterator2.hasNext()) {
+                            System.out.println(iterator2 + " = ");
+                        }
+                    }
                 }
             }
 
 
 
-        System.out.println("Age = " + cardAge.asInt());
-        System.out.println("Title = " +title.asText());
-        System.out.println("Id = " + id.asInt());
-        System.out.println("Card Color = " + cardcolor.asText());
-        System.out.println("activatiovalue = " + activationvalue.asInt());
+            System.out.println("Age = " + cardAge.asInt());
+            System.out.println("Title = " +title.asText());
+            System.out.println("Id = " + id.asInt());
+            System.out.println("Card Color = " + cardcolor.asText());
+            System.out.println("activatiovalue = " + activationvalue.asInt());
         }catch(IOException e){
             e.printStackTrace();
         }
