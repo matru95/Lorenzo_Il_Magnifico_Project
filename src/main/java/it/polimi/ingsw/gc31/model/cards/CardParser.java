@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,21 +59,21 @@ public class CardParser {
             }
             JsonNode instanteffect = null;
             JsonNode addresource=null;
+            JsonNode resource=null;
+            String currentresource=null;
             if(rootNode.has("instanteffect"))
             {
+                System.out.println("trovato instanteffect\n inizializzando instanteffect root...");
                 instanteffect=rootNode.path("instanteffect");
-                Iterator <JsonNode> instanteffects = instanteffect.elements();
-                while(instanteffects.hasNext()) {
-                    JsonNode effetto = instanteffects.next();
-                    String aneffect = effetto.asText();
-                    if (aneffect.equalsIgnoreCase("addresource")) {
-                        addresource = instanteffect.path("addresource");
-                        Iterator<JsonNode> iterator2 = addresource.elements();
-                        while (iterator2.hasNext()) {
-                            System.out.println(iterator2 + " = ");
-                        }
-                    }
+                //ADD RESOURCE AS AN INSTANT EFFECT
+                if (instanteffect.has("addresource")) {
+                    addresource = instanteffect.path("addresource");
+                    for (ResourceName resourceName : ResourceName.values()) {
+                        currentresource = resourceName.toString().toLowerCase();
+                        resource = addresource.path(currentresource);
+                        System.out.println(currentresource + " = " + resource.asInt());                  }
                 }
+
             }
 
 

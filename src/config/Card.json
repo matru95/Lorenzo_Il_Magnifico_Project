@@ -22,8 +22,9 @@
         "warpointspay": 6
       }
     ],
-    "instantEffect": {
-      "addresource": {
+    "instanteffect": {
+      "addresource":
+      {
         "stone": 3,
         "gold": 1,
         "wood": 0,
@@ -33,15 +34,15 @@
         "faithpoints": 1
       },
       "parchment": "",
-      "CardChoice": [
+      "cardchoice": [
         {
-          "DiceValue": "",
-          "LessGoldForCard": "",
-          "LessStoneForCard": "",
-          "LessWoodForCard": ""
+          "dicevalue": "",
+          "lessgoldforcard": "",
+          "lessstoneforcard": "",
+          "lesswoodforcard": ""
         }
       ],
-      "ResourceperItem": [
+      "resourceperitem": [
         {
           "Resource": "Gold",
           "multiplier": "1",
@@ -54,7 +55,7 @@
         }
       ]
     },
-    "normalEffect":{
+    "normaleffect":{
       "Stone": "",
       "Gold": "",
       "VictoryPoints": "",
