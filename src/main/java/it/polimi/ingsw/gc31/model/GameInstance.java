@@ -12,7 +12,7 @@ import it.polimi.ingsw.gc31.model.states.TurnState;
 public class GameInstance {
 
 	private GameBoard gameBoard;
-	private Player[] players;
+	private ArrayList<Player> players;
 
 	private int numOfPlayers;
 	private int age;
@@ -28,18 +28,14 @@ public class GameInstance {
     //TODO reinizializza playerOrder a 0 ogni turno
     private int playerOrder;
 
-	public GameInstance(UUID instanceID, int numOfPlayers, Player[] players) throws NoResourceMatch {
+	public GameInstance(UUID instanceID) throws NoResourceMatch {
 
 		this.instanceID = instanceID;
-	    this.numOfPlayers = numOfPlayers;
-	    this.players = players;
+		this.players = new ArrayList<>();
 
         //Initialize first turn and first age.
 		age = 1;
 		turn = 1;
-
-        generatePlayerOrders();
-
 
 		this.gamePrepState = new GamePrepState();
 		gamePrepState.doAction(this);
@@ -47,9 +43,18 @@ public class GameInstance {
 	}
 
 	public void playGame() {
+		generatePlayerOrders();
         this.turnState = new TurnState();
         turnState.doAction(this);
     }
+
+    public boolean addPlayer(Player player) {
+		if(this.players.size() < 4) {
+			players.add(player);
+			return true;
+		}
+		return false;
+	}
 
 	private void generatePlayerOrders() {
 
@@ -62,7 +67,7 @@ public class GameInstance {
                 rnd = new Random().nextInt(this.numOfPlayers);
             } while (generatedNumbers.contains(rnd+1));
             generatedNumbers.add(rnd+1);
-            this.players[i].setPlayerOrder(rnd+1);
+            this.players.get(i).setPlayerOrder(rnd+1);
         }
     }
 
@@ -90,7 +95,7 @@ public class GameInstance {
 		return age;
 	}
 
-	public Player[] getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 

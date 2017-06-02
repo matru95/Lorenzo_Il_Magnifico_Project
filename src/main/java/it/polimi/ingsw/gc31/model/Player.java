@@ -164,4 +164,8 @@ public class Player {
 	public void setRes(Map<String, Resource> res) {
 		this.res = res;
 	}
+
+	public Map<String, Resource> getResources() {
+		return this.res;
+	}
 }

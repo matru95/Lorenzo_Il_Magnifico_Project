@@ -1,5 +1,9 @@
 package it.polimi.ingsw.gc31.model.cards;
 
+import it.polimi.ingsw.gc31.model.resources.Resource;
+
+import java.util.Map;
+
 public class Card {
 
     private final CardColor cardColor;
@@ -54,6 +58,6 @@ public class Card {
     }
 
     public Map<String, Resource>[] getCost() {
-        return this.cost;
+        return this.cardEffects.getCost();
     }
 }

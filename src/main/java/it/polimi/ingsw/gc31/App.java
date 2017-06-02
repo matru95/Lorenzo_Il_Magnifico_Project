@@ -30,7 +30,7 @@ public class App
             players[i] = player;
         }
 
-        GameInstance instance = new GameInstance(UUID.randomUUID(), numOfPlayers, players);
+        GameInstance instance = new GameInstance(UUID.randomUUID());
         GameBoard gameBoard = new GameBoard(instance);
         instance.setGameBoard(gameBoard);
 

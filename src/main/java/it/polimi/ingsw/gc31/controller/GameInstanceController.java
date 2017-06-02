@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.controller;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class GameInstanceController implements Controller {
@@ -26,7 +27,7 @@ public class GameInstanceController implements Controller {
         return this.model.getAge();
     }
 
-    public Player[] getPlayers() {
+    public ArrayList<Player> getPlayers() {
 
         return this.model.getPlayers();
     }

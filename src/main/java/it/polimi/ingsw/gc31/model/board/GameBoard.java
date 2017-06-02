@@ -10,7 +10,7 @@ import it.polimi.ingsw.gc31.model.cards.CardColor;
 
 public class GameBoard {
 
-    private Tower[] tower;
+    private Tower[] towers;
     private ArrayList<SpaceWrapper> board = new ArrayList<>();
     private GameInstance gameInstance;
     private Dice[] dice;
@@ -19,12 +19,13 @@ public class GameBoard {
     public GameBoard(GameInstance gameInstance) {
 
         this.gameInstance = gameInstance;
+        this.towers = new Tower[4];
         setPositionIndex(1);
 
         // Initialize Tower on GameBoard
         int n = 0;
         for (CardColor color: CardColor.values()) {
-            tower[n] = new Tower(color, this);
+            towers[n] = new Tower(color, this);
             n++;
         }
         //Initialize CouncilsPalace
@@ -105,8 +106,8 @@ public class GameBoard {
         return gameInstance;
     }
 
-    public Tower[] getTower() {
-        return tower;
+    public Tower[] getTowers() {
+        return towers;
     }
 
 }

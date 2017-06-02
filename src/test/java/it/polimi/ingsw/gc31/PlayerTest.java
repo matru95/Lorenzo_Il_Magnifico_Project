@@ -21,7 +21,8 @@ public class PlayerTest extends TestCase {
         this.players = new Player[1];
         this.players[0] = player;
 
-        this.gameInstance = new GameInstance(UUID.randomUUID(),1, players);
+        this.gameInstance = new GameInstance(UUID.randomUUID());
+        this.gameInstance.addPlayer(this.player);
         this.gameBoard = new GameBoard(gameInstance);
 
         this.gameInstance.setGameBoard(gameBoard);

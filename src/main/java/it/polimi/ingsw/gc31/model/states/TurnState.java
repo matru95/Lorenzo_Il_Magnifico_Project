@@ -4,13 +4,15 @@ import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 
+import java.util.ArrayList;
+
 public class TurnState implements State{
     private Player[] orderedPlayers;
 
     @Override
     public void doAction(GameInstance context) {
         this.orderedPlayers = new Player[context.getNumOfPlayers()];
-        Player[] players = context.getPlayers();
+        ArrayList<Player> players = context.getPlayers();
 
 //      Get an array of players ordered by turn order
         this.orderedPlayers = orderPlayerActions(players);
@@ -25,13 +27,13 @@ public class TurnState implements State{
         }
     }
 
-    private Player[] orderPlayerActions(Player[] players) {
+    private Player[] orderPlayerActions(ArrayList<Player> players) {
 //      Return the array of playered ordered by their playing order this turn.
-        Player[] orderedPlayers = new Player[players.length];
+        Player[] orderedPlayers = new Player[players.size()];
 
-        for(int i=0; i<players.length; i++) {
-            int currentOrder = players[i].getPlayerOrder();
-            orderedPlayers[currentOrder-1] = players[i];
+        for(int i = 0; i< players.size(); i++) {
+            int currentOrder = players.get(i).getPlayerOrder();
+            orderedPlayers[currentOrder-1] = players.get(i);
         }
 
         return orderedPlayers;

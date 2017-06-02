@@ -22,7 +22,7 @@ public class FamilyMemberTest extends TestCase{
         this.player = new Player(UUID.randomUUID(), "Pippo", PlayerColor.BLUE);
         Player[] players = new Player[1];
         players[0] = this.player;
-        this.gameInstance = new GameInstance(UUID.randomUUID(),1, players);
+        this.gameInstance = new GameInstance(UUID.randomUUID());
         this.gameBoard = new GameBoard(gameInstance);
 
         this.gameInstance.setGameBoard(gameBoard);
