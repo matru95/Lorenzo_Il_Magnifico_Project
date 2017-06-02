@@ -1,32 +1,29 @@
 package it.polimi.ingsw.gc31.model.effects;
 
+import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.*;
 
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
 
 
-public class ParchementFX extends Effect{
 
-    private Map <String, Resource> res;
+public class ParchementEffect extends Effect{
+
     int numparchment;
-    ParchementFX(Map res, int numparchment) {
-        this.res = new HashMap();
-        this.res= res;
+    ParchementEffect( int numparchment) {
         this.numparchment=numparchment;
     }
 
     @Override
-    public void exec() throws NoResourceMatch {
+    public void exec(Player player) throws NoResourceMatch {
 
         int exit=0;
         int[] choicenum= new int[this.numparchment];
         String[] choicestring= new String[this.numparchment];
 
-//------------------HASHMAP CHE CONTIENE LA DESCRIZIONE DEGLI EFFETTI
+/*//------------------HASHMAP CHE CONTIENE LA DESCRIZIONE DEGLI EFFETTI
 
         HashMap <String,String> descriptioneffect=new HashMap();
         descriptioneffect.put("Digita 0 per "," 1 x Wood & 1 x Stone");
@@ -34,26 +31,9 @@ public class ParchementFX extends Effect{
         descriptioneffect.put("Digita 2 per "," 2 x Golds");
         descriptioneffect.put("Digita 3 per "," 2 x Military Points");
         descriptioneffect.put("Digita 4 per "," 1 x Faith Points");
-
-//----------------------------VERO BODY DELL'EXEC IN DO/WHILE
-
-        do {
-
-            System.err.println("Scegliere, digitando il numero corrispondente, il bonus Pergamena: \n");
-            System.err.println(descriptioneffect);
-
-//----------------------PRENDO L'INPUT DELL'EFFETTO SCELTO
-
-            Scanner input = new Scanner(System.in);
-
-//---------------------INSERISCO EVENTO NELL'ARRAY DELLE SCELTE
-            //TODO DA FARE IL CONTROLLO DEL VALORE PASSATO IN CASO RISTAMPARE A SCHERMO...
-            choicenum [exit]= Integer.parseInt(input.nextLine());
-            choicestring [exit]= String.valueOf(choicenum[exit]);
-
-//------------------GESTIONE ELIMINAZIONE ELEMENTI DALL'HASHMAP
-
-            descriptioneffect.remove("Digita "+choicestring[exit]+" per ");
+*/
+//----------------------------VERO BODY DELL'EXEC IN FOR
+        for(exit=0; exit<=this.numparchment;exit++) {
 
 //---------------------------MONTO GLI EFFETTI COME ADDRESOURCE
 
@@ -116,9 +96,9 @@ public class ParchementFX extends Effect{
 
 //--------------------CREO GLI EFFETTI COME ADD RESOURCE (UN'ISTANZA PER SINGOLO OGGETTO)
 
-            Effect[] effetti=new Effect[5];
+            Effect[] effetti = new Effect[5];
             for (int j = 0; j < 5; j++) {
-                effetti[j] = EffectFactory.getEffect("addResource", this.res, mapsEffects[j], 0);
+                effetti[j] = EffectFactory.getEffect("addResource", mapsEffects[j], null, null, 0);
             }
 //----------------------------------STAMPO I VALORI DELL'EFFETTO
             System.out.println("Valori dell'EFFETTO:\n");
@@ -126,14 +106,8 @@ public class ParchementFX extends Effect{
                 System.out.println(key + " : " + mapsEffects[choicenum[exit]].get(key).getNumOf());
             }
             System.out.println("Eseguendo l'Effetto... " + choicenum[exit]);
-            effetti[choicenum[exit]].exec();
-            this.res = effetti[choicenum[exit]].getRes();
+            effetti[choicenum[exit]].exec(player);
             exit++;
-        }while(exit!=this.numparchment);
-    }
-
-    @Override
-    public Map getRes() {
-        return this.res;
+        }
     }
 }

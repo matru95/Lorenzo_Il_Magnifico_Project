@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.effects;
 
 
 
+import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
@@ -9,29 +10,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class AddResFX extends Effect{
-    private Map res;
+public class AddResEffect extends Effect{
     private Map addRes;
-    AddResFX(Map res, Map addRes){
-        this.res=res;
+    AddResEffect(Map addRes){
         this.addRes=addRes;
     }
     @Override
-    public void exec() throws NoResourceMatch {
-        Map<String, Resource> startingmap = this.res;
+    public void exec(Player player) throws NoResourceMatch {
+        Map<String, Resource> startingmap = player.getRes();
         Map<String, Resource> addingmap = this.addRes;
         for (String key : startingmap.keySet()) {
                 startingmap.get(key).addNumOf(addingmap.get(key).getNumOf());
         }
-        this.res=startingmap;
-    }
-    @Override
-    public Map getRes() {
-        return this.res;
-    }
-
-    public void setRes(Map res) {
-        this.res = res;
+        player.setRes(startingmap);
     }
 
     public Map getAddRes() {

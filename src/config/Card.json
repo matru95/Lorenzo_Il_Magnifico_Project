@@ -1,49 +1,61 @@
 {
-  "age": "",
-  "title": "",
-  "id": "",
-  "color": "",
-  "instantEffect": {
-    "Stone": "",
-    "Gold": "",
-    "Wood": "",
-    "VicoryPoints": "",
-    "WarPoints": "",
-    "Servants": "",
-    "FaithPoints": "",
-    "Parchment": "",
-    "HarvestValue": "",
-    "ProductionValue": "",
-    "LessGoldForCard": "",
-    "LessStoneForCard": "",
-    "LessWoodForCard": "",
-    "CardChoice": [
+    "id": 1,
+    "cardage": 1,
+    "title": "Ciao",
+    "cardcolor": "yellow",
+    "activationvalue": 2,
+    "cost": [
       {
-        "CardColor": [
-          {
-            "Purple": true,
-            "Yellow": true,
-            "Blue": true,
-            "Green": true
-          }
-        ],
-        "DiceValue": ""
-      }
-    ],
-    "ResourceperItem": [
-      {
-        "Resource": "Gold",
-        "multiplier": "1",
-        "Item": ""
+        "gold": 0,
+        "stone": 1,
+        "wood": 2,
+        "servants": 3,
+        "warpointsneed": 4,
+        "warpointspay": 5
       },
       {
-        "Resource": "null",
-        "multiplier": "null",
-        "Item": "null"
+        "gold": 1,
+        "stone": 2,
+        "wood": 3,
+        "servants": 4,
+        "warpointsneed": 5,
+        "warpointspay": 6
       }
-    ]
-  },
-    "normalEffect": {
+    ],
+    "instanteffect": {
+      "addresource":
+      {
+        "stone": 3,
+        "gold": 1,
+        "wood": 0,
+        "victorypoints": 3,
+        "warpoints": 2,
+        "servants": 4,
+        "faithpoints": 1
+      },
+      "parchment": "",
+      "cardchoice": [
+        {
+          "dicevalue": "",
+          "lessgoldforcard": "",
+          "lessstoneforcard": "",
+          "lesswoodforcard": ""
+        }
+      ],
+      "resourceperitem": [
+        {
+          "Resource": "Gold",
+          "multiplier": "1",
+          "Item": ""
+        },
+        {
+          "Resource": "null",
+          "multiplier": "null",
+          "Item": "null"
+        }
+      ]
+    },
+    "normaleffect":{
       "Stone": "",
       "Gold": "",
       "VictoryPoints": "",
@@ -71,35 +83,18 @@
           }
         ]
       },
-      "ResourceperItem": [
+      "ResourceperResource": [
         {
-          "Resource": "",
-          "multiplier": "",
-          "Item": ""
+          "Resource1": "",
+          "Ratio": "",
+          "Resource2": ""
         },
         {
-          "ResourceNeed": "null",
-          "Multiplier": "",
-          "Item": "Stone|CardColor"
+          "Resource1": "null",
+          "Ratio": "",
+          "Resource2": "Stone|CardColor"
         }
       ]
-    },
-      "cost": [
-        {
-          "Gold": "",
-          "Stone": "",
-          "Wood": "",
-          "Servants": "",
-          "WarPointsNeed": "",
-          "WarPointsPay": ""
-        },
-        {
-          "Gold": "",
-          "Stone": "",
-          "Wood": "",
-          "Servants": "",
-          "WarPointsNeed": "",
-          "WarPointsPay": ""
-        }
-      ]
-}
+    }
+  }
+

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc31.server.rmiserver;
 
 import it.polimi.ingsw.gc31.model.GameInstance;
-import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 
 import java.util.ArrayList;
