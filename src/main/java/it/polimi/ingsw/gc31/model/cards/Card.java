@@ -50,4 +50,8 @@ public class Card {
         at.setTextAlignment(TextAlignment.CENTER);
         return at.render(80);
     }
+
+    public Map<String, Resource>[] getCost() {
+        return this.cost;
+    }
 }

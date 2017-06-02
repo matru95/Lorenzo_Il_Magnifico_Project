@@ -20,8 +20,9 @@ public class GameServerImpl implements GameServer{
     }
 
     @Override
-    public GameInstance[] getGames() {
-        return new GameInstance[0];
+    public ArrayList<GameInstance> getGames() {
+
+        return games;
     }
 
     @Override

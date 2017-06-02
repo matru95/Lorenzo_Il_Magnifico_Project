@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
@@ -18,6 +17,7 @@ public class GameInstance {
 	private int numOfPlayers;
 	private int age;
 	private int turn;
+	private UUID instanceID;
 
 	private State gamePrepState;
 	private State turnState;
@@ -30,6 +30,7 @@ public class GameInstance {
 
 	public GameInstance(UUID instanceID, int numOfPlayers, Player[] players) throws NoResourceMatch {
 
+		this.instanceID = instanceID;
 	    this.numOfPlayers = numOfPlayers;
 	    this.players = players;
 

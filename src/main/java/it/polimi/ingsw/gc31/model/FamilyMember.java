@@ -1,8 +1,13 @@
 package it.polimi.ingsw.gc31.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
+import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
+import it.polimi.ingsw.gc31.model.resources.Resource;
 
 public class FamilyMember {
 	private final DiceColor color;
@@ -42,9 +47,30 @@ public class FamilyMember {
     }
 
 	public List<SpaceWrapper> checkPossibleMovements() {
-		return board.openSpaces();
+        List<SpaceWrapper> openSpaces = board.openSpaces();
+        return openSpaces;
 	}
-	
+
+	private boolean[] isAffordable(TowerSpaceWrapper spaceWrapper) {
+        Map<String, Resource> playerResources = this.player.getResources();
+        Map<String, Resource>[] cardResources = spaceWrapper.getCard().getCost();
+        boolean[] results = new boolean[cardResources.length];
+
+        for(int i=0; i<cardResources.length; i++) {
+            for(Map.Entry<String, Resource> playerResource: playerResources.entrySet()) {
+                int playerResourceValue = playerResource.getValue().getNumOf();
+                int cardResourceValue = cardResources[i].get(playerResource.getKey()).getNumOf();
+
+                if(playerResourceValue < cardResourceValue) {
+                    results[i] = false;
+                }
+            }
+            results[i] = true;
+        }
+        return results;
+    }
+
+
 	public DiceColor getColor() {
 		return this.color;
 	}

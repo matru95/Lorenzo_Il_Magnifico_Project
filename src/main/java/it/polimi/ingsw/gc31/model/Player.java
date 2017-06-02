@@ -143,4 +143,7 @@ public class Player {
 		return faithCards;
 	}
 
+	public Map<String, Resource> getResources() {
+		return this.res;
+	}
 }
