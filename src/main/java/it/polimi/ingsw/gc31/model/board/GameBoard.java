@@ -86,6 +86,17 @@ public class GameBoard {
     	return availablePlaces;
     }
 
+    public Tower getTowerByColor(CardColor color) {
+
+        for(Tower tower: this.towers) {
+            if(tower.getTowerColor() == color) {
+                return tower;
+            }
+        }
+
+        return null;
+    }
+
     public List<SpaceWrapper> getBoard() {
         return board;
     }

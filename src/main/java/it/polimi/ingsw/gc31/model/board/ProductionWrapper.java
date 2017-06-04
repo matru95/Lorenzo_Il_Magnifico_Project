@@ -1,5 +1,9 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import it.polimi.ingsw.gc31.model.resources.Resource;
+
+import java.util.Map;
+
 public class ProductionWrapper extends SpaceWrapper {
 
     private boolean isFirstPlayer;
@@ -18,6 +22,11 @@ public class ProductionWrapper extends SpaceWrapper {
 
     private void produce(){
         //TODO
+    }
+
+    @Override
+    public boolean isAffordable(Map<String, Resource> playerResources) {
+        return true;
     }
 
     public boolean isFirstPlayer() {

@@ -1,5 +1,9 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import it.polimi.ingsw.gc31.model.resources.Resource;
+
+import java.util.Map;
+
 public class CouncilsPalaceWrapper extends SpaceWrapper {
 
     private boolean[] isPlayerInQueque;
@@ -19,5 +23,10 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
             getGameBoard().getGameInstance().putPlayerInQueue(this.getMember().getPlayer());
             isPlayerInQueque[getMember().getPlayer().getPlayerOrder()] = true;
         }
+    }
+
+    @Override
+    public boolean isAffordable(Map<String, Resource> playerResources) {
+        return true;
     }
 }

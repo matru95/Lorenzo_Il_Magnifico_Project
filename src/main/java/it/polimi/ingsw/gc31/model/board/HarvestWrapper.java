@@ -1,5 +1,9 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import it.polimi.ingsw.gc31.model.resources.Resource;
+
+import java.util.Map;
+
 public class HarvestWrapper extends SpaceWrapper {
 
     private boolean isFirstPlayer;
@@ -14,6 +18,11 @@ public class HarvestWrapper extends SpaceWrapper {
     public void execWrapper() {
         harvest();
         if (!isMultiple) setOccupied(true);
+    }
+
+    @Override
+    public boolean isAffordable(Map<String, Resource> playerResources) {
+        return true;
     }
 
     private void harvest(){

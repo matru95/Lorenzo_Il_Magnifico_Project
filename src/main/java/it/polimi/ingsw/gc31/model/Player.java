@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
@@ -25,7 +26,7 @@ public class Player {
 	private Map<String, Resource> res;
 	
 	//Cards
-	private Card[] cards;
+	private Map<CardColor, Card[]> cards;
 	private FaithCard[] faithCards;
 	private FamilyMember[] familyMembers;
 
@@ -40,11 +41,12 @@ public class Player {
 		this.isMovedThisTurn = false;
 		
 		res = new HashMap<>();
+		this.cards = new HashMap<>();
 
 //		Cards
-		this.cards = new Card[24];
 		this.familyMembers = new FamilyMember[4];
 
+		initCards();
 		initResources();
 	}
 
@@ -57,6 +59,12 @@ public class Player {
     public void setGameBoard(GameBoard gameBoard) {
 		this.board = gameBoard;
 	}
+
+	private void initCards() {
+	    for(CardColor cardColor: CardColor.values()) {
+	        this.cards.put(cardColor, new Card[6]);
+        }
+    }
 
     private void initResources() {
 
@@ -153,11 +161,7 @@ public class Player {
         return board;
     }
 
-    public Map<String, Resource> getRes() {
-        return res;
-    }
-
-    public Card[] getCards() {
+    public Map<CardColor, Card[]> getCards() {
         return cards;
     }
 

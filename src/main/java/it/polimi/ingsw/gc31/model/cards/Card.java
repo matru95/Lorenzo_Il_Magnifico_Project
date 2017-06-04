@@ -19,7 +19,7 @@ public class Card {
         this.cardID = cardID;
         this.cardAge = cardAge;
         this.cardEffects = cardEffects;
-        isOnDeck = true;
+        this.isOnDeck = true;
     }
 
     @Override
