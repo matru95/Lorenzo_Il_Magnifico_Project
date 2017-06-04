@@ -169,7 +169,7 @@ public class Player {
 		this.res = res;
 	}
 
-	public Map<String, Resource> getResources() {
+	public Map<String, Resource> getRes() {
 		return this.res;
 	}
 }

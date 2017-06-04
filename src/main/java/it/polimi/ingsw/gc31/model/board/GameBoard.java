@@ -1,8 +1,7 @@
 package it.polimi.ingsw.gc31.model.board;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashMap;
+import java.util.Map;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.model.DiceColor;
@@ -10,95 +9,76 @@ import it.polimi.ingsw.gc31.model.cards.CardColor;
 
 public class GameBoard {
 
-    private Tower[] towers;
-    private ArrayList<SpaceWrapper> board = new ArrayList<>();
+    private Map<CardColor,Tower> towers;
+    private Map<DiceColor, Dice> dices;
+    private Map<String, SpaceWrapper> boardSpaces;
     private GameInstance gameInstance;
-    private Dice[] dice;
     private int positionIndex;
 
     public GameBoard(GameInstance gameInstance) {
 
         this.gameInstance = gameInstance;
-        this.towers = new Tower[4];
+
+        //Initialize dice
+        createDice();
+
         setPositionIndex(1);
 
         // Initialize Tower on GameBoard
-        int n = 0;
         for (CardColor color: CardColor.values()) {
-            towers[n] = new Tower(color, this);
-            n++;
+            towers.put(color,new Tower(color, this));
         }
+
         //Initialize CouncilsPalace
-        board.add(new CouncilsPalaceWrapper(positionIndex,1, this));
+        boardSpaces.put("COUNCILS PALACE", new CouncilsPalaceWrapper(positionIndex,1, this));
         incrementPositionIndex();
 
         //Initialize Mart
-        for (int i = 0; i < 4; i++) {
-        board.add(new MartWrapper(positionIndex,1, this));
+        for (int i = 1; i < 5; i++) {
+        boardSpaces.put("MART #" + i, new MartWrapper(positionIndex,1, this));
         incrementPositionIndex();
         }
 
         //Initialize Harvest & Production
-        board.add(new ProductionWrapper(positionIndex, 1, false, this));
+        boardSpaces.put("PRODUCTION SINGLE", new ProductionWrapper(positionIndex, 1, false, this));
         incrementPositionIndex();
-        board.add(new ProductionWrapper(positionIndex, 3,true, this));
+        boardSpaces.put("PRODUCTION MULTIPLE", new ProductionWrapper(positionIndex, 3,true, this));
         incrementPositionIndex();
-        board.add(new HarvestWrapper(positionIndex, 1, false, this));
+        boardSpaces.put("HARVEST SINGLE", new HarvestWrapper(positionIndex, 1, false, this));
         incrementPositionIndex();
-        board.add(new HarvestWrapper(positionIndex, 3,true, this));
-
-        //Initialize dice
-        this.dice = new Dice[4];
-        createDice();
+        boardSpaces.put("HARVEST MULTIPLE", new HarvestWrapper(positionIndex, 3,true, this));
 
         setPositionIndex(1);
     }
 
     private void createDice() {
-        int key = 0;
         for(DiceColor color: DiceColor.values()) {
-            dice[key] = new Dice(color);
-            key++;
+            dices.put(color, new Dice(color));
         }
     }
 
-    public Dice[] getDice() {
-        return dice;
+    public Map<DiceColor, Dice> getDices() {
+        return dices;
     }
 
     public Dice getDiceByColor(DiceColor diceColor) {
-
-        for(int i = 0; i < dice.length; i++) {
-            if(dice[i].getColor() == diceColor) {
-                return dice[i];
-            }
-        }
-
-        return null;
+        return dices.get(diceColor);
     }
 
-    public List<SpaceWrapper> openSpaces() {
-    	ArrayList<SpaceWrapper> availablePlaces = new ArrayList<>();
+    public Map<String, SpaceWrapper> getOpenSpaces() {
 
-    	for(SpaceWrapper space : board) {
-    		if(!space.isOccupied()) availablePlaces.add(space);
-    	}
+    	Map availablePlaces = new HashMap<String, SpaceWrapper>();
+
+    	for(Map.Entry<String,SpaceWrapper> entry: boardSpaces.entrySet()) {
+            if (!entry.getValue().isOccupied()) {
+                availablePlaces.put(entry.getKey(), entry.getValue());
+            }
+        }
     	return availablePlaces;
     }
 
-    public Tower getTowerByColor(CardColor color) {
-
-        for(Tower tower: this.towers) {
-            if(tower.getTowerColor() == color) {
-                return tower;
-            }
-        }
-
-        return null;
-    }
-
-    public List<SpaceWrapper> getBoard() {
-        return board;
+    public Map<String, SpaceWrapper> getBoardSpaces() {
+        return boardSpaces;
     }
 
     public void incrementPositionIndex() {
@@ -117,8 +97,11 @@ public class GameBoard {
         return gameInstance;
     }
 
-    public Tower[] getTowers() {
+    public Map<CardColor, Tower> getTowers() {
         return towers;
     }
 
+    public Tower getTowerByColor(CardColor color) {
+        return towers.get(color);
+    }
 }

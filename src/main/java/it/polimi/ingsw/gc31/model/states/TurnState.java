@@ -1,12 +1,14 @@
 package it.polimi.ingsw.gc31.model.states;
 
 import it.polimi.ingsw.gc31.model.Dice;
+import it.polimi.ingsw.gc31.model.DiceColor;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 
 import java.util.ArrayList;
 
-public class TurnState implements State{
+public class TurnState implements State {
+
     private Player[] orderedPlayers;
 
     @Override
@@ -18,9 +20,8 @@ public class TurnState implements State{
         this.orderedPlayers = orderPlayerActions(players);
 
 //      Throw the dice
-        Dice[] dice = context.getGameBoard().getDice();
-        this.throwDice(dice);
 
+        throwDice(context);
 
         for(int i=0; i<this.orderedPlayers.length; i++) {
             this.orderedPlayers[i].doPlayerActions();
@@ -39,9 +40,9 @@ public class TurnState implements State{
         return orderedPlayers;
     }
 
-    private void throwDice(Dice[] dice) {
-        for(Dice singleDice: dice) {
-            singleDice.throwDice();
+    private void throwDice(GameInstance context) {
+        for (DiceColor color: DiceColor.values()) {
+            context.getGameBoard().getDices().get(color).throwDice();
         }
     }
 }
