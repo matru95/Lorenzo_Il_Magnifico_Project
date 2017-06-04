@@ -4,7 +4,6 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 
-import java.io.Serializable;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -46,14 +45,19 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     @Override
     public GameInstance getGame(UUID instanceID) throws RemoteException {
+
         return null;
     }
 
     @Override
-    public void join(UUID playerID, String playerName, PlayerColor color, UUID instanceID)  throws RemoteException {
+    public GameInstance join(String playerName, PlayerColor color, UUID instanceID) throws RemoteException, NoResourceMatch {
 
-        System.out.println("Player "+playerName+" joined");
-        return;
+        if(games.size() == 0) {
+            GameInstance gameInstance = new GameInstance(UUID.randomUUID());
+            games.add(gameInstance);
+        }
+
+
     }
 
     @Override

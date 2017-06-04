@@ -13,6 +13,6 @@ public interface GameServer extends Remote {
     void createGame() throws RemoteException, NoResourceMatch;
     ArrayList<GameInstance> getGames() throws RemoteException;
     GameInstance getGame(UUID instanceID) throws RemoteException;
-    void join(UUID playerID, String playerName, PlayerColor color, UUID instanceID) throws RemoteException;
+    GameInstance join(UUID playerID, String playerName, PlayerColor color, UUID instanceID) throws RemoteException;
     void leave(UUID playerID) throws RemoteException;
 }
