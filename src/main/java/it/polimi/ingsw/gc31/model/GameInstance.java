@@ -17,6 +17,8 @@ public class GameInstance {
 	private int numOfPlayers;
 	private int age;
 	private int turn;
+
+
 	private UUID instanceID;
 
 	private State gamePrepState;
@@ -101,6 +103,10 @@ public class GameInstance {
 
 	public int getNumOfPlayers() {
 		return numOfPlayers;
+	}
+
+	public UUID getInstanceID() {
+		return instanceID;
 	}
 
 }

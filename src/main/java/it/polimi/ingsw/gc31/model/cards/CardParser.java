@@ -82,7 +82,9 @@ public class CardParser {
             System.out.println("Title = " +title.asText());
             System.out.println("Id = " + id.asInt());
             System.out.println("Card Color = " + cardcolor.asText());
-            System.out.println("activatiovalue = " + activationvalue.asInt());
+            if(activationvalue != null) {
+                System.out.println("activatiovalue = " + activationvalue.asInt());
+            }
         }catch(IOException e){
             e.printStackTrace();
         }
