@@ -73,4 +73,8 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     public Card getCard() {
         return card;
     }
+
+    public Tower getTower() {
+        return tower;
+    }
 }

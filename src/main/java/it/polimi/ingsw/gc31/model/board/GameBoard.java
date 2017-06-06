@@ -18,6 +18,9 @@ public class GameBoard {
     public GameBoard(GameInstance gameInstance) {
 
         this.gameInstance = gameInstance;
+        this.dices = new HashMap<>();
+        this.towers = new HashMap<>();
+        this.boardSpaces = new HashMap<>();
 
         //Initialize dice
         createDice();
@@ -34,19 +37,23 @@ public class GameBoard {
         incrementPositionIndex();
 
         //Initialize Mart
+//        TODO implement blocking if less than four players
         for (int i = 1; i < 5; i++) {
         boardSpaces.put("MART #" + i, new MartWrapper(positionIndex,1, this));
         incrementPositionIndex();
         }
 
         //Initialize Harvest & Production
-        boardSpaces.put("PRODUCTION SINGLE", new ProductionWrapper(positionIndex, 1, false, this));
-        incrementPositionIndex();
-        boardSpaces.put("PRODUCTION MULTIPLE", new ProductionWrapper(positionIndex, 3,true, this));
-        incrementPositionIndex();
-        boardSpaces.put("HARVEST SINGLE", new HarvestWrapper(positionIndex, 1, false, this));
-        incrementPositionIndex();
-        boardSpaces.put("HARVEST MULTIPLE", new HarvestWrapper(positionIndex, 3,true, this));
+
+        if(this.gameInstance.getNumOfPlayers() == 2) {
+            this.initSpacesTwoPlayers();
+            this.removeMart();
+        } else if(this.gameInstance.getNumOfPlayers() == 3) {
+            this.initSpacesThreePlayers();
+            this.removeMart();
+        } else {
+            this.initSpacesThreePlayers();
+        }
 
         setPositionIndex(1);
     }
@@ -55,6 +62,26 @@ public class GameBoard {
         for(DiceColor color: DiceColor.values()) {
             dices.put(color, new Dice(color));
         }
+    }
+
+    private void removeMart() {
+
+        for(int i=2; i<5; i++) {
+            boardSpaces.remove("MART #"+i);
+        }
+        return;
+    }
+
+    private void initSpacesThreePlayers() {
+        boardSpaces.put("PRODUCTION", new ProductionWrapper(positionIndex, 3,true, this));
+        incrementPositionIndex();
+        boardSpaces.put("HARVEST", new HarvestWrapper(positionIndex, 3,true, this));
+    }
+
+    private void initSpacesTwoPlayers() {
+        boardSpaces.put("PRODUCTION", new ProductionWrapper(positionIndex, 1, false, this));
+        incrementPositionIndex();
+        boardSpaces.put("HARVEST", new HarvestWrapper(positionIndex, 1, false, this));
     }
 
     public Map<DiceColor, Dice> getDices() {

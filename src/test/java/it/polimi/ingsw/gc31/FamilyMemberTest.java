@@ -2,6 +2,8 @@ package it.polimi.ingsw.gc31;
 
 import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
+import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
+import it.polimi.ingsw.gc31.model.cards.CardColor;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -33,6 +35,13 @@ public class FamilyMemberTest extends TestCase{
     @Test
     public void testFamilyMemberShouldExist() {
         assertNotNull(this.familyMember);
+    }
+
+    @Test
+    public void testFamilyMemberShouldMoveToPosition() {
+        TowerSpaceWrapper space = this.gameBoard.getTowerByColor(CardColor.BLUE).getTowerSpace().get(0);
+        this.familyMember.moveToPosition(space);
+        assertTrue(true);
     }
 
     @Test

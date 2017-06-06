@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -17,6 +18,8 @@ public class Tower {
     public Tower(CardColor towerColor, GameBoard gameBoard) {
         this.towerColor = towerColor;
         this.isOccupied = false;
+        this.towerSpaces = new HashMap<>();
+
         int diceValue = 1;
         for (int floorID = 0; floorID < 4; floorID++) {
             towerSpaces.put(floorID, new TowerSpaceWrapper(

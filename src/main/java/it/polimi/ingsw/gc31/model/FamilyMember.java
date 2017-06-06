@@ -7,6 +7,10 @@ import java.util.Map;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
+import it.polimi.ingsw.gc31.model.board.Tower;
+import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
+import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.resources.Resource;
 
 public class FamilyMember {
 	private final DiceColor color;
@@ -45,30 +49,83 @@ public class FamilyMember {
 		this.dice = this.board.getDiceByColor(this.color);
     }
 
-	public Map<String, SpaceWrapper> checkPossibleMovements() {
+	public List<SpaceWrapper> checkPossibleMovements() {
 
 	    //TODO This method will be changed once FaithCards are implemented
 
-        Map possibleMovements = new HashMap<String, SpaceWrapper>();
+        List<SpaceWrapper> possibleMovements = new ArrayList<>();
+        insertOpenSpaces(possibleMovements);
 
         int possiblePoints = this.player.getRes().get("Servants").getNumOf();
 
-        for(Map.Entry<String, SpaceWrapper> entry: board.getOpenSpaces().entrySet()) {
-            if(entry.getValue().isAffordable(this.player.getRes()) && entry.getValue().getDiceBond() <= possiblePoints) {
-                possibleMovements.put(entry.getKey(), entry.getValue());
+        List<SpaceWrapper> towerSpaceWrappers = new ArrayList<>();
+        insertTowerSpaceWrappers(towerSpaceWrappers);
+
+        for(SpaceWrapper towerSpaceWrapper: towerSpaceWrappers) {
+            boolean isAffordable = towerSpaceWrapper.isAffordable(this.player.getRes());
+            int spaceDiceBond = towerSpaceWrapper.getDiceBond();
+            if(isAffordable && spaceDiceBond <= possiblePoints) {
+                possibleMovements.add(towerSpaceWrapper);
             }
         }
+
         return possibleMovements;
 	}
 
+	private void insertOpenSpaces(List<SpaceWrapper> possibleMovements) {
+        for(Map.Entry<String, SpaceWrapper> spaceEntry: board.getOpenSpaces().entrySet()) {
+            possibleMovements.add(spaceEntry.getValue());
+        }
+    }
+
+    private void insertTowerSpaceWrappers(List<SpaceWrapper> towerSpaceWrappers) {
+        Map<CardColor, Tower> towers = this.board.getTowers();
+
+        for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
+            for(Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry: towerEntry.getValue().getTowerSpace().entrySet()) {
+                towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
+            }
+        }
+    }
 
 	public DiceColor getColor() {
 		return this.color;
 	}
 	
 	public void moveToPosition(SpaceWrapper position) {
+	    int positionDiceBond = position.getDiceBond();
+
+//	    Check if I should pay servants and pay them
+	    checkAndPayServants(positionDiceBond);
+
+
+//      Check if there are other servants and pay the gold
+        checkAndPayExtraGold((TowerSpaceWrapper) position);
+
 		this.currentPosition = position;
+		position.execWrapper();
 	}
+
+	private void checkAndPayServants(int positionDiceBond) {
+        if(positionDiceBond > this.dicePoints) {
+            Map<String, Resource> playerResources = player.getRes();
+            int currentServants = playerResources.get("SERVANTS").getNumOf();
+            int costToPay = positionDiceBond - this.dicePoints;
+
+            playerResources.get("SERVANTS").setNumOf(currentServants - costToPay);
+        }
+    }
+
+    private void checkAndPayExtraGold(TowerSpaceWrapper position) {
+        Tower tower = position.getTower();
+        if(tower.isOccupied()) {
+
+//          Check if tower is occupied and pay 3 gold in that case
+            player.getRes().get("GOLD").subNumOf(3);
+        }
+
+        return;
+    }
 
 	public SpaceWrapper getCurrentPosition() {
 		return currentPosition;

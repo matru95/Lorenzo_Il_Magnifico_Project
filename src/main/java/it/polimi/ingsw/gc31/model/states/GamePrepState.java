@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.states;
 
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.cards.CardColor;
 
 import java.util.ArrayList;
 
@@ -13,14 +14,14 @@ public class GamePrepState implements State{
         ArrayList<Player> players = context.getPlayers();
         numOfPlayers = context.getNumOfPlayers();
 
-        blockSpacesIfNeeded();
+        blockSpacesIfNeeded(context);
     }
 
-    private void blockSpacesIfNeeded() {
+    private void blockSpacesIfNeeded(GameInstance context) {
         if(this.numOfPlayers == 2) {
-            //TODO block some spaces
+            context.getGameBoard().blockSpacesTwoPlayers();
         } else if(this.numOfPlayers == 3) {
-            //TODO block some other spaces
+            context.getGameBoard().blockSpacesThreePlayers();
         }
     }
 
