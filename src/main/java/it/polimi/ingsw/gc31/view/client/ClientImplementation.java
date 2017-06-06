@@ -20,7 +20,6 @@ public class ClientImplementation implements Client, Serializable{
     }
 
     public ClientImplementation() {
-
     }
 
     @Override
