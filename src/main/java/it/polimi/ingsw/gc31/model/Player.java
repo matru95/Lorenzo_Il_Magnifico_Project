@@ -22,6 +22,7 @@ public class Player {
 	private Boolean isMovedThisTurn;
 
 	private Map<String, Resource> res;
+	private PlayerTile playerTile;
 	
 	//Cards
 	private Map<CardColor, Card[]> cards;
@@ -46,6 +47,9 @@ public class Player {
 
 		initCards();
 		initResources();
+
+		//TODO playerTile parse
+        this.playerTile = new PlayerTile(null, null);
 	}
 
     @Override
