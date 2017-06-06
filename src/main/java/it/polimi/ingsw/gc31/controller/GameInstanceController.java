@@ -6,7 +6,7 @@ import it.polimi.ingsw.gc31.model.Player;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class GameInstanceController implements Controller {
+public class GameInstanceController implements GameInstanceControllerInterface {
     private GameInstance model;
 
     public GameInstanceController(GameInstance model) {

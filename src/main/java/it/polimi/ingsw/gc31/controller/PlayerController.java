@@ -1,58 +1,37 @@
 package it.polimi.ingsw.gc31.controller;
 
-import it.polimi.ingsw.gc31.model.*;
+import it.polimi.ingsw.gc31.model.DiceColor;
+import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.view.cli.GameView;
 
-import java.util.UUID;
+public class PlayerController implements PlayerControllerInterface {
 
-public class PlayerController {
-    private Player model;
+    private Player playerModel;
+    private GameView view;
 
-    public PlayerController(Player model) {
-        this.model = model;
+    public PlayerController(Player playerModel) {
+        this.playerModel = playerModel;
+        view = new GameView(playerModel, this);
     }
 
-    public void setPlayerOrder(int order) {
-
-        this.model.setPlayerOrder(order);
+    @Override
+    public void moveFamilyMember(DiceColor diceColor, String boardSpaceKey) {
+        playerModel.getSpecificFamilyMember(diceColor).moveToPosition(playerModel.getBoard().getBoardSpaces().get(boardSpaceKey));
     }
 
-    public int getPlayerOrder() {
-
-        return this.model.getPlayerOrder();
+    @Override
+    public void takeFaithEffect() {
+        //TODO
     }
 
-    public FamilyMember[] getFamilyMembers() {
-
-        return this.model.getFamilyMembers();
+    @Override
+    public void useLeaderCard() {
+        //TODO
     }
 
-    public FamilyMember getSpecificFamilyMember(DiceColor color) {
-
-        return this.model.getSpecificFamilyMember(color);
+    @Override
+    public void chooseParchementBonus() {
+        //TODO
     }
 
-    public UUID getPlayerID() {
-
-        return this.model.getPlayerID();
-    }
-
-    public String getPlayerName() {
-
-        return this.model.getPlayerName();
-    }
-
-    public PlayerColor getPlayerColor() {
-
-        return this.model.getPlayerColor();
-    }
-
-    public Boolean getMovedThisTurn() {
-
-        return this.model.getMovedThisTurn();
-    }
-
-    public FaithCard[] getFaithCards() {
-
-        return this.model.getFaithCards();
-    }
 }

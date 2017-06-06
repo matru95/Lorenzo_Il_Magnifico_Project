@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.Map;
@@ -11,6 +12,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     private final CardColor color;
     private final Tower tower;
     private Card card;
+    private Effect towerBonus;
 
     TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, CardColor color) {
         super(positionID, diceBond, gameBoard);

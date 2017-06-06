@@ -1,10 +1,7 @@
 package it.polimi.ingsw.gc31.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 

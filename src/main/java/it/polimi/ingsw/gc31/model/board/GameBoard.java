@@ -33,6 +33,8 @@ public class GameBoard {
         boardSpaces.put("COUNCILS PALACE", new CouncilsPalaceWrapper(positionIndex,1, this));
         incrementPositionIndex();
 
+        //TODO Condizione  2-4 giocatori
+
         //Initialize Mart
         for (int i = 1; i < 5; i++) {
         boardSpaces.put("MART #" + i, new MartWrapper(positionIndex,1, this));
