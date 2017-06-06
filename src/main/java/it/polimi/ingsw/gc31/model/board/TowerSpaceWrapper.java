@@ -8,14 +8,12 @@ import java.util.Map;
 
 public class TowerSpaceWrapper extends SpaceWrapper {
 
-    private final int floorID;
     private final CardColor color;
     private final Tower tower;
     private Card card;
 
-    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, int floorID, CardColor color) {
+    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, CardColor color) {
         super(positionID, diceBond, gameBoard);
-        this.floorID = floorID;
         this.color = color;
         this.tower = gameBoard.getTowerByColor(this.color);
         //TODO Randomize a card
@@ -66,10 +64,6 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         }
 
         return false;
-    }
-
-    public int getFloorID() {
-        return floorID;
     }
 
     public CardColor getColor() {

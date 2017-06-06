@@ -1,7 +1,9 @@
 package it.polimi.ingsw.gc31.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
@@ -43,18 +45,19 @@ public class FamilyMember {
 		this.dice = this.board.getDiceByColor(this.color);
     }
 
-	public List<SpaceWrapper> checkPossibleMovements() {
-//	    This method will be changed once FaithCards are implemented
-        List<SpaceWrapper> openSpaces = board.openSpaces();
-        List<SpaceWrapper> possibleMovements = new ArrayList<>();
-        int possiblePoints = this.player.getResources().get("Servants").getNumOf();
+	public Map<String, SpaceWrapper> checkPossibleMovements() {
 
-        for(SpaceWrapper wrapper: openSpaces) {
-            if(wrapper.isAffordable(this.player.getResources()) && wrapper.getDiceBond() <= possiblePoints) {
-                possibleMovements.add(wrapper);
+	    //TODO This method will be changed once FaithCards are implemented
+
+        Map possibleMovements = new HashMap<String, SpaceWrapper>();
+
+        int possiblePoints = this.player.getRes().get("Servants").getNumOf();
+
+        for(Map.Entry<String, SpaceWrapper> entry: board.getOpenSpaces().entrySet()) {
+            if(entry.getValue().isAffordable(this.player.getRes()) && entry.getValue().getDiceBond() <= possiblePoints) {
+                possibleMovements.put(entry.getKey(), entry.getValue());
             }
         }
-
         return possibleMovements;
 	}
 
@@ -97,4 +100,11 @@ public class FamilyMember {
         return dicePoints;
     }
 
+    public Dice getDice() {
+        return dice;
+    }
+
+    public GameBoard getBoard() {
+        return board;
+    }
 }

@@ -2,20 +2,27 @@ package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 
-public class Tower {
-    private final CardColor towerColor;
-    private boolean isOccupied;
+import java.util.Map;
 
+
+public class Tower {
+
+    /** Maps contains towerSpaceWrappers of a single tower:
+     * Key is floorID, Value is TowerSpaceWrapper
+     */
+    private Map<Integer, TowerSpaceWrapper> towerSpaces;
+    private CardColor towerColor;
+    private boolean isOccupied;
+    
     public Tower(CardColor towerColor, GameBoard gameBoard) {
-        isOccupied = false;
         this.towerColor = towerColor;
+        this.isOccupied = false;
         int diceValue = 1;
-        for (int floor = 0; floor < 4; floor++) {
-            gameBoard.getBoard().add(new TowerSpaceWrapper(
+        for (int floorID = 0; floorID < 4; floorID++) {
+            towerSpaces.put(floorID, new TowerSpaceWrapper(
                     gameBoard.getPositionIndex(),
                     diceValue,
                     gameBoard,
-                    floor,
                     towerColor));
             gameBoard.incrementPositionIndex();
             diceValue+=2;
@@ -32,5 +39,9 @@ public class Tower {
 
     public CardColor getTowerColor() {
         return towerColor;
+    }
+
+    public Map<Integer, TowerSpaceWrapper> getTowerSpace() {
+        return towerSpaces;
     }
 }
