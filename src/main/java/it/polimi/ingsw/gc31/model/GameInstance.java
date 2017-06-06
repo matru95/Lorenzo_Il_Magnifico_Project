@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
@@ -30,7 +29,7 @@ public class GameInstance {
     //TODO reinizializza playerOrder a 0 ogni turno
     private int playerOrder;
 
-	public GameInstance(UUID instanceID) throws NoResourceMatch {
+	public GameInstance(UUID instanceID) {
 
 		this.instanceID = instanceID;
 		this.players = new ArrayList<>();

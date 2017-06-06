@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.resources.Resource;
+import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,19 +16,24 @@ public class Tower {
     private Map<Integer, TowerSpaceWrapper> towerSpaces;
     private CardColor towerColor;
     private boolean isOccupied;
-    
+
     public Tower(CardColor towerColor, GameBoard gameBoard) {
         this.towerColor = towerColor;
         this.isOccupied = false;
         this.towerSpaces = new HashMap<>();
 
         int diceValue = 1;
+
+        //TODO specializza risorse towerBonus per torre
+        Resource towerBonus = new Resource(ResourceName.GOLD, 3);
+        
         for (int floorID = 0; floorID < 4; floorID++) {
             towerSpaces.put(floorID, new TowerSpaceWrapper(
                     gameBoard.getPositionIndex(),
                     diceValue,
                     gameBoard,
-                    towerColor));
+                    towerColor,
+                    towerBonus));
             gameBoard.incrementPositionIndex();
             diceValue+=2;
         }

@@ -15,7 +15,7 @@ public class HarvestWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper() {
+    public void execWrapper(Map<String, Resource> playerResources) {
         harvest();
         if (!isMultiple) setOccupied(true);
     }

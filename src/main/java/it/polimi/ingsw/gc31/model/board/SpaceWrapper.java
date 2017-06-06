@@ -20,7 +20,7 @@ public abstract class SpaceWrapper {
         isOccupied = false;
     }
 
-    public abstract void execWrapper();
+    public abstract void execWrapper(Map<String, Resource> playerResources);
 
 //  Check whether a player has enough resources to move a familymember here.
     public abstract boolean isAffordable(Map<String, Resource> playerResources);

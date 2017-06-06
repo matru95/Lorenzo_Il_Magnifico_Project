@@ -42,57 +42,57 @@ public class ParchementEffect extends Effect{
             //Effetto 0
 
             mapsEffects[0] = new HashMap();
-            mapsEffects[0].put("Stone", new Stone(1));
-            mapsEffects[0].put("Wood", new Wood(1));
-            mapsEffects[0].put("Gold", new Gold(1));
-            mapsEffects[0].put("Servants", new Servants(0));
-            mapsEffects[0].put("VictoryPoints", new VictoryPoints(0));
-            mapsEffects[0].put("WarPoints", new WarPoints(0));
-            mapsEffects[0].put("FaithPoints", new FaithPoints(0));
+            mapsEffects[0].put("Stone", new Resource(ResourceName.STONE,1));
+            mapsEffects[0].put("Wood", new Resource(ResourceName.WOOD,1));
+            mapsEffects[0].put("Gold", new Resource(ResourceName.GOLD,1));
+            mapsEffects[0].put("Servants", new Resource(ResourceName.SERVANTS,0));
+            mapsEffects[0].put("VictoryPoints", new Resource(ResourceName.VICTORYPOINTS,0));
+            mapsEffects[0].put("WarPoints", new Resource(ResourceName.WARPOINTS,0));
+            mapsEffects[0].put("FaithPoints", new Resource(ResourceName.FAITHPOINTS,0));
 
             //Effetto 1
 
             mapsEffects[1] = new HashMap();
-            mapsEffects[1].put("Stone", new Stone(0));
-            mapsEffects[1].put("Wood", new Wood(0));
-            mapsEffects[1].put("Gold", new Gold(1));
-            mapsEffects[1].put("Servants", new Servants(2));
-            mapsEffects[1].put("VictoryPoints", new VictoryPoints(0));
-            mapsEffects[1].put("WarPoints", new WarPoints(0));
-            mapsEffects[1].put("FaithPoints", new FaithPoints(0));
+            mapsEffects[1].put("Stone", new Resource(ResourceName.STONE,0));
+            mapsEffects[1].put("Wood", new Resource(ResourceName.WOOD,0));
+            mapsEffects[1].put("Gold", new Resource(ResourceName.GOLD,1));
+            mapsEffects[1].put("Servants", new Resource(ResourceName.SERVANTS,2));
+            mapsEffects[1].put("VictoryPoints", new Resource(ResourceName.VICTORYPOINTS,0));;
+            mapsEffects[1].put("WarPoints", new Resource(ResourceName.WARPOINTS,0));
+            mapsEffects[1].put("FaithPoints", new Resource(ResourceName.FAITHPOINTS,0));
 
             //Effetto 2
 
             mapsEffects[2] = new HashMap();
-            mapsEffects[2].put("Stone", new Stone(0));
-            mapsEffects[2].put("Wood", new Wood(0));
-            mapsEffects[2].put("Gold", new Gold(3));
-            mapsEffects[2].put("Servants", new Servants(0));
-            mapsEffects[2].put("VictoryPoints", new VictoryPoints(0));
-            mapsEffects[2].put("WarPoints", new WarPoints(0));
-            mapsEffects[2].put("FaithPoints", new FaithPoints(0));
+            mapsEffects[2].put("Stone", new Resource(ResourceName.STONE,0));
+            mapsEffects[2].put("Wood", new Resource(ResourceName.WOOD,0));
+            mapsEffects[2].put("Gold", new Resource(ResourceName.GOLD,3));
+            mapsEffects[2].put("Servants", new Resource(ResourceName.SERVANTS,0));
+            mapsEffects[2].put("VictoryPoints", new Resource(ResourceName.VICTORYPOINTS,0));;
+            mapsEffects[2].put("WarPoints", new Resource(ResourceName.WARPOINTS,0));
+            mapsEffects[2].put("FaithPoints", new Resource(ResourceName.FAITHPOINTS,0));
 
             //Effetto 3
 
             mapsEffects[3] = new HashMap();
-            mapsEffects[3].put("Stone", new Stone(0));
-            mapsEffects[3].put("Wood", new Wood(0));
-            mapsEffects[3].put("Gold", new Gold(1));
-            mapsEffects[3].put("Servants", new Servants(0));
-            mapsEffects[3].put("VictoryPoints", new VictoryPoints(0));
-            mapsEffects[3].put("WarPoints", new WarPoints(2));
-            mapsEffects[3].put("FaithPoints", new FaithPoints(0));
+            mapsEffects[3].put("Stone", new Resource(ResourceName.STONE,0));
+            mapsEffects[3].put("Wood", new Resource(ResourceName.WOOD,0));
+            mapsEffects[3].put("Gold", new Resource(ResourceName.GOLD,1));
+            mapsEffects[3].put("Servants", new Resource(ResourceName.SERVANTS,0));
+            mapsEffects[3].put("VictoryPoints", new Resource(ResourceName.VICTORYPOINTS,0));;
+            mapsEffects[3].put("WarPoints", new Resource(ResourceName.WARPOINTS,2));
+            mapsEffects[3].put("FaithPoints", new Resource(ResourceName.FAITHPOINTS,0));
 
             //Effetto 4
 
             mapsEffects[4] = new HashMap();
-            mapsEffects[4].put("Stone", new Stone(0));
-            mapsEffects[4].put("Wood", new Wood(0));
-            mapsEffects[4].put("Gold", new Gold(1));
-            mapsEffects[4].put("Servants", new Servants(0));
-            mapsEffects[4].put("VictoryPoints", new VictoryPoints(0));
-            mapsEffects[4].put("WarPoints", new WarPoints(0));
-            mapsEffects[4].put("FaithPoints", new FaithPoints(1));
+            mapsEffects[4].put("Stone", new Resource(ResourceName.STONE,0));
+            mapsEffects[4].put("Wood", new Resource(ResourceName.WOOD,0));
+            mapsEffects[4].put("Gold", new Resource(ResourceName.GOLD,1));
+            mapsEffects[4].put("Servants", new Resource(ResourceName.SERVANTS,0));
+            mapsEffects[4].put("VictoryPoints", new Resource(ResourceName.VICTORYPOINTS,0));;
+            mapsEffects[4].put("WarPoints", new Resource(ResourceName.WARPOINTS,0));
+            mapsEffects[4].put("FaithPoints", new Resource(ResourceName.FAITHPOINTS,1));
 
 //--------------------CREO GLI EFFETTI COME ADD RESOURCE (UN'ISTANZA PER SINGOLO OGGETTO)
 
