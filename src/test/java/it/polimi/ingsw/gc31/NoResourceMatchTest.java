@@ -12,12 +12,8 @@ public class NoResourceMatchTest extends Throwable {
     public void test() {
         boolean thrown = false;
 
-        try {
-            Resource gold= null;
-            gold= ResourceFactory.getResource("Golds",3);
-        } catch (NoResourceMatch e) {
-            thrown = true;
-        }
+        Resource gold= null;
+        gold= ResourceFactory.getResource("Golds",3);
         assertTrue(thrown);
     }
 }

@@ -1,10 +1,8 @@
 package it.polimi.ingsw.gc31.model;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
@@ -33,7 +31,7 @@ public class Player {
 	private final Logger logger = Logger.getLogger(Player.class.getName());
 
 
-	public Player(UUID playerID, String playerName, PlayerColor playerColor) {
+	public Player(UUID playerID, String playerName, PlayerColor playerColor) throws NoResourceMatch {
 		this.playerID = playerID;
 		this.playerName = playerName;
 		this.playerColor = playerColor;
@@ -66,20 +64,13 @@ public class Player {
         }
     }
 
-    private void initResources() {
+    private void initResources() throws NoResourceMatch {
 
         for(ResourceName resourceName: ResourceName.values()) {
             String resourceNameString = resourceName.toString();
-            try {
-                int initialNumOf = resInitNumOf(resourceNameString);
-                this.res.put(resourceNameString,
-                        ResourceFactory.getResource(resourceNameString,
-                                initialNumOf));
-            } catch (NoResourceMatch noResourceMatch) {
-            	logger.log(Level.SEVERE, noResourceMatch.getMessage());
-            }
+            int initialNumOf = resInitNumOf(resourceNameString);
+            this.res.put(resourceNameString, ResourceFactory.getResource(resourceNameString, initialNumOf));
         }
-
     }
 
     private int resInitNumOf(String resourceNameString) throws NoResourceMatch {

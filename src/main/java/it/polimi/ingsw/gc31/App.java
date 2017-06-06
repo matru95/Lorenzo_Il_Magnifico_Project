@@ -71,7 +71,7 @@ public class App
 
     }
 
-    private static Player askPlayerNameAndColor(int id) {
+    private static Player askPlayerNameAndColor(int id) throws NoResourceMatch {
         int currentPlayer = id + 1;
         String colorName;
         PlayerColor chosenColor;

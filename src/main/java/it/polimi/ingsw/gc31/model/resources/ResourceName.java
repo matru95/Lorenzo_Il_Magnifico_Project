@@ -1,22 +1,22 @@
 package it.polimi.ingsw.gc31.model.resources;
 
 public enum ResourceName {
-    GOLD("Gold"),
-    FAITHPOINTS("Faith Points"),
-    SERVANTS("Servants"),
-    STONE("Stone"),
-    VICTORYPOINTS("Victory Points"),
-    WARPOINTS("War Points"),
-    WOOD("Wood");
+    GOLD("GOLD"),
+    FAITHPOINTS("FAITHPOINTS"),
+    SERVANTS("SERVANTS"),
+    STONE("STONE"),
+    VICTORYPOINTS("VICTORYPOINTS"),
+    WARPOINTS("WARPOINTS"),
+    WOOD("WOOD");
 
-    String resource;
+    String resourceString;
 
-    ResourceName(String resource){
-        this.resource = resource;
+    ResourceName(String resourceString){
+        this.resourceString = resourceString;
     }
 
     @Override
     public String toString() {
-        return resource;
+        return resourceString;
     }
 }

@@ -15,7 +15,7 @@ public class ProductionWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper() {
+    public void execWrapper(Map<String, Resource> playerResources) {
         produce();
         if (!isMultiple) setOccupied(true);
     }

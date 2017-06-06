@@ -3,11 +3,28 @@ package it.polimi.ingsw.gc31.model.resources;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class Resource {
+public class Resource {
 
-    public abstract int getNumOf();
-    public abstract void setNumOf(int numOf);
+    private ResourceName resourceName;
+    private int numOf;
     private final Logger logger = Logger.getLogger(Resource.class.getName());
+
+    public Resource(ResourceName resourceName, int numOf) {
+        this.numOf = numOf;
+        this.resourceName = resourceName;
+    }
+
+    public ResourceName getResourceName() {
+        return resourceName;
+    }
+
+    public int getNumOf() {
+        return numOf;
+    }
+
+    public void setNumOf(int numOf) {
+        this.numOf = numOf;
+    }
 
     public void addNumOf(int value) {
         try {

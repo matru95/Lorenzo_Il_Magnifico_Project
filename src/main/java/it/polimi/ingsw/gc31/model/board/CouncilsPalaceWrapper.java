@@ -17,7 +17,7 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper() {
+    public void execWrapper(Map<String, Resource> playerResources) {
         //TODO
         if(!isPlayerInQueque[getMember().getPlayer().getPlayerOrder()]) {
             getGameBoard().getGameInstance().putPlayerInQueue(this.getMember().getPlayer());

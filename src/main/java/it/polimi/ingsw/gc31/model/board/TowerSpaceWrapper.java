@@ -2,8 +2,8 @@ package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
-import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
 
 import java.util.Map;
 
@@ -12,19 +12,26 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     private final CardColor color;
     private final Tower tower;
     private Card card;
-    private Effect towerBonus;
+    private Resource towerBonus;
 
-    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, CardColor color) {
+    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, CardColor color, Resource res) {
         super(positionID, diceBond, gameBoard);
         this.color = color;
         this.tower = gameBoard.getTowerByColor(this.color);
+        this.towerBonus = ResourceFactory.getResource(res.getResourceName().toString(),res.getNumOf());
         //TODO Randomize a card
     }
 
     @Override
-    public void execWrapper() {
-        //TODO
+    public void execWrapper(Map<String, Resource> playerResources) {
+        //TODO CHECK IF IS POSSIBLE ELSE RETURN MSG TO PLAYER
+        execTowerBonus(playerResources);
+        //TODO EXEC OF CARD
         setOccupied(true);
+    }
+
+    private void execTowerBonus(Map<String, Resource> playerResources) {
+        playerResources.get(towerBonus.getResourceName()).addNumOf(towerBonus.getNumOf());
     }
 
     public boolean isAffordable(Map<String, Resource> playerResources) {
