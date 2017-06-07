@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.FamilyMember;
+import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.Map;
@@ -19,7 +20,7 @@ public class MartWrapper extends SpaceWrapper {
     }
 
     @Override
-    public boolean isAffordable(Map<String, Resource> playerResources) {
+    public boolean isAffordable(Map<String, Resource> playerResources, PlayerColor playerColor) {
         return true;
     }
 

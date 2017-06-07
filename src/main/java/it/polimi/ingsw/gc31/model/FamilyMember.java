@@ -54,13 +54,13 @@ public class FamilyMember {
         List<SpaceWrapper> possibleMovements = new ArrayList<>();
         insertOpenSpaces(possibleMovements);
 
-        int possiblePoints = this.player.getRes().get("Servants").getNumOf();
+        int possiblePoints = this.player.getRes().get("SERVANTS").getNumOf();
 
         List<SpaceWrapper> towerSpaceWrappers = new ArrayList<>();
         insertTowerSpaceWrappers(towerSpaceWrappers);
 
         for(SpaceWrapper towerSpaceWrapper: towerSpaceWrappers) {
-            boolean isAffordable = towerSpaceWrapper.isAffordable(this.player.getRes());
+            boolean isAffordable = towerSpaceWrapper.isAffordable(this.player.getRes(), this.playerColor);
             int spaceDiceBond = towerSpaceWrapper.getDiceBond();
             if(isAffordable && spaceDiceBond <= possiblePoints) {
                 possibleMovements.add(towerSpaceWrapper);
@@ -99,20 +99,22 @@ public class FamilyMember {
 	public DiceColor getColor() {
 		return this.color;
 	}
-	
+
+    public void moveToTower(TowerSpaceWrapper position) {
+        checkAndPayExtraGold(position);
+        moveToPosition(position);
+    }
+
 	public void moveToPosition(SpaceWrapper position) {
 	    int positionDiceBond = position.getDiceBond();
 
 //	    Check if I should pay servants and pay them
 	    checkAndPayServants(positionDiceBond);
 
-
-//      Check if there are other servants and pay the gold
-        checkAndPayExtraGold((TowerSpaceWrapper) position);
-
 		this.currentPosition = position;
 		position.execWrapper(this.player.getRes());
 	}
+
 
 	private void checkAndPayServants(int positionDiceBond) {
         if(positionDiceBond > this.dicePoints) {

@@ -1,10 +1,12 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.FamilyMember;
+import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
+import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.util.Map;
 
@@ -33,10 +35,13 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     private void execTowerBonus(Map<String, Resource> playerResources) {
-        playerResources.get(towerBonus.getResourceName()).addNumOf(towerBonus.getNumOf());
+        ResourceName resourceName = towerBonus.getResourceName();
+        Resource resourceToAddTo = playerResources.get(resourceName.toString());
+        int numberToAdd = towerBonus.getNumOf();
+        resourceToAddTo.addNumOf(numberToAdd);
     }
 
-    public boolean isAffordable(Map<String, Resource> playerResources) {
+    public boolean isAffordable(Map<String, Resource> playerResources, PlayerColor playerColor) {
 
         Map<String, Resource>[] cardResources = this.getCard().getCost();
         boolean[] results = new boolean[cardResources.length];

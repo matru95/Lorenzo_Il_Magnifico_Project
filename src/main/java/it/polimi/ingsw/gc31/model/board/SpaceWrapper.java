@@ -1,9 +1,9 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.FamilyMember;
+import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
-import java.util.List;
 import java.util.Map;
 
 public abstract class SpaceWrapper {
@@ -23,7 +23,7 @@ public abstract class SpaceWrapper {
     public abstract void execWrapper(Map<String, Resource> playerResources);
 
 //  Check whether a player has enough resources to move a familymember here.
-    public abstract boolean isAffordable(Map<String, Resource> playerResources);
+    public abstract boolean isAffordable(Map<String, Resource> playerResources, PlayerColor playerColor);
 
     public abstract void setFamilyMember(FamilyMember familyMember);
 

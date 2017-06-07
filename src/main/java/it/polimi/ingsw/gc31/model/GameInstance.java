@@ -13,7 +13,6 @@ public class GameInstance {
 	private GameBoard gameBoard;
 	private ArrayList<Player> players;
 
-	private int numOfPlayers;
 	private int age;
 	private int turn;
 
@@ -63,9 +62,9 @@ public class GameInstance {
         ArrayList<Integer> generatedNumbers = new ArrayList<>();
         int rnd;
 
-        for(int i = 0; i < this.numOfPlayers; i++) {
+        for(int i = 0; i < this.players.size(); i++) {
             do {
-                rnd = new Random().nextInt(this.numOfPlayers);
+                rnd = new Random().nextInt(this.players.size());
             } while (generatedNumbers.contains(rnd+1));
             generatedNumbers.add(rnd+1);
             this.players.get(i).setPlayerOrder(rnd+1);
@@ -101,7 +100,7 @@ public class GameInstance {
 	}
 
 	public int getNumOfPlayers() {
-		return numOfPlayers;
+		return players.size();
 	}
 
 	public UUID getInstanceID() {
