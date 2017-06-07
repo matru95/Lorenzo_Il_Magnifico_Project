@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.model.board;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
+import java.util.List;
 import java.util.Map;
 
 public abstract class SpaceWrapper {
@@ -10,7 +11,6 @@ public abstract class SpaceWrapper {
     private final int positionID;
     private final int diceBond;
     private boolean isOccupied;
-    private FamilyMember member;
     private GameBoard gameBoard;
 
     public SpaceWrapper(int positionID , int diceBond, GameBoard gameBoard) {
@@ -39,10 +39,6 @@ public abstract class SpaceWrapper {
 
     public int getDiceBond() {
         return diceBond;
-    }
-
-    public FamilyMember getMember() {
-        return member;
     }
 
     public GameBoard getGameBoard() {

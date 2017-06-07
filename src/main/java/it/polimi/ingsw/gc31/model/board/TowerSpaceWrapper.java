@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import it.polimi.ingsw.gc31.model.FamilyMember;
+import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -13,6 +15,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     private final Tower tower;
     private Card card;
     private Resource towerBonus;
+    private FamilyMember familyMember;
 
     TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, CardColor color, Resource res) {
         super(positionID, diceBond, gameBoard);
@@ -85,5 +88,13 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     public Tower getTower() {
         return tower;
+    }
+
+    public void setFamilyMember(FamilyMember familyMember) {
+        this.familyMember = familyMember;
+    }
+
+    public FamilyMember getFamilyMember() {
+        return this.familyMember;
     }
 }

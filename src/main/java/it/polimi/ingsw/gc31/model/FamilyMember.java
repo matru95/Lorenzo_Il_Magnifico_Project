@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.model;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
@@ -76,11 +77,21 @@ public class FamilyMember {
     }
 
     private void insertTowerSpaceWrappers(List<SpaceWrapper> towerSpaceWrappers) {
+	    /*
+	    Insert towerSpaceWrappers from towers that do not already have a family member
+	    of the same color
+	     */
         Map<CardColor, Tower> towers = this.board.getTowers();
 
         for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
-            for(Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry: towerEntry.getValue().getTowerSpace().entrySet()) {
-                towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
+            Tower tower = towerEntry.getValue();
+            boolean hasFamilyMemberColor = tower.hasFamilyMemberSameColor(playerColor);
+
+            if(!hasFamilyMemberColor) {
+
+                for(Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry: towerEntry.getValue().getTowerSpace().entrySet()) {
+                    towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
+                }
             }
         }
     }
@@ -100,7 +111,7 @@ public class FamilyMember {
         checkAndPayExtraGold((TowerSpaceWrapper) position);
 
 		this.currentPosition = position;
-		position.execWrapper();
+		position.execWrapper(this.player.getRes());
 	}
 
 	private void checkAndPayServants(int positionDiceBond) {
