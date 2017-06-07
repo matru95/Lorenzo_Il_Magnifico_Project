@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.FamilyMember;
-import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;

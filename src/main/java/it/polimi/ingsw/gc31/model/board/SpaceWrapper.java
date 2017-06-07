@@ -25,6 +25,8 @@ public abstract class SpaceWrapper {
 //  Check whether a player has enough resources to move a familymember here.
     public abstract boolean isAffordable(Map<String, Resource> playerResources);
 
+    public abstract void setFamilyMember(FamilyMember familyMember);
+
     public boolean isOccupied() {
         return isOccupied;
     }
