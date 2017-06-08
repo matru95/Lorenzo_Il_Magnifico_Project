@@ -14,7 +14,7 @@ public class MartWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(Map<String, Resource> playerResources) {
+    public void execWrapper(FamilyMember familyMember) {
         //TODO
         setOccupied(true);
     }

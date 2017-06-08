@@ -22,12 +22,12 @@ public class ProductionWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(Map<String, Resource> playerResources) {
-        produce();
+    public void execWrapper(FamilyMember familyMember) {
+        produce(familyMember.getDicePoints());
         if (!isMultiple) setOccupied(true);
     }
 
-    private void produce(){
+    private void produce(int dicePoints){
         //TODO
     }
 

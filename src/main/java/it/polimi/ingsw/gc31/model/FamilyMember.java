@@ -112,7 +112,7 @@ public class FamilyMember {
 	    checkAndPayServants(positionDiceBond);
 
 		this.currentPosition = position;
-		position.execWrapper(this.player.getRes());
+		position.execWrapper(this);
 	}
 
 

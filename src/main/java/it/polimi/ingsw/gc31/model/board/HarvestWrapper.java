@@ -20,8 +20,8 @@ public class HarvestWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(Map<String, Resource> playerResources) {
-        harvest();
+    public void execWrapper(FamilyMember familyMember) {
+        harvest(familyMember.getDicePoints());
         if (!isMultiple) setOccupied(true);
     }
 
@@ -48,7 +48,7 @@ public class HarvestWrapper extends SpaceWrapper {
         familyMembers.add(familyMember);
     }
 
-    private void harvest(){
+    private void harvest(int dicePoints){
         //TODO
     }
 
