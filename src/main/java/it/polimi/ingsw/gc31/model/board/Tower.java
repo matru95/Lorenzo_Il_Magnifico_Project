@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -19,26 +20,37 @@ public class Tower {
     private Map<Integer, TowerSpaceWrapper> towerSpaces;
     private CardColor towerColor;
     private boolean isOccupied;
+    private GameBoard gameBoard;
 
-    public Tower(CardColor towerColor, GameBoard gameBoard) {
+    public Tower(CardColor towerColor, GameBoard gameBoard, JsonNode floors) {
         this.towerColor = towerColor;
         this.isOccupied = false;
         this.towerSpaces = new HashMap<>();
+        this.gameBoard = gameBoard;
 
-        int diceValue = 1;
+        initFloors(floors);
+    }
 
-        //TODO specializza risorse towerBonus per torre
-        Resource towerBonus = new Resource(ResourceName.GOLD, 3);
-        
-        for (int floorID = 0; floorID < 4; floorID++) {
-            towerSpaces.put(floorID, new TowerSpaceWrapper(
-                    gameBoard.getPositionIndex(),
-                    diceValue,
-                    gameBoard,
-                    towerColor,
-                    towerBonus));
-            gameBoard.incrementPositionIndex();
-            diceValue+=2;
+    private void initFloors(JsonNode floors) {
+        int floorID = 0;
+        Resource res = null;
+        int positionIndex = gameBoard.getPositionIndex();
+
+        for(JsonNode floor: floors) {
+            int diceBond = floor.path("diceBond").asInt();
+
+            if(floor.has("bonus")) {
+                String bonusName = floor.path("bonus").fieldNames().next().toString();
+                int amount = floor.path("bonus").path(bonusName).asInt();
+
+                res = new Resource(ResourceName.valueOf(bonusName), amount);
+            }
+
+
+            TowerSpaceWrapper newFloor = new TowerSpaceWrapper(positionIndex, diceBond, gameBoard, towerColor, res);
+            towerSpaces.put(floorID, newFloor);
+
+            floorID++;
         }
     }
 

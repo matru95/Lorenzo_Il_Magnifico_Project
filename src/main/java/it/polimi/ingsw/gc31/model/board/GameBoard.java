@@ -6,6 +6,7 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.model.DiceColor;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.parser.GameBoardParser;
 
 public class GameBoard {
 
@@ -13,24 +14,24 @@ public class GameBoard {
     private Map<DiceColor, Dice> dices;
     private Map<String, SpaceWrapper> boardSpaces;
     private GameInstance gameInstance;
+    private GameBoardParser parser;
     private int positionIndex;
 
     public GameBoard(GameInstance gameInstance) {
 
         this.gameInstance = gameInstance;
         this.dices = new HashMap<>();
-        this.towers = new HashMap<>();
         this.boardSpaces = new HashMap<>();
+        this.parser = new GameBoardParser("src/config/Settings.json", this);
 
         //Initialize dice
         createDice();
 
         setPositionIndex(1);
 
-        // Initialize Tower on GameBoard
-        for (CardColor color: CardColor.values()) {
-            towers.put(color,new Tower(color, this));
-        }
+        // Initialize Towers on GameBoard
+        this.towers = this.parser.parseTowers();
+
 
         //Initialize CouncilsPalace
         boardSpaces.put("COUNCILS PALACE", new CouncilsPalaceWrapper(positionIndex,1, this));

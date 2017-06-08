@@ -1,0 +1,143 @@
+{
+  "waitTime": 20,
+  "gameBoard": {
+    "towers": {
+      "green": [
+        {
+          "diceBond": 1,
+        },
+        {
+          "diceBond": 3
+        },
+        {
+          "diceBond": 5,
+          "bonus": {
+            "wood": 1
+          }
+        },
+        {
+          "diceBond": 7,
+          "bonus": {
+            "wood": 2
+          }
+        }
+      ],
+      "blue": [
+        {
+          "diceBond": 1
+        },
+        {
+          "diceBond": 3
+        },
+        {
+          "diceBond": 5,
+          "bonus": {
+            "stone": 1
+          }
+        },
+        {
+          "diceBond": 7,
+          "bonus": {
+            "stone": 2
+          }
+        }
+      ],
+      "yellow": [
+        {
+          "diceBond": 1
+        },
+        {
+          "diceBond": 3
+        },
+        {
+          "diceBond": 5,
+          "bonus": {
+            "warPoints": 1
+          }
+        },
+        {
+          "diceBond": 7,
+          "bonus": {
+            "warPoints": 2
+          }
+        }
+      ],
+      "purple": [
+        {
+          "diceBond": 1,
+        },
+        {
+          "diceBond": 3
+        },
+        {
+          "diceBond": 5,
+          "bonus": {
+            "gold": 1
+          }
+        },
+        {
+          "diceBond": 7,
+          "bonus": {
+            "gold": 2
+          }
+        }
+      ]
+    },
+    "productionZone": {
+      "single": {
+        "diceBond": 1
+      },
+      "multiple": {
+        "diceBond": 1,
+        "malus": 3,
+        "playerNumberRestriction": 2
+      }
+    },
+    "harvestZone": {
+      "single": {
+        "diceBond": 1
+      },
+      "multiple": {
+        "diceBond": 1,
+        "malus": 3,
+        "playerNumberRestriction": 2
+      }
+    },
+    "martZone": [
+      {
+        "diceBond": 1,
+        "bonus": {
+          "gold": 5
+        }
+      },
+      {
+        "diceBond": 1,
+        "bonus": {
+          "servants": 5
+        }
+      },
+      {
+        "diceBond": 1,
+        "bonus": {
+          "warPoints": 3,
+          "gold": 2
+        },
+        "playerNumberRestriction": 3
+      },
+      {
+        "diceBond": 1,
+        "bonus": {
+          "parchment": 2,
+        },
+        "playerNumberRestriction": 3
+      }
+    ],
+    "councilPalace": {
+      "diceBond": 1,
+      "bonus": {
+        "gold": 1,
+        "parchment": 1
+      }
+    }
+  }
+}
