@@ -12,10 +12,12 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
 
     private boolean[] isPlayerInQueue;
     private List<FamilyMember> familyMembers;
+    private Resource res;
 
-    CouncilsPalaceWrapper(int positionID, int diceBond, GameBoard gameBoard) {
+    public CouncilsPalaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Resource res) {
         super(positionID, diceBond, gameBoard);
         this.familyMembers = new ArrayList<>();
+        this.res = res;
 
         isPlayerInQueue = new boolean[gameBoard.getGameInstance().getNumOfPlayers()];
         for (int i = 0; i < gameBoard.getGameInstance().getNumOfPlayers(); i++) {

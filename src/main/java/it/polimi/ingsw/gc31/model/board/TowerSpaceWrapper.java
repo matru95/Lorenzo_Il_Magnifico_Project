@@ -15,14 +15,14 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     private final CardColor color;
     private final Tower tower;
     private Card card;
-    private Resource towerBonus;
+    private Resource res;
     private FamilyMember familyMember;
 
-    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, CardColor color, Resource res) {
+    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Tower tower, Resource res) {
         super(positionID, diceBond, gameBoard);
-        this.color = color;
-        this.tower = gameBoard.getTowerByColor(this.color);
-        this.towerBonus = ResourceFactory.getResource(res.getResourceName().toString(),res.getNumOf());
+        this.color = tower.getTowerColor();
+        this.tower = tower;
+        this.res = res;
         //TODO Randomize a card
     }
 
@@ -35,9 +35,13 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     private void execTowerBonus(Map<String, Resource> playerResources) {
-        ResourceName resourceName = towerBonus.getResourceName();
+        if(res == null) {
+            return;
+        }
+
+        ResourceName resourceName = res.getResourceName();
         Resource resourceToAddTo = playerResources.get(resourceName.toString());
-        int numberToAdd = towerBonus.getNumOf();
+        int numberToAdd = res.getNumOf();
         resourceToAddTo.addNumOf(numberToAdd);
     }
 

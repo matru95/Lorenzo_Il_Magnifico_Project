@@ -43,11 +43,11 @@ public class Tower {
                 String bonusName = floor.path("bonus").fieldNames().next().toString();
                 int amount = floor.path("bonus").path(bonusName).asInt();
 
-                res = new Resource(ResourceName.valueOf(bonusName), amount);
+                res = new Resource(ResourceName.valueOf(bonusName.toUpperCase()), amount);
             }
 
 
-            TowerSpaceWrapper newFloor = new TowerSpaceWrapper(positionIndex, diceBond, gameBoard, towerColor, res);
+            TowerSpaceWrapper newFloor = new TowerSpaceWrapper(positionIndex, diceBond, gameBoard, this, res);
             towerSpaces.put(floorID, newFloor);
 
             floorID++;

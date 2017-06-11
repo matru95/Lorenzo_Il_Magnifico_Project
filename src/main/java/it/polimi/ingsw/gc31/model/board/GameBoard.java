@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
@@ -34,16 +35,18 @@ public class GameBoard {
 
 
         //Initialize CouncilsPalace
-        boardSpaces.put("COUNCILS PALACE", new CouncilsPalaceWrapper(positionIndex,1, this));
+        boardSpaces.put("COUNCILS PALACE", parser.parseCouncilsPalace());
         incrementPositionIndex();
 
         //TODO Condizione  2-4 giocatori
 
         //Initialize Mart
-//        TODO implement blocking if less than four players
-        for (int i = 1; i < 5; i++) {
-        boardSpaces.put("MART #" + i, new MartWrapper(positionIndex,1, this));
-        incrementPositionIndex();
+        List<MartWrapper> marketZones = parser.parseMart();
+        int index = 1;
+
+        for(MartWrapper myMartWrapper : marketZones) {
+            boardSpaces.put("MART #" + index, myMartWrapper);
+            index++;
         }
 
         //Initialize Harvest & Production

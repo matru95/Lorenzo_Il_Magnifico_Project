@@ -4,7 +4,7 @@
     "towers": {
       "green": [
         {
-          "diceBond": 1,
+          "diceBond": 1
         },
         {
           "diceBond": 3
@@ -64,7 +64,7 @@
       ],
       "purple": [
         {
-          "diceBond": 1,
+          "diceBond": 1
         },
         {
           "diceBond": 3
@@ -89,7 +89,7 @@
         "diceBond": 1
       },
       "multiple": {
-        "positionId": 2,
+        "positionID": 2,
         "diceBond": 1,
         "malus": 3,
         "playerNumberRestriction": 2
@@ -97,9 +97,11 @@
     },
     "harvestZone": {
       "single": {
+        "positionID": 3,
         "diceBond": 1
       },
       "multiple": {
+        "positionID": 4,
         "diceBond": 1,
         "malus": 3,
         "playerNumberRestriction": 2
@@ -107,18 +109,21 @@
     },
     "martZone": [
       {
+        "positionID": 4,
         "diceBond": 1,
         "bonus": {
           "gold": 5
         }
       },
       {
+        "positionID": 5,
         "diceBond": 1,
         "bonus": {
           "servants": 5
         }
       },
       {
+        "positionID": 6,
         "diceBond": 1,
         "bonus": {
           "warPoints": 3,
@@ -127,14 +132,16 @@
         "playerNumberRestriction": 3
       },
       {
+        "positionID": 7,
         "diceBond": 1,
         "bonus": {
-          "parchment": 2,
+          "parchment": 2
         },
         "playerNumberRestriction": 3
       }
     ],
-    "councilPalace": {
+    "councilsPalace": {
+      "positionID": 8,
       "diceBond": 1,
       "bonus": {
         "gold": 1,
