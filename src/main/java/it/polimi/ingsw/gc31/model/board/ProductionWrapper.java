@@ -13,8 +13,9 @@ public class ProductionWrapper extends SpaceWrapper {
     private boolean isFirstPlayer;
     private boolean isMultiple;
     private List<FamilyMember> familyMembers;
+    private int malus;
 
-    ProductionWrapper(int positionID, int diceBond, boolean isMultiple, GameBoard gameBoard) {
+    public ProductionWrapper(int positionID, int diceBond, boolean isMultiple, GameBoard gameBoard) {
         super(positionID, diceBond, gameBoard);
         this.isMultiple = isMultiple;
         familyMembers = new ArrayList<>();
@@ -68,6 +69,14 @@ public class ProductionWrapper extends SpaceWrapper {
 
     public void setFirstPlayer(boolean firstPlayer) {
         isFirstPlayer = firstPlayer;
+    }
+
+    public void setMalus(int malus) {
+        this.malus = malus;
+    }
+
+    public int getMalus() {
+        return this.malus;
     }
 
     public boolean isMultiple() {

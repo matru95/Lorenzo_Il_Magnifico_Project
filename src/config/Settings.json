@@ -85,9 +85,11 @@
     },
     "productionZone": {
       "single": {
+        "positionID": 1,
         "diceBond": 1
       },
       "multiple": {
+        "positionId": 2,
         "diceBond": 1,
         "malus": 3,
         "playerNumberRestriction": 2

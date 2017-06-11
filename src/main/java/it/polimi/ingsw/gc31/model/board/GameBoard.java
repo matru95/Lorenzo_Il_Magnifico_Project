@@ -76,15 +76,17 @@ public class GameBoard {
     }
 
     private void initSpacesThreePlayers() {
-        boardSpaces.put("PRODUCTION", new ProductionWrapper(positionIndex, 3,true, this));
-        incrementPositionIndex();
-        boardSpaces.put("HARVEST", new HarvestWrapper(positionIndex, 3,true, this));
+        boolean isMultiple = true;
+
+        boardSpaces.put("PRODUCTION", parser.parseProductionZone(isMultiple));
+        boardSpaces.put("HARVEST", parser.parseHarvestZone(isMultiple));
     }
 
     private void initSpacesTwoPlayers() {
-        boardSpaces.put("PRODUCTION", new ProductionWrapper(positionIndex, 1, false, this));
-        incrementPositionIndex();
-        boardSpaces.put("HARVEST", new HarvestWrapper(positionIndex, 1, false, this));
+        boolean isMultiple = false;
+
+        boardSpaces.put("PRODUCTION", parser.parseProductionZone(isMultiple));
+        boardSpaces.put("HARVEST", parser.parseHarvestZone(isMultiple));
     }
 
     public Map<DiceColor, Dice> getDices() {

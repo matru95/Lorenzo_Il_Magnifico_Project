@@ -3,6 +3,8 @@ package it.polimi.ingsw.gc31.model.parser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
+import it.polimi.ingsw.gc31.model.board.HarvestWrapper;
+import it.polimi.ingsw.gc31.model.board.ProductionWrapper;
 import it.polimi.ingsw.gc31.model.board.Tower;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
@@ -49,5 +51,51 @@ public class GameBoardParser {
         }
 
         return towers;
+    }
+
+    public ProductionWrapper parseProductionZone(boolean isMultiple) {
+        JsonNode productionZoneJson = rootNode.path("productionZone");
+
+        JsonNode singleProductionZoneJson = productionZoneJson.path("single");
+        JsonNode multipleProductionZoneJson = productionZoneJson.path("multiple");
+
+        if(!isMultiple) {
+            int positionID = singleProductionZoneJson.path("positionID").asInt();
+            int diceBond = singleProductionZoneJson.path("diceBond").asInt();
+
+            return new ProductionWrapper(positionID, diceBond, isMultiple, this.gameBoard);
+        } else {
+            int positionID = multipleProductionZoneJson.path("positionID").asInt();
+            int diceBond = multipleProductionZoneJson.path("diceBond").asInt();
+            int malus = multipleProductionZoneJson.path("malus").asInt();
+
+            ProductionWrapper multipleProductionWrapper = new ProductionWrapper(positionID, diceBond, isMultiple, this.gameBoard);
+            multipleProductionWrapper.setMalus(malus);
+
+            return multipleProductionWrapper;
+        }
+    }
+
+    public HarvestWrapper parseHarvestZone(boolean isMultiple) {
+        JsonNode harvestZoneJson = rootNode.path("harvestZone");
+
+        JsonNode singleHarvestZone = harvestZoneJson.path("single");
+        JsonNode multipleHarvestZone = harvestZoneJson.path("multiple");
+
+        if(!isMultiple) {
+            int positionID = singleHarvestZone.path("positionID").asInt();
+            int diceBond = singleHarvestZone.path("diceBond").asInt();
+
+            return new HarvestWrapper(positionID, diceBond, isMultiple, this.gameBoard);
+        } else {
+            int positionID = multipleHarvestZone.path("positionID").asInt();
+            int diceBond = multipleHarvestZone.path("diceBond").asInt();
+            int malus = multipleHarvestZone.path("malus").asInt();
+
+            HarvestWrapper multipleHarvestWrapper = new HarvestWrapper(positionID, diceBond, isMultiple, this.gameBoard);
+            multipleHarvestWrapper.setMalus(malus);
+
+            return multipleHarvestWrapper;
+        }
     }
 }

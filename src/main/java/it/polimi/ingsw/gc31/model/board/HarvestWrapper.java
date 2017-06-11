@@ -12,8 +12,9 @@ public class HarvestWrapper extends SpaceWrapper {
     private List<FamilyMember> familyMembers;
     private boolean isFirstPlayer;
     private boolean isMultiple;
+    private int malus;
 
-    HarvestWrapper(int positionID, int diceBond, boolean isMultiple, GameBoard gameBoard) {
+    public HarvestWrapper(int positionID, int diceBond, boolean isMultiple, GameBoard gameBoard) {
         super(positionID, diceBond, gameBoard);
         this.familyMembers = new ArrayList<>();
         this.isMultiple = isMultiple;
@@ -50,6 +51,14 @@ public class HarvestWrapper extends SpaceWrapper {
 
     private void harvest(int dicePoints){
         //TODO
+    }
+
+    public void setMalus(int malus) {
+        this.malus = malus;
+    }
+
+    public int getMalus() {
+        return this.malus;
     }
 
     public boolean isFirstPlayer() {
