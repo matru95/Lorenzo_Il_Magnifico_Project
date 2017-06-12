@@ -115,6 +115,7 @@ public class GameBoardParser {
                     ResourceName bonusName = ResourceName.valueOf(bonus.fields().next().getKey().toUpperCase());
                     int amount = bonus.fields().next().getValue().asInt();
                     resources.add(new Resource(bonusName, amount));
+                    bonus = bonus.fields().next().getValue();
                 }
 
                 MartWrapper myMartWrapper = new MartWrapper(positionID, diceBond, this.gameBoard, resources);

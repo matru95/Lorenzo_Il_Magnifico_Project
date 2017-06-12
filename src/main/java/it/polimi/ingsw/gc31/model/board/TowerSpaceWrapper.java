@@ -8,6 +8,7 @@ import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
+import java.util.List;
 import java.util.Map;
 
 public class TowerSpaceWrapper extends SpaceWrapper {
@@ -47,33 +48,40 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     public boolean isAffordable(Map<String, Resource> playerResources, PlayerColor playerColor) {
 
-        Map<String, Resource>[] cardResources = this.getCard().getCost();
-        boolean[] results = new boolean[cardResources.length];
+        List<Map<ResourceName, Resource>> cardResources = this.getCard().getCost();
+        boolean[] results = new boolean[cardResources.size()];
 
-        for(int i=0; i<cardResources.length; i++) {
+        int index = 0;
+
+        for(Map<ResourceName, Resource> cardResource: cardResources) {
             for(Map.Entry<String, Resource> playerResource: playerResources.entrySet()) {
                 int playerResourceValue = playerResource.getValue().getNumOf();
-                int cardResourceValue = cardResources[i].get(playerResource.getKey()).getNumOf();
+                String resourceNameString = playerResource.getKey().toUpperCase();
+                int cardResourceValue = cardResource.get(ResourceName.valueOf(resourceNameString)).getNumOf();
 
                 if(playerResourceValue < cardResourceValue) {
-                    results[i] = false;
+                    results[index] = false;
                 }
 
             }
-            results[i] = true;
+            results[index] = true;
+            index++;
         }
+
+        index = 0;
 
 //      Check if family member has enough gold to occupy a occupied tower
         if(this.tower.isOccupied()) {
             int playerGold = playerResources.get("Gold").getNumOf();
 
-            for(int i=0; i<cardResources.length; i++) {
-                int possibleCost = cardResources[1].get("Gold").getNumOf()+3;
+            for(Map<ResourceName, Resource> cardResource: cardResources) {
+                int possibleCost = cardResource.get(ResourceName.GOLD).getNumOf()+3;
 
                 if(playerGold < possibleCost) {
-                    results[i] = false;
+                    results[index] = false;
                 }
             }
+            index++;
         }
 
 //      If at least one of the costs is less than player resources, return true

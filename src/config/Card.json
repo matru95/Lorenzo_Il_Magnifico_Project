@@ -1,100 +1,472 @@
 {
-    "id": 1,
-    "cardage": 1,
-    "title": "Ciao",
-    "cardcolor": "yellow",
-    "activationvalue": 2,
-    "cost": [
-      {
-        "gold": 0,
-        "stone": 1,
-        "wood": 2,
-        "servants": 3,
-        "warpointsneed": 4,
-        "warpointspay": 5
+  "cards": [
+    {
+      "id": 1,
+      "cardAge": 1,
+      "title": "Commercial Hub",
+      "cardColor": "green",
+      "activationValue": 2,
+      "cost": [],
+      "instantEffect": {
       },
-      {
-        "gold": 1,
-        "stone": 2,
-        "wood": 3,
-        "servants": 4,
-        "warpointsneed": 5,
-        "warpointspay": 6
+      "normalEffect": {
+        "bonus": {
+          "gold": 1
+        }
       }
-    ],
-    "instanteffect": {
-      "addresource":
-      {
-        "stone": 3,
-        "gold": 1,
-        "wood": 0,
-        "victorypoints": 3,
-        "warpoints": 2,
-        "servants": 4,
-        "faithpoints": 1
-      },
-      "parchment": "",
-      "cardchoice": [
-        {
-          "dicevalue": "",
-          "lessgoldforcard": "",
-          "lessstoneforcard": "",
-          "lesswoodforcard": ""
-        }
-      ],
-      "resourceperitem": [
-        {
-          "Resource": "Gold",
-          "multiplier": "1",
-          "Item": ""
-        },
-        {
-          "Resource": "null",
-          "multiplier": "null",
-          "Item": "null"
-        }
-      ]
     },
-    "normaleffect":{
-      "Stone": "",
-      "Gold": "",
-      "VictoryPoints": "",
-      "WarPoints": "",
-      "Servants": "",
-      "FaithPoints": "",
-      "Wood": "",
-      "Parchment": "",
-      "finalVictoryPoint": "",
-      "HarvestValue": "",
-      "ProductionValue": "",
-      "plusHarvestValue": "",
-      "plusProductionValue": "",
-      "plusCardDice": [
-        {
-          "CardColor": "",
-          "plusDice": ""
+    {
+      "id": 2,
+      "cardAge": 1,
+      "title": "Woods",
+      "cardColor": "green",
+      "activationValue": 2,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "wood": 1
         }
-      ],
-      "noMoreIE": {
-        "Tower": [
-          {
-            "3Floor": true,
-            "4Floor": true
-          }
-        ]
       },
-      "ResourceperResource": [
-        {
-          "Resource1": "",
-          "Ratio": "",
-          "Resource2": ""
-        },
-        {
-          "Resource1": "null",
-          "Ratio": "",
-          "Resource2": "Stone|CardColor"
+      "normalEffect": {
+        "bonus": {
+          "wood": 1
         }
-      ]
+      }
+    },
+    {
+      "id": 3,
+      "cardAge": 1,
+      "title": "Village",
+      "cardColor": "green",
+      "activationValue": 3,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 1,
+          "servants": 1
+        }
+      }
+    },
+    {
+      "id": 4,
+      "cardAge": 1,
+      "title": "Gravel Pit",
+      "cardColor": "green",
+      "activationValue": 4,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "stone": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "stone": 2
+        }
+      }
+    },
+    {
+      "id": 5,
+      "cardAge": 1,
+      "title": "Forest",
+      "cardColor": "green",
+      "activationValue": 5,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "wood": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "wood": 3
+        }
+      }
+    },
+    {
+      "id": 6,
+      "cardAge": 1,
+      "title": "Monastery",
+      "cardColor": "green",
+      "activationValue": 6,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "servants": 1,
+          "warpoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "faithpoints": 1,
+          "stone": 1
+        }
+      }
+    },
+    {
+      "id": 7,
+      "cardAge": 1,
+      "title": "Citadel",
+      "cardColor": "green",
+      "activationValue": 5,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victorypoints": 2,
+          "stone": 1
+        }
+      }
+    },
+    {
+      "id": 8,
+      "cardAge": 1,
+      "title": "City",
+      "cardColor": "green",
+      "activationValue": 6,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "parchment": 1
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 10,
+      "cardAge": 2,
+      "title": "Mountain Town",
+      "cardColor": "green",
+      "activationValue": 3,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "servants": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "warpoints": 1,
+          "wood": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+{
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 1,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
     }
-  }
-
+  ]
+}
