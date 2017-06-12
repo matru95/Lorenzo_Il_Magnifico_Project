@@ -73,8 +73,14 @@ public class CardParser {
         JsonNode normalEffectResourcesNode = cardJSON.path("normalEffect").path("bonus");
         List<Resource> normalEffectResources = initEffectResources(normalEffectResourcesNode);
 
+        int numOfInstantParchment = getNumOfParchment(cardJSON.path("instantEffect"));
+        int numOfNormalParchment = getNumOfParchment(cardJSON.path("normalEffect"));
+
         card.setInstantEffectResources(instantEffectResources);
         card.setNormalEffectResources(normalEffectResources);
+
+        card.setNumOfInstantParchment(numOfInstantParchment);
+        card.setNumOfNormalParchment(numOfNormalParchment);
     }
 
     private List<Resource> initEffectResources(JsonNode effectResourceNode) {
@@ -89,6 +95,14 @@ public class CardParser {
         }
 
         return effectResources;
+    }
+
+    private int getNumOfParchment(JsonNode effect) {
+        if(effect.has("parchment")) {
+            return effect.path("parchment").asInt();
+        }
+
+        return 0;
     }
 
     private void parsePurpleCard(JsonNode cardJSON, Card card) {

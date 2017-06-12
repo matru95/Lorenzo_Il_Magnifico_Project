@@ -19,6 +19,8 @@ public class Card {
     private List<Resource> normalEffectResources;
     private List<Resource> instantEffectResources;
     private int activationValue;
+    private int numOfInstantParchment;
+    private int numOfNormalParchment;
 
     public Card(CardColor cardColor, String cardName, int cardID, int cardAge) {
         this.cost = new ArrayList<>();
@@ -73,7 +75,19 @@ public class Card {
         return this.cost;
     }
 
+    public void setNumOfInstantParchment(int numOfInstantParchment) {
+        this.numOfInstantParchment = numOfInstantParchment;
+    }
+
+    public void setNumOfNormalParchment(int numOfNormalParchment) {
+        this.numOfNormalParchment = numOfNormalParchment;
+    }
+
     public void setNormalEffectResources(List<Resource> normalEffectResources) {
         this.normalEffectResources = normalEffectResources;
+    }
+
+    public int getNumOfInstantParchment() {
+        return this.numOfInstantParchment;
     }
 }

@@ -145,7 +145,7 @@
     },
     {
       "id": 9,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Gold Mine",
       "cardColor": "green",
       "activationValue": 1,
@@ -181,290 +181,272 @@
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 11,
+      "cardAge": 2,
+      "title": "Mining Town",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 4,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "servants": 2,
+          "stone": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "servants": 1,
+          "stone": 2
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 12,
+      "cardAge": 2,
+      "title": "Rock Pit",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 3,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "wood": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "stone": 3
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 13,
+      "cardAge": 2,
+      "title": "Estate",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 4,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "servants": 2,
+          "wood": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "gold": 1,
+          "wood": 2
         }
       }
     },
 {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 14,
+      "cardAge": 2,
+      "title": "Hermitage",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 2,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "faithPoints": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "faithPoints": 1
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 15,
+      "cardAge": 2,
+      "title": "Manor House",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 5,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "warPoints": 2,
+          "servants": 2
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 16,
+      "cardAge": 2,
+      "title": "Dukedom",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 4,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "gold": 4
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "gold": 1,
+          "wood": 2,
+          "stone": 1
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 17,
+      "cardAge": 3,
+      "title": "Trading Town",
       "cardColor": "green",
       "activationValue": 1,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "gold": 1,
+          "servants": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "gold": 3
         }
       }
     },
     {
-      "id": 9,
+      "id": 18,
       "cardAge": 1,
-      "title": "Gold Mine",
+      "title": "Farm",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 3,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "victoryPoints": 1,
+          "wood": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "victoryPoints": 2,
+          "wood": 2
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 19,
+      "cardAge": 3,
+      "title": "Colony",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 5,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "warPoints": 2
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "victoryPoints": 4,
+          "wood": 1
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 20,
+      "cardAge": 3,
+      "title": "Marble Pit",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 2,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "victoryPoints": 3
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "victoryPoints": 1,
+          "stone": 2
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 21,
+      "cardAge": 3,
+      "title": "Province",
       "cardColor": "green",
       "activationValue": 1,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
-        }
+          "stone": 1
+        },
+        "parchment": 1
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "victoryPoints": 4,
+          "stone": 1
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 22,
+      "cardAge": 3,
+      "title": "Sanctuary",
       "cardColor": "green",
       "activationValue": 1,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "faithPoints": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "gold": 1,
+          "faithPoints": 1
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 23,
+      "cardAge": 3,
+      "title": "Castle",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 4,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "victoryPoints": 2,
+          "gold": 2
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
+          "warPoints": 3,
+          "servants": 1
         }
       }
     },
     {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
+      "id": 24,
+      "cardAge": 3,
+      "title": "Fortified Town",
       "cardColor": "green",
-      "activationValue": 1,
+      "activationValue": 2,
       "cost": [],
       "instantEffect": {
         "bonus": {
-          "gold": 1
+          "warPoints": 2,
+          "servants": 1
         }
       },
       "normalEffect": {
         "bonus": {
-          "gold": 2
-        }
-      }
-    },
-    {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
-      "cardColor": "green",
-      "activationValue": 1,
-      "cost": [],
-      "instantEffect": {
-        "bonus": {
-          "gold": 1
-        }
-      },
-      "normalEffect": {
-        "bonus": {
-          "gold": 2
-        }
-      }
-    },
-    {
-      "id": 9,
-      "cardAge": 1,
-      "title": "Gold Mine",
-      "cardColor": "green",
-      "activationValue": 1,
-      "cost": [],
-      "instantEffect": {
-        "bonus": {
-          "gold": 1
-        }
-      },
-      "normalEffect": {
-        "bonus": {
-          "gold": 2
+          "warPoints": 1,
+          "servants": 2
         }
       }
     }
