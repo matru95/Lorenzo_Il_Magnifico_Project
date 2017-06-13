@@ -97,6 +97,10 @@ public class CardParser {
         return effectResources;
     }
 
+    private void parseYellowCard(JsonNode cardJSON, Card card) {
+        return;
+    }
+
     private int getNumOfParchment(JsonNode effect) {
         if(effect.has("parchment")) {
             return effect.path("parchment").asInt();
@@ -113,9 +117,6 @@ public class CardParser {
         return;
     }
 
-    private void parseYellowCard(JsonNode cardJSON, Card card) {
-        return;
-    }
 
 
     public List<Card> getCards() {

@@ -449,6 +449,126 @@
           "servants": 2
         }
       }
+    },
+    {
+      "id": 25,
+      "cardAge": 1,
+      "title": "Mint",
+      "cardColor": "yellow",
+      "activationValue": 5,
+      "cost": [
+        {
+          "wood": 1,
+          "stone": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": {
+          "receive": {
+            "gold": 1
+          },
+          "for": {
+            "color": "yellow"
+          }
+        }
+      }
+    },
+    {
+      "id": 26,
+      "cardAge": 1,
+      "title": "Tax Office",
+      "cardColor": "yellow",
+      "activationValue": 5,
+      "cost": [
+        {
+          "wood": 3,
+          "stone": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": {
+          "receive": {
+            "gold": 1
+          },
+          "for": {
+            "color": "green"
+          }
+        }
+      }
+    },
+    {
+      "id": 27,
+      "cardAge": 1,
+      "title": "Triumphal Arch",
+      "cardColor": "yellow",
+      "activationValue": 6,
+      "cost": [
+        {
+          "gold": 2,
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": {
+          "receive": {
+            "victoryPoints": 1
+          },
+          "for": {
+            "color": "purple"
+          }
+        }
+      }
+    },
+    {
+      "id": 28,
+      "cardAge": 1,
+      "title": "Theater",
+      "cardColor": "yellow",
+      "activationValue": 6,
+      "cost": [
+        {
+          "gold": 2,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": {
+          "receive": {
+            "victoryPoints": 1
+          },
+          "for": {
+            "color": "blue"
+          }
+        }
+      }
     }
   ]
 }
