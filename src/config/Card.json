@@ -470,7 +470,7 @@
       "normalEffect": {
         "bonus": {
         },
-        "exchange": {
+        "multiplier": {
           "receive": {
             "gold": 1
           },
@@ -500,7 +500,7 @@
       "normalEffect": {
         "bonus": {
         },
-        "exchange": {
+        "multiplier": {
           "receive": {
             "gold": 1
           },
@@ -530,7 +530,7 @@
       "normalEffect": {
         "bonus": {
         },
-        "exchange": {
+        "multiplier": {
           "receive": {
             "victoryPoints": 1
           },
@@ -560,7 +560,7 @@
       "normalEffect": {
         "bonus": {
         },
-        "exchange": {
+        "multiplier": {
           "receive": {
             "victoryPoints": 1
           },
@@ -568,6 +568,46 @@
             "color": "blue"
           }
         }
+      }
+    },
+    {
+      "id": 29,
+      "cardAge": 1,
+      "title": "Carpenter's Shop",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "gold": 1,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "gold": 3
+            }
+          },
+          {
+            "give": {
+              "wood": 2
+            },
+            "receive": {
+              "gold": 5
+            }
+          }
+        ]
       }
     }
   ]

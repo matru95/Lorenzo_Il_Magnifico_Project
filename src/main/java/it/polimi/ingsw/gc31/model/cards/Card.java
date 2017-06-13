@@ -21,6 +21,8 @@ public class Card {
     private int activationValue;
     private int numOfInstantParchment;
     private int numOfNormalParchment;
+    private Map<String, Object> multiplier;
+    private List<Exchange> exchanges;
 
     public Card(CardColor cardColor, String cardName, int cardID, int cardAge) {
         this.cost = new ArrayList<>();
@@ -31,16 +33,19 @@ public class Card {
         this.cardID = cardID;
         this.cardAge = cardAge;
         this.isOnDeck = true;
+        this.activationValue = 0;
+        this.numOfNormalParchment = 0;
+        this.numOfInstantParchment = 0;
+        this.multiplier = new HashMap<>();
+        this.exchanges = new ArrayList<>();
     }
 
     public void setActivationValue(int activationValue) {
         this.activationValue = activationValue;
     }
 
-    public void setCost(Resource cost){
-        Map<ResourceName, Resource> resourceToAdd = new HashMap<>();
-        resourceToAdd.put(cost.getResourceName(), cost);
-        this.cost.add(resourceToAdd);
+    public void setCost(List<Map<ResourceName, Resource>> cost){
+        this.cost = cost;
     }
 
     public void setInstantEffectResources(List<Resource> instantEffect) {
@@ -89,5 +94,21 @@ public class Card {
 
     public int getNumOfInstantParchment() {
         return this.numOfInstantParchment;
+    }
+
+    public void insertExchange(Exchange exchange) {
+        this.exchanges.add(exchange);
+    }
+
+    public void setMultiplier(Map<String, Object> multiplier) {
+        this.multiplier = multiplier;
+    }
+
+    public Map<String, Object> getMultiplier() {
+        return multiplier;
+    }
+
+    public List<Exchange> getExchanges() {
+        return exchanges;
     }
 }

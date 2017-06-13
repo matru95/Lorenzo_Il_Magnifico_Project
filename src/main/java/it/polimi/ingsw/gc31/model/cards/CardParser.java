@@ -8,8 +8,8 @@ import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,14 +72,98 @@ public class CardParser {
     }
 
     private void parseYellowCard(JsonNode cardJSON, Card card) {
+//      Cost
+        JsonNode costsNode = cardJSON.path("cost");
+        parseCost(costsNode, card);
+
+
         int activationValue = cardJSON.path("activationValue").asInt();
         card.setActivationValue(activationValue);
 
         this.setEffectResources(cardJSON, card);
         this.setParchments(cardJSON, card);
 
-//      Normal effect with exchange
         JsonNode normalEffectNode = cardJSON.path("normalEffect");
+
+//      Normal effect with multiplier
+        if(normalEffectNode.has("multiplier")) {
+            Map<String, Object> multiplier = new HashMap<>();
+
+            parseMultiplier(normalEffectNode, multiplier);
+            card.setMultiplier(multiplier);
+        }
+
+//      Normal effect with exchange
+        if (normalEffectNode.has("exchange")) {
+            JsonNode exchangeNodes = normalEffectNode.path("exchange");
+
+            for(JsonNode singleExchangeNode: exchangeNodes) {
+                Exchange myExchange = new Exchange();
+
+//              Parse the give part
+                JsonNode giveNode = singleExchangeNode.path("give");
+                myExchange.setResourcesToGive(parseExchangeResources(giveNode));
+
+//              Parse the receive part
+                JsonNode receiveNode = singleExchangeNode.path("receive");
+                myExchange.setResourcesToReceive(parseExchangeResources(receiveNode));
+
+                card.insertExchange(myExchange);
+            }
+        }
+
+    }
+
+
+    private List<Resource> parseExchangeResources(JsonNode node) {
+        List<Resource> exchangeResources = new ArrayList<>();
+
+        node.fields().forEachRemaining(currentResource -> {
+            String resourceNameString = currentResource.getKey();
+            ResourceName resourceName = ResourceName.valueOf(resourceNameString.toUpperCase());
+            int amount = currentResource.getValue().asInt();
+
+            exchangeResources.add(new Resource(resourceName, amount));
+        });
+
+        return exchangeResources;
+    }
+
+    private void parseCost(JsonNode costsNode, Card card) {
+        List<Map<ResourceName, Resource>> cost = new ArrayList<>();
+
+        for(JsonNode costNode: costsNode) {
+            Map<ResourceName, Resource> singleCost = new HashMap<>();
+
+            costNode.fields().forEachRemaining(currentCostResource -> {
+                String resourceNameString = currentCostResource.getKey();
+                ResourceName resourceName = ResourceName.valueOf(resourceNameString.toUpperCase());
+                int amount = currentCostResource.getValue().asInt();
+
+                singleCost.put(resourceName, new Resource(resourceName, amount));
+            });
+            cost.add(singleCost);
+        }
+        card.setCost(cost);
+    }
+
+    private void parseMultiplier(JsonNode effectNode, Map<String, Object> multiplier) {
+//      Receive part
+        JsonNode receiveNode = effectNode.path("multiplier").path("receive");
+        String resourceNameString = receiveNode.fields().next().getKey();
+        ResourceName resourceName = ResourceName.valueOf(resourceNameString.toUpperCase());
+        int amountToReceive = receiveNode.path(resourceNameString).asInt();
+
+        Resource resourceToReceive = new Resource(resourceName, amountToReceive);
+        multiplier.put(resourceNameString.toUpperCase(), resourceToReceive);
+
+//      For part
+        JsonNode forNode = effectNode.path("multiplier").path("for");
+        String cardColorString = forNode.path("color").asText();
+
+        CardColor cardColor = CardColor.valueOf(cardColorString.toUpperCase());
+        multiplier.put("color", cardColor);
+
     }
 
     private void setEffectResources(JsonNode cardJSON, Card card) {
@@ -105,6 +189,7 @@ public class CardParser {
 
     private List<Resource> initEffectResources(JsonNode effectResourceNode) {
         List<Resource> effectResources = new ArrayList<>();
+
         while (effectResourceNode.fields().hasNext()) {
             String resourceNameString = effectResourceNode.fields().next().getKey().toString();
             ResourceName resourceName = ResourceName.valueOf(resourceNameString.toUpperCase());
