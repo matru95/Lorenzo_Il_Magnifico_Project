@@ -22,7 +22,7 @@ public class CardParserTest extends TestCase{
     public void testCardParserShouldParseCards() {
         parser.parse();
         List<Card> cards = parser.getCards();
-        assertEquals(24, cards.size());
+        assertEquals(28, cards.size());
     }
 
     @Test

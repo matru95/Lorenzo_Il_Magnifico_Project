@@ -67,21 +67,41 @@ public class CardParser {
         int activationValue = cardJSON.path("activationValue").asInt();
         card.setActivationValue(activationValue);
 
+        this.setEffectResources(cardJSON, card);
+        this.setParchments(cardJSON, card);
+    }
+
+    private void parseYellowCard(JsonNode cardJSON, Card card) {
+        int activationValue = cardJSON.path("activationValue").asInt();
+        card.setActivationValue(activationValue);
+
+        this.setEffectResources(cardJSON, card);
+        this.setParchments(cardJSON, card);
+
+//      Normal effect with exchange
+        JsonNode normalEffectNode = cardJSON.path("normalEffect");
+    }
+
+    private void setEffectResources(JsonNode cardJSON, Card card) {
         JsonNode instantEffectNode = cardJSON.path("instantEffect").path("bonus");
-        List<Resource> instantEffectResources = initEffectResources(instantEffectNode);
-
         JsonNode normalEffectResourcesNode = cardJSON.path("normalEffect").path("bonus");
-        List<Resource> normalEffectResources = initEffectResources(normalEffectResourcesNode);
 
-        int numOfInstantParchment = getNumOfParchment(cardJSON.path("instantEffect"));
-        int numOfNormalParchment = getNumOfParchment(cardJSON.path("normalEffect"));
+        List<Resource> normalEffectResources = initEffectResources(normalEffectResourcesNode);
+        List<Resource> instantEffectResources = initEffectResources(instantEffectNode);
 
         card.setInstantEffectResources(instantEffectResources);
         card.setNormalEffectResources(normalEffectResources);
+    }
+
+    private void setParchments(JsonNode cardJSON, Card card) {
+        int numOfInstantParchment = getNumOfParchment(cardJSON.path("instantEffect"));
+        int numOfNormalParchment = getNumOfParchment(cardJSON.path("normalEffect"));
+
 
         card.setNumOfInstantParchment(numOfInstantParchment);
         card.setNumOfNormalParchment(numOfNormalParchment);
     }
+
 
     private List<Resource> initEffectResources(JsonNode effectResourceNode) {
         List<Resource> effectResources = new ArrayList<>();
@@ -97,9 +117,6 @@ public class CardParser {
         return effectResources;
     }
 
-    private void parseYellowCard(JsonNode cardJSON, Card card) {
-        return;
-    }
 
     private int getNumOfParchment(JsonNode effect) {
         if(effect.has("parchment")) {
