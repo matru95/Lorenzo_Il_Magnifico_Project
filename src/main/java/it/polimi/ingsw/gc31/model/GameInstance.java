@@ -16,11 +16,9 @@ public class GameInstance {
 	private int age;
 	private int turn;
 
-
 	private UUID instanceID;
 
-	private State gamePrepState;
-	private State turnState;
+	private State state;
 
 	private final Logger logger = Logger.getLogger(GameInstance.class.getName());
 
@@ -37,16 +35,10 @@ public class GameInstance {
 		age = 1;
 		turn = 1;
 
-		this.gamePrepState = new GamePrepState();
-		gamePrepState.doAction(this);
+		this.state = null;
         playerOrder = 0;
-	}
 
-	public void playGame() {
-		generatePlayerOrders();
-        this.turnState = new TurnState();
-        turnState.doAction(this);
-    }
+	}
 
     public boolean addPlayer(Player player) {
 		if(this.players.size() < 4) {
@@ -56,9 +48,9 @@ public class GameInstance {
 		return false;
 	}
 
-	private void generatePlayerOrders() {
+	public void generatePlayerOrders() {
 
-//	    We need a list of ints that have already been generated;
+	    //TODO We need a list of ints that have already been generated;
         ArrayList<Integer> generatedNumbers = new ArrayList<>();
         int rnd;
 
@@ -70,7 +62,6 @@ public class GameInstance {
             this.players.get(i).setPlayerOrder(rnd+1);
         }
     }
-
 
     public void putPlayerInQueue(Player p) {
         p.setPlayerOrder(playerOrder);
@@ -107,4 +98,11 @@ public class GameInstance {
 		return instanceID;
 	}
 
+	public void setState(State state){
+		this.state = state;
+	}
+
+	public State getState(){
+		return state;
+	}
 }

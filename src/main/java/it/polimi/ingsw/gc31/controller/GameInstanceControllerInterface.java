@@ -6,4 +6,6 @@ public interface GameInstanceControllerInterface {
 
     void getDataFromView(Map data);
     void sendDataToView(Map data);
+    void playGame();
+
 }
