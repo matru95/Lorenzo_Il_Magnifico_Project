@@ -1,35 +1,18 @@
 package it.polimi.ingsw.gc31.controller;
 
 import it.polimi.ingsw.gc31.model.GameInstance;
-import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.states.GameEndState;
+import it.polimi.ingsw.gc31.model.states.GamePrepState;
+import it.polimi.ingsw.gc31.model.states.TurnState;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 public class GameInstanceController implements GameInstanceControllerInterface {
+
     private GameInstance model;
 
     public GameInstanceController(GameInstance model) {
         this.model = model;
-    }
-
-    public void startGame() {
-        this.model.playGame();
-    }
-
-    public int getGameTurn() {
-
-        return this.model.getTurn();
-    }
-
-    public int getGameAge() {
-
-        return this.model.getAge();
-    }
-
-    public ArrayList<Player> getPlayers() {
-
-        return this.model.getPlayers();
     }
 
     @Override
@@ -43,4 +26,20 @@ public class GameInstanceController implements GameInstanceControllerInterface {
 
         return;
     }
+
+    @Override
+    public void playGame() {
+
+        model.generatePlayerOrders();
+
+        GamePrepState gamePrepState = new GamePrepState();
+        gamePrepState.doAction(model);
+
+        TurnState turnState = new TurnState();
+        turnState.doAction(model);
+
+        GameEndState gameEndState = new GameEndState();
+        gameEndState.doAction(model);
+    }
+
 }

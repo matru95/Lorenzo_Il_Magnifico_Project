@@ -111,4 +111,12 @@ public class Card {
     public List<Exchange> getExchanges() {
         return exchanges;
     }
+
+    public List<Resource> getNormalEffectResources() {
+        return normalEffectResources;
+    }
+
+    public List<Resource> getInstantEffectResources() {
+        return instantEffectResources;
+    }
 }

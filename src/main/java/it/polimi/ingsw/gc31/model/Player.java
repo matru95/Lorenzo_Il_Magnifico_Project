@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -107,6 +108,10 @@ public class Player {
         }
     }
 
+    public int getNumOfCards(CardColor cardColor) {
+		return cards.get(cardColor).length;
+	}
+
 	public void setPlayerOrder(int order) {
 		this.playerOrder = order;
 	}
@@ -167,4 +172,14 @@ public class Player {
 	public Map<String, Resource> getRes() {
 		return this.res;
 	}
+
+	public static Comparator<Player> PlayerWarPointsComparator
+			= (p1, p2) -> {
+
+                Integer p1WarPoints = p1.getRes().get("WARPOINTS").getNumOf();
+                Integer p2WarPoints = p2.getRes().get("WARPOINTS").getNumOf();
+
+                //Descending order
+                return p2WarPoints.compareTo(p1WarPoints);
+            };
 }

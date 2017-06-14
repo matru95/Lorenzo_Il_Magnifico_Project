@@ -6,7 +6,8 @@ import it.polimi.ingsw.gc31.model.cards.CardColor;
 
 import java.util.ArrayList;
 
-public class GamePrepState implements State{
+public class GamePrepState implements State {
+
     private int numOfPlayers;
 
     @Override
@@ -15,7 +16,6 @@ public class GamePrepState implements State{
         numOfPlayers = context.getNumOfPlayers();
 
     }
-
 
     private void distributeResources(Player[] players) {
         for(Player player: players) {
