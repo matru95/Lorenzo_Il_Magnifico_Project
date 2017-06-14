@@ -5,6 +5,7 @@ package it.polimi.ingsw.gc31.model.effects;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.util.Map;
 
@@ -16,9 +17,9 @@ public class AddResEffect extends Effect{
     }
     @Override
     public void exec(Player player) throws NoResourceMatch {
-        Map<String, Resource> startingmap = player.getRes();
-        Map<String, Resource> addingmap = this.addRes;
-        for (String key : startingmap.keySet()) {
+        Map<ResourceName, Resource> startingmap = player.getRes();
+        Map<ResourceName, Resource> addingmap = this.addRes;
+        for (ResourceName key : startingmap.keySet()) {
                 startingmap.get(key).addNumOf(addingmap.get(key).getNumOf());
         }
         player.setRes(startingmap);

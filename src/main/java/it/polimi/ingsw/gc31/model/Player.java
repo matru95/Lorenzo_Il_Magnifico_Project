@@ -68,7 +68,7 @@ public class Player {
         }
     }
 
-    private void initResources() throws NoResourceMatch {
+    private void initResources() {
 
         for(ResourceName resourceName: ResourceName.values()) {
             int initialNumOf = resInitNumOf(resourceName);

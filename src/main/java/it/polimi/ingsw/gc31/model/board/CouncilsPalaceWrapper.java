@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.model.board;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public boolean isAffordable(Map<String, Resource> playerResources, PlayerColor playerColor) {
+    public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
         return true;
     }
 
