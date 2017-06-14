@@ -11,7 +11,6 @@ import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 public class Player {
@@ -22,7 +21,7 @@ public class Player {
 	private int playerOrder; // From 1 to 4
 	private Boolean isMovedThisTurn;
 
-	private Map<String, Resource> res;
+	private Map<ResourceName, Resource> res;
 	private PlayerTile playerTile;
 	
 	//Cards
@@ -72,30 +71,30 @@ public class Player {
     private void initResources() throws NoResourceMatch {
 
         for(ResourceName resourceName: ResourceName.values()) {
-            String resourceNameString = resourceName.toString();
-            int initialNumOf = resInitNumOf(resourceNameString);
-            this.res.put(resourceNameString, ResourceFactory.getResource(resourceNameString, initialNumOf));
+            int initialNumOf = resInitNumOf(resourceName);
+            this.res.put(resourceName, new Resource(resourceName, initialNumOf));
         }
     }
 
-    private int resInitNumOf(String resourceNameString) throws NoResourceMatch {
-	    switch (resourceNameString) {
-            case "GOLD":
+    private int resInitNumOf(ResourceName resourceName) {
+
+	    switch (resourceName) {
+            case GOLD:
                 return this.getPlayerOrder() + 4;
-            case "WOOD":
+            case WOOD:
                 return 2;
-            case "FAITHPOINTS":
+            case FAITHPOINTS:
                 return 0;
-            case "SERVANTS":
+            case SERVANTS:
                 return 3;
-            case "STONE":
+            case STONE:
                 return 2;
-            case "VICTORYPOINTS":
+            case VICTORYPOINTS:
                 return 0;
-            case "WARPOINTS":
+            case WARPOINTS:
                 return 0;
             default:
-                throw new NoResourceMatch();
+                throw new NullPointerException();
 
         }
     }
@@ -165,19 +164,19 @@ public class Player {
         return cards;
     }
 
-	public void setRes(Map<String, Resource> res) {
+	public void setRes(Map<ResourceName, Resource> res) {
 		this.res = res;
 	}
 
-	public Map<String, Resource> getRes() {
+	public Map<ResourceName, Resource> getRes() {
 		return this.res;
 	}
 
 	public static Comparator<Player> PlayerWarPointsComparator
 			= (p1, p2) -> {
 
-                Integer p1WarPoints = p1.getRes().get("WARPOINTS").getNumOf();
-                Integer p2WarPoints = p2.getRes().get("WARPOINTS").getNumOf();
+                Integer p1WarPoints = p1.getRes().get(ResourceName.WARPOINTS).getNumOf();
+                Integer p2WarPoints = p2.getRes().get(ResourceName.WARPOINTS).getNumOf();
 
                 //Descending order
                 return p2WarPoints.compareTo(p1WarPoints);
