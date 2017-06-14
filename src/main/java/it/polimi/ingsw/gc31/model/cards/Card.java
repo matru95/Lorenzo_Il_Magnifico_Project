@@ -57,13 +57,17 @@ public class Card {
     }
 
     public void execInstantEffect(Player player) throws NoResourceMatch {
-        Player player1=player;
         if(this.instantEffectResources.size()>0){
-            Effect addresource=EffectFactory.getEffect("addRes", this.instantEffectResources,null,null,0);
-            addresource.exec(player1);
+            Effect addresource=EffectFactory.getEffect("addRes", this.instantEffectResources,0);
+            addresource.exec(player);
         }
     }
-    public void execNormalEffect(Player player){}
+    public void execNormalEffect(Player player) throws NoResourceMatch {
+        if(this.instantEffectResources.size()>0){
+            Effect addresource=EffectFactory.getEffect("addRes", this.instantEffectResources,0);
+            addresource.exec(player);
+        }
+    }
 
     public CardColor getCardColor() {
         return cardColor;
