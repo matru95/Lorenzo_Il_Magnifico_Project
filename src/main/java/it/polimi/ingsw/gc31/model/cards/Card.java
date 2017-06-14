@@ -21,8 +21,15 @@ public class Card {
     private int activationValue;
     private int numOfInstantParchment;
     private int numOfNormalParchment;
-    private Map<String, Object> multiplier;
+    private Map<String, Object> normalMultiplier;
+    private Map<String, Object> instantMultiplier;
     private List<Exchange> exchanges;
+    private CardColorBonus cardColorBonus;
+    private Map<String, Object> harvestBonusPoints;
+    private Map<String, Object> productionBonusPoints;
+    private boolean blockTowerBonus;
+    private FreeCardChoice freeCardChoice;
+
 
     public Card(CardColor cardColor, String cardName, int cardID, int cardAge) {
         this.cost = new ArrayList<>();
@@ -36,8 +43,13 @@ public class Card {
         this.activationValue = 0;
         this.numOfNormalParchment = 0;
         this.numOfInstantParchment = 0;
-        this.multiplier = new HashMap<>();
+        this.normalMultiplier = new HashMap<>();
+        this.instantMultiplier = new HashMap<>();
         this.exchanges = new ArrayList<>();
+        this.cardColorBonus = new CardColorBonus();
+        this.productionBonusPoints = new HashMap<>();
+        this.harvestBonusPoints = new HashMap<>();
+        this.freeCardChoice = new FreeCardChoice();
     }
 
     public void setActivationValue(int activationValue) {
@@ -100,12 +112,12 @@ public class Card {
         this.exchanges.add(exchange);
     }
 
-    public void setMultiplier(Map<String, Object> multiplier) {
-        this.multiplier = multiplier;
+    public void setNormalMultiplier(Map<String, Object> normalMultiplier) {
+        this.normalMultiplier = normalMultiplier;
     }
 
-    public Map<String, Object> getMultiplier() {
-        return multiplier;
+    public Map<String, Object> getNormalMultiplier() {
+        return normalMultiplier;
     }
 
     public List<Exchange> getExchanges() {
@@ -118,5 +130,29 @@ public class Card {
 
     public List<Resource> getInstantEffectResources() {
         return instantEffectResources;
+    }
+
+    public void setCardColorBonus(CardColorBonus cardColorBonus) {
+        this.cardColorBonus = cardColorBonus;
+    }
+
+    public void setHarvestBonusPoints(Map<String, Object> harvestBonusPoints) {
+        this.harvestBonusPoints = harvestBonusPoints;
+    }
+
+    public void setFreeCardChoice(FreeCardChoice freeCardChoice) {
+        this.freeCardChoice = freeCardChoice;
+    }
+
+    public void setProductionBonusPoints(Map<String, Object> productionBonusPoints) {
+        this.productionBonusPoints = productionBonusPoints;
+    }
+
+    public void setBlockTowerBonus(boolean blockTowerBonus) {
+        this.blockTowerBonus = blockTowerBonus;
+    }
+
+    public void setInstantMultiplier(Map<String, Object> instantMultiplier) {
+        this.instantMultiplier = instantMultiplier;
     }
 }

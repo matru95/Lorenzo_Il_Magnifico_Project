@@ -71,7 +71,7 @@ public class CardParserTest extends TestCase{
         List<Card> cards = parser.getCards();
         Card testCard = cards.get(27);
 
-        Map<String, Object> testCardMultiplier = testCard.getMultiplier();
+        Map<String, Object> testCardMultiplier = testCard.getNormalMultiplier();
         assertNotNull(testCardMultiplier);
     }
 

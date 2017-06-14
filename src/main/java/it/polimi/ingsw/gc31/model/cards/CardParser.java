@@ -89,7 +89,7 @@ public class CardParser {
             Map<String, Object> multiplier = new HashMap<>();
 
             parseMultiplier(normalEffectNode, multiplier);
-            card.setMultiplier(multiplier);
+            card.setNormalMultiplier(multiplier);
         }
 
 //      Normal effect with exchange
@@ -101,11 +101,11 @@ public class CardParser {
 
 //              Parse the give part
                 JsonNode giveNode = singleExchangeNode.path("give");
-                myExchange.setResourcesToGive(parseExchangeResources(giveNode));
+                myExchange.setResourcesToGive(parseResources(giveNode));
 
 //              Parse the receive part
                 JsonNode receiveNode = singleExchangeNode.path("receive");
-                myExchange.setResourcesToReceive(parseExchangeResources(receiveNode));
+                myExchange.setResourcesToReceive(parseResources(receiveNode));
 
                 card.insertExchange(myExchange);
             }
@@ -113,8 +113,120 @@ public class CardParser {
 
     }
 
+    private void parseBlueCard(JsonNode cardJSON, Card card) {
+//      Cost
+        JsonNode costsNode = cardJSON.path("cost");
+        parseCost(costsNode, card);
 
-    private List<Resource> parseExchangeResources(JsonNode node) {
+        this.setEffectResources(cardJSON, card);
+        this.setParchments(cardJSON, card);
+
+        //      Free card choice
+        JsonNode instantEffectNode = cardJSON.path("instantEffect");
+
+        if(instantEffectNode.has("freeCardChoice")) {
+            JsonNode freeCardChoiceNode = instantEffectNode.path("freeCardChoice");
+
+            parseFreeCardChoice(freeCardChoiceNode, card);
+        }
+
+        JsonNode normalEffectNode = cardJSON.path("normalEffect");
+//      Permanent effect
+        if (normalEffectNode.has("permanent")) {
+            JsonNode permanentEffectNode = normalEffectNode.path("permanent");
+            parsePermanentEffect(permanentEffectNode, card);
+        }
+
+//      Multiplier
+        if(instantEffectNode.has("multiplier")) {
+            Map<String, Object> multiplier = new HashMap<>();
+            parseMultiplier(instantEffectNode, multiplier);
+
+            card.setInstantMultiplier(multiplier);
+        }
+
+//      Instant production or harvest bonus
+        if(instantEffectNode.has("productionOrHarvestBonus")) {
+            JsonNode productionOrHarvestBonusNode = instantEffectNode.path("productionOrHarvestBonus");
+
+            parseProductionOrHarvestBonus(productionOrHarvestBonusNode, card, "instant");
+        }
+
+    }
+
+    private void parseFreeCardChoice(JsonNode freeCardChoiceNode, Card card) {
+        FreeCardChoice freeCardChoice = new FreeCardChoice();
+
+        String colorName = freeCardChoiceNode.path("cardColor").asText();
+        int points = freeCardChoiceNode.path("points").asInt();
+
+        if(colorName != "") {
+            freeCardChoice.setCardColor(CardColor.valueOf(colorName.toUpperCase()));
+        }
+
+        freeCardChoice.setPoints(points);
+
+//          Parse resources
+        if(freeCardChoiceNode.has("resources")) {
+            JsonNode resourcesNode = freeCardChoiceNode.path("resources");
+
+            List<Resource> resources = parseResources(resourcesNode);
+            freeCardChoice.setResources(resources);
+        }
+
+        card.setFreeCardChoice(freeCardChoice);
+    }
+
+    private void parsePermanentEffect(JsonNode permanentEffectNode, Card card) {
+//          Card color bonus
+        if(permanentEffectNode.has("cardColorBonus")) {
+            JsonNode cardColorBonusNode = permanentEffectNode.path("cardColorBonus");
+
+            parseCardColorBonus(cardColorBonusNode, card);
+        } else if (permanentEffectNode.has("productionOrHarvestBonus")) {
+
+            parseProductionOrHarvestBonus(permanentEffectNode.path("productionOrHarvestBonus"), card, "normal");
+        } else if (permanentEffectNode.has("blockTowerBonus")){
+
+            card.setBlockTowerBonus(true);
+        }
+    }
+
+    private void parseProductionOrHarvestBonus(JsonNode productionOrHarvestBonusNode, Card card, String effectType) {
+        Map<String, Object> productionBonus = new HashMap<>();
+        Map<String, Object> harvestBonus = new HashMap<>();
+
+        int productionBonusPoints = productionOrHarvestBonusNode.path("production").asInt();
+        int harvestBonusPoints = productionOrHarvestBonusNode.path("harvest").asInt();
+
+        productionBonus.put(effectType, productionBonusPoints);
+        harvestBonus.put(effectType, harvestBonusPoints);
+
+        card.setProductionBonusPoints(productionBonus);
+        card.setHarvestBonusPoints(harvestBonus);
+        return;
+    }
+
+    private void parseCardColorBonus(JsonNode cardColorBonusNode, Card card) {
+
+        int points = cardColorBonusNode.path("points").asInt();
+        String cardColorString = cardColorBonusNode.path("cardColor").asText();
+        CardColor cardColor = CardColor.valueOf(cardColorString.toUpperCase());
+
+        JsonNode resourceNode = cardColorBonusNode.path("resource");
+
+        List<Resource> resources = parseResources(resourceNode);
+
+        CardColorBonus cardColorBonus = new CardColorBonus();
+        cardColorBonus.setExists(true);
+        cardColorBonus.setCardColor(cardColor);
+        cardColorBonus.setPoints(points);
+        cardColorBonus.setResources(resources);
+
+        card.setCardColorBonus(cardColorBonus);
+    }
+
+    private List<Resource> parseResources(JsonNode node) {
         List<Resource> exchangeResources = new ArrayList<>();
 
         node.fields().forEachRemaining(currentResource -> {
@@ -146,23 +258,38 @@ public class CardParser {
         card.setCost(cost);
     }
 
+
     private void parseMultiplier(JsonNode effectNode, Map<String, Object> multiplier) {
 //      Receive part
         JsonNode receiveNode = effectNode.path("multiplier").path("receive");
-        String resourceNameString = receiveNode.fields().next().getKey();
-        ResourceName resourceName = ResourceName.valueOf(resourceNameString.toUpperCase());
-        int amountToReceive = receiveNode.path(resourceNameString).asInt();
 
-        Resource resourceToReceive = new Resource(resourceName, amountToReceive);
-        multiplier.put("resource", resourceToReceive);
+        Resource resourceToReceive = parseSingleResource(receiveNode);
+        multiplier.put("receive", resourceToReceive);
 
 //      For part
         JsonNode forNode = effectNode.path("multiplier").path("for");
-        String cardColorString = forNode.path("color").asText();
 
-        CardColor cardColor = CardColor.valueOf(cardColorString.toUpperCase());
-        multiplier.put("cardColor", cardColor);
+//      Check if card color or resource
+        if(forNode.has("color")) {
+            String cardColorString = forNode.path("color").asText();
 
+            CardColor cardColor = CardColor.valueOf(cardColorString.toUpperCase());
+            multiplier.put("for", cardColor);
+        } else {
+            String forResourceNameString = forNode.fields().next().getKey();
+            ResourceName forResourceName = ResourceName.valueOf(forResourceNameString.toUpperCase());
+
+            multiplier.put("for", forResourceName);
+        }
+
+    }
+
+    private Resource parseSingleResource(JsonNode resourceNode) {
+        String resourceNameString = resourceNode.fields().next().getKey();
+        ResourceName resourceName = ResourceName.valueOf(resourceNameString.toUpperCase());
+        int amount = resourceNode.path(resourceNameString).asInt();
+
+        return new Resource(resourceName, amount);
     }
 
     private void setEffectResources(JsonNode cardJSON, Card card) {
@@ -190,11 +317,9 @@ public class CardParser {
         List<Resource> effectResources = new ArrayList<>();
 
         while (effectResourceNode.fields().hasNext()) {
-            String resourceNameString = effectResourceNode.fields().next().getKey().toString();
-            ResourceName resourceName = ResourceName.valueOf(resourceNameString.toUpperCase());
-            int resourceAmount = effectResourceNode.fields().next().getValue().asInt();
+            Resource effectResource = parseSingleResource(effectResourceNode);
 
-            effectResources.add(new Resource(resourceName, resourceAmount));
+            effectResources.add(effectResource);
             effectResourceNode = effectResourceNode.fields().next().getValue();
         }
 
@@ -214,9 +339,6 @@ public class CardParser {
         return;
     }
 
-    private void parseBlueCard(JsonNode cardJSON, Card card) {
-        return;
-    }
 
 
 

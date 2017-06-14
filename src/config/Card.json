@@ -609,6 +609,463 @@
           }
         ]
       }
+    },
+    {
+      "id": 29,
+      "cardAge": 1,
+      "title": "Carpenter's Shop",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "gold": 1,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "gold": 3
+            }
+          },
+          {
+            "give": {
+              "wood": 2
+            },
+            "receive": {
+              "gold": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 49,
+      "cardAge": 1,
+      "title": "Warlord",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "cardColorBonus": {
+            "points": 2,
+            "cardColor": "green"
+          }
+        }
+      }
+    },
+    {
+      "id": 50,
+      "cardAge": 1,
+      "title": "Stonemason",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "cardColorBonus": {
+            "points": 2,
+            "cardColor": "yellow",
+            "resource": {
+              "wood": 1,
+              "stone": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 51,
+      "cardAge": 1,
+      "title": "Dame",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "cardColorBonus": {
+            "points": 2,
+            "cardColor": "blue",
+            "resource": {"gold": 1}
+          }
+        }
+      }
+    },
+    {
+      "id": 52,
+      "cardAge": 1,
+      "title": "Knight",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "cardColorBonus": {
+            "points": 2,
+            "cardColor": "purple"
+          }
+        }
+      }
+    },
+    {
+      "id": 53,
+      "cardAge": 1,
+      "title": "Farmer",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "productionOrHarvestBonus": {
+            "harvest": 2
+          }
+        }
+      }
+    },
+    {
+      "id": 54,
+      "cardAge": 1,
+      "title": "Artisan",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "productionOrHarvestBonus": {
+            "production": 2
+          }
+        }
+      }
+    },
+    {
+      "id": 55,
+      "cardAge": 1,
+      "title": "Preacher",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "blockTowerBonus": true
+        }
+      }
+    },
+    {
+      "id": 56,
+      "cardAge": 1,
+      "title": "Abbess",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        },
+        "freeCardChoice": {
+          "points": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 57,
+      "cardAge": 1,
+      "title": "Captain",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 2
+        },
+        "freeCardChoice": {
+          "cardColor": "green",
+          "points": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 58,
+      "cardAge": 1,
+      "title": "Architect",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "freeCardChoice": {
+          "cardColor": "yellow",
+          "points": 6,
+          "resources": {
+            "wood": 1,
+            "stone": 1
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 59,
+      "cardAge": 1,
+      "title": "Patron",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "freeCardChoice": {
+          "cardColor": "blue",
+          "points": 6,
+          "resources": {
+            "gold": 1
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 60,
+      "cardAge": 1,
+      "title": "Hero",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 1,
+        "freeCardChoice": {
+          "cardColor": "purple",
+          "points": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 61,
+      "cardAge": 1,
+      "title": "Peasant",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "productionOrHarvestBonus": {
+            "harvest": 3
+          }
+        }
+      }
+    },
+    {
+      "id": 62,
+      "cardAge": 1,
+      "title": "Scholar",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "productionOrHarvestBonus": {
+            "production": 3
+          }
+        }
+      }
+    },
+    {
+      "id": 63,
+      "cardAge": 1,
+      "title": "Papal Messenger",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 5
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 64,
+      "cardAge": 1,
+      "title": "Royal Messenger",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 5
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 3
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 65,
+      "cardAge": 1,
+      "title": "Noble",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 2
+          },
+          "for": {
+            "color": "green"
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
     }
   ]
 }
