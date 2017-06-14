@@ -9,7 +9,6 @@ import it.polimi.ingsw.gc31.model.resources.ResourceName;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -155,14 +154,14 @@ public class CardParser {
         int amountToReceive = receiveNode.path(resourceNameString).asInt();
 
         Resource resourceToReceive = new Resource(resourceName, amountToReceive);
-        multiplier.put(resourceNameString.toUpperCase(), resourceToReceive);
+        multiplier.put("resource", resourceToReceive);
 
 //      For part
         JsonNode forNode = effectNode.path("multiplier").path("for");
         String cardColorString = forNode.path("color").asText();
 
         CardColor cardColor = CardColor.valueOf(cardColorString.toUpperCase());
-        multiplier.put("color", cardColor);
+        multiplier.put("cardColor", cardColor);
 
     }
 
