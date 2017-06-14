@@ -7,14 +7,13 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
 public class AddResEffect extends Effect{
-    private List addRes;
-    AddResEffect(ArrayList addRes){
+    private List<Resource> addRes;
+    AddResEffect(List<Resource> addRes){
         this.addRes=addRes;
     }
     @Override
