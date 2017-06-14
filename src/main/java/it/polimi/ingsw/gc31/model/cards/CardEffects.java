@@ -32,6 +32,7 @@ public class CardEffects {
 
     private CardEffects(){
     }
+    public void setSingleCost(Map cost){};
 
     public Map<String, Resource>[] getCost() {
         return cost;

@@ -3,12 +3,13 @@ package it.polimi.ingsw.gc31.model.states;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.util.ArrayList;
 
 public class GameEndState implements State {
 
-    private static final String WP = "WARPOINTS";
+    private static final ResourceName WP = ResourceName.WARPOINTS;
 
     @Override
     public void doAction(GameInstance context) {
@@ -22,14 +23,14 @@ public class GameEndState implements State {
             num += applyResourcesPoints(p);
             num += applyPurpleCardsPoints(p);
 
-            p.getRes().get("VICTORYPOINTS").addNumOf(num);
+            p.getRes().get(ResourceName.VICTORYPOINTS).addNumOf(num);
         }
         applyMilitaryZonePoints(context);
     }
 
     /** Method that calculate Victory Points of a player
      * taken as parameter, due to the number of GreenCards in his possession.
-     * @param player
+     * @param player (Player)
      * @return The amount (as an int) of Victory Points
      */
     private int applyGreenCardsPoints(Player player) {
@@ -55,7 +56,7 @@ public class GameEndState implements State {
 
     /** Method that calculate Victory Points of a player
      * taken as parameter, due to the number of BlueCards in his possession.
-     * @param player
+     * @param player (Player)
      * @return The amount (as an int) of Victory Points
      */
     private int applyBlueCardsPoints(Player player) {
@@ -82,21 +83,21 @@ public class GameEndState implements State {
     /** Method that calculate Victory Points of a player
      * taken as parameter, due to the number of Resources
      * (Wood, Stone, Gold, Servants) in his possession.
-     * @param player
+     * @param player (Player)
      * @return The amount (as an int) of Victory Points
      */
     private int applyResourcesPoints(Player player) {
         int totalRes = 0;
-        totalRes += player.getRes().get("WOOD").getNumOf();
-        totalRes += player.getRes().get("STONE").getNumOf();
-        totalRes += player.getRes().get("GOLD").getNumOf();
-        totalRes += player.getRes().get("SERVANTS").getNumOf();
+        totalRes += player.getRes().get(ResourceName.WOOD).getNumOf();
+        totalRes += player.getRes().get(ResourceName.STONE).getNumOf();
+        totalRes += player.getRes().get(ResourceName.GOLD).getNumOf();
+        totalRes += player.getRes().get(ResourceName.SERVANTS).getNumOf();
         return (totalRes/5);
     }
 
     /** Method that calculate Victory Points of a player
      * taken as parameter, due to Normal Effects of PurpleCards in his possession.
-     * @param player
+     * @param player (Player)
      * @return The amount (as an int) of Victory Points
      */
     private int applyPurpleCardsPoints(Player player) {

@@ -5,7 +5,6 @@ import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.util.List;
@@ -35,18 +34,17 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         setOccupied(true);
     }
 
-    private void execTowerBonus(Map<String, Resource> playerResources) {
+    private void execTowerBonus(Map<ResourceName, Resource> playerResources) {
         if(res == null) {
             return;
         }
 
-        ResourceName resourceName = res.getResourceName();
-        Resource resourceToAddTo = playerResources.get(resourceName.toString());
+        Resource resourceToAddTo = playerResources.get(res.getResourceName());
         int numberToAdd = res.getNumOf();
         resourceToAddTo.addNumOf(numberToAdd);
     }
 
-    public boolean isAffordable(Map<String, Resource> playerResources, PlayerColor playerColor) {
+    public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
 
         List<Map<ResourceName, Resource>> cardResources = this.getCard().getCost();
         boolean[] results = new boolean[cardResources.size()];
@@ -54,9 +52,9 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         int index = 0;
 
         for(Map<ResourceName, Resource> cardResource: cardResources) {
-            for(Map.Entry<String, Resource> playerResource: playerResources.entrySet()) {
+            for(Map.Entry<ResourceName, Resource> playerResource: playerResources.entrySet()) {
                 int playerResourceValue = playerResource.getValue().getNumOf();
-                String resourceNameString = playerResource.getKey().toUpperCase();
+                String resourceNameString = playerResource.getKey().toString();
                 int cardResourceValue = cardResource.get(ResourceName.valueOf(resourceNameString)).getNumOf();
 
                 if(playerResourceValue < cardResourceValue) {
@@ -72,7 +70,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
 //      Check if family member has enough gold to occupy a occupied tower
         if(this.tower.isOccupied()) {
-            int playerGold = playerResources.get("Gold").getNumOf();
+            int playerGold = playerResources.get(ResourceName.GOLD).getNumOf();
 
             for(Map<ResourceName, Resource> cardResource: cardResources) {
                 int possibleCost = cardResource.get(ResourceName.GOLD).getNumOf()+3;
@@ -80,8 +78,8 @@ public class TowerSpaceWrapper extends SpaceWrapper {
                 if(playerGold < possibleCost) {
                     results[index] = false;
                 }
+                index++;
             }
-            index++;
         }
 
 //      If at least one of the costs is less than player resources, return true

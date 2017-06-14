@@ -9,6 +9,7 @@ import it.polimi.ingsw.gc31.model.board.Tower;
 import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 public class FamilyMember {
 	private final DiceColor color;
@@ -54,7 +55,7 @@ public class FamilyMember {
         List<SpaceWrapper> possibleMovements = new ArrayList<>();
         insertOpenSpaces(possibleMovements);
 
-        int possiblePoints = this.player.getRes().get("SERVANTS").getNumOf();
+        int possiblePoints = this.player.getRes().get(ResourceName.SERVANTS).getNumOf();
 
         List<SpaceWrapper> towerSpaceWrappers = new ArrayList<>();
         insertTowerSpaceWrappers(towerSpaceWrappers);
@@ -118,11 +119,11 @@ public class FamilyMember {
 
 	private void checkAndPayServants(int positionDiceBond) {
         if(positionDiceBond > this.dicePoints) {
-            Map<String, Resource> playerResources = player.getRes();
-            int currentServants = playerResources.get("SERVANTS").getNumOf();
+            Map<ResourceName, Resource> playerResources = player.getRes();
+            int currentServants = playerResources.get(ResourceName.SERVANTS).getNumOf();
             int costToPay = positionDiceBond - this.dicePoints;
 
-            playerResources.get("SERVANTS").setNumOf(currentServants - costToPay);
+            playerResources.get(ResourceName.SERVANTS).setNumOf(currentServants - costToPay);
         }
     }
 
@@ -131,10 +132,9 @@ public class FamilyMember {
         if(tower.isOccupied()) {
 
 //          Check if tower is occupied and pay 3 gold in that case
-            player.getRes().get("GOLD").subNumOf(3);
+            player.getRes().get(ResourceName.GOLD).subNumOf(3);
         }
 
-        return;
     }
 
 	public SpaceWrapper getCurrentPosition() {

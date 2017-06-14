@@ -1,5 +1,9 @@
 package it.polimi.ingsw.gc31.model.cards;
 
+import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.effects.EffectFactory;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
@@ -62,6 +66,19 @@ public class Card {
 
     public void setInstantEffectResources(List<Resource> instantEffect) {
         this.instantEffectResources = instantEffect;
+    }
+
+    public void execInstantEffect(Player player) throws NoResourceMatch {
+        if(this.instantEffectResources.size()>0){
+            Effect addresource=EffectFactory.getEffect("addRes", this.instantEffectResources,0);
+            addresource.exec(player);
+        }
+    }
+    public void execNormalEffect(Player player) throws NoResourceMatch {
+        if(this.instantEffectResources.size()>0){
+            Effect addresource=EffectFactory.getEffect("addRes", this.instantEffectResources,0);
+            addresource.exec(player);
+        }
     }
 
     public CardColor getCardColor() {

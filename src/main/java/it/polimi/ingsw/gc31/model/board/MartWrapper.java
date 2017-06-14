@@ -20,18 +20,15 @@ public class MartWrapper extends SpaceWrapper {
     @Override
     public void execWrapper(FamilyMember familyMember) {
         setOccupied(true);
-        Map<String, Resource> playerResources = familyMember.getPlayer().getRes();
+        Map<ResourceName, Resource> playerResources = familyMember.getPlayer().getRes();
         for(Resource myResource : res) {
             int amount = myResource.getNumOf();
-            String resourceName = myResource.getResourceName().toString();
-
-            playerResources.get(resourceName.toUpperCase()).addNumOf(amount);
+            playerResources.get(myResource.getResourceName()).addNumOf(amount);
         }
-        return;
     }
 
     @Override
-    public boolean isAffordable(Map<String, Resource> playerResources, PlayerColor playerColor) {
+    public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
         return true;
     }
 
