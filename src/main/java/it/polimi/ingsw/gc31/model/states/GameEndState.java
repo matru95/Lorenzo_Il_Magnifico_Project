@@ -102,8 +102,8 @@ public class GameEndState implements State {
      */
     private int applyPurpleCardsPoints(Player player) {
         int tmp = 0;
-        for (int i = 0; i < player.getCards().get(CardColor.PURPLE).length ; i++) {
-            tmp += player.getCards().get(CardColor.PURPLE)[i].getNormalEffectResources().get(0).getNumOf();
+        for (int i = 0; i < player.getCards().get(CardColor.PURPLE).size() ; i++) {
+            tmp += player.getCards().get(CardColor.PURPLE).get(i).getNormalEffectResources().get(0).getNumOf();
         }
         return tmp;
     }

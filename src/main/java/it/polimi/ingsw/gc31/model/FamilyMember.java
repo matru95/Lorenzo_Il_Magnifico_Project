@@ -8,6 +8,7 @@ import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.board.Tower;
 import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
@@ -101,19 +102,19 @@ public class FamilyMember {
 		return this.color;
 	}
 
-    public void moveToTower(TowerSpaceWrapper position) {
+    public void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
         checkAndPayExtraGold(position);
-        moveToPosition(position);
+        moveToPosition(position, numOfServantsPaid);
     }
 
-	public void moveToPosition(SpaceWrapper position) {
+	public void moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
 	    int positionDiceBond = position.getDiceBond();
 
 //	    Check if I should pay servants and pay them
 	    checkAndPayServants(positionDiceBond);
 
 		this.currentPosition = position;
-		position.execWrapper(this);
+		position.execWrapper(this, numOfServantsPaid);
 	}
 
 

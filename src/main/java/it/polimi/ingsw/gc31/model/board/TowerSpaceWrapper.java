@@ -116,7 +116,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     private void payCost(Player player, Card card){
-        List <Map<ResourceName,Resource>> cardCost=card.getCost();
+        List <Map<ResourceName,Resource>> cardCost = card.getCost();
         if(cardCost.size()==1){
             Map<ResourceName,Resource> singleCardCost= cardCost.get(0);
             for(Map.Entry <ResourceName,Resource> singleCardCostEntry: singleCardCost.entrySet()){
