@@ -18,7 +18,7 @@ public class MartWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember) {
+    public void execWrapper(FamilyMember familyMember, int amountOfServants) {
         setOccupied(true);
         Map<ResourceName, Resource> playerResources = familyMember.getPlayer().getRes();
         for(Resource myResource : res) {

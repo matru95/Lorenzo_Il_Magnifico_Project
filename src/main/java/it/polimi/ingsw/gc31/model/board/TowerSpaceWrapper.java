@@ -29,7 +29,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember) {
+    public void execWrapper(FamilyMember familyMember, int amountOfServants) {
         payCost(familyMember.getPlayer(),this.card);
         //TODO CHECK IF IS POSSIBLE ELSE RETURN MSG TO PLAYER
         execTowerBonus(familyMember.getPlayer().getRes());

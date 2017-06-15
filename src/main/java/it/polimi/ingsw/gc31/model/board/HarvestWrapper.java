@@ -2,9 +2,13 @@ package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
+import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +24,10 @@ public class HarvestWrapper extends SpaceWrapper {
         this.familyMembers = new ArrayList<>();
         this.isMultiple = isMultiple;
     }
-
+// METODO PER HARVEST E PRODUCTION
     @Override
-    public void execWrapper(FamilyMember familyMember) {
-        harvest(familyMember.getDicePoints());
+    public void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+        harvest(familyMember, amountOfServants);
         if (!isMultiple) setOccupied(true);
     }
 
@@ -49,8 +53,16 @@ public class HarvestWrapper extends SpaceWrapper {
         familyMembers.add(familyMember);
     }
 
-    private void harvest(int dicePoints){
-        //TODO
+    private void harvest(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+        int familyMemberValue =familyMember.getValue()+amountOfServants;
+        List<Card> greenCards=familyMember.getPlayer().getCards().get(CardColor.GREEN);
+        for (Card singleCard : greenCards){
+            if(singleCard.getActivationValue()<=familyMemberValue){
+                singleCard.execNormalEffect(familyMember.getPlayer());
+                //TODO INSERIRE PLAYER TILE
+            }
+        }
+
     }
 
     public void setMalus(int malus) {

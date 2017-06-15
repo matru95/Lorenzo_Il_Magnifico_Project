@@ -1,9 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
@@ -25,7 +22,7 @@ public class Player {
 	private PlayerTile playerTile;
 	
 	//Cards
-	private Map<CardColor, Card[]> cards;
+	private Map<CardColor, List<Card>> cards;
 	private FaithCard[] faithCards;
 	private FamilyMember[] familyMembers;
 
@@ -64,7 +61,7 @@ public class Player {
 
 	private void initCards() {
 	    for(CardColor cardColor: CardColor.values()) {
-	        this.cards.put(cardColor, new Card[6]);
+	        this.cards.put(cardColor, new ArrayList<>());
         }
     }
 
@@ -108,7 +105,7 @@ public class Player {
     }
 
     public int getNumOfCards(CardColor cardColor) {
-		return cards.get(cardColor).length;
+		return cards.get(cardColor).size();
 	}
 
 	public void setPlayerOrder(int order) {
@@ -160,7 +157,7 @@ public class Player {
         return board;
     }
 
-    public Map<CardColor, Card[]> getCards() {
+    public Map<CardColor, List<Card>> getCards() {
         return cards;
     }
 
