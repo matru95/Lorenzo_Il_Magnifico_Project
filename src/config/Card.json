@@ -762,6 +762,585 @@
       }
     },
     {
+      "id": 33,
+      "cardAge": 2,
+      "title": "Marketplace",
+      "cardColor": "yellow",
+      "activationValue": 3,
+      "cost": [
+        {
+          "stone": 1,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 3
+            },
+            "receive": {
+              "resources": {
+                "wood": 2
+              }
+            }
+          },
+          {
+            "give": {
+              "gold": 3
+            },
+            "receive": {
+              "resources": {
+                "stone": 2
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "cardAge": 2,
+      "title": "Treasury",
+      "cardColor": "yellow",
+      "activationValue": 3,
+      "cost": [
+        {
+          "wood": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "gold": 2
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 5
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 35,
+      "cardAge": 2,
+      "title": "Painter's guild",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "wood": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "wood": 3
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 7
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 36,
+      "cardAge": 2,
+      "title": "Sculptor's guild",
+      "cardColor": "yellow",
+      "activationValue": 5,
+      "cost": [
+        {
+          "stone": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "stone": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "stone": 3
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 7
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 37,
+      "cardAge": 2,
+      "title": "Stonemason's guild",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "stone": 2,
+          "wood": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "stone": 1,
+              "servants": 1,
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 6
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "cardAge": 2,
+      "title": "Baptistery",
+      "cardColor": "yellow",
+      "activationValue": 2,
+      "cost": [
+        {
+          "wood": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 2,
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "faithPoints": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 2,
+                "gold": 2
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 39,
+      "cardAge": 2,
+      "title": "Barracks",
+      "cardColor": "yellow",
+      "activationValue": 1,
+      "cost": [
+        {
+          "wood": 1,
+          "stone": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "servants": 1
+            },
+            "receive": {
+              "resources": {
+                "warPoints": 3
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "cardAge": 2,
+      "title": "Stronghold",
+      "cardColor": "yellow",
+      "activationValue": 6,
+      "cost": [
+        {
+          "wood": 2,
+          "stone": 2,
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 8
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "warPoints": 2,
+          "victoryPoints": 2
+        }
+      }
+    },
+    {
+      "id": 41,
+      "cardAge": 3,
+      "title": "Bank",
+      "cardColor": "yellow",
+      "activationValue": 2,
+      "cost": [
+        {
+          "wood": 1,
+          "stone": 3,
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 7
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 5
+        }
+      }
+    },
+    {
+      "id": 42,
+      "cardAge": 3,
+      "title": "Fair",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "wood": 3,
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 8
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 4
+            },
+            "receive": {
+              "resources": {
+                "wood": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "gold": 4
+            },
+            "receive": {
+              "resources": {
+                "stone": 3
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 43,
+      "cardAge": 3,
+      "title": "Garden",
+      "cardColor": "yellow",
+      "activationValue": 1,
+      "cost": [
+        {
+          "wood": 4,
+          "stone": 2,
+          "servants": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 10
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      }
+    },
+    {
+      "id": 44,
+      "cardAge": 3,
+      "title": "Fortress",
+      "cardColor": "yellow",
+      "activationValue": 5,
+      "cost": [
+        {
+          "wood": 2,
+          "stone": 4,
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 9
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 2
+        },
+        "parchment": 1
+      }
+    },
+    {
+      "id": 45,
+      "cardAge": 3,
+      "title": "Palace",
+      "cardColor": "yellow",
+      "activationValue": 6,
+      "cost": [
+        {
+          "wood": 3,
+          "stone": 1,
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 9
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {
+                "servants": 2
+              }
+            }
+          },
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 4
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 46,
+      "cardAge": 3,
+      "title": "Church",
+      "cardColor": "yellow",
+      "activationValue": 1,
+      "cost": [
+        {
+          "wood": 1,
+          "stone": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 5,
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+            {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "faithPoints": 2
+              }
+            }
+          },
+          {
+            "give": {
+              "stone": 1
+            },
+            "receive": {
+              "resources": {
+                "faithPoints": 2
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 47,
+      "cardAge": 3,
+      "title": "Military Academy",
+      "cardColor": "yellow",
+      "activationValue": 3,
+      "cost": [
+        {
+          "wood": 2,
+          "stone": 2,
+          "servants": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 7
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "servants": 1
+            },
+            "receive": {
+              "resources": {
+                "warPoints": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "servants": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 48,
+      "cardAge": 3,
+      "title": "Cathedral",
+      "cardColor": "yellow",
+      "activationValue": 2,
+      "cost": [
+        {
+          "wood": 4,
+          "stone": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 7,
+          "faithPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 1
+        }
+      }
+    },
+    {
       "id": 49,
       "cardAge": 1,
       "title": "Warlord",
