@@ -24,7 +24,7 @@ public class ProductionWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember) {
+    public void execWrapper(FamilyMember familyMember, int amountOfServants) {
         produce(familyMember.getDicePoints());
         if (!isMultiple) setOccupied(true);
     }

@@ -1,11 +1,13 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.FamilyMember;
+import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
+
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,8 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember) {
+    public void execWrapper(FamilyMember familyMember, int amountOfServants) {
+        payCost(familyMember.getPlayer(),this.card);
         //TODO CHECK IF IS POSSIBLE ELSE RETURN MSG TO PLAYER
         execTowerBonus(familyMember.getPlayer().getRes());
         //TODO EXEC OF CARD
@@ -110,5 +113,17 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     public FamilyMember getFamilyMember() {
         return this.familyMember;
+    }
+
+    private void payCost(Player player, Card card){
+        List <Map<ResourceName,Resource>> cardCost=card.getCost();
+        if(cardCost.size()==1){
+            Map<ResourceName,Resource> singleCardCost= cardCost.get(0);
+            for(Map.Entry <ResourceName,Resource> singleCardCostEntry: singleCardCost.entrySet()){
+                ResourceName cardCostName=singleCardCostEntry.getKey();
+                int value=singleCardCostEntry.getValue().getNumOf();
+                player.getRes().get(cardCostName).subNumOf(value);
+            }
+        }
     }
 }

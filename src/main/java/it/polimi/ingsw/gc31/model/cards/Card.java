@@ -172,4 +172,8 @@ public class Card {
     public void setInstantMultiplier(Map<String, Object> instantMultiplier) {
         this.instantMultiplier = instantMultiplier;
     }
+
+    public int getActivationValue() {
+        return activationValue;
+    }
 }
