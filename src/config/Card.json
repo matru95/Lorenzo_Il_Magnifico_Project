@@ -596,7 +596,9 @@
               "wood": 1
             },
             "receive": {
-              "gold": 3
+              "resources": {
+                "gold": 3
+              }
             }
           },
           {
@@ -636,7 +638,9 @@
               "wood": 1
             },
             "receive": {
-              "gold": 3
+              "resources": {
+                "gold": 3
+              }
             }
           },
           {
@@ -645,6 +649,113 @@
             },
             "receive": {
               "gold": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "cardAge": 1,
+      "title": "Stonemason's Shop",
+      "cardColor": "yellow",
+      "activationValue": 3,
+      "cost": [
+        {
+          "gold": 1,
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "stone": 1
+            },
+            "receive": {
+              "resources": {
+                "gold": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "stone": 2
+            },
+            "receive": {
+              "gold": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "cardAge": 1,
+      "title": "Chapel",
+      "cardColor": "yellow",
+      "activationValue": 2,
+      "cost": [
+        {
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {
+                "faithPoints": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "cardAge": 1,
+      "title": "Residence",
+      "cardColor": "yellow",
+      "activationValue": 1,
+      "cost": [
+        {
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {},
+              "parchment": 1
             }
           }
         ]

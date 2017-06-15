@@ -13,13 +13,16 @@ import java.util.Map;
 
 public class AddResEffect extends Effect{
     private List<Resource> addRes;
-    AddResEffect(List<Resource> addRes){
+
+    public AddResEffect(List<Resource> addRes){
         this.addRes=addRes;
     }
+
     @Override
     public void exec(Player player) throws NoResourceMatch {
         Map<ResourceName, Resource> startingmap = player.getRes();
         List<Resource> addingmap = this.addRes;
+
         //ciclo che prende i valori contenuti nell'addingmap e li somma alle risorse del player
         int i;
         int numResToAdd=addingmap.size();

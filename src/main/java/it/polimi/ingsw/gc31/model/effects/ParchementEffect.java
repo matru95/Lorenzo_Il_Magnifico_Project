@@ -98,7 +98,7 @@ public class ParchementEffect extends Effect{
 
             Effect[] effetti = new Effect[5];
             for (int j = 0; j < 5; j++) {
-                effetti[j] = EffectFactory.getEffect("addResource", mapsEffects[j], null, null, 0);
+//                effetti[j] = EffectFactory.getEffect("addResource", mapsEffects[j]);
             }
 //----------------------------------STAMPO I VALORI DELL'EFFETTO
             System.out.println("Valori dell'EFFETTO:\n");

@@ -105,7 +105,12 @@ public class CardParser {
 
 //              Parse the receive part
                 JsonNode receiveNode = singleExchangeNode.path("receive");
-                myExchange.setResourcesToReceive(parseResources(receiveNode));
+
+//              Parchments
+                int numOfParchments = receiveNode.path("parchment").asInt();
+
+                myExchange.setNumOfParchmentsToReceive(numOfParchments);
+                myExchange.setResourcesToReceive(parseResources(receiveNode.path("resources")));
 
                 card.insertExchange(myExchange);
             }

@@ -9,10 +9,17 @@ import java.util.Map;
 public class Exchange {
     private List<Resource> resourcesToGive;
     private List<Resource> resourcesToReceive;
+    private int numOfParchmentsToReceive;
+
 
     public Exchange() {
         this.resourcesToGive = new ArrayList<>();
         this.resourcesToReceive = new ArrayList<>();
+        this.numOfParchmentsToReceive = 0;
+    }
+
+    public void setNumOfParchmentsToReceive(int numOfParchmentsToReceive) {
+        this.numOfParchmentsToReceive = numOfParchmentsToReceive;
     }
 
     public void addResourceToGive(Resource resourceToGive) {
