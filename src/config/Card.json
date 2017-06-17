@@ -2195,7 +2195,9 @@
           "warPoints": 3
         }
       ],
-      "costBond": 6,
+      "costBond": {
+        "warPoints": 6
+      },
       "instantEffect": {
         "bonus": {
           "gold": 5
