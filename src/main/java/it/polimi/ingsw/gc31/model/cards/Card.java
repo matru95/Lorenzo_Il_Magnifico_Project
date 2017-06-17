@@ -33,7 +33,18 @@ public class Card {
     private Map<String, Object> productionBonusPoints;
     private boolean blockTowerBonus;
     private FreeCardChoice freeCardChoice;
+    private Resource costBond;
+    private int productionAction;
+    private int harvestAction;
 
+
+    public void setProductionAction(int productionAction) {
+        this.productionAction = productionAction;
+    }
+
+    public void setHarvestAction(int harvestAction) {
+        this.harvestAction = harvestAction;
+    }
 
     public Card(CardColor cardColor, String cardName, int cardID, int cardAge) {
         this.cost = new ArrayList<>();
@@ -47,13 +58,16 @@ public class Card {
         this.activationValue = 0;
         this.numOfNormalParchment = 0;
         this.numOfInstantParchment = 0;
-        this.normalMultiplier = new HashMap<>();
-        this.instantMultiplier = new HashMap<>();
+        this.normalMultiplier = null;
+        this.instantMultiplier = null;
         this.exchanges = new ArrayList<>();
         this.cardColorBonus = new CardColorBonus();
         this.productionBonusPoints = new HashMap<>();
         this.harvestBonusPoints = new HashMap<>();
         this.freeCardChoice = new FreeCardChoice();
+        this.costBond = null;
+        this.productionAction = 0;
+        this.harvestAction = 0;
     }
 
     public void setActivationValue(int activationValue) {
@@ -175,5 +189,13 @@ public class Card {
 
     public int getActivationValue() {
         return activationValue;
+    }
+
+    public Map<String, Object> getInstantMultiplier() {
+        return instantMultiplier;
+    }
+
+    public void setCostBond(Resource costBond) {
+        this.costBond = costBond;
     }
 }

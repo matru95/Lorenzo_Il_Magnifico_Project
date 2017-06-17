@@ -1756,6 +1756,641 @@
         "bonus": {
         }
       }
+    },
+    {
+      "id": 66,
+      "cardAge": 1,
+      "title": "Governor",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 2
+          },
+          "for": {
+            "color": "yellow"
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 67,
+      "cardAge": 1,
+      "title": "Paramour",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 7
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 2
+          },
+          "for": {
+            "color": "blue"
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 68,
+      "cardAge": 1,
+      "title": "Herald",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 2
+          },
+          "for": {
+            "color": "purple"
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 69,
+      "cardAge": 1,
+      "title": "Cardinal",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 2
+        },
+        "activate": {
+          "harvest": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 70,
+      "cardAge": 1,
+      "title": "Bishop",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 5
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        },
+        "activate": {
+          "production": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 71,
+      "cardAge": 1,
+      "title": "General",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 5
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 1
+          },
+          "for": {
+            "warPoints": 2
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 72,
+      "cardAge": 1,
+      "title": "Ambassador",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 1,
+        "freeCardChoice": {
+          "points": 7
+       }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 74,
+      "cardAge": 1,
+      "title": "Repairing the Church",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 1,
+          "wood": 1,
+          "stone": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 75,
+      "cardAge": 1,
+      "title": "Building the Walls",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "stone": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 2
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      }
+    },
+    {
+      "id": 76,
+      "cardAge": 1,
+      "title": "Raising a statue",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "wood": 2,
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 2
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 77,
+      "cardAge": 1,
+      "title": "Military Campaign",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 3
+        }
+      ],
+      "costBond": {
+        "warPoints": 3
+      },
+      "instantEffect": {
+        "bonus": {
+          "gold": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 78,
+      "cardAge": 1,
+      "title": "Hosting Panhandlers",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "wood": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "servants": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 79,
+      "cardAge": 1,
+      "title": "Fighting Heresies",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 3
+        }
+      ],
+      "costBond": {
+        "warPoints": 5
+      },
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 80,
+      "cardAge": 1,
+      "title": "Support to the Bishop",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 2,
+          "wood": 1,
+          "stone": 1
+        },
+        {
+          "warPoints": 2
+        }
+      ],
+      "costBond": {
+        "warPoints": 4
+      },
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 1
+        }
+      }
+    },{
+      "id": 81,
+      "cardAge": 1,
+      "title": "Hiring Soldiers",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 82,
+      "cardAge": 1,
+      "title": "Repairing the Abbey",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 2,
+          "wood": 2,
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      }
+    },
+    {
+      "id": 83,
+      "cardAge": 1,
+      "title": "Building the Bastions",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "stone": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 3
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 2
+        }
+      }
+    },
+    {
+      "id": 84,
+      "cardAge": 1,
+      "title": "Support to the King",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 3
+        }
+      ],
+      "costBond": 6,
+      "instantEffect": {
+        "bonus": {
+          "gold": 5
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      }
+    },
+    {
+      "id": 85,
+      "cardAge": 1,
+      "title": "Improving the Canals",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 3,
+          "servants": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "productionOrHarvestAction": {
+          "harvest": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },{
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },{
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },{
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },{
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },{
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },{
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },{
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },{
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
     }
   ]
 }

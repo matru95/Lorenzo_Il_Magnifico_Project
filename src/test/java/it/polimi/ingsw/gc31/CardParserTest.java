@@ -18,16 +18,23 @@ import java.util.logging.Logger;
 public class CardParserTest extends TestCase{
     CardParser parser;
     Logger logger = Logger.getLogger(this.getClass().getName());
+    List<Card> cards;
 
     @Override
     public void setUp() {
         this.parser = new CardParser("src/config/Card.json");
+        parser.parse();
+        this.cards = parser.getCards();
     }
 
+    @Override
+    public void tearDown() {
+        this.parser = null;
+        this.cards = null;
+    }
 
     @Test
     public void testCardParserShouldParseCards() {
-        parser.parse();
         ObjectMapper mapper =new ObjectMapper();
         File jsonInputFile = new File("src/config/Card.json");
         int lengthCardsJson = 0;
@@ -43,14 +50,11 @@ public class CardParserTest extends TestCase{
             logger.log(Level.SEVERE, "JSON file for cards not found");
         }
 
-        List<Card> cards = parser.getCards();
         assertEquals(lengthCardsJson, cards.size());
     }
 
     @Test
     public void testCardParserShouldInsertNumOfParchments() {
-        parser.parse();
-        List<Card> cards = parser.getCards();
         Card testCard = cards.get(20);
 
         assertEquals(1, testCard.getNumOfInstantParchment());
@@ -58,8 +62,6 @@ public class CardParserTest extends TestCase{
 
     @Test
     public void testCardParserShouldInsertCost() {
-        parser.parse();
-        List<Card> cards = parser.getCards();
         Card testCard = cards.get(27);
 
         assertEquals(1, testCard.getCost().size());
@@ -67,8 +69,6 @@ public class CardParserTest extends TestCase{
 
     @Test
     public void testCardParserShouldInsertMultiplier() {
-        parser.parse();
-        List<Card> cards = parser.getCards();
         Card testCard = cards.get(27);
 
         Map<String, Object> testCardMultiplier = testCard.getNormalMultiplier();
@@ -77,11 +77,23 @@ public class CardParserTest extends TestCase{
 
     @Test
     public void testCardParserShouldInsertExchange() {
-        parser.parse();
-        List<Card> cards = parser.getCards();
         Card testCard = cards.get(28);
 
         assertEquals(2, testCard.getExchanges().size());
+    }
+
+    @Test
+    public void testCardParserShouldHaveInstantMultiplier() {
+        Card testCard = cards.get(65);
+
+        assertNotNull(testCard.getInstantMultiplier());
+    }
+
+    @Test
+    public void testCardParserShoudNotParseInstantMultiplier() {
+        Card testCard = cards.get(28);
+
+        assertNull(testCard.getInstantMultiplier());
     }
 
 }

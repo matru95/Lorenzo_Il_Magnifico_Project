@@ -159,6 +159,54 @@ public class CardParser {
 
     }
 
+    private void parsePurpleCard(JsonNode cardJSON, Card card) {
+//      Cost
+        JsonNode costsNode = cardJSON.path("cost");
+        parseCost(costsNode, card);
+
+//      Cost bond
+        this.parseCostBond(cardJSON, card);
+
+        this.setEffectResources(cardJSON, card);
+        this.setParchments(cardJSON, card);
+
+//      Free card choice
+        JsonNode instantEffectNode = cardJSON.path("instantEffect");
+
+        if(instantEffectNode.has("freeCardChoice")) {
+            JsonNode freeCardChoiceNode = instantEffectNode.path("freeCardChoice");
+
+            parseFreeCardChoice(freeCardChoiceNode, card);
+        }
+
+//      Harvest or production action
+        if(instantEffectNode.has("productionOrHarvestAction")) {
+            JsonNode actionNode = instantEffectNode.path("productionOrHarvestAction");
+
+            String actionType = actionNode.fieldNames().next();
+            int value = actionNode.path(actionType).asInt();
+
+            if(actionType == "production") {
+
+                card.setProductionAction(value);
+            } else {
+
+                card.setHarvestAction(value);
+            }
+        }
+
+
+    }
+
+    private void parseCostBond(JsonNode cardJSON, Card card) {
+        if(cardJSON.has("costBond")) {
+            JsonNode costBondNode = cardJSON.path("costBond");
+
+            Resource costBond = parseSingleResource(costBondNode);
+            card.setCostBond(costBond);
+        }
+    }
+
     private void parseFreeCardChoice(JsonNode freeCardChoiceNode, Card card) {
         FreeCardChoice freeCardChoice = new FreeCardChoice();
 
@@ -340,9 +388,6 @@ public class CardParser {
         return 0;
     }
 
-    private void parsePurpleCard(JsonNode cardJSON, Card card) {
-        return;
-    }
 
 
 
