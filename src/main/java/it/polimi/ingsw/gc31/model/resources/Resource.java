@@ -1,13 +1,14 @@
 package it.polimi.ingsw.gc31.model.resources;
 
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Resource {
+public class Resource implements Serializable{
 
     private ResourceName resourceName;
     private int numOf;
-    private final Logger logger = Logger.getLogger(Resource.class.getName());
+    private transient Logger logger = Logger.getLogger(Resource.class.getName());
 
     public Resource(ResourceName resourceName, int numOf) {
         this.numOf = numOf;

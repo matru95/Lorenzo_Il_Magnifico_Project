@@ -6,9 +6,10 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public abstract class SpaceWrapper {
+public abstract class SpaceWrapper implements Serializable{
 
     private final int positionID;
     private final int diceBond;

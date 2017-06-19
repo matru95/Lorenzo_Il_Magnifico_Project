@@ -81,7 +81,13 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     @Override
     public void register(Client client) throws RemoteException {
         this.clients.add(client);
+        client.ping();
         return;
+    }
+
+    @Override
+    public void getData() {
+        System.out.println("Pinging server!");
     }
 
     @Override

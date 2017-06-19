@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -10,7 +11,7 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
-public class Player {
+public class Player implements Serializable{
 	private final UUID playerID;
 	private final String playerName;
 	private final PlayerColor playerColor;
@@ -26,7 +27,7 @@ public class Player {
 	private FaithCard[] faithCards;
 	private FamilyMember[] familyMembers;
 
-	private final Logger logger = Logger.getLogger(Player.class.getName());
+	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
 
 	public Player(UUID playerID, String playerName, PlayerColor playerColor) throws NoResourceMatch {

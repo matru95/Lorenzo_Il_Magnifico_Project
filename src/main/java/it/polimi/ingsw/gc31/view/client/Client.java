@@ -9,4 +9,6 @@ import java.rmi.RemoteException;
 
 public interface Client extends Remote{
     void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch;
+
+    void ping() throws RemoteException;
 }

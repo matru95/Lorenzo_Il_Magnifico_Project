@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class GameBoardParser {
     private String fileLocation;
     private JsonNode rootNode;
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private transient Logger logger = Logger.getLogger(this.getClass().getName());
     private GameBoard gameBoard;
 
     public GameBoardParser(String fileLocation, GameBoard gameBoard) {

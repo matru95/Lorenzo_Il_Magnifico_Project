@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,13 +10,13 @@ import it.polimi.ingsw.gc31.model.DiceColor;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.parser.GameBoardParser;
 
-public class GameBoard {
+public class GameBoard implements Serializable {
 
     private Map<CardColor,Tower> towers;
     private Map<DiceColor, Dice> dices;
     private Map<String, SpaceWrapper> boardSpaces;
     private GameInstance gameInstance;
-    private GameBoardParser parser;
+    private transient GameBoardParser parser;
     private int positionIndex;
 
     public GameBoard(GameInstance gameInstance) {

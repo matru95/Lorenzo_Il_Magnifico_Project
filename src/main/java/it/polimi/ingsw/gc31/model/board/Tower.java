@@ -2,17 +2,16 @@ package it.polimi.ingsw.gc31.model.board;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import it.polimi.ingsw.gc31.model.PlayerColor;
+import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.*;
 
 
-public class Tower {
+public class Tower implements Serializable{
 
     /** Maps contains towerSpaceWrappers of a single tower:
      * Key is floorID, Value is TowerSpaceWrapper
@@ -21,6 +20,7 @@ public class Tower {
     private CardColor towerColor;
     private boolean isOccupied;
     private GameBoard gameBoard;
+    private Stack<Card> deck;
 
     public Tower(CardColor towerColor, GameBoard gameBoard, JsonNode floors) {
         this.towerColor = towerColor;
@@ -75,6 +75,10 @@ public class Tower {
 
     public CardColor getTowerColor() {
         return towerColor;
+    }
+
+    public void setDeck(Stack deck) {
+        this.deck = deck;
     }
 
     public Map<Integer, TowerSpaceWrapper> getTowerSpace() {

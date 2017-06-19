@@ -17,4 +17,6 @@ public interface GameServer extends Remote {
     GameInstance join(String playerName, PlayerColor color) throws RemoteException, NoResourceMatch;
     void register(Client client) throws RemoteException;
     void leave(UUID playerID) throws RemoteException;
+
+    void getData() throws RemoteException;
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -8,7 +9,7 @@ import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
 
-public class GameInstance {
+public class GameInstance implements Serializable {
 
 	private GameBoard gameBoard;
 	private ArrayList<Player> players;
@@ -20,7 +21,7 @@ public class GameInstance {
 
 	private State state;
 
-	private final Logger logger = Logger.getLogger(GameInstance.class.getName());
+	private transient Logger logger = Logger.getLogger(GameInstance.class.getName());
 
     //currentPlayer is for saving the order of players that use CouncilsPalace Bonus
     //TODO reinizializza playerOrder a 0 ogni turno

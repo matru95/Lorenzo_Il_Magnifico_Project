@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class CardParser {
     private JsonNode rootNode;
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private transient Logger logger = Logger.getLogger(this.getClass().getName());
     private List<Card> cards;
 
     public CardParser(String filePath){
@@ -388,12 +388,51 @@ public class CardParser {
         return 0;
     }
 
-
-
-
-
     public List<Card> getCards() {
         return cards;
     }
 
+
+    public Stack<Card> getCardsByColor(CardColor color) {
+        List<Card> firstAgeCards = new ArrayList<>();
+        List<Card> secondAgeCards = new ArrayList<>();
+        List<Card> thirdAgeCards = new ArrayList<>();
+
+        for(Card card: cards) {
+            if(card.getCardColor() == color) {
+                if(card.getCardAge() == 1) {
+
+                    firstAgeCards.add(card);
+                } else if(card.getCardAge() == 2) {
+
+                    secondAgeCards.add(card);
+                } else {
+
+                    thirdAgeCards.add(card);
+                }
+            }
+        }
+
+//      Randomize
+        long seed = System.nanoTime();
+        Collections.shuffle(firstAgeCards, new Random(seed));
+        Collections.shuffle(secondAgeCards, new Random(seed));
+        Collections.shuffle(thirdAgeCards, new Random(seed));
+
+        Stack<Card> deck = new Stack<>();
+
+        for(Card card: thirdAgeCards) {
+            deck.push(card);
+        }
+
+        for(Card card: secondAgeCards) {
+            deck.push(card);
+        }
+
+        for(Card card: firstAgeCards) {
+            deck.push(card);
+        }
+
+        return deck;
+    }
 }
