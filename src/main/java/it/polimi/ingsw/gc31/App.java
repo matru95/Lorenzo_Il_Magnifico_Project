@@ -1,15 +1,7 @@
 package it.polimi.ingsw.gc31;
 
-import it.polimi.ingsw.gc31.model.PlayerColor;
-import java.util.*;
-import java.util.logging.Logger;
+import it.polimi.ingsw.gc31.view.cli.GameView;
 
-public class App
-{
+public class App {
 
-    private static Scanner in = new Scanner(System.in);
-    private static transient Logger logger = Logger.getLogger(App.class.getName());
-    private static List<PlayerColor> availableColors = new LinkedList<>(Arrays.asList(PlayerColor.values()));
-
-    private App() {}
 }

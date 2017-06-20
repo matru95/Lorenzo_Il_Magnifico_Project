@@ -64,8 +64,7 @@ public class Tower implements Serializable{
         }
         return false;
     }
-    public void drawCards(Tower tower){
-        CardColor towercolor= tower.getTowerColor();
+    public void drawCards(){
         int i;
         for (i=0;i<=3;i++){
             Card card= deck.pop();
