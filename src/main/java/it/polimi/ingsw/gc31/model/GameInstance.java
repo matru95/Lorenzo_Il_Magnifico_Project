@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
+import it.polimi.ingsw.gc31.model.states.TurnState;
 
 public class GameInstance implements Serializable, Runnable {
 
@@ -42,9 +43,14 @@ public class GameInstance implements Serializable, Runnable {
 
 	@Override
 	public void run() {
+	    this.generatePlayerOrders();
 //	    Game preparation state
 		this.state = new GamePrepState();
 		this.state.doAction(this);
+
+//		Turns
+        this.state = new TurnState();
+        this.state.doAction(this);
 	}
 
     public boolean addPlayer(Player player) {

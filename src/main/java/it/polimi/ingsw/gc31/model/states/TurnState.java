@@ -4,8 +4,12 @@ import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.model.DiceColor;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.board.Tower;
+import it.polimi.ingsw.gc31.model.cards.CardColor;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class TurnState implements State {
 
@@ -13,6 +17,10 @@ public class TurnState implements State {
 
     @Override
     public void doAction(GameInstance context) {
+        Map<CardColor, Tower> towers= context.getGameBoard().getTowers();
+        for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
+            towerEntry.getValue().drawCards();
+        }
         this.orderedPlayers = new Player[context.getNumOfPlayers()];
         ArrayList<Player> players = context.getPlayers();
 
