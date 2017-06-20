@@ -8,7 +8,7 @@ import java.util.List;
 public class PlayerTile implements Serializable {
 
     List<Resource> harvestBonus, productionBonus;
-    int id=0;
+    int id;
     public PlayerTile(List<Resource> harvestBonus, List<Resource> productionBonus,int id) {
         this.harvestBonus = harvestBonus;
         this.productionBonus = productionBonus;
