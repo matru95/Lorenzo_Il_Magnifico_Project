@@ -1,18 +1,29 @@
 package it.polimi.ingsw.gc31.model;
 
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class PlayerTile implements Serializable {
 
-    Map harvestBonus, productionBonus;
-
-    public PlayerTile(HashMap<ResourceName, Resource> harvestBonus, HashMap<ResourceName, Resource> productionBonus) {
+    List<Resource> harvestBonus, productionBonus;
+    int id=0;
+    public PlayerTile(List<Resource> harvestBonus, List<Resource> productionBonus,int id) {
         this.harvestBonus = harvestBonus;
         this.productionBonus = productionBonus;
+        this.id=id;
+    }
+
+    public List<Resource> getHarvestBonus() {
+        return harvestBonus;
+    }
+
+    public List<Resource> getProductionBonus() {
+        return productionBonus;
+    }
+
+    public int getId() {
+        return id;
     }
 }
