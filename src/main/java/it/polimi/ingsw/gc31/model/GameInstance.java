@@ -5,6 +5,8 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import it.polimi.ingsw.gc31.model.board.GameBoard;
+import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.cards.CardParser;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;

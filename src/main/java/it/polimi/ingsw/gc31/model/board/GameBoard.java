@@ -8,6 +8,7 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.model.DiceColor;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.cards.CardParser;
 import it.polimi.ingsw.gc31.model.parser.GameBoardParser;
 
 public class GameBoard implements Serializable {
@@ -18,6 +19,7 @@ public class GameBoard implements Serializable {
     private GameInstance gameInstance;
     private transient GameBoardParser parser;
     private int positionIndex;
+    private CardParser cardParser;
 
     public GameBoard(GameInstance gameInstance) {
 
@@ -25,6 +27,7 @@ public class GameBoard implements Serializable {
         this.dices = new HashMap<>();
         this.boardSpaces = new HashMap<>();
         this.parser = new GameBoardParser("src/config/Settings.json", this);
+        this.cardParser = new CardParser("src/config/Card.json");
 
         //Initialize dice
         createDice();
@@ -33,6 +36,12 @@ public class GameBoard implements Serializable {
 
         // Initialize Towers on GameBoard
         this.towers = this.parser.parseTowers();
+
+        for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
+
+            Tower tower = towerEntry.getValue();
+            tower.setDeck(this.cardParser.getCardsByColor(towerEntry.getKey()));
+        }
 
 
         //Initialize CouncilsPalace
