@@ -43,14 +43,14 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
         at.addRule();
 
         for (int floorID = 3; floorID >= 0; floorID--) {
-            /*
+
             at.addRow(gameBoardModel.getTowerByColor(CardColor.GREEN).getTowerSpace().get(floorID).getCard().toString(),
                       gameBoardModel.getTowerByColor(CardColor.BLUE).getTowerSpace().get(floorID).getCard().toString(),
                       gameBoardModel.getTowerByColor(CardColor.YELLOW).getTowerSpace().get(floorID).getCard().toString(),
                       gameBoardModel.getTowerByColor(CardColor.PURPLE).getTowerSpace().get(floorID).getCard().toString()
-                    );*/
+                    );
             at.addRule();
-            at.addRow(cards.get(0).toString(), cards.get(1).toString(), cards.get(2).toString(), cards.get(3).toString());
+//            at.addRow(cards.get(0).toString(), cards.get(1).toString(), cards.get(2).toString(), cards.get(3).toString());
             at.addRule();
         }
 

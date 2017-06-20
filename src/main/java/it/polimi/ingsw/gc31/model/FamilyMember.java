@@ -46,8 +46,6 @@ public class FamilyMember {
     }
 
     private void setMyDice() {
-	    System.out.println(color);
-	    System.out.println(board);
 		this.dice = this.board.getDiceByColor(this.color);
     }
 

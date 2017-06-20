@@ -28,6 +28,7 @@ public class GameBoard implements Serializable {
         this.boardSpaces = new HashMap<>();
         this.parser = new GameBoardParser("src/config/Settings.json", this);
         this.cardParser = new CardParser("src/config/Card.json");
+        this.cardParser.parse();
 
         //Initialize dice
         createDice();
