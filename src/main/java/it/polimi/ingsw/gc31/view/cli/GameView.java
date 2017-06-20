@@ -34,6 +34,7 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
     public void printView() {
         printBoard();
         printPlayer();
+        printParchementQuery();
     }
 
     private void printBoard() {
@@ -48,6 +49,7 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
                       gameBoardModel.getTowerByColor(CardColor.YELLOW).getTowerSpace().get(floorID).getCard().toString(),
                       gameBoardModel.getTowerByColor(CardColor.PURPLE).getTowerSpace().get(floorID).getCard().toString()
                     );*/
+            at.addRule();
             at.addRow(cards.get(0).toString(), cards.get(1).toString(), cards.get(2).toString(), cards.get(3).toString());
             at.addRule();
         }
@@ -67,12 +69,13 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
 
     private void printParchementQuery() {
         //TODO
-        /**
+
         System.out.println("Choose a BONUS for parchement between this: \n" +
-                "1)1 gold and etc" +
-                "2)Mi servono le carte" +
-                "3)Roba buona" +
-                "4)Bella raga ");   */
+            "Digita 0 per 1 x Wood & 1 x Stone" +
+            "Digita 1 per 2 x Servants" +
+            "Digita 2 per 2 x Golds" +
+            "Digita 3 per 2 x Military Points" +
+            "Digita 4 per 1 x Faith Points");
     }
 
     private void printFaithEffect() {

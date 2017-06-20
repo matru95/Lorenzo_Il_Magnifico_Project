@@ -19,7 +19,7 @@ public class TurnState implements State {
     public void doAction(GameInstance context) {
         Map<CardColor, Tower> towers= context.getGameBoard().getTowers();
         for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
-            towerEntry.getValue().drawCards(towerEntry.getValue());
+            towerEntry.getValue().drawCards();
         }
         this.orderedPlayers = new Player[context.getNumOfPlayers()];
         ArrayList<Player> players = context.getPlayers();
