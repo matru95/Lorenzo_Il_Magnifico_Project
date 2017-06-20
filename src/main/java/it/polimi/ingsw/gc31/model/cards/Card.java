@@ -70,6 +70,13 @@ public class Card {
         this.harvestAction = 0;
     }
 
+    @Override
+    public String toString() {
+        return "Age:" + cardAge + " | " + cardColor + " | " + "ID" + cardID +
+                " " + cardName +
+                " Effects:" + "null";
+    }
+
     public void setActivationValue(int activationValue) {
         this.activationValue = activationValue;
     }
