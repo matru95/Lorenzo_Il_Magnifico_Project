@@ -1,7 +1,7 @@
 {
   "playertile" : [
     {
-      "id":1,
+      "id":0,
       "production" : {
         "servants" : 1,
         "gold" : 2
@@ -13,7 +13,7 @@
       }
     },
     {
-      "id":2,
+      "id":1,
       "production" : {
         "servants" : 2,
         "gold" : 1
@@ -25,7 +25,7 @@
       }
     },
     {
-      "id":3,
+      "id":2,
       "production" : {
         "warpoints" : 2,
         "gold" : 1
@@ -37,7 +37,7 @@
       }
     },
     {
-      "id":4,
+      "id":3,
       "production" : {
         "servants" : 1,
         "gold" : 2
@@ -49,7 +49,7 @@
       }
     },
     {
-      "id":5,
+      "id":4,
       "production" : {
         "servants" : 1,
         "warpoints" : 2
