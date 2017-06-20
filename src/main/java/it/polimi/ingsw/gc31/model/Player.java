@@ -58,6 +58,7 @@ public class Player implements Serializable{
 
     public void setGameBoard(GameBoard gameBoard) {
 		this.board = gameBoard;
+		this.initFamilyMembers();
 	}
 
 	private void initCards() {
