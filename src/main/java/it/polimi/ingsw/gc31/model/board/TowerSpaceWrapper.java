@@ -103,13 +103,20 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         return card;
     }
 
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
     public Tower getTower() {
         return tower;
     }
 
+
     public void setFamilyMember(FamilyMember familyMember) {
         this.familyMember = familyMember;
     }
+
+
 
     public FamilyMember getFamilyMember() {
         return this.familyMember;

@@ -64,7 +64,14 @@ public class Tower implements Serializable{
         }
         return false;
     }
-
+    public void drawCards(Tower tower){
+        CardColor towercolor= tower.getTowerColor();
+        int i;
+        for (i=0;i<=3;i++){
+            Card card= deck.pop();
+            towerSpaces.get(i).setCard(card);
+        }
+    }
     public boolean isOccupied() {
         return isOccupied;
     }
