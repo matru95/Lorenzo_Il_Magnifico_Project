@@ -1,0 +1,64 @@
+{
+  "playertile" : [
+    {
+      "id":1,
+      "production" : {
+        "servants" : 1,
+        "gold" : 2
+      },
+      "harvest" : {
+        "stone":1,
+        "wood":1,
+        "servants":1
+      }
+    },
+    {
+      "id":2,
+      "production" : {
+        "servants" : 2,
+        "gold" : 1
+      },
+      "harvest" : {
+        "stone":1,
+        "wood":1,
+        "warpoints":1
+      }
+    },
+    {
+      "id":3,
+      "production" : {
+        "warpoints" : 2,
+        "gold" : 1
+      },
+      "harvest" : {
+        "stone":2,
+        "wood":1,
+        "servants":1
+      }
+    },
+    {
+      "id":4,
+      "production" : {
+        "servants" : 1,
+        "gold" : 2
+      },
+      "harvest" : {
+        "stone":1,
+        "wood":1,
+        "warpoints":1
+      }
+    },
+    {
+      "id":5,
+      "production" : {
+        "servants" : 1,
+        "warpoints" : 2
+      },
+      "harvest" : {
+        "stone":1,
+        "wood":1,
+        "gold":1
+      }
+    }
+  ]
+}
