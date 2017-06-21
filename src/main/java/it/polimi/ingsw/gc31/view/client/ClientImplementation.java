@@ -14,12 +14,15 @@ import java.rmi.server.UnicastRemoteObject;
 public class ClientImplementation implements Client, Serializable{
 
     public static void main(String[] args) throws RemoteException, NotBoundException, NoResourceMatch {
-        Client client = new ClientImplementation();
-        UnicastRemoteObject.exportObject(client, 9070);
-        Registry registry = LocateRegistry.getRegistry(8080);
-        registry.rebind("game_client", client);
-        GameServer gameServer = (GameServer) registry.lookup("game_server");
-        client.joinServer(gameServer, "Endi", PlayerColor.BLUE);
+        for(int i=8081; i<8085; i++) {
+
+            Client client = new ClientImplementation();
+            UnicastRemoteObject.exportObject(client, i);
+            Registry registry = LocateRegistry.getRegistry(8080);
+            registry.rebind("game_client", client);
+            GameServer gameServer = (GameServer) registry.lookup("game_server");
+            client.joinServer(gameServer, "Endi", PlayerColor.BLUE);
+        }
     }
 
     public ClientImplementation() {

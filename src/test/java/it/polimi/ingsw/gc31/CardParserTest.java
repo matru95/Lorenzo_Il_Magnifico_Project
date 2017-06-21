@@ -79,6 +79,7 @@ public class CardParserTest extends TestCase{
     public void testCardParserShouldInsertExchange() {
         Card testCard = cards.get(28);
 
+        System.out.println(testCard.toString());
         assertEquals(2, testCard.getExchanges().size());
     }
 

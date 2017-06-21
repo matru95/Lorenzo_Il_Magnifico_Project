@@ -11,10 +11,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface GameServer extends Remote {
-    void createGame() throws RemoteException, NoResourceMatch;
     Map<UUID, GameInstance> getGames() throws RemoteException;
     GameInstance getGame(UUID instanceID) throws RemoteException;
-    GameInstance join(String playerName, PlayerColor color) throws RemoteException, NoResourceMatch;
+    void join(String playerName, PlayerColor color) throws RemoteException, NoResourceMatch;
     void leave(UUID playerID) throws RemoteException;
     void register(Client client, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch;
     void getData() throws RemoteException;

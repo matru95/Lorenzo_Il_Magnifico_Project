@@ -11,15 +11,13 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     private Map<UUID, GameInstance> games;
     private UUID openGameID;
     private ArrayList<Client> clients;
+    private Timer timer;
 
     public static void main(String[] args) throws RemoteException {
         System.out.println("Constructing server implementation");
@@ -37,12 +35,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         this.games = new HashMap<>();
         this.clients = new ArrayList<>();
         this.openGameID = null;
-    }
-
-    @Override
-    public void createGame() throws NoResourceMatch, RemoteException {
-        GameInstance gameInstance = new GameInstance(UUID.randomUUID());
-        games.put(gameInstance.getInstanceID(), gameInstance);
+        this.timer = null;
     }
 
     @Override
@@ -58,27 +51,44 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public GameInstance join(String playerName, PlayerColor color) throws RemoteException, NoResourceMatch {
+    public void join(String playerName, PlayerColor color) throws RemoteException, NoResourceMatch {
         Player player = new Player(UUID.randomUUID(), playerName, color);
         GameInstance openGame;
 
         if(this.openGameID != null) {
             System.out.println("Joining existing game");
-            openGame = games.get(openGameID);
-            openGame.addPlayer(player);
-            player.setGameBoard(openGame.getGameBoard());
+            joinExistingGame(player);
+
+            if(timer == null) {
+                timer = new Timer();
+                TimerTask timerTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        startGame();
+                    }
+                };
+
+                timer.schedule(timerTask, 5000);
+            }
         } else {
             System.out.println("Creating new game");
-            openGame = new GameInstance(UUID.randomUUID());
-            this.openGameID = openGame.getInstanceID();
-            openGame.addPlayer(player);
-            GameBoard gameBoard = new GameBoard(openGame);
-            openGame.setGameBoard(gameBoard);
-            player.setGameBoard(gameBoard);
-            games.put(openGameID, openGame);
+            createNewGame(player);
         }
 
-        return openGame;
+    }
+
+    private void createNewGame(Player player) {
+        GameInstance openGame;
+
+        openGame = new GameInstance(UUID.randomUUID());
+        this.openGameID = openGame.getInstanceID();
+
+        openGame.addPlayer(player);
+        GameBoard gameBoard = new GameBoard(openGame);
+        openGame.setGameBoard(gameBoard);
+        player.setGameBoard(gameBoard);
+
+        games.put(openGameID, openGame);
     }
 
     private void joinExistingGame(Player player) {
@@ -86,8 +96,18 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         openGame.addPlayer(player);
 
         if(openGame.getNumOfPlayers() == 4) {
-            
+            startGame();
         }
+    }
+
+    private void startGame() {
+        System.out.println("starting game!");
+        GameInstance openGame = games.get(openGameID);
+        openGameID = null;
+        timer.cancel();
+        timer.purge();
+
+        (new Thread(openGame)).start();
     }
 
     @Override

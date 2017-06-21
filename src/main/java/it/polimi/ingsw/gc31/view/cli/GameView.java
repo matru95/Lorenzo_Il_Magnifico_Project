@@ -13,6 +13,8 @@ import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.cards.CardParser;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
+import it.polimi.ingsw.gc31.view.parser.CardViewParser;
+import it.polimi.ingsw.gc31.view.parser.ViewParser;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,14 +43,15 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
 
         AsciiTable at = new AsciiTable();
         at.addRule();
+        ViewParser cardParser = new CardViewParser();
 
         for (int floorID = 3; floorID >= 0; floorID--) {
 
-            at.addRow(gameBoardModel.getTowerByColor(CardColor.GREEN).getTowerSpace().get(floorID).getCard().toString(),
-                      gameBoardModel.getTowerByColor(CardColor.BLUE).getTowerSpace().get(floorID).getCard().toString(),
-                      gameBoardModel.getTowerByColor(CardColor.YELLOW).getTowerSpace().get(floorID).getCard().toString(),
-                      gameBoardModel.getTowerByColor(CardColor.PURPLE).getTowerSpace().get(floorID).getCard().toString()
-                    );
+            String greenCardString = gameBoardModel.getTowerByColor(CardColor.GREEN).getTowerSpace().get(floorID).getCard().toString();
+            String blueCardString = gameBoardModel.getTowerByColor(CardColor.BLUE).getTowerSpace().get(floorID).getCard().toString();
+            String yellowCardString = gameBoardModel.getTowerByColor(CardColor.YELLOW).getTowerSpace().get(floorID).getCard().toString();
+            String purpleCardString = gameBoardModel.getTowerByColor(CardColor.PURPLE).getTowerSpace().get(floorID).getCard().toString();
+            at.addRow(cardParser.parse(greenCardString), cardParser.parse(blueCardString), cardParser.parse(yellowCardString), cardParser.parse(purpleCardString));
             at.addRule();
 //            at.addRow(cards.get(0).toString(), cards.get(1).toString(), cards.get(2).toString(), cards.get(3).toString());
             at.addRule();

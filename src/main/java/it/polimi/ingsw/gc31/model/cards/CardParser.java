@@ -18,7 +18,7 @@ public class CardParser {
     private List<Card> cards;
 
     public CardParser(String filePath){
-        ObjectMapper mapper =new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         File jsonInputFile = new File(filePath);
         cards = new ArrayList<>();
 

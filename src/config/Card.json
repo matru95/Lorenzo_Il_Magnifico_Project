@@ -120,7 +120,7 @@
       },
       "normalEffect": {
         "bonus": {
-          "victorypoints": 2,
+          "victoryPoints": 2,
           "stone": 1
         }
       }

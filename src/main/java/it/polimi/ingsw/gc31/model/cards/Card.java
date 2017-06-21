@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc31.model.cards;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.effects.Effect;
@@ -72,9 +74,12 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Age:" + cardAge + " | " + cardColor + " | " + "ID" + cardID +
-                " " + cardName +
-                " Effects:" + "null";
+        try {
+            return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setActivationValue(int activationValue) {
