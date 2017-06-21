@@ -21,6 +21,7 @@ public final class Dice implements Serializable{
         } else {
             this.value = 1 + r.nextInt(5);
         }
+
     }
 
     public int getValue() {

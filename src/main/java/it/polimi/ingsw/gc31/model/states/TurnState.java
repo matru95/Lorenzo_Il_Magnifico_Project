@@ -51,6 +51,10 @@ public class TurnState implements State {
     private void throwDice(GameInstance context) {
         for (DiceColor color: DiceColor.values()) {
             context.getGameBoard().getDices().get(color).throwDice();
+
+            for(Player currentPlayer: context.getPlayers()) {
+                currentPlayer.getSpecificFamilyMember(color).setValueFromDice();
+            }
         }
     }
 }
