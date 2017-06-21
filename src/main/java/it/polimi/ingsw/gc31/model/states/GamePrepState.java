@@ -18,7 +18,17 @@ public class GamePrepState implements State {
     public void doAction(GameInstance context) {
         ArrayList<Player> players = context.getPlayers();
         numOfPlayers = context.getNumOfPlayers();
+        this.distributeResources(players);
 
+    }
+
+    private void distributeResources(List<Player> players) {
+        for(Player player: players) {
+           int playerOrder = player.getPlayerOrder();
+           Map<ResourceName, Resource> playerResources = player.getRes();
+           playerResources.get(ResourceName.GOLD).setNumOf(playerOrder+4);
+
+        }
     }
 
 }

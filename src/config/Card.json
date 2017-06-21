@@ -2119,7 +2119,8 @@
           "victoryPoints": 1
         }
       }
-    },{
+    },
+    {
       "id": 81,
       "cardAge": 1,
       "title": "Hiring Soldiers",
@@ -2233,16 +2234,71 @@
           "victoryPoints": 4
         }
       }
-    },{
-      "id": 73,
+    },
+    {
+      "id": 86,
       "cardAge": 1,
-      "title": "Hiring Recruits",
+      "title": "Hosting Foreigners",
       "cardColor": "purple",
       "cost": [
         {
-          "gold": 4
+          "wood": 4
         }
       ],
+      "instantEffect": {
+        "bonus": {
+          "servants": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 87,
+      "cardAge": 1,
+      "title": "Crusade",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 4
+        }
+      ],
+      "costBond": {
+        "warPoints": 8
+      },
+      "instantEffect": {
+        "bonus": {
+          "gold": 5,
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 88,
+      "cardAge": 1,
+      "title": "Support to the Cardinal",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 3,
+          "wood": 2,
+          "stone": 2
+        },
+        {
+          "warPoints": 4
+        }
+      ],
+      "costBond": {
+        "warPoints": 7
+      },
       "instantEffect": {
         "bonus": {
           "warPoints": 5
@@ -2253,136 +2309,110 @@
           "victoryPoints": 4
         }
       }
-    },{
-      "id": 73,
+    },
+    {
+      "id": 89,
       "cardAge": 1,
-      "title": "Hiring Recruits",
+      "title": "Hiring Mercenaries",
       "cardColor": "purple",
       "cost": [
         {
-          "gold": 4
+          "gold": 8
         }
       ],
       "instantEffect": {
         "bonus": {
-          "warPoints": 5
+          "warPoints": 7
         }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      }
+    },
+    {
+      "id": 90,
+      "cardAge": 1,
+      "title": "Repairing the Cathedral",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 3,
+          "wood": 3,
+          "stone": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        },
+        "freeCardChoice": {
+          "points": 7
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 91,
+      "cardAge": 1,
+      "title": "Building the Towers",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "stone": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 4
+        },
+        "parchment": 1
       },
       "normalEffect": {
         "bonus": {
           "victoryPoints": 4
         }
       }
-    },{
-      "id": 73,
+    },
+    {
+      "id": 92,
       "cardAge": 1,
-      "title": "Hiring Recruits",
+      "title": "Promoting Sacred Art",
       "cardColor": "purple",
       "cost": [
         {
-          "gold": 4
+          "wood": 6
         }
       ],
       "instantEffect": {
         "bonus": {
-          "warPoints": 5
+          "faithPoints": 3
         }
       },
       "normalEffect": {
         "bonus": {
-          "victoryPoints": 4
+          "victoryPoints": 3
         }
       }
-    },{
-      "id": 73,
+    },
+    {
+      "id": 93,
       "cardAge": 1,
-      "title": "Hiring Recruits",
+      "title": "Military Conquest",
       "cardColor": "purple",
       "cost": [
         {
-          "gold": 4
+          "warPoints": 6
         }
       ],
-      "instantEffect": {
-        "bonus": {
-          "warPoints": 5
-        }
+      "costBond": {
+        "warPoints": 12
       },
-      "normalEffect": {
-        "bonus": {
-          "victoryPoints": 4
-        }
-      }
-    },{
-      "id": 73,
-      "cardAge": 1,
-      "title": "Hiring Recruits",
-      "cardColor": "purple",
-      "cost": [
-        {
-          "gold": 4
-        }
-      ],
-      "instantEffect": {
-        "bonus": {
-          "warPoints": 5
-        }
-      },
-      "normalEffect": {
-        "bonus": {
-          "victoryPoints": 4
-        }
-      }
-    },{
-      "id": 73,
-      "cardAge": 1,
-      "title": "Hiring Recruits",
-      "cardColor": "purple",
-      "cost": [
-        {
-          "gold": 4
-        }
-      ],
-      "instantEffect": {
-        "bonus": {
-          "warPoints": 5
-        }
-      },
-      "normalEffect": {
-        "bonus": {
-          "victoryPoints": 4
-        }
-      }
-    },{
-      "id": 73,
-      "cardAge": 1,
-      "title": "Hiring Recruits",
-      "cardColor": "purple",
-      "cost": [
-        {
-          "gold": 4
-        }
-      ],
-      "instantEffect": {
-        "bonus": {
-          "warPoints": 5
-        }
-      },
-      "normalEffect": {
-        "bonus": {
-          "victoryPoints": 4
-        }
-      }
-    },{
-      "id": 73,
-      "cardAge": 1,
-      "title": "Hiring Recruits",
-      "cardColor": "purple",
-      "cost": [
-        {
-          "gold": 4
-        }
-      ],
       "instantEffect": {
         "bonus": {
           "warPoints": 5

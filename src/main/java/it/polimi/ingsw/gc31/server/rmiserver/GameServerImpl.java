@@ -63,24 +63,37 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         GameInstance openGame;
 
         if(this.openGameID != null) {
+            System.out.println("Joining existing game");
             openGame = games.get(openGameID);
             openGame.addPlayer(player);
             player.setGameBoard(openGame.getGameBoard());
         } else {
+            System.out.println("Creating new game");
             openGame = new GameInstance(UUID.randomUUID());
             this.openGameID = openGame.getInstanceID();
             openGame.addPlayer(player);
             GameBoard gameBoard = new GameBoard(openGame);
             openGame.setGameBoard(gameBoard);
             player.setGameBoard(gameBoard);
+            games.put(openGameID, openGame);
         }
 
         return openGame;
     }
 
+    private void joinExistingGame(Player player) {
+        GameInstance openGame = games.get(openGameID);
+        openGame.addPlayer(player);
+
+        if(openGame.getNumOfPlayers() == 4) {
+            
+        }
+    }
+
     @Override
-    public void register(Client client) throws RemoteException {
+    public void register(Client client, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch {
         this.clients.add(client);
+        this.join(playerName, playerColor);
         client.ping();
         return;
     }

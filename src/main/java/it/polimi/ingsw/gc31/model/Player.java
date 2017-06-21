@@ -133,7 +133,7 @@ public class Player implements Serializable{
 
 	public void doPlayerActions() {
 	    System.out.println("Doing player Actions!");
-	}
+    }
 
 	public UUID getPlayerID() {
 		return playerID;

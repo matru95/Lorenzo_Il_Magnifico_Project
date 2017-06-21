@@ -15,11 +15,10 @@ public class ClientImplementation implements Client, Serializable{
 
     public static void main(String[] args) throws RemoteException, NotBoundException, NoResourceMatch {
         Client client = new ClientImplementation();
-        UnicastRemoteObject.exportObject(client, 9090);
+        UnicastRemoteObject.exportObject(client, 9070);
         Registry registry = LocateRegistry.getRegistry(8080);
         registry.rebind("game_client", client);
         GameServer gameServer = (GameServer) registry.lookup("game_server");
-        gameServer.register(client);
         client.joinServer(gameServer, "Endi", PlayerColor.BLUE);
     }
 
@@ -28,7 +27,7 @@ public class ClientImplementation implements Client, Serializable{
 
     @Override
     public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch {
-        s.join(playerName, playerColor);
+        s.register(this, playerName, playerColor);
         return;
     }
 
