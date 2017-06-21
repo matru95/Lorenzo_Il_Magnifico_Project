@@ -46,8 +46,6 @@ public class Player implements Serializable{
 		initCards();
 		initResources();
 
-		//TODO playerTile parse
-        this.playerTile = new PlayerTile(null, null);
 	}
 
     @Override
@@ -169,6 +167,14 @@ public class Player implements Serializable{
 
 	public Map<ResourceName, Resource> getRes() {
 		return this.res;
+	}
+
+	public PlayerTile getPlayerTile() {
+		return playerTile;
+	}
+
+	public void setPlayerTile(PlayerTile playerTile) {
+		this.playerTile = playerTile;
 	}
 
 	public static Comparator<Player> PlayerWarPointsComparator

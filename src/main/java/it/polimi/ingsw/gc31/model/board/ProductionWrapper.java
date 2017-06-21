@@ -2,6 +2,11 @@ package it.polimi.ingsw.gc31.model.board;
 
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
+import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.effects.AddResEffect;
+import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
@@ -24,13 +29,26 @@ public class ProductionWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember, int amountOfServants) {
-        produce(familyMember.getDicePoints());
+    public void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+        produce(familyMember,amountOfServants);
         if (!isMultiple) setOccupied(true);
     }
 
-    private void produce(int dicePoints){
-        //TODO
+    private void produce(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+        {
+            int familyMemberValue = familyMember.getValue() + amountOfServants;
+            List<Card> yellowCards = familyMember.getPlayer().getCards().get(CardColor.YELLOW);
+            //EFFETTO PRODUCTION-TILE ESGUITO UNA SOLA VOLTA
+            List<Resource> productionTileRes = familyMember.getPlayer().getPlayerTile().getProductionBonus();
+            Effect productionTile = new AddResEffect(productionTileRes);
+            productionTile.exec(familyMember.getPlayer());
+            //TODO DA VERIFICARE LA SCELTA DELL'UTENTE SULL'ESECUZIONE DEGLI EFFETTI DELLE CARTE
+            for (Card singleCard : yellowCards) {
+                if (singleCard.getActivationValue() <= familyMemberValue) {
+                    singleCard.execNormalEffect(familyMember.getPlayer());
+                }
+            }
+        }
     }
 
     @Override

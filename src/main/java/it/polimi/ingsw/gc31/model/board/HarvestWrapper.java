@@ -4,6 +4,9 @@ import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.effects.AddResEffect;
+import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.effects.EffectFactory;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
@@ -56,13 +59,17 @@ public class HarvestWrapper extends SpaceWrapper {
     private void harvest(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
         int familyMemberValue =familyMember.getValue()+amountOfServants;
         List<Card> greenCards=familyMember.getPlayer().getCards().get(CardColor.GREEN);
+        //EFFETTO HARVESTTILE ESGUITO UNA SOLA VOLTA
+        List <Resource> harvestTileRes=familyMember.getPlayer().getPlayerTile().getHarvestBonus();
+        Effect harvestTile = new AddResEffect(harvestTileRes);
+        harvestTile.exec(familyMember.getPlayer());
+
         for (Card singleCard : greenCards){
+
             if(singleCard.getActivationValue()<=familyMemberValue){
                 singleCard.execNormalEffect(familyMember.getPlayer());
-                //TODO INSERIRE PLAYER TILE
             }
         }
-
     }
 
     public void setMalus(int malus) {
