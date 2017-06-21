@@ -4,6 +4,7 @@ import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_FixedWidth;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import it.polimi.ingsw.gc31.controller.PlayerController;
+import it.polimi.ingsw.gc31.model.DiceColor;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.PlayerColor;
@@ -34,9 +35,21 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
     }
 
     public void printView() {
+        printHeader();
         printBoard();
         printPlayer();
-        printParchementQuery();
+        printFamilyMembers();
+        //printParchementQuery();
+    }
+
+    private void printHeader() {
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        at.addRow("GameID: [" + gameBoardModel.getGameInstance().getInstanceID() + "]", "AGE:[" + gameBoardModel.getGameInstance().getAge() + "] TURN:[" + gameBoardModel.getGameInstance().getTurn() + "]");
+        at.addRule();
+        at.setTextAlignment(TextAlignment.CENTER);
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(41).add(41));
+        System.out.println(at.render() + "\n");
     }
 
     private void printBoard() {
@@ -53,8 +66,6 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
             String purpleCardString = gameBoardModel.getTowerByColor(CardColor.PURPLE).getTowerSpace().get(floorID).getCard().toString();
             at.addRow(cardParser.parse(greenCardString), cardParser.parse(blueCardString), cardParser.parse(yellowCardString), cardParser.parse(purpleCardString));
             at.addRule();
-//            at.addRow(cards.get(0).toString(), cards.get(1).toString(), cards.get(2).toString(), cards.get(3).toString());
-            at.addRule();
         }
 
         at.setTextAlignment(TextAlignment.CENTER);
@@ -63,22 +74,51 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
     }
 
     private void printPlayer() {
+
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+
+        at.addRow("[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName(),
+                "[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName(),
+                "[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName(),
+                "[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName()
+                );
+        at.addRule();
         for(ResourceName resName: ResourceName.values()) {
-            System.out.println(resName.toString() +
-                    ":[" + playerModel.getRes().get(resName).getNumOf() + "]");
+            at.addRow(resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
+                    resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
+                    resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
+                    resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]"
+                    );
+            at.addRule();
         }
-        System.out.println();
+        at.setTextAlignment(TextAlignment.CENTER);
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20));
+        System.out.println(at.render() + "\n");
+    }
+
+    private void printFamilyMembers() {
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        at.addRow("BLACK:[" + playerModel.getSpecificFamilyMember(DiceColor.BLACK).getValue() + "]",
+                "WHITE:["+ playerModel.getSpecificFamilyMember(DiceColor.WHITE).getValue() + "]",
+                "ORANGE:["+ playerModel.getSpecificFamilyMember(DiceColor.ORANGE).getValue() + "]",
+                "NEUTRAL:["+ playerModel.getSpecificFamilyMember(DiceColor.NEUTRAL).getValue() + "]"
+        );
+        at.addRule();
+        at.setTextAlignment(TextAlignment.CENTER);
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20));
+        System.out.println(at.render() + "\n");
+
     }
 
     private void printParchementQuery() {
-        //TODO
-
         System.out.println("Choose a BONUS for parchement between this: \n" +
-            "Digita 0 per 1 x Wood & 1 x Stone" +
-            "Digita 1 per 2 x Servants" +
-            "Digita 2 per 2 x Golds" +
-            "Digita 3 per 2 x Military Points" +
-            "Digita 4 per 1 x Faith Points");
+            "Type 0 for: 1 Wood && 1 Stone \n" +
+            "Type 1 for: 2 Servants \n" +
+            "Type 2 for: 2 Golds \n" +
+            "Type 3 for: 2 Military Points \n" +
+            "Type 4 for: 1 Faith Points \n");
     }
 
     private void printFaithEffect() {
