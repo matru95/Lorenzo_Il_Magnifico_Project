@@ -25,11 +25,12 @@ public class AddResEffect extends Effect{
 
         //ciclo che prende i valori contenuti nell'addingmap e li somma alle risorse del player
         int i;
-        int numResToAdd=addingmap.size();
+        int numResToAdd = addingmap.size();
         for(i=0;i<numResToAdd;i++){
-            String resource= addingmap.get(i).getResourceName().toString();
+            ResourceName resourceName= addingmap.get(i).getResourceName();
             int value=addingmap.get(i).getNumOf();
-            startingmap.get(resource).addNumOf(value);
+
+            startingmap.get(resourceName).addNumOf(value);
         }
         player.setRes(startingmap);
     }

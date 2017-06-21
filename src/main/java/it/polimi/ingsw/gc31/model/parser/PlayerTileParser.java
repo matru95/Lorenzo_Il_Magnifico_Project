@@ -1,8 +1,9 @@
-package it.polimi.ingsw.gc31.model;
+package it.polimi.ingsw.gc31.model.parser;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.polimi.ingsw.gc31.model.PlayerTile;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 

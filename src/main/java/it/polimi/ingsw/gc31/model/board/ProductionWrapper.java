@@ -38,10 +38,12 @@ public class ProductionWrapper extends SpaceWrapper {
         {
             int familyMemberValue = familyMember.getValue() + amountOfServants;
             List<Card> yellowCards = familyMember.getPlayer().getCards().get(CardColor.YELLOW);
+
             //EFFETTO PRODUCTION-TILE ESGUITO UNA SOLA VOLTA
             List<Resource> productionTileRes = familyMember.getPlayer().getPlayerTile().getProductionBonus();
             Effect productionTile = new AddResEffect(productionTileRes);
             productionTile.exec(familyMember.getPlayer());
+
             //TODO DA VERIFICARE LA SCELTA DELL'UTENTE SULL'ESECUZIONE DEGLI EFFETTI DELLE CARTE
             for (Card singleCard : yellowCards) {
                 if (singleCard.getActivationValue() <= familyMemberValue) {

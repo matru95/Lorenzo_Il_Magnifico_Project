@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.parser.PlayerTileParser;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
@@ -39,6 +40,11 @@ public class Player implements Serializable{
 		
 		res = new HashMap<>();
 		this.cards = new HashMap<>();
+
+//		PlayerTile
+        PlayerTileParser playerTileParser = new PlayerTileParser("src/config/PlayerTile.json");
+        playerTileParser.parse();
+        this.playerTile = playerTileParser.getPlayerTiles().get(0);
 
 //		Cards
 		this.familyMembers = new FamilyMember[4];
