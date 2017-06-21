@@ -95,6 +95,9 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         GameInstance openGame = games.get(openGameID);
         openGame.addPlayer(player);
 
+        GameBoard gameBoard = openGame.getGameBoard();
+        player.setGameBoard(gameBoard);
+
         if(openGame.getNumOfPlayers() == 4) {
             startGame();
         }

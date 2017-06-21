@@ -122,7 +122,8 @@ public class Player implements Serializable{
 	
 	public FamilyMember getSpecificFamilyMember(DiceColor color) {
 		for(FamilyMember member: familyMembers) {
-			if(color.equals(member.getColor())) {
+		    DiceColor familyMemberColor = member.getColor();
+			if(color.equals(familyMemberColor)) {
 				return member;
 			}
 		}
