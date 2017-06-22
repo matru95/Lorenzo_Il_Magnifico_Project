@@ -5,7 +5,9 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.ProductionWrapper;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
+import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.model.cards.CardParser;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -42,6 +44,7 @@ public class FamilyMemberTest extends TestCase{
         this.gameInstance.setGameBoard(gameBoard);
 
         this.familyMember = new FamilyMember(DiceColor.BLACK, this.player, this.gameBoard);
+
     }
 
     @Test
@@ -86,7 +89,29 @@ public class FamilyMemberTest extends TestCase{
         familyMember.moveToPosition(position, 0);
         assertTrue(position.isOccupied());
     }
+    @Test
+    public void testFamilyMemberShouldNotReturnGreenTowerWrappers(){
 
+        Dice dice = this.gameBoard.getDiceByColor(DiceColor.BLACK);
+        dice.throwDice();
+        familyMember.setValueFromDice();
+        CardParser cardParser=new CardParser("src/config/Card.json");
+        cardParser.parse();
+        List<Card> playerCards=cardParser.getCards();
+        int i;
+        for(i=0;i<6;i++){
+            this.player.addCard(playerCards.get(i));
+        }
+
+        boolean check=true;
+        List <SpaceWrapper> avaibleWrapper=familyMember.checkPossibleMovements();
+        for( SpaceWrapper spaceWrapper :avaibleWrapper){
+            if(((TowerSpaceWrapper)spaceWrapper).getColor()==CardColor.GREEN) {
+                check=false;
+            }
+        }
+        assertTrue(check);
+    }
 
 
     @Override
