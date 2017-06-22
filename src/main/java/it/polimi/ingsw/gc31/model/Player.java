@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
@@ -70,6 +71,15 @@ public class Player implements Serializable{
 		playerNode.put("isMovedThisTurn", isMovedThisTurn);
 		playerNode.set("res", createResourceJson(mapper));
 
+		ObjectNode cardsNode = mapper.createObjectNode();
+
+		for(Map.Entry<CardColor, List<Card>> singleCard: cards.entrySet()) {
+            cardsNode.set(singleCard.getKey().toString(), createCardsJson(mapper, singleCard.getKey()));
+        }
+
+        playerNode.set("cards", cardsNode);
+
+
 
 		try {
 			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(playerNode);
@@ -82,18 +92,26 @@ public class Player implements Serializable{
 
 	private ObjectNode createResourceJson(ObjectMapper mapper) {
 		ObjectNode playerResourceNode = mapper.createObjectNode();
+
 		for(Map.Entry<ResourceName, Resource> singleResource: res.entrySet()) {
 			playerResourceNode.put(singleResource.getKey().toString(), singleResource.getValue().getNumOf());
 		}
 
+
+
 		return playerResourceNode;
 	}
 
-//	private ObjectNode createCardsJson(ObjectMapper mapper) {
-//		ObjectNode cardsNode = mapper.createObjectNode();
-//
-//		for(Map.Entry<CardColor, Card> cardField: )
-//	}
+	private ArrayNode createCardsJson(ObjectMapper mapper, CardColor color) {
+		ArrayNode cardsNode = mapper.createArrayNode();
+
+		List<Card> cardField = cards.get(color);
+        for(Card card: cardField) {
+            cardsNode.add(card.toString());
+        }
+
+		return cardsNode;
+	}
 
     public void setGameBoard(GameBoard gameBoard) {
 		this.board = gameBoard;
