@@ -204,6 +204,9 @@ public class Player implements Serializable{
         return cards;
     }
 
+    public void addCard(Card card){
+		this.cards.get(card.getCardColor()).add(card);
+	}
 	public void setRes(Map<ResourceName, Resource> res) {
 		this.res = res;
 	}
