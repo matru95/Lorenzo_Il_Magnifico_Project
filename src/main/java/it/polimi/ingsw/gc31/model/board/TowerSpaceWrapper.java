@@ -20,7 +20,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     private Resource res;
     private FamilyMember familyMember;
 
-    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Tower tower, Resource res) {
+    public TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Tower tower, Resource res) {
         super(positionID, diceBond, gameBoard);
         this.color = tower.getTowerColor();
         this.tower = tower;
@@ -49,6 +49,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
 
+        System.out.println(this.getCard().getCardName());
         List<Map<ResourceName, Resource>> cardResources = this.getCard().getCost();
         boolean[] results = new boolean[cardResources.size()];
 
@@ -58,7 +59,13 @@ public class TowerSpaceWrapper extends SpaceWrapper {
             for(Map.Entry<ResourceName, Resource> playerResource: playerResources.entrySet()) {
                 int playerResourceValue = playerResource.getValue().getNumOf();
                 String resourceNameString = playerResource.getKey().toString();
-                int cardResourceValue = cardResource.get(ResourceName.valueOf(resourceNameString)).getNumOf();
+
+                Resource singleCardResource = cardResource.get(ResourceName.valueOf(resourceNameString));
+                int cardResourceValue = 0;
+
+                if(singleCardResource != null) {
+                    cardResourceValue = singleCardResource.getNumOf();
+                }
 
                 if(playerResourceValue < cardResourceValue) {
                     results[index] = false;
