@@ -56,8 +56,19 @@ public class Player implements Serializable{
 
     @Override
     public String toString() {
-	    return "";
-	    //TODO
+        return "Player{" +
+                "playerID=" + playerID +
+                ", playerName='" + playerName + '\'' +
+                ", playerColor=" + playerColor +
+                ", board=" + board +
+                ", playerOrder=" + playerOrder +
+                ", isMovedThisTurn=" + isMovedThisTurn +
+                ", res=" + res +
+                ", playerTile=" + playerTile +
+                ", cards=" + cards +
+                ", faithCards=" + Arrays.toString(faithCards) +
+                ", familyMembers=" + Arrays.toString(familyMembers) +
+                '}';
     }
 
     public void setGameBoard(GameBoard gameBoard) {
