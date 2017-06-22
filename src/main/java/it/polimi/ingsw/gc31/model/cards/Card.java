@@ -1,7 +1,10 @@
 package it.polimi.ingsw.gc31.model.cards;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.effects.Effect;
@@ -9,6 +12,7 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,12 +78,35 @@ public class Card {
 
     @Override
     public String toString() {
+        String stringToReturn = "";
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode cardObjectNode = mapper.createObjectNode();
+        cardObjectNode.put("cardID", cardID);
+        cardObjectNode.put("cardName", cardName);
+
+        ArrayNode costsNode = mapper.createArrayNode();
+
+        for(Map<ResourceName, Resource> singleCost: cost) {
+            ObjectNode singleCostNode = mapper.createObjectNode();
+
+            for(Map.Entry<ResourceName, Resource> singleCostMap: singleCost.entrySet()) {
+                singleCostNode.put(singleCostMap.getKey().toString(), singleCostMap.getValue().getNumOf());
+            }
+
+            costsNode.add(singleCostNode);
+        }
+
+        cardObjectNode.set("cost", costsNode);
+
         try {
-            return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cardObjectNode);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+
+
     }
 
     public void setActivationValue(int activationValue) {

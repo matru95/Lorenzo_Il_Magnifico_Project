@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
@@ -56,20 +59,25 @@ public class Player implements Serializable{
 
     @Override
     public String toString() {
-        return "Player{" +
-                "playerID=" + playerID +
-                ", playerName='" + playerName + '\'' +
-                ", playerColor=" + playerColor +
-                ", board=" + board +
-                ", playerOrder=" + playerOrder +
-                ", isMovedThisTurn=" + isMovedThisTurn +
-                ", res=" + res +
-                ", playerTile=" + playerTile +
-                ", cards=" + cards +
-                ", faithCards=" + Arrays.toString(faithCards) +
-                ", familyMembers=" + Arrays.toString(familyMembers) +
-                '}';
-    }
+	    ObjectMapper mapper = new ObjectMapper();
+		ObjectNode playerNode = mapper.createObjectNode();
+
+		playerNode.put("playerID", playerID.toString());
+		playerNode.put("playerName", playerName);
+		playerNode.put("playerColor", playerColor.toString());
+		playerNode.put("playerOrder", playerOrder);
+		playerNode.put("playerOrder", playerOrder);
+		playerNode.put("isMovedThisTurn", isMovedThisTurn);
+
+
+		try {
+			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(playerNode);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return "";
+		}
+
+	}
 
     public void setGameBoard(GameBoard gameBoard) {
 		this.board = gameBoard;

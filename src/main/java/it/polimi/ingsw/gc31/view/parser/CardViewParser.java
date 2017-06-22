@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class CardViewParser implements ViewParser{
 
@@ -38,15 +42,22 @@ public class CardViewParser implements ViewParser{
     }
 
     private String createCostString(JsonNode costsNode) {
-        String result = "";
+        String result = "{";
 
         for(JsonNode singleCostNode: costsNode) {
-            String costName = singleCostNode.fieldNames().next();
-            String amount = singleCostNode.path(costName).path("numOf").toString();
+            List<String> singleCostResult = new ArrayList<>();
 
-            result = result + "[" + costName + ": " + amount + "]";
+            singleCostNode.fields().forEachRemaining(field -> {
+                String resourceName = field.getKey();
+                int amount = field.getValue().asInt();
+
+                singleCostResult.add(resourceName + ": " + amount);
+            });
+
+            result += singleCostResult.toString();
         }
+        result += "}";
 
-        return "{"+result+"}";
+        return "cost: "+result;
     }
 }

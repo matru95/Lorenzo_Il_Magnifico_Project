@@ -34,6 +34,7 @@ public class PlayerTest extends TestCase {
     @Test
     public void testPlayerShouldHaveOrder() throws NoResourceMatch {
         this.player.setPlayerOrder(1);
+        System.out.println(this.player.toString());
 
         assertEquals(this.player.getPlayerOrder(), 1);
     }

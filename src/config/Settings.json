@@ -135,8 +135,8 @@
         "positionID": 7,
         "diceBond": 1,
         "bonus": {
-          "parchment": 2
         },
+        "parchment": 2,
         "playerNumberRestriction": 3
       }
     ],
@@ -144,9 +144,9 @@
       "positionID": 8,
       "diceBond": 1,
       "bonus": {
-        "gold": 1,
-        "parchment": 1
-      }
+        "gold": 1
+      },
+      "parchment": 1
     }
   }
 }
