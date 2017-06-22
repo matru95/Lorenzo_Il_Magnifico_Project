@@ -49,7 +49,6 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
 
-        System.out.println(this.getCard().getCardName());
         List<Map<ResourceName, Resource>> cardResources = this.getCard().getCost();
         boolean[] results = new boolean[cardResources.size()];
 
