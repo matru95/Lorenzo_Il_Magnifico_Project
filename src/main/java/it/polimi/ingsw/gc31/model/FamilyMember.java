@@ -59,6 +59,8 @@ public class FamilyMember {
         List<SpaceWrapper> towerSpaceWrappers = new ArrayList<>();
         insertTowerSpaceWrappers(towerSpaceWrappers);
 
+
+
         for(SpaceWrapper towerSpaceWrapper: towerSpaceWrappers) {
             boolean isAffordable = towerSpaceWrapper.isAffordable(this.player.getRes(), this.playerColor);
             int spaceDiceBond = towerSpaceWrapper.getDiceBond();
@@ -84,13 +86,16 @@ public class FamilyMember {
         Map<CardColor, Tower> towers = this.board.getTowers();
 
         for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
-            Tower tower = towerEntry.getValue();
-            boolean hasFamilyMemberColor = tower.hasFamilyMemberSameColor(playerColor);
+            //verifico il numero di carte del player per ogni colore. Se è <6 allora...
+            if(cardNumBond(towerEntry.getKey())) {
+                Tower tower = towerEntry.getValue();
+                boolean hasFamilyMemberColor = tower.hasFamilyMemberSameColor(playerColor);
 
-            if(!hasFamilyMemberColor) {
+                if (!hasFamilyMemberColor) {
 
-                for(Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry: towerEntry.getValue().getTowerSpace().entrySet()) {
-                    towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
+                    for (Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry : towerEntry.getValue().getTowerSpace().entrySet()) {
+                        towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
+                    }
                 }
             }
         }
@@ -135,6 +140,13 @@ public class FamilyMember {
         }
 
     }
+    public boolean cardNumBond(CardColor cardColor){
+        if ( this.player.getCards().get(cardColor).size()<6){
+            return true;
+        }
+        return false;
+    }
+
 
 	public SpaceWrapper getCurrentPosition() {
 		return currentPosition;
