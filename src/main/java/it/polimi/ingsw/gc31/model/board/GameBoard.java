@@ -18,7 +18,6 @@ public class GameBoard implements Serializable {
     private Map<String, SpaceWrapper> boardSpaces;
     private GameInstance gameInstance;
     private transient GameBoardParser parser;
-    private int positionIndex;
     private CardParser cardParser;
 
     public GameBoard(GameInstance gameInstance) {
@@ -33,8 +32,6 @@ public class GameBoard implements Serializable {
         //Initialize dice
         createDice();
 
-        setPositionIndex(1);
-
         // Initialize Towers on GameBoard
         this.towers = this.parser.parseTowers();
 
@@ -44,24 +41,7 @@ public class GameBoard implements Serializable {
             tower.setDeck(this.cardParser.getCardsByColor(towerEntry.getKey()));
         }
 
-
-        //Initialize CouncilsPalace
-        boardSpaces.put("COUNCILS PALACE", parser.parseCouncilsPalace());
-        incrementPositionIndex();
-
-        //TODO Condizione  2-4 giocatori
-
-        //Initialize Mart
-        List<MartWrapper> marketZones = parser.parseMart();
-        int index = 1;
-
-        for(MartWrapper myMartWrapper : marketZones) {
-            boardSpaces.put("MART #" + index, myMartWrapper);
-            index++;
-        }
-
         //Initialize Harvest & Production
-
         if(this.gameInstance.getNumOfPlayers() == 2) {
             this.initSpacesTwoPlayers();
             this.removeMart();
@@ -72,7 +52,18 @@ public class GameBoard implements Serializable {
             this.initSpacesThreePlayers();
         }
 
-        setPositionIndex(1);
+        //Initialize CouncilsPalace
+        boardSpaces.put("COUNCILS PALACE", parser.parseCouncilsPalace());
+        //TODO Condizione  2-4 giocatori
+
+        //Initialize Mart
+        List<MartWrapper> marketZones = parser.parseMart();
+        int index = 1;
+
+        for(MartWrapper myMartWrapper : marketZones) {
+            boardSpaces.put("MART #" + index, myMartWrapper);
+            index++;
+        }
     }
 
     private void createDice() {
@@ -125,18 +116,6 @@ public class GameBoard implements Serializable {
 
     public Map<String, SpaceWrapper> getBoardSpaces() {
         return boardSpaces;
-    }
-
-    public void incrementPositionIndex() {
-        positionIndex++;
-    }
-
-    public void setPositionIndex(int value) {
-        positionIndex =  value;
-    }
-
-    public int getPositionIndex() {
-        return positionIndex;
     }
 
     public GameInstance getGameInstance() {

@@ -4,18 +4,22 @@
     "towers": {
       "green": [
         {
+          "positionID": 1,
           "diceBond": 1
         },
         {
+          "positionID": 2,
           "diceBond": 3
         },
         {
+          "positionID": 3,
           "diceBond": 5,
           "bonus": {
             "wood": 1
           }
         },
         {
+          "positionID": 4,
           "diceBond": 7,
           "bonus": {
             "wood": 2
@@ -24,18 +28,22 @@
       ],
       "blue": [
         {
+          "positionID": 5,
           "diceBond": 1
         },
         {
+          "positionID": 6,
           "diceBond": 3
         },
         {
+          "positionID": 7,
           "diceBond": 5,
           "bonus": {
             "stone": 1
           }
         },
         {
+          "positionID": 8,
           "diceBond": 7,
           "bonus": {
             "stone": 2
@@ -44,18 +52,22 @@
       ],
       "yellow": [
         {
+          "positionID": 9,
           "diceBond": 1
         },
         {
+          "positionID": 10,
           "diceBond": 3
         },
         {
+          "positionID": 11,
           "diceBond": 5,
           "bonus": {
             "warPoints": 1
           }
         },
         {
+          "positionID": 12,
           "diceBond": 7,
           "bonus": {
             "warPoints": 2
@@ -64,18 +76,22 @@
       ],
       "purple": [
         {
+          "positionID": 13,
           "diceBond": 1
         },
         {
+          "positionID": 14,
           "diceBond": 3
         },
         {
+          "positionID": 15,
           "diceBond": 5,
           "bonus": {
             "gold": 1
           }
         },
         {
+          "positionID": 16,
           "diceBond": 7,
           "bonus": {
             "gold": 2
@@ -85,11 +101,11 @@
     },
     "productionZone": {
       "single": {
-        "positionID": 1,
+        "positionID": 17,
         "diceBond": 1
       },
       "multiple": {
-        "positionID": 2,
+        "positionID": 17,
         "diceBond": 1,
         "malus": 3,
         "playerNumberRestriction": 2
@@ -97,11 +113,11 @@
     },
     "harvestZone": {
       "single": {
-        "positionID": 3,
+        "positionID": 18,
         "diceBond": 1
       },
       "multiple": {
-        "positionID": 4,
+        "positionID": 18,
         "diceBond": 1,
         "malus": 3,
         "playerNumberRestriction": 2
@@ -109,21 +125,21 @@
     },
     "martZone": [
       {
-        "positionID": 4,
+        "positionID": 19,
         "diceBond": 1,
         "bonus": {
           "gold": 5
         }
       },
       {
-        "positionID": 5,
+        "positionID": 20,
         "diceBond": 1,
         "bonus": {
           "servants": 5
         }
       },
       {
-        "positionID": 6,
+        "positionID": 21,
         "diceBond": 1,
         "bonus": {
           "warPoints": 3,
@@ -132,7 +148,7 @@
         "playerNumberRestriction": 3
       },
       {
-        "positionID": 7,
+        "positionID": 22,
         "diceBond": 1,
         "bonus": {
         },
@@ -141,7 +157,7 @@
       }
     ],
     "councilsPalace": {
-      "positionID": 8,
+      "positionID": 23,
       "diceBond": 1,
       "bonus": {
         "gold": 1

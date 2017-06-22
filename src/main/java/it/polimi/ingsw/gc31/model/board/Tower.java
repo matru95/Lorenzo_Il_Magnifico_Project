@@ -27,17 +27,17 @@ public class Tower implements Serializable{
         this.isOccupied = false;
         this.towerSpaces = new HashMap<>();
         this.gameBoard = gameBoard;
-
         initFloors(floors);
     }
 
     private void initFloors(JsonNode floors) {
+
         int floorID = 0;
         Resource res = null;
-        int positionIndex = gameBoard.getPositionIndex();
 
         for(JsonNode floor: floors) {
             int diceBond = floor.path("diceBond").asInt();
+            int positionID = floor.path("positionID").asInt();
 
             if(floor.has("bonus")) {
                 String bonusName = floor.path("bonus").fieldNames().next().toString();
@@ -46,10 +46,7 @@ public class Tower implements Serializable{
                 res = new Resource(ResourceName.valueOf(bonusName.toUpperCase()), amount);
             }
 
-
-            TowerSpaceWrapper newFloor = new TowerSpaceWrapper(positionIndex, diceBond, gameBoard, this, res);
-            towerSpaces.put(floorID, newFloor);
-
+            towerSpaces.put(floorID, new TowerSpaceWrapper(positionID, diceBond, gameBoard, this, res));
             floorID++;
         }
     }

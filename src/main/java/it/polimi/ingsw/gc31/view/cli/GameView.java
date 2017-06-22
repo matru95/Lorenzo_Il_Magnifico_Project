@@ -36,7 +36,8 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
 
     public void printView() {
         printHeader();
-        printBoard();
+        printTowers();
+        printSpaces();
         printPlayer();
         printFamilyMembers();
         //printParchementQuery();
@@ -52,8 +53,9 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
         System.out.println(at.render() + "\n");
     }
 
-    private void printBoard() {
+    private void printTowers() {
 
+        //CREATE TOWERS TO PRINT
         AsciiTable at = new AsciiTable();
         at.addRule();
         at.addRow("GREEN TOWER", "BLUE TOWER", "YELLOW TOWER", "PURPLE TOWER");
@@ -70,6 +72,18 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
             at.addRule();
         }
 
+        at.setTextAlignment(TextAlignment.CENTER);
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25));
+
+        System.out.println(at.render() + "\n");
+
+    }
+
+    private void printSpaces() {
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        at.addRow("CIAO", "HOLA", "HALO", "AJO");
+        at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25));
         System.out.println(at.render() + "\n");
