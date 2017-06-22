@@ -48,13 +48,15 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
         at.addRow("GameID: [" + gameBoardModel.getGameInstance().getInstanceID() + "]", "AGE:[" + gameBoardModel.getGameInstance().getAge() + "] TURN:[" + gameBoardModel.getGameInstance().getTurn() + "]");
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(41).add(41));
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(51).add(51));
         System.out.println(at.render() + "\n");
     }
 
     private void printBoard() {
 
         AsciiTable at = new AsciiTable();
+        at.addRule();
+        at.addRow("GREEN TOWER", "BLUE TOWER", "YELLOW TOWER", "PURPLE TOWER");
         at.addRule();
         ViewParser cardParser = new CardViewParser();
 
@@ -69,13 +71,16 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
         }
 
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20));
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25));
         System.out.println(at.render() + "\n");
     }
 
     private void printPlayer() {
 
         AsciiTable at = new AsciiTable();
+        at.addRule();
+
+        at.addRow(null, null, null, "PLAYERS");
         at.addRule();
 
         at.addRow("[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName(),
@@ -93,21 +98,31 @@ public class GameView implements GameBoardObserver, GameInstanceObserver, Player
             at.addRule();
         }
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20));
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25));
         System.out.println(at.render() + "\n");
     }
 
     private void printFamilyMembers() {
         AsciiTable at = new AsciiTable();
         at.addRule();
+
+        at.addRow(null, null, null, "MY FAMILY MEMBERS");
+        at.addRule();
+
         at.addRow("BLACK:[" + playerModel.getSpecificFamilyMember(DiceColor.BLACK).getValue() + "]",
                 "WHITE:["+ playerModel.getSpecificFamilyMember(DiceColor.WHITE).getValue() + "]",
                 "ORANGE:["+ playerModel.getSpecificFamilyMember(DiceColor.ORANGE).getValue() + "]",
                 "NEUTRAL:["+ playerModel.getSpecificFamilyMember(DiceColor.NEUTRAL).getValue() + "]"
         );
         at.addRule();
+        at.addRow(playerModel.getSpecificFamilyMember(DiceColor.BLACK).getCurrentPosition().getPositionID(),
+                playerModel.getSpecificFamilyMember(DiceColor.WHITE).getCurrentPosition().getPositionID(),
+                playerModel.getSpecificFamilyMember(DiceColor.ORANGE).getCurrentPosition().getPositionID(),
+                playerModel.getSpecificFamilyMember(DiceColor.NEUTRAL).getCurrentPosition().getPositionID()
+        );
+        at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20));
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25));
         System.out.println(at.render() + "\n");
 
     }

@@ -19,7 +19,7 @@ public final class Dice implements Serializable{
         if (color == DiceColor.NEUTRAL) {
             this.value = 0;
         } else {
-            this.value = 1 + r.nextInt(5);
+            this.value = 1 + r.nextInt(6);
         }
 
     }

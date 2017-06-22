@@ -3,10 +3,8 @@ package it.polimi.ingsw.gc31.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
-import it.polimi.ingsw.gc31.model.board.Tower;
-import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
+
+import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -30,7 +28,7 @@ public class FamilyMember {
         this.player = player;
 		this.isPlaced = false;
 		this.board = board;
-
+        this.currentPosition = new NullWrapper();
 		if(color == DiceColor.NEUTRAL) {
 		    this.isNeutral = true;
 		    this.value = 0;
