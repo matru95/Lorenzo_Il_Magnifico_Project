@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.PlayerColor;
@@ -25,7 +28,6 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         this.color = tower.getTowerColor();
         this.tower = tower;
         this.res = res;
-        //TODO Randomize a card
     }
 
     @Override
@@ -35,6 +37,24 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         execTowerBonus(familyMember.getPlayer().getRes());
         //TODO EXEC OF CARD
         setOccupied(true);
+    }
+
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode towerSpaceWrapperNode = super.toObjectNode();
+
+        if(this.card != null) {
+            towerSpaceWrapperNode.put("card", card.toString());
+        }
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(towerSpaceWrapperNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     private void execTowerBonus(Map<ResourceName, Resource> playerResources) {
@@ -49,7 +69,6 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
 
-        System.out.println(this.getCard().getCardName());
         List<Map<ResourceName, Resource>> cardResources = this.getCard().getCost();
         boolean[] results = new boolean[cardResources.size()];
 

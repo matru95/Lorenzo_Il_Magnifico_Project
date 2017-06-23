@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
@@ -11,7 +14,6 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,12 +28,28 @@ public class HarvestWrapper extends SpaceWrapper {
         super(positionID, diceBond, gameBoard);
         this.familyMembers = new ArrayList<>();
         this.isMultiple = isMultiple;
+        this.malus = 0;
     }
-// METODO PER HARVEST E PRODUCTION
+
     @Override
     public void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
         harvest(familyMember, amountOfServants);
         if (!isMultiple) setOccupied(true);
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode harvestWrapperNode = super.toObjectNode();
+
+        harvestWrapperNode.put("malus", 0);
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(harvestWrapperNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     @Override

@@ -22,6 +22,11 @@ public class NullWrapper extends SpaceWrapper {
     }
 
     @Override
+    public String toString() {
+        return "";
+    }
+
+    @Override
     public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
         return false;
     }

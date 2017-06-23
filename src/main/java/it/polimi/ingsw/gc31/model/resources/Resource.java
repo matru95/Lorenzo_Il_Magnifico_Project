@@ -1,5 +1,9 @@
 package it.polimi.ingsw.gc31.model.resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +17,22 @@ public class Resource implements Serializable{
     public Resource(ResourceName resourceName, int numOf) {
         this.numOf = numOf;
         this.resourceName = resourceName;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode resourceNode = mapper.createObjectNode();
+
+        resourceNode.put("resourceName", resourceName.toString());
+        resourceNode.put("amount", numOf);
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resourceNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public ResourceName getResourceName() {

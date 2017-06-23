@@ -40,6 +40,7 @@ public class FamilyMemberTest extends TestCase{
         this.gameInstance.addPlayer(this.secondPlayer);
 
         this.gameBoard = new GameBoard(gameInstance);
+
         this.player.setGameBoard(gameBoard);
         this.secondPlayer.setGameBoard(gameBoard);
 

@@ -54,7 +54,6 @@ public class GameBoard implements Serializable {
 
         //Initialize CouncilsPalace
         boardSpaces.put("COUNCILS PALACE", parser.parseCouncilsPalace());
-        //TODO Condizione  2-4 giocatori
 
         //Initialize Mart
         List<MartWrapper> marketZones = parser.parseMart();

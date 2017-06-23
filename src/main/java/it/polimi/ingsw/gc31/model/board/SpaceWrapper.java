@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
@@ -25,6 +27,12 @@ public abstract class SpaceWrapper implements Serializable{
 
     public abstract void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch;
 
+    /**
+     * Returns a JSON-formatted string of this class
+     * @return JSON String representation of the class
+     */
+    public abstract String toString();
+
 //  Check whether a player has enough resources to move a familymember here.
     public abstract boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor);
 
@@ -48,5 +56,21 @@ public abstract class SpaceWrapper implements Serializable{
 
     public GameBoard getGameBoard() {
         return gameBoard;
+    }
+
+    /**
+     * Returns an ObjectNode to create JSON implementations of SpaceWrappers in classes that extend this one.
+     * @return ObjectNode
+     * @see #toString()
+     */
+    protected ObjectNode toObjectNode() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode spaceWrapperNode = mapper.createObjectNode();
+
+        spaceWrapperNode.put("positionID", positionID);
+        spaceWrapperNode.put("diceBond", diceBond);
+        spaceWrapperNode.put("isOccupied", isOccupied);
+
+        return spaceWrapperNode;
     }
 }

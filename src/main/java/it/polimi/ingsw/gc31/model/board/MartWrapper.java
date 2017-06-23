@@ -1,5 +1,9 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -25,6 +29,37 @@ public class MartWrapper extends SpaceWrapper {
             int amount = myResource.getNumOf();
             playerResources.get(myResource.getResourceName()).addNumOf(amount);
         }
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode martWrapperNode = mapper.createObjectNode();
+
+        martWrapperNode.set("bonus", generateBonusJSON(mapper));
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(martWrapperNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
+     * Returns the ArrayNode with the JSON representation for each resource in the bonus
+     * @param mapper the ObjectMapper that creates the ArrayNode to be returned. Created in the parent method.
+     * @return ArrayNode of JSON strings for each Resource in the bonus.
+     * @see #toString()
+     */
+    private ArrayNode generateBonusJSON(ObjectMapper mapper) {
+        ArrayNode bonusArray = mapper.createArrayNode();
+
+        for(Resource singleResource: res) {
+            bonusArray.add(singleResource.toString());
+        }
+
+        return bonusArray;
     }
 
     @Override

@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.model.cards.Card;
-import it.polimi.ingsw.gc31.model.cards.CardParser;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
@@ -42,6 +44,45 @@ public class GameInstance implements Serializable, Runnable {
         playerOrder = 0;
 
 	}
+
+    /**
+     * Returns a String object formatted as JSON which has
+     * all the relevant information about the current state of the game
+     * @return JSON String
+     */
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode gameInstanceNode = mapper.createObjectNode();
+
+        gameInstanceNode.put("instanceID", instanceID.toString());
+        gameInstanceNode.put("age", age);
+        gameInstanceNode.put("turn", turn);
+        gameInstanceNode.set("players", createPlayersNode(mapper));
+
+        try {
+            return  mapper.writerWithDefaultPrettyPrinter().writeValueAsString(gameInstanceNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
+     * Returns an ArrayNode with an array of all the players in this instance.
+     * @param mapper The ObjectMapper created in the parent method
+     * @return the relevant JSON array with all the players
+     * @see #toString()
+     */
+    private ArrayNode createPlayersNode(ObjectMapper mapper) {
+        ArrayNode playersArray = mapper.createArrayNode();
+
+        for(Player player: players) {
+            playersArray.add(player.toString());
+        }
+
+        return playersArray;
+    }
 
 	@Override
 	public void run() {

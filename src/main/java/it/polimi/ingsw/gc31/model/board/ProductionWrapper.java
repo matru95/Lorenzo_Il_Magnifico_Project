@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
@@ -25,6 +28,7 @@ public class ProductionWrapper extends SpaceWrapper {
         super(positionID, diceBond, gameBoard);
         this.isMultiple = isMultiple;
         familyMembers = new ArrayList<>();
+        this.malus = 0;
 
     }
 
@@ -34,12 +38,27 @@ public class ProductionWrapper extends SpaceWrapper {
         if (!isMultiple) setOccupied(true);
     }
 
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode productionWrapperNode = super.toObjectNode();
+
+        productionWrapperNode.put("malus", malus);
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productionWrapperNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
+
     private void produce(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
         {
             int familyMemberValue = familyMember.getValue() + amountOfServants;
             List<Card> yellowCards = familyMember.getPlayer().getCards().get(CardColor.YELLOW);
 
-            //EFFETTO PRODUCTION-TILE ESGUITO UNA SOLA VOLTA
             List<Resource> productionTileRes = familyMember.getPlayer().getPlayerTile().getProductionBonus();
             Effect productionTile = new AddResEffect(productionTileRes);
             productionTile.exec(familyMember.getPlayer());

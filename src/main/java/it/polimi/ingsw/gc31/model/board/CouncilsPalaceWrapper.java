@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -33,6 +36,22 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
 //            getGameBoard().getGameInstance().putPlayerInQueue(this.getMember().getPlayer());
 //            isPlayerInQueue[getMember().getPlayer().getPlayerOrder()] = true;
 //        }
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode councilsPalaceWrapperNode = super.toObjectNode();
+
+        councilsPalaceWrapperNode.put("bonus", res.toString());
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(councilsPalaceWrapperNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+
     }
 
     @Override
