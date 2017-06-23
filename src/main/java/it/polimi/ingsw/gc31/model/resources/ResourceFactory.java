@@ -7,4 +7,5 @@ public class ResourceFactory {
     public static Resource getResource(String type, int numOf) {
         return new Resource(ResourceName.valueOf(type.toUpperCase()), numOf);
     }
+
 }

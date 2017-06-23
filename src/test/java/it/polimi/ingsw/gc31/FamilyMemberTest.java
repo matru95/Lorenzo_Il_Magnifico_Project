@@ -15,8 +15,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.UUID;
 
-import static it.polimi.ingsw.gc31.model.PlayerColor.BLUE;
-import static junit.framework.TestCase.assertEquals;
 
 public class FamilyMemberTest extends TestCase{
     private Player player;
