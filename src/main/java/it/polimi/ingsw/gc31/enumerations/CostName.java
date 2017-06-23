@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc31.model.cards;
+package it.polimi.ingsw.gc31.enumerations;
 
 
 public enum CostName {

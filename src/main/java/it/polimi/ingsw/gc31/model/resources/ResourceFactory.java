@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc31.model.resources;
 
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
+
 public class ResourceFactory {
 
     private ResourceFactory() {    }

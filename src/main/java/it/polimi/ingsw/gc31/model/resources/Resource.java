@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.model.resources;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 import java.io.Serializable;
 import java.util.logging.Level;

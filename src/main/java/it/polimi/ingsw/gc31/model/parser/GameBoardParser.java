@@ -3,10 +3,9 @@ package it.polimi.ingsw.gc31.model.parser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.model.board.*;
-import it.polimi.ingsw.gc31.model.cards.Card;
-import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 import java.io.File;
 import java.io.IOException;

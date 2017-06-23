@@ -1,10 +1,10 @@
 package it.polimi.ingsw.gc31.model.states;
 
-import it.polimi.ingsw.gc31.model.DiceColor;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.Tower;
-import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 
 import java.util.ArrayList;
 import java.util.Map;
