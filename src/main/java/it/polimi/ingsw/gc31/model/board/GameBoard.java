@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.model.DiceColor;
@@ -15,7 +19,7 @@ public class GameBoard implements Serializable {
 
     private Map<CardColor,Tower> towers;
     private Map<DiceColor, Dice> dices;
-    private Map<String, SpaceWrapper> boardSpaces;
+    private Map<Integer, SpaceWrapper> boardSpaces;
     private GameInstance gameInstance;
     private transient GameBoardParser parser;
     private CardParser cardParser;
@@ -43,26 +47,72 @@ public class GameBoard implements Serializable {
 
         //Initialize Harvest & Production
         if(this.gameInstance.getNumOfPlayers() == 2) {
-            this.initSpacesTwoPlayers();
-            this.removeMart();
+            this.initHarvestAndProduction(false);
         } else if(this.gameInstance.getNumOfPlayers() == 3) {
-            this.initSpacesThreePlayers();
-            this.removeMart();
+            this.initHarvestAndProduction(true);
         } else {
-            this.initSpacesThreePlayers();
+            this.initHarvestAndProduction(true);
         }
 
         //Initialize CouncilsPalace
-        boardSpaces.put("COUNCILS PALACE", parser.parseCouncilsPalace());
+        CouncilsPalaceWrapper councilsPalaceWrapper = parser.parseCouncilsPalace();
+        boardSpaces.put(councilsPalaceWrapper.getPositionID(), councilsPalaceWrapper);
 
         //Initialize Mart
         List<MartWrapper> marketZones = parser.parseMart();
-        int index = 1;
 
         for(MartWrapper myMartWrapper : marketZones) {
-            boardSpaces.put("MART #" + index, myMartWrapper);
-            index++;
+            boardSpaces.put(myMartWrapper.getPositionID(), myMartWrapper);
         }
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode gameBoardNode = mapper.createObjectNode();
+
+        gameBoardNode.set("towers", createTowersJson(mapper));
+        gameBoardNode.set("dices", createDicesJson(mapper));
+        gameBoardNode.set("boardSpaces", createBoardSpacesJson(mapper));
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(gameBoardNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+
+    }
+
+    private ObjectNode createTowersJson(ObjectMapper mapper) {
+        ObjectNode towersNode = mapper.createObjectNode();
+
+        for(Map.Entry<CardColor, Tower> tower: towers.entrySet()) {
+            towersNode.put(tower.getKey().toString(), tower.getValue().toString());
+        }
+
+        return towersNode;
+    }
+
+    private ObjectNode createDicesJson(ObjectMapper mapper) {
+        ObjectNode dicesNode = mapper.createObjectNode();
+
+        for(Map.Entry<DiceColor, Dice> dice: dices.entrySet()) {
+            dicesNode.put(dice.getKey().toString(), dice.getValue().toString());
+        }
+
+        return dicesNode;
+    }
+
+    private ObjectNode createBoardSpacesJson(ObjectMapper mapper) {
+        ObjectNode boardSpacesJson = mapper.createObjectNode();
+
+        for(Map.Entry<Integer, SpaceWrapper> boardSpace: boardSpaces.entrySet()) {
+            boardSpacesJson.put(boardSpace.getKey().toString(), boardSpace.getValue().toString());
+        }
+
+        return boardSpacesJson;
     }
 
     private void createDice() {
@@ -71,26 +121,12 @@ public class GameBoard implements Serializable {
         }
     }
 
-    private void removeMart() {
+    private void initHarvestAndProduction(boolean isMultiple) {
+        ProductionWrapper productionWrapper = parser.parseProductionZone(isMultiple);
+        HarvestWrapper harvestWrapper = parser.parseHarvestZone(isMultiple);
 
-        for(int i=2; i<5; i++) {
-            boardSpaces.remove("MART #"+i);
-        }
-        return;
-    }
-
-    private void initSpacesThreePlayers() {
-        boolean isMultiple = true;
-
-        boardSpaces.put("PRODUCTION", parser.parseProductionZone(isMultiple));
-        boardSpaces.put("HARVEST", parser.parseHarvestZone(isMultiple));
-    }
-
-    private void initSpacesTwoPlayers() {
-        boolean isMultiple = false;
-
-        boardSpaces.put("PRODUCTION", parser.parseProductionZone(isMultiple));
-        boardSpaces.put("HARVEST", parser.parseHarvestZone(isMultiple));
+        boardSpaces.put(productionWrapper.getPositionID(), productionWrapper);
+        boardSpaces.put(harvestWrapper.getPositionID(), harvestWrapper);
     }
 
     public Map<DiceColor, Dice> getDices() {
@@ -105,7 +141,7 @@ public class GameBoard implements Serializable {
 
     	Map availablePlaces = new HashMap<String, SpaceWrapper>();
 
-    	for(Map.Entry<String,SpaceWrapper> entry: boardSpaces.entrySet()) {
+    	for(Map.Entry<Integer,SpaceWrapper> entry: boardSpaces.entrySet()) {
             if (!entry.getValue().isOccupied()) {
                 availablePlaces.put(entry.getKey(), entry.getValue());
             }
@@ -113,7 +149,7 @@ public class GameBoard implements Serializable {
     	return availablePlaces;
     }
 
-    public Map<String, SpaceWrapper> getBoardSpaces() {
+    public Map<Integer, SpaceWrapper> getBoardSpaces() {
         return boardSpaces;
     }
 

@@ -1,6 +1,10 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
@@ -12,10 +16,11 @@ import java.util.*;
 
 
 public class Tower implements Serializable{
-
-    /** Maps contains towerSpaceWrappers of a single tower:
+    /**
+     * Maps contains towerSpaceWrappers of a single tower:
      * Key is floorID, Value is TowerSpaceWrapper
      */
+
     private Map<Integer, TowerSpaceWrapper> towerSpaces;
     private CardColor towerColor;
     private boolean isOccupied;
@@ -28,6 +33,32 @@ public class Tower implements Serializable{
         this.towerSpaces = new HashMap<>();
         this.gameBoard = gameBoard;
         initFloors(floors);
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode towerNode = mapper.createObjectNode();
+
+        towerNode.put("towerColor", towerColor.toString());
+        towerNode.set("towerSpaces", createTowerSpacesJson(mapper));
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(towerNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private ObjectNode createTowerSpacesJson(ObjectMapper mapper) {
+        ObjectNode towerSpacesNode = mapper.createObjectNode();
+
+        for(Map.Entry<Integer, TowerSpaceWrapper> singleTowerSpaceWrapperRow: towerSpaces.entrySet()) {
+            towerSpacesNode.put(singleTowerSpaceWrapperRow.getKey().toString(), singleTowerSpaceWrapperRow.getValue().toString());
+        }
+
+        return towerSpacesNode;
     }
 
     private void initFloors(JsonNode floors) {

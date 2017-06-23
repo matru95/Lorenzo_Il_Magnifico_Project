@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.model.cards.CardColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
@@ -11,7 +14,6 @@ import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceName;
 
 public class FamilyMember {
-	private final DiceColor color;
 	private Dice dice;
     private final Player player;
 	private final PlayerColor playerColor;
@@ -23,19 +25,41 @@ public class FamilyMember {
 	private GameBoard board;
 
 	public FamilyMember(DiceColor color, Player player, GameBoard board) {
-        this.color = color;
 		this.playerColor = player.getPlayerColor();
         this.player = player;
 		this.isPlaced = false;
 		this.board = board;
         this.currentPosition = new NullWrapper();
-		if(color == DiceColor.NEUTRAL) {
+
+        if(color == DiceColor.NEUTRAL) {
 		    this.isNeutral = true;
 		    this.value = 0;
         }
+        this.setMyDice(color);
 
-        this.setMyDice();
 	}
+
+    /**
+     * Returns a JSON String of the class
+     * @return JSON String
+     */
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode familyMemberNode = mapper.createObjectNode();
+
+        familyMemberNode.put("color", dice.getColor().toString());
+        familyMemberNode.put("value", dice.getValue());
+        familyMemberNode.put("currentPositionID", currentPosition.getPositionID());
+
+        try {
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(familyMemberNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+    }
 
 	public void setValueFromDice() {
 //	    This will be called after the dice is thrown for the first time.
@@ -43,8 +67,8 @@ public class FamilyMember {
 
     }
 
-    private void setMyDice() {
-		this.dice = this.board.getDiceByColor(this.color);
+    private void setMyDice(DiceColor color) {
+		this.dice = this.board.getDiceByColor(color);
     }
 
 	public List<SpaceWrapper> checkPossibleMovements() {
@@ -102,7 +126,7 @@ public class FamilyMember {
     }
 
 	public DiceColor getColor() {
-		return this.color;
+		return this.dice.getColor();
 	}
 
     public void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {

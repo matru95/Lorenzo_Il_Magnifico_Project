@@ -70,15 +70,8 @@ public class Player implements Serializable{
 		playerNode.put("playerOrder", playerOrder);
 		playerNode.put("isMovedThisTurn", isMovedThisTurn);
 		playerNode.set("res", createResourceJson(mapper));
-
-		ObjectNode cardsNode = mapper.createObjectNode();
-
-		for(Map.Entry<CardColor, List<Card>> singleCard: cards.entrySet()) {
-            cardsNode.set(singleCard.getKey().toString(), createCardsJson(mapper, singleCard.getKey()));
-        }
-
-        playerNode.set("cards", cardsNode);
-
+        playerNode.set("familyMembers", createFamilyMembersJson(mapper));
+        playerNode.set("cards", createCardsJson(mapper));
 
 
 		try {
@@ -89,6 +82,16 @@ public class Player implements Serializable{
 		}
 
 	}
+
+	private ArrayNode createFamilyMembersJson(ObjectMapper mapper) {
+	    ArrayNode familyMembersArray = mapper.createArrayNode();
+
+	    for(FamilyMember familyMember: familyMembers) {
+	        familyMembersArray.add(familyMember.toString());
+        }
+
+        return familyMembersArray;
+    }
 
 	private ObjectNode createResourceJson(ObjectMapper mapper) {
 		ObjectNode playerResourceNode = mapper.createObjectNode();
@@ -102,7 +105,23 @@ public class Player implements Serializable{
 		return playerResourceNode;
 	}
 
-	private ArrayNode createCardsJson(ObjectMapper mapper, CardColor color) {
+	private ObjectNode createCardsJson(ObjectMapper mapper) {
+	    ObjectNode cardsNode = mapper.createObjectNode();
+
+	    for(Map.Entry<CardColor, List<Card>> singleCard: cards.entrySet()) {
+            cardsNode.set(singleCard.getKey().toString(), createSingleCardRowJson(mapper, singleCard.getKey()));
+        }
+
+        return cardsNode;
+    }
+
+    /**
+     * Creates and returns the single array for a card color the player has
+     * @param mapper
+     * @param color
+     * @return Array of cards the player has of a certain color
+     */
+    private ArrayNode createSingleCardRowJson(ObjectMapper mapper, CardColor color) {
 		ArrayNode cardsNode = mapper.createArrayNode();
 
 		List<Card> cardField = cards.get(color);
