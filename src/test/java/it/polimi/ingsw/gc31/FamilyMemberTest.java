@@ -14,6 +14,7 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,8 +47,8 @@ public class FamilyMemberTest extends TestCase{
 
         this.gameInstance.setGameBoard(gameBoard);
 
-        this.familyMember = new FamilyMember(DiceColor.BLACK, this.player, this.gameBoard);
-        (new Thread(gameInstance)).start();
+        this.familyMember = this.player.getSpecificFamilyMember(DiceColor.BLACK);
+        gameInstance.run();
 
     }
 
@@ -56,13 +57,27 @@ public class FamilyMemberTest extends TestCase{
         assertNotNull(this.familyMember);
     }
 
-//    TODO finish this test
-//    @Test
-//    public void testFamilyMemberShouldMoveToTowerSpacePosition() throws NoResourceMatch {
-//        TowerSpaceWrapper space = this.gameBoard.getTowerByColor(CardColor.BLUE).getTowerSpace().get(0);
-//        this.familyMember.moveToPosition(space, 0);
-//        assertTrue(true);
-//    }
+    @Test
+    public void testFamilyMemberShouldMoveToTowerSpacePositionAndGetCard() throws NoResourceMatch {
+        List<SpaceWrapper> availableSpaces = familyMember.checkPossibleMovements();
+        List<SpaceWrapper> availableTowerSpaces = new ArrayList<>();
+        int positionID;
+        Card chosenCard = null;
+
+        for(SpaceWrapper spaceWrapper: availableSpaces) {
+            if(spaceWrapper.getClass() == TowerSpaceWrapper.class) {
+                availableTowerSpaces.add(spaceWrapper);
+            }
+        }
+
+        chosenCard = ((TowerSpaceWrapper) availableTowerSpaces.get(0)).getCard();
+        familyMember.moveToTower((TowerSpaceWrapper) availableTowerSpaces.get(0), 0);
+
+        Card playerCard = player.getCards().get(chosenCard.getCardColor()).get(0);
+
+        assertEquals(playerCard.getCardID(), chosenCard.getCardID());
+
+    }
 
     @Test
     public void testFamilyMemberShouldHaveDiceValue() {
@@ -75,13 +90,8 @@ public class FamilyMemberTest extends TestCase{
 
     @Test
     public void testFamilyMemberShouldHavePossibleMovements() {
-        Dice dice = this.gameBoard.getDiceByColor(DiceColor.BLACK);
-        dice.throwDice();
-        familyMember.setValueFromDice();
-//        NullPointerException because cards are not implemented yet
-//        List<SpaceWrapper> possibleMovements = familyMember.checkPossibleMovements();
-//        assertTrue(possibleMovements.size() > 0);
-        assertTrue(true);
+        List<SpaceWrapper> possibleMovements = familyMember.checkPossibleMovements();
+        assertTrue(possibleMovements.size() > 0);
     }
 
     @Test
@@ -89,26 +99,27 @@ public class FamilyMemberTest extends TestCase{
         Dice dice = this.gameBoard.getDiceByColor(DiceColor.BLACK);
         dice.throwDice();
         familyMember.setValueFromDice();
-        ProductionWrapper position = (ProductionWrapper) gameBoard.getBoardSpaces().get("PRODUCTION");
+        ProductionWrapper position = (ProductionWrapper) gameBoard.getBoardSpaces().get(17);
         familyMember.moveToPosition(position, 0);
         assertTrue(position.isOccupied());
     }
+
     @Test
     public void testFamilyMemberShouldNotReturnGreenTowerWrappers(){
-        Dice dice = this.gameBoard.getDiceByColor(DiceColor.BLACK);
-
-        familyMember.setValueFromDice();
-        CardParser cardParser=new CardParser("src/config/Card.json");
+        CardParser cardParser = new CardParser("src/config/Card.json");
         cardParser.parse();
-        List<Card> playerCards=cardParser.getCards();
+        List<Card> playerCards = cardParser.getCards();
+
         int i;
         for(i=0;i<6;i++){
             this.player.addCard(playerCards.get(i));
         }
 
-        boolean check=true;
-        List <SpaceWrapper> avaibleWrapper=familyMember.checkPossibleMovements();
-        for( SpaceWrapper spaceWrapper: avaibleWrapper){
+        boolean check = true;
+
+        List <SpaceWrapper> availableWrapper = familyMember.checkPossibleMovements();
+
+        for(SpaceWrapper spaceWrapper: availableWrapper){
             if(spaceWrapper.getClass() == TowerSpaceWrapper.class) {
                 if(((TowerSpaceWrapper) spaceWrapper).getColor()==CardColor.GREEN) {
                     check=false;

@@ -133,6 +133,7 @@ public class FamilyMember {
 
     public void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
         checkAndPayExtraGold(position);
+        player.addCard(position.getCard());
         moveToPosition(position, numOfServantsPaid);
     }
 

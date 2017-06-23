@@ -4,7 +4,6 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.cards.CardParser;
@@ -12,7 +11,6 @@ import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import static org.junit.Assert.assertTrue;
@@ -47,9 +45,6 @@ public class GameBoardTest {
             for(int i = 0; i < 4; i++){
                 System.out.println(gameBoard.getTowerByColor(c).getTowerSpace().get(i).getPositionID());
             }
-        }
-        for(Map.Entry<String,SpaceWrapper> entry: gameBoard.getBoardSpaces().entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue().getPositionID());
         }
         assertTrue(true);
     }
