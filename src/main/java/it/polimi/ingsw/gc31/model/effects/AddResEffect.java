@@ -5,7 +5,7 @@ package it.polimi.ingsw.gc31.model.effects;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 import java.util.List;
 import java.util.Map;

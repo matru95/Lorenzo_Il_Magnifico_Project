@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc31.model;
 
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
+
 import java.io.Serializable;
 import java.util.Random;
 

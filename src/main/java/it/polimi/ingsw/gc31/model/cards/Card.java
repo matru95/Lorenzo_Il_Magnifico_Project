@@ -1,18 +1,17 @@
 package it.polimi.ingsw.gc31.model.cards;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

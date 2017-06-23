@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
+import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.*;
-import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 public class FamilyMember {
 	private final DiceColor color;

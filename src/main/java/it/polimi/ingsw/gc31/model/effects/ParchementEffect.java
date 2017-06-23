@@ -1,12 +1,11 @@
 package it.polimi.ingsw.gc31.model.effects;
 
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.*;
 
 
 import java.util.HashMap;
-import java.util.Map;
-
 
 
 public class ParchementEffect extends Effect{

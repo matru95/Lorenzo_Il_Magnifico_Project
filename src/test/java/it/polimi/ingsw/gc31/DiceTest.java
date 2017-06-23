@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc31;
 
 import it.polimi.ingsw.gc31.model.Dice;
-import it.polimi.ingsw.gc31.model.DiceColor;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;

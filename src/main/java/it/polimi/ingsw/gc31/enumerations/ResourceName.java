@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc31.model.resources;
+package it.polimi.ingsw.gc31.enumerations;
 
 public enum ResourceName {
     GOLD("GOLD"),

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
-import it.polimi.ingsw.gc31.model.DiceColor;
-import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.cards.CardParser;
 import it.polimi.ingsw.gc31.model.parser.GameBoardParser;
 

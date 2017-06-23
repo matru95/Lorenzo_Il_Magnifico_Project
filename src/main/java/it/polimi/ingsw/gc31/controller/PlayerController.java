@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc31.controller;
 
-import it.polimi.ingsw.gc31.model.DiceColor;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;

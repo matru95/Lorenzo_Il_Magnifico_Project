@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
-import it.polimi.ingsw.gc31.model.PlayerColor;
+import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 import java.util.ArrayList;
 import java.util.List;

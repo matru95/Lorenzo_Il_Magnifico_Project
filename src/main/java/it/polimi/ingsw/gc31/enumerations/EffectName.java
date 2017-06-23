@@ -1,8 +1,6 @@
-package it.polimi.ingsw.gc31.model.cards;
+package it.polimi.ingsw.gc31.enumerations;
 
-/**
- * Created by leonardo on 02/06/17.
- */
+
 public enum EffectName {
     ADDRESOURCE("addresource");
     String effetto;

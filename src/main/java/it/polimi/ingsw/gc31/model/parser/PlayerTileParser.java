@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.model.PlayerTile;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 import java.io.File;
 import java.io.IOException;

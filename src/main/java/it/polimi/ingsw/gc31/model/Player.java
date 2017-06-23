@@ -8,13 +8,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
+import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
-import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.parser.PlayerTileParser;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import it.polimi.ingsw.gc31.model.resources.ResourceName;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 public class Player implements Serializable{
 	private final UUID playerID;

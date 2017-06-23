@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc31.view.client;
 
-import it.polimi.ingsw.gc31.model.PlayerColor;
+import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 

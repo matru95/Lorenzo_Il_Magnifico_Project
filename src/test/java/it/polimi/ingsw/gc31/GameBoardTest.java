@@ -1,16 +1,14 @@
 package it.polimi.ingsw.gc31;
 
-import it.polimi.ingsw.gc31.controller.PlayerController;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.model.PlayerColor;
+import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
-import it.polimi.ingsw.gc31.model.cards.CardColor;
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.cards.CardParser;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
-import it.polimi.ingsw.gc31.view.cli.GameView;
 import org.junit.Test;
 
 import java.util.List;
