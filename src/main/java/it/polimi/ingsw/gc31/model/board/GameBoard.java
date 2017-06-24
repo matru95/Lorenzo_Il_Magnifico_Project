@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.model.board;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.cards.CardParser;
 import it.polimi.ingsw.gc31.model.parser.GameBoardParser;
+
+import javax.smartcardio.Card;
 
 public class GameBoard implements Serializable {
 
@@ -151,6 +154,33 @@ public class GameBoard implements Serializable {
 
     public Map<Integer, SpaceWrapper> getBoardSpaces() {
         return boardSpaces;
+    }
+
+    public List<SpaceWrapper> getAllSpaces() {
+        List<SpaceWrapper> allSpaces = new ArrayList<>();
+
+        // Insert all tower spaces in the list
+        for(Map.Entry<CardColor, Tower> tower: towers.entrySet()) {
+            Tower singleTower = tower.getValue();
+
+            singleTower.getTowerSpaces().forEach(towerSpace -> {
+                allSpaces.add(towerSpace);
+            });
+        }
+
+        for(Map.Entry<Integer, SpaceWrapper> boardSpace: boardSpaces.entrySet()) {
+            allSpaces.add(boardSpace.getValue());
+        }
+
+        return allSpaces;
+    }
+
+    public SpaceWrapper getSpaceById(int positionID) {
+        List<SpaceWrapper> allSpaces = getAllSpaces();
+        SpaceWrapper position = allSpaces.stream().filter(positionIter ->
+                positionIter.getPositionID() == positionID).findFirst().orElse(null);
+
+        return position;
     }
 
     public GameInstance getGameInstance() {

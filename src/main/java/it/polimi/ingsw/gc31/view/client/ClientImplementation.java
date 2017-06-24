@@ -10,8 +10,11 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.UUID;
 
 public class ClientImplementation implements Client, Serializable{
+
+    private UUID playerID;
 
     public static void main(String[] args) throws RemoteException, NotBoundException, NoResourceMatch {
         for(int i=8081; i<8085; i++) {
@@ -37,6 +40,11 @@ public class ClientImplementation implements Client, Serializable{
     @Override
     public void ping() {
         System.out.println("YAY! Joined!");
+    }
+
+    @Override
+    public UUID getPlayerID() {
+        return playerID;
     }
 
 }

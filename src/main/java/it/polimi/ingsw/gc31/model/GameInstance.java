@@ -161,4 +161,16 @@ public class GameInstance implements Serializable, Runnable {
 	public State getState(){
 		return state;
 	}
+
+	public Player getPlayerFromId(UUID playerID) {
+	    Player player = null;
+
+	    for(Player playerIter: players) {
+	        if(playerIter.getPlayerID() == playerID) {
+	            player = playerIter;
+            }
+        }
+
+        return player;
+    }
 }

@@ -1,5 +1,10 @@
 package it.polimi.ingsw.gc31.server.rmiserver;
 
+import it.polimi.ingsw.gc31.controller.Controller;
+import it.polimi.ingsw.gc31.controller.GameActionController;
+import it.polimi.ingsw.gc31.controller.GameInstanceController;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
+import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -16,7 +21,7 @@ import java.util.*;
 public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     private Map<UUID, GameInstance> games;
     private UUID openGameID;
-    private ArrayList<Client> clients;
+    private Map<UUID, List<Client>> clients;
     private Timer timer;
 
     public static void main(String[] args) throws RemoteException {
@@ -33,7 +38,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     public GameServerImpl() throws RemoteException {
         this.games = new HashMap<>();
-        this.clients = new ArrayList<>();
+        this.clients = new HashMap<>();
         this.openGameID = null;
         this.timer = null;
     }
@@ -51,8 +56,8 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void join(String playerName, PlayerColor color) throws RemoteException, NoResourceMatch {
-        Player player = new Player(UUID.randomUUID(), playerName, color);
+    public void join(UUID playerID, String playerName, PlayerColor color) throws RemoteException, NoResourceMatch {
+        Player player = new Player(playerID, playerName, color);
         GameInstance openGame;
 
         if(this.openGameID != null) {
@@ -114,17 +119,55 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void register(Client client, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch {
-        this.clients.add(client);
-        this.join(playerName, playerColor);
+    public UUID register(Client client, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch {
+        UUID playerID = UUID.randomUUID();
+        List<Client> gameClients = this.clients.get(openGameID);
+
+        this.join(playerID, playerName, playerColor);
+        gameClients.add(client);
+
         client.ping();
-        return;
+        return playerID;
     }
 
     @Override
-    public void getData() {
-        System.out.println("Pinging server!");
+    public Map<String, String> sendData(Map<String, String> JSONData) throws RemoteException {
+        String requestType = JSONData.get("requestType");
+
+        switch (requestType) {
+            case "getGameStateData":
+                String gameID = JSONData.get("gameID");
+                return getGameState(gameID);
+            case "movementAction":
+                return processMovementAction(JSONData);
+            default:
+                return null;
+        }
     }
+
+
+    private Map<String, String> processMovementAction(Map<String, String> JSONData) throws NoResourceMatch {
+        String gameID = JSONData.get("gameID");
+
+        GameInstance gameInstance = games.get(UUID.fromString(gameID));
+        List<Client> gameClients = clients.get(gameInstance.getInstanceID());
+
+
+        Controller controller = new GameActionController(gameInstance, gameClients);
+        ((GameActionController) controller).movementAction(JSONData);
+
+    }
+
+    private Map<String, String> getGameState(String gameID) {
+        GameInstance gameInstance = games.get(UUID.fromString(gameID));
+        Map<String, String> response = new HashMap<>();
+
+        response.put("gameState", gameInstance.toString());
+        response.put("gameBoard", gameInstance.getGameBoard().toString());
+
+        return response;
+    }
+
 
     @Override
     public void leave(UUID playerID) throws RemoteException {

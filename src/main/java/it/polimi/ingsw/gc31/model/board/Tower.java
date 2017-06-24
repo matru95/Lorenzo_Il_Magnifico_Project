@@ -117,4 +117,14 @@ public class Tower implements Serializable{
     public Map<Integer, TowerSpaceWrapper> getTowerSpace() {
         return towerSpaces;
     }
+
+    public List<SpaceWrapper> getTowerSpaces() {
+        List<SpaceWrapper> spacesToReturn = new ArrayList<>();
+
+        for(Map.Entry<Integer, TowerSpaceWrapper> floor: towerSpaces.entrySet()) {
+            spacesToReturn.add(floor.getValue());
+        }
+
+        return spacesToReturn;
+    }
 }

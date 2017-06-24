@@ -5,15 +5,16 @@ import it.polimi.ingsw.gc31.model.states.GameEndState;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.TurnState;
 import it.polimi.ingsw.gc31.view.cli.GameView;
+import it.polimi.ingsw.gc31.view.client.Client;
 
 import java.util.Map;
 
 public class GameInstanceController implements GameInstanceControllerInterface {
 
     private GameInstance model;
-    private GameView view;
+    private Client view;
 
-    public GameInstanceController(GameInstance model) {
+    public GameInstanceController(GameInstance model, Client view) {
         this.model = model;
         this.view = view;
     }

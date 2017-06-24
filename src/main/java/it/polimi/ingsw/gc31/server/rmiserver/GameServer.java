@@ -12,9 +12,21 @@ import java.util.UUID;
 
 public interface GameServer extends Remote {
     Map<UUID, GameInstance> getGames() throws RemoteException;
+
     GameInstance getGame(UUID instanceID) throws RemoteException;
-    void join(String playerName, PlayerColor color) throws RemoteException, NoResourceMatch;
+
+    void join(UUID playerID, String playerName, PlayerColor color) throws RemoteException, NoResourceMatch;
+
     void leave(UUID playerID) throws RemoteException;
-    void register(Client client, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch;
-    void getData() throws RemoteException;
+
+    UUID register(Client client, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch;
+
+    /**
+     * Receives raw data from the remote client
+     * @param JSONData the raw JSON data received
+     * @return Response to the client
+     * @throws RemoteException
+     */
+    Map<String, String> sendData(Map<String, String> JSONData) throws RemoteException;
+
 }

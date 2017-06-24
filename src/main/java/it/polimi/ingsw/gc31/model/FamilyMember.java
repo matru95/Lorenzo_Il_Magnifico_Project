@@ -131,13 +131,17 @@ public class FamilyMember {
 		return this.dice.getColor();
 	}
 
-    public void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
+    private void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
         checkAndPayExtraGold(position);
         player.addCard(position.getCard());
-        moveToPosition(position, numOfServantsPaid);
     }
 
 	public void moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
+
+        if(position.getClass() == TowerSpaceWrapper.class) {
+            moveToTower((TowerSpaceWrapper) position, numOfServantsPaid);
+        }
+
 	    int positionDiceBond = position.getDiceBond();
 
 //	    Check if I should pay servants and pay them

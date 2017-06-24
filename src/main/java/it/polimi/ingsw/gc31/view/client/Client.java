@@ -6,9 +6,12 @@ import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.UUID;
 
 public interface Client extends Remote{
     void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch;
 
     void ping() throws RemoteException;
+
+    UUID getPlayerID();
 }
