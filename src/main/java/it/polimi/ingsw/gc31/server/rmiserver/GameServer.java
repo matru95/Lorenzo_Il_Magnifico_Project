@@ -27,6 +27,6 @@ public interface GameServer extends Remote {
      * @return Response to the client
      * @throws RemoteException
      */
-    Map<String, String> sendData(Map<String, String> JSONData) throws RemoteException;
+    Map<String, String> sendData(Map<String, String> JSONData) throws RemoteException, NoResourceMatch;
 
 }

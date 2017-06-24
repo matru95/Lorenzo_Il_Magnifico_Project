@@ -131,7 +131,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public Map<String, String> sendData(Map<String, String> JSONData) throws RemoteException {
+    public Map<String, String> sendData(Map<String, String> JSONData) throws RemoteException, NoResourceMatch {
         String requestType = JSONData.get("requestType");
 
         switch (requestType) {
@@ -156,6 +156,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         Controller controller = new GameActionController(gameInstance, gameClients);
         ((GameActionController) controller).movementAction(JSONData);
 
+        return null;
     }
 
     private Map<String, String> getGameState(String gameID) {

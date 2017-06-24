@@ -131,7 +131,7 @@ public class FamilyMember {
 		return this.dice.getColor();
 	}
 
-    private void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
+    public void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
         checkAndPayExtraGold(position);
         player.addCard(position.getCard());
     }
