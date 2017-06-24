@@ -1,10 +1,10 @@
 package it.polimi.ingsw.gc31.model;
 
-public class FaithCard {
+public class FaithTile {
 	private int age;
 	private FaithEffect effect;
 	
-	public FaithCard(int age) {
+	public FaithTile(int age) {
 		this.age = age;
 		this.effect = new FaithEffect();
 	}

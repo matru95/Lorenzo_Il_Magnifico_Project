@@ -31,7 +31,7 @@ public class Player implements Serializable{
 	
 	//Cards
 	private Map<CardColor, List<Card>> cards;
-	private FaithCard[] faithCards;
+	private FaithTile[] faithCards;
 	private FamilyMember[] familyMembers;
 
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
@@ -230,7 +230,7 @@ public class Player implements Serializable{
         return isMovedThisTurn;
     }
 
-	public FaithCard[] getFaithCards() {
+	public FaithTile[] getFaithCards() {
 		return faithCards;
 	}
 
