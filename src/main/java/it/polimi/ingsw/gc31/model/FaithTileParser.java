@@ -18,6 +18,7 @@ public class FaithTileParser {
     private transient Logger logger = Logger.getLogger(this.getClass().getName());
     private List<FaithTile> faithTiles;
 
+
     public FaithTileParser(String filePath){
         ObjectMapper mapper = new ObjectMapper();
         File jsonInputFile = new File(filePath);
@@ -33,33 +34,58 @@ public class FaithTileParser {
     public void parse() {
         JsonNode faithtilesJSON= rootNode.path("faithtiles");
         for (JsonNode faithTile : faithtilesJSON){
+
             int id=faithTile.path("id").asInt();
             int age=faithTile.path("age").asInt();
+            FaithTile faithTile1=new FaithTile(id,age);
+
             List <Resource> gainFewerStack=new ArrayList<>();
             if(faithTile.has("gainfewer")){
                 JsonNode gainFewer=faithTile.path("gainfewer");
                 gainFewerStack=parseResources(gainFewer);
+                faithTile1.setGainFewerStack(gainFewerStack);
+
             }else {
                 gainFewerStack=null;
+                faithTile1.setGainFewerStack(gainFewerStack);
             }
+
             int harvestFewer=faithTile.path("harvestfewer").asInt();
+            faithTile1.setHarvestFewer(harvestFewer);
 
             int profuctionFewer=faithTile.path("productionfewer").asInt();
+            faithTile1.setProfuctionFewer(profuctionFewer);
+
             int diceFewer=0;
             diceFewer=faithTile.path("dicefewer").asInt();
+            faithTile1.setDiceFewer(diceFewer);
+
             if(faithTile.has("fewerdicecard")){
                 JsonNode fewerDiceCard= faithTile.path("fewerdicecard");
                 String cardColorString=fewerDiceCard.path("cardcolor").asText().toUpperCase();
+
                 CardColor cardColor=CardColor.valueOf(cardColorString);
+                faithTile1.setFewerdicecardcolor(cardColor);
+
                 int diceValue=fewerDiceCard.path("dicevalue").asInt();
+                faithTile1.setFewerDiceCardValue(diceValue);
             }
+
             boolean noMarket=faithTile.path("nomarket").asBoolean();
+            faithTile1.setNoMarket(noMarket);
+
             boolean doubleServants=faithTile.path("doubleservants").asBoolean();
+            faithTile1.setDoubleServants(doubleServants);
+
             boolean skipFirstRound=faithTile.path("skipfirstround").asBoolean();
+            faithTile1.setSkipFirstRound(skipFirstRound);
+
             if(faithTile.has("noendgamepoints")){
                 JsonNode noEndGamePoints=faithTile.path("noendgamepoints");
                 String cardColorString=noEndGamePoints.path("cardcolor").asText().toUpperCase();
+
                 CardColor cardColor=CardColor.valueOf(cardColorString);
+                faithTile1.setNoEndGamePointsCardColor(cardColor);
             }
             List <Resource> forEveryRes=new ArrayList<>();
             List <Resource> loseRes=new ArrayList<>();
@@ -67,16 +93,24 @@ public class FaithTileParser {
                 JsonNode loseForEvery=faithTile.path("loseforevery");
                 JsonNode forEvery=loseForEvery.path("for");
                 JsonNode lose=loseForEvery.path("lose");
+
                 forEveryRes=parseResources(forEvery);
+                faithTile1.setForEveryRes(forEveryRes);
+
                 loseRes=parseResources(lose);
+                faithTile1.setLoseRes(loseRes);
             }
             if(faithTile.has("loseforeverycost")){
                 JsonNode loseForEveryCost=faithTile.path("loseforeverycost");
                 String cardColorString=loseForEveryCost.path("cardcolor").asText().toUpperCase();
                 CardColor cardColor=CardColor.valueOf(cardColorString);
+                faithTile1.setLoseForEveryCostCardColor(cardColor);
             }
             boolean loseForEveryResource=faithTile.path("loseforeveryresource").asBoolean();
+            faithTile1.setLoseForEveryResource(loseForEveryResource);
+            this.faithTiles.add(faithTile1);
         }
+
     }
     private List<Resource> parseResources(JsonNode node) {
         List<Resource> exchangeResources = new ArrayList<>();
@@ -90,5 +124,8 @@ public class FaithTileParser {
         });
 
         return exchangeResources;
+    }
+    public List<FaithTile> getFaithTiles() {
+        return faithTiles;
     }
 }
