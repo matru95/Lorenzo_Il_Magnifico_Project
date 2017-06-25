@@ -54,6 +54,7 @@ public class FamilyMemberTest extends TestCase{
 
     @Test
     public void testFamilyMemberShouldExist() {
+        System.out.println(gameBoard.toString());
         assertNotNull(this.familyMember);
     }
 

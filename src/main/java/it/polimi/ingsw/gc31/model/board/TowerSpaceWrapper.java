@@ -45,7 +45,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         ObjectNode towerSpaceWrapperNode = super.toObjectNode();
 
         if(this.card != null) {
-            towerSpaceWrapperNode.put("card", card.toJson());
+            towerSpaceWrapperNode.set("card", card.toJson());
         }
 
         return towerSpaceWrapperNode;
