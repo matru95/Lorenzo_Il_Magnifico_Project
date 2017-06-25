@@ -67,8 +67,7 @@ public class GameViewCLI implements GameView {
         //printSpaces();
         printPlayers();
         printFamilyMembers();
-        printMovementQuery();
-        //System.out.print(gameState.get("GameBoard").toString());
+        //printMovementQuery();
     }
 
     /**
@@ -94,33 +93,30 @@ public class GameViewCLI implements GameView {
      */
     private void printTowers() {
 
-        /*
-        rootNode = mapper.readTree(gameState.get("GameInstance"));
-
         AsciiTable at = new AsciiTable();
         at.addRule();
-
-        at.addRow("GREEN TOWER", "BLUE TOWER", "YELLOW TOWER", "PURPLE TOWER");
+        at.addRow("~ TOWERS ~");
         at.addRule();
+        at.setTextAlignment(TextAlignment.CENTER);
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(146));
 
-        ViewParser cardParser = new CardViewParser();
+        AsciiTable att = new AsciiTable();
+        att.addRule();
+        att.addRow("[TOWER COLOR]", "FLOOR:[0]", "FLOOR:[1]", "FLOOR:[2]", "FLOOR:[3]");
+        att.addRule();
 
-        for (int floorID = 3; floorID >= 0; floorID--) {
-
-            String greenCardString = gameBoardModel.getTowerByColor(CardColor.GREEN).getTowerSpace().get(floorID).getCard().toString();
-            String blueCardString = gameBoardModel.getTowerByColor(CardColor.BLUE).getTowerSpace().get(floorID).getCard().toString();
-            String yellowCardString = gameBoardModel.getTowerByColor(CardColor.YELLOW).getTowerSpace().get(floorID).getCard().toString();
-            String purpleCardString = gameBoardModel.getTowerByColor(CardColor.PURPLE).getTowerSpace().get(floorID).getCard().toString();
-
-            at.addRow(cardParser.parse(greenCardString), cardParser.parse(blueCardString), cardParser.parse(yellowCardString), cardParser.parse(purpleCardString));
-            at.addRule();
+        for (CardColor cardColor: CardColor.values()) {
+            String color = cardColor.toString();
+            JsonNode node = rootBoard.path("towers").path(color).path("towerSpaces");
+            att.addRow(color + " TOWER", go(node.path("0")), go(node.path("1")), go(node.path("2")), go(node.path("3")));
+            att.addRule();
         }
 
-        at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25));
+        att.setTextAlignment(TextAlignment.CENTER);
+        att.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
+        System.out.println(at.render());
+        System.out.println(att.render() + "\n");
 
-        System.out.println(at.render() + "\n");
-        */
     }
 
     /**
@@ -182,7 +178,7 @@ public class GameViewCLI implements GameView {
 
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("PLAYERS", order.replace("\"",""));
+        at.addRow("~ PLAYERS ~", order.replace("\"",""));
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add((125)));
@@ -225,14 +221,13 @@ public class GameViewCLI implements GameView {
      * and its color.
      */
     private void printMovementQuery() throws IOException {
-        /*
+
         Integer id = 0;
         DiceColor color;
 
-        System.out.println("\n" + playerModel.getPlayerName() + ", it's your turn, move a Family Member into a Space.\n");
+        System.out.println("\nIt's your turn, move a Family Member into a Space:\n");
 
-        System.out.println("Now insert the FamilyMember's color you'd like to use, \n" +
-                        "between these available: BLACK, WHITE, ORANGE, NEUTRAL.");
+        System.out.println("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL\n");
         Boolean  isCorrect = false;
         do {
             try {
@@ -254,7 +249,7 @@ public class GameViewCLI implements GameView {
                 System.out.println("You must insert a number, not a string");
             }
         } while (!isCorrect);
-        */
+
     }
 
     /**
@@ -297,7 +292,7 @@ public class GameViewCLI implements GameView {
      * This method is used to print the query for the player,
      * in order to choose if accept or not the effect of an excommunication.
      */
-    private void printFaithEffect() {
+    private void printFaithQuery() {
         /**
         System.out.println("Do you really wanna take this faith effect?" +
                 gameBoardModel.getFaithCard.getEffect.toString());  */
@@ -313,7 +308,8 @@ public class GameViewCLI implements GameView {
     }
 
     /**
-     * This method take a JsonNode as input, converting it into a String and removing Double Quotes and Braces.
+     * This method take a JsonNode as input, converting it into a String,
+     * removing Double Quotes and Braces and adding a space after a Comma.
      * @param node: JsonNode for a JSON Parser.
      * @return String
      */
@@ -344,12 +340,13 @@ public class GameViewCLI implements GameView {
         p1.getCards().get(CardColor.GREEN).add(cards.get(1));
         p1.getCards().get(CardColor.BLUE).add(cards.get(25));
         p1.getCards().get(CardColor.PURPLE).add(cards.get(74));
-
+        gameInstance.run();
         Map<String, String> gameState = new HashMap<>();
         gameState.put("GameInstance", gameInstance.toString());
         gameState.put("GameBoard", gameInstance.getGameBoard().toString());
         GameViewCLI view = new GameViewCLI(p1.getPlayerID());
         (new Thread(gameInstance)).start();
+
         view.update(gameState);
     }
 }
