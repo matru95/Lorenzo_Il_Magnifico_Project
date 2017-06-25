@@ -23,12 +23,11 @@ public class GameActionController extends Controller{
         return;
     }
 
-    public void movementAction(Map<String, String> movementData) throws NoResourceMatch {
+    public void movementAction(String movementData) throws NoResourceMatch {
         Map<String, String> response = new HashMap<>();
         String playerID = movementData.get("playerID");
         String familyMemberColor = movementData.get("familyMemberColor");
         String positionID = movementData.get("positionID");
-        String numOfServants = movementData.get("numOfServants");
 
         GameInstance game = super.getModel();
         Player player = game.getPlayerFromId(UUID.fromString(playerID));
@@ -40,9 +39,14 @@ public class GameActionController extends Controller{
             Integer servantsToPay = Integer.valueOf(movementData.get("servantsToPay"));
 
             familyMember.moveToPosition(position, servantsToPay);
-            response.put("responseType", "ok");
-            response.put("responseAction", "update");
+            response.put("responseType", "action");
+            response.put("actionType", "update");
+        } else {
+            response.put("responseType", "fail");
+            response.put("failMessage", "{\"message\": \"Cannot move there \"}");
         }
+
+        updateClients(response);
     }
 
     private boolean isMovementValid(String positionID, List<SpaceWrapper> possibleMovements) {

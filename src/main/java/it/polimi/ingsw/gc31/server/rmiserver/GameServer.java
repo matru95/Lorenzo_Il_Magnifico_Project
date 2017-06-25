@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.server.rmiserver;
 
+import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
@@ -19,14 +20,23 @@ public interface GameServer extends Remote {
 
     void leave(UUID playerID) throws RemoteException;
 
+    /**
+     *
+     * @param client the Client that is being registered
+     * @param playerName
+     * @param playerColor
+     * @return
+     * @throws RemoteException
+     * @throws NoResourceMatch
+     */
     UUID register(Client client, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch;
 
     /**
      * Receives raw data from the remote client
-     * @param JSONData the raw JSON data received
+     * @param request the message received
      * @return Response to the client
      * @throws RemoteException
      */
-    Map<String, String> sendData(Map<String, String> JSONData) throws RemoteException, NoResourceMatch;
+    Map<String, String> sendData(Message request) throws RemoteException, NoResourceMatch;
 
 }
