@@ -7,7 +7,7 @@ import java.util.List;
 public class EffectFactory {
     EffectFactory(){
     }
-    //TODO dividere i metodi per diluire i parametri nei getEffect?!?!
+     //TODO dividere i metodi per diluire i parametri nei getEffect?!?!
     public static Effect getEffect(String effetto, List<Resource> addingres,int numparchment){
         String control=effetto.toUpperCase();
         switch(control) {
