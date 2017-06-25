@@ -1,7 +1,9 @@
 package it.polimi.ingsw.gc31.messages;
 
 
-public class FailMessage implements Message{
+import java.io.Serializable;
+
+public class FailMessage implements Message, Serializable{
     private BasicMessage basicMessage;
     private FailType failType;
     private String message;

@@ -61,7 +61,7 @@ public class Tower implements Serializable{
         ObjectNode towerSpacesNode = mapper.createObjectNode();
 
         for(Map.Entry<Integer, TowerSpaceWrapper> singleTowerSpaceWrapperRow: towerSpaces.entrySet()) {
-            towerSpacesNode.put(singleTowerSpaceWrapperRow.getKey().toString(), singleTowerSpaceWrapperRow.getValue().toJson());
+            towerSpacesNode.set(singleTowerSpaceWrapperRow.getKey().toString(), singleTowerSpaceWrapperRow.getValue().toJson());
         }
 
         return towerSpacesNode;

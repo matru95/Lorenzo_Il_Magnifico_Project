@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc31.messages;
 
-public class BasicMessage implements Message{
+import java.io.Serializable;
+
+public class BasicMessage implements Message, Serializable{
     private RequestType requestType;
 
     public BasicMessage(RequestType requestType) {

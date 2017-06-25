@@ -41,6 +41,12 @@ public class GameViewCLI implements GameView {
         this.rootNode = null;
     }
 
+    public GameViewCLI(UUID playerID) {
+        this.playerID = playerID;
+        this.mapper = new ObjectMapper();
+        this.rootNode = null;
+    }
+
     /**
      * Method to print on Console the current GameView of Client's Player.
      * @throws IOException
@@ -59,7 +65,6 @@ public class GameViewCLI implements GameView {
      * Method to print an header with information regard the current GameInstance.
      */
     private void printHeader() throws IOException {
-
         rootNode = mapper.readTree(gameState.get("GameInstance"));
 
         AsciiTable at = new AsciiTable();

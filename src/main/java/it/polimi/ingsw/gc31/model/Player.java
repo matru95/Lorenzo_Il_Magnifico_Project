@@ -134,7 +134,7 @@ public class Player implements Serializable{
 
 		List<Card> cardField = cards.get(color);
         for(Card card: cardField) {
-            cardsNode.add(card.toString());
+            cardsNode.add(card.toJson());
         }
 
 		return cardsNode;

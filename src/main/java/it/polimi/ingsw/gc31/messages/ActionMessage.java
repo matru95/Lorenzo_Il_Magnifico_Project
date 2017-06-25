@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc31.messages;
 
-public class ActionMessage implements Message{
+import java.io.Serializable;
+
+public class ActionMessage implements Message, Serializable{
     private BasicMessage basicMessage;
     private ActionType actionType;
     private String JSONMessage;
@@ -36,6 +38,10 @@ public class ActionMessage implements Message{
 
     public String getGameID() {
         return gameID;
+    }
+
+    public void setGameID(String gameID) {
+        this.gameID = gameID;
     }
 
 }

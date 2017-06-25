@@ -3,10 +3,7 @@ package it.polimi.ingsw.gc31.server.rmiserver;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.controller.Controller;
 import it.polimi.ingsw.gc31.controller.GameActionController;
-import it.polimi.ingsw.gc31.messages.ActionMessage;
-import it.polimi.ingsw.gc31.messages.ActionType;
-import it.polimi.ingsw.gc31.messages.Message;
-import it.polimi.ingsw.gc31.messages.RequestType;
+import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -61,7 +58,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void join(UUID playerID, String playerName, PlayerColor color) throws RemoteException, NoResourceMatch {
+    public void join(UUID playerID, String playerName, PlayerColor color) throws IOException, NoResourceMatch {
         Player player = new Player(playerID, playerName, color);
         GameInstance openGame;
 
@@ -74,7 +71,13 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 TimerTask timerTask = new TimerTask() {
                     @Override
                     public void run() {
-                        startGame();
+                        try {
+                            startGame();
+                        } catch (NoResourceMatch noResourceMatch) {
+                            noResourceMatch.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 };
 
@@ -99,9 +102,10 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         player.setGameBoard(gameBoard);
 
         games.put(openGameID, openGame);
+        clients.put(openGameID, new ArrayList<>());
     }
 
-    private void joinExistingGame(Player player) {
+    private void joinExistingGame(Player player) throws NoResourceMatch, IOException {
         GameInstance openGame = games.get(openGameID);
         openGame.addPlayer(player);
 
@@ -113,26 +117,45 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         }
     }
 
-    private void startGame() {
+    private void startGame() throws NoResourceMatch, IOException {
         System.out.println("starting game!");
         GameInstance openGame = games.get(openGameID);
+        List<Client> clientsToUpdate = clients.get(openGameID);
         openGameID = null;
         timer.cancel();
         timer.purge();
 
         (new Thread(openGame)).start();
+
+        updateClients(clientsToUpdate);
+
+    }
+
+    private void updateClients(List<Client> clients) throws NoResourceMatch, IOException {
+        BasicMessage basicMessage = new BasicMessage(RequestType.ACTION);
+        Message request = new ActionMessage(basicMessage, ActionType.UPDATE);
+
+        for(Client client: clients) {
+            client.send(request);
+        }
     }
 
     @Override
-    public UUID register(Client client, String playerName, PlayerColor playerColor) throws RemoteException, NoResourceMatch {
+    public Map<String, UUID> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch {
+        Map<String, UUID> payload = new HashMap<>();
         UUID playerID = UUID.randomUUID();
-        List<Client> gameClients = this.clients.get(openGameID);
 
         this.join(playerID, playerName, playerColor);
+
+        List<Client> gameClients = this.clients.get(openGameID);
+
+        payload.put("playerID", playerID);
+        payload.put("gameID", openGameID);
+
         gameClients.add(client);
 
         client.ping();
-        return playerID;
+        return payload;
     }
 
     @Override
@@ -176,8 +199,8 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         GameInstance gameInstance = games.get(UUID.fromString(gameID));
         Map<String, String> response = new HashMap<>();
 
-        response.put("gameState", gameInstance.toString());
-        response.put("gameBoard", gameInstance.getGameBoard().toString());
+        response.put("GameInstance", gameInstance.toString());
+        response.put("GameBoard", gameInstance.getGameBoard().toString());
 
         return response;
     }
