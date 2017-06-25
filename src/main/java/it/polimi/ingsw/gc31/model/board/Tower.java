@@ -34,13 +34,20 @@ public class Tower implements Serializable{
         initFloors(floors);
     }
 
-    @Override
-    public String toString() {
+    public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode towerNode = mapper.createObjectNode();
 
         towerNode.put("towerColor", towerColor.toString());
         towerNode.set("towerSpaces", createTowerSpacesJson(mapper));
+
+        return towerNode;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode towerNode = toJson();
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(towerNode);
@@ -54,7 +61,7 @@ public class Tower implements Serializable{
         ObjectNode towerSpacesNode = mapper.createObjectNode();
 
         for(Map.Entry<Integer, TowerSpaceWrapper> singleTowerSpaceWrapperRow: towerSpaces.entrySet()) {
-            towerSpacesNode.put(singleTowerSpaceWrapperRow.getKey().toString(), singleTowerSpaceWrapperRow.getValue().toString());
+            towerSpacesNode.put(singleTowerSpaceWrapperRow.getKey().toString(), singleTowerSpaceWrapperRow.getValue().toJson());
         }
 
         return towerSpacesNode;

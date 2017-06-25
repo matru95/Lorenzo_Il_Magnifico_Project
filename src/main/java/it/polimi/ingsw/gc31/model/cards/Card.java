@@ -75,9 +75,7 @@ public class Card {
         this.harvestAction = 0;
     }
 
-    @Override
-    public String toString() {
-        String stringToReturn = "";
+    public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode cardObjectNode = mapper.createObjectNode();
@@ -97,6 +95,14 @@ public class Card {
         }
 
         cardObjectNode.set("cost", costsNode);
+
+        return cardObjectNode;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode cardObjectNode = toJson();
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cardObjectNode);

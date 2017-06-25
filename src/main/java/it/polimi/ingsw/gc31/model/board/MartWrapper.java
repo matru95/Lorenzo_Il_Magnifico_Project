@@ -32,11 +32,19 @@ public class MartWrapper extends SpaceWrapper {
     }
 
     @Override
-    public String toString() {
+    public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode martWrapperNode = mapper.createObjectNode();
 
         martWrapperNode.set("bonus", generateBonusJSON(mapper));
+
+        return martWrapperNode;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode martWrapperNode = toJson();
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(martWrapperNode);
@@ -56,7 +64,7 @@ public class MartWrapper extends SpaceWrapper {
         ArrayNode bonusArray = mapper.createArrayNode();
 
         for(Resource singleResource: res) {
-            bonusArray.add(singleResource.toString());
+            bonusArray.add(singleResource.toJson());
         }
 
         return bonusArray;

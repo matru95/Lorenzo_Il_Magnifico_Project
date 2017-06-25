@@ -20,13 +20,20 @@ public class Resource implements Serializable{
         this.resourceName = resourceName;
     }
 
-    @Override
-    public String toString() {
+    public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode resourceNode = mapper.createObjectNode();
 
         resourceNode.put("resourceName", resourceName.toString());
         resourceNode.put("amount", numOf);
+
+        return resourceNode;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode resourceNode = toJson();
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resourceNode);

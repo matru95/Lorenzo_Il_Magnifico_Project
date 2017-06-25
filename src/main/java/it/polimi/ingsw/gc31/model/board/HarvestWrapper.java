@@ -37,11 +37,19 @@ public class HarvestWrapper extends SpaceWrapper {
     }
 
     @Override
-    public String toString() {
+    public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode harvestWrapperNode = super.toObjectNode();
 
         harvestWrapperNode.put("malus", 0);
+
+        return harvestWrapperNode;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode harvestWrapperNode = toJson();
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(harvestWrapperNode);

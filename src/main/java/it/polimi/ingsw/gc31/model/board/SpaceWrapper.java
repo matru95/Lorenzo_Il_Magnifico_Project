@@ -27,6 +27,8 @@ public abstract class SpaceWrapper implements Serializable{
 
     public abstract void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch;
 
+    public abstract ObjectNode toJson();
+
     /**
      * Returns a JSON-formatted string of this class
      * @return JSON String representation of the class

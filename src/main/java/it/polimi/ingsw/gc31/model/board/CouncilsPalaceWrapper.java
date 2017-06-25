@@ -39,11 +39,19 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public String toString() {
+    public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode councilsPalaceWrapperNode = super.toObjectNode();
 
-        councilsPalaceWrapperNode.put("bonus", res.toString());
+        councilsPalaceWrapperNode.set("bonus", res.toJson());
+
+        return councilsPalaceWrapperNode;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode councilsPalaceWrapperNode = toJson();
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(councilsPalaceWrapperNode);

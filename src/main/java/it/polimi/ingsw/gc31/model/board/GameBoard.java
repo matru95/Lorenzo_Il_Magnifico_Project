@@ -92,7 +92,7 @@ public class GameBoard implements Serializable {
         ObjectNode towersNode = mapper.createObjectNode();
 
         for(Map.Entry<CardColor, Tower> tower: towers.entrySet()) {
-            towersNode.put(tower.getKey().toString(), tower.getValue().toString());
+            towersNode.set(tower.getKey().toString(), tower.getValue().toJson());
         }
 
         return towersNode;
@@ -102,7 +102,7 @@ public class GameBoard implements Serializable {
         ObjectNode dicesNode = mapper.createObjectNode();
 
         for(Map.Entry<DiceColor, Dice> dice: dices.entrySet()) {
-            dicesNode.put(dice.getKey().toString(), dice.getValue().toString());
+            dicesNode.put(dice.getKey().toString(), dice.getValue().getValue());
         }
 
         return dicesNode;
@@ -112,7 +112,7 @@ public class GameBoard implements Serializable {
         ObjectNode boardSpacesJson = mapper.createObjectNode();
 
         for(Map.Entry<Integer, SpaceWrapper> boardSpace: boardSpaces.entrySet()) {
-            boardSpacesJson.put(boardSpace.getKey().toString(), boardSpace.getValue().toString());
+            boardSpacesJson.set(boardSpace.getKey().toString(), boardSpace.getValue().toJson());
         }
 
         return boardSpacesJson;

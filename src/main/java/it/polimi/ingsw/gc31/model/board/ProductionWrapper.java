@@ -39,11 +39,19 @@ public class ProductionWrapper extends SpaceWrapper {
     }
 
     @Override
-    public String toString() {
+    public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode productionWrapperNode = super.toObjectNode();
 
         productionWrapperNode.put("malus", malus);
+
+        return productionWrapperNode;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode productionWrapperNode = toJson();
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(productionWrapperNode);

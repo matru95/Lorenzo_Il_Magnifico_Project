@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model.board;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
@@ -19,6 +20,11 @@ public class NullWrapper extends SpaceWrapper {
     @Override
     public void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
 
+    }
+
+    @Override
+    public ObjectNode toJson() {
+        return null;
     }
 
     @Override

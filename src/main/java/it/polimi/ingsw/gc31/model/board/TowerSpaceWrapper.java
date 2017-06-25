@@ -39,15 +39,23 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         setOccupied(true);
     }
 
-
     @Override
-    public String toString() {
+    public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode towerSpaceWrapperNode = super.toObjectNode();
 
         if(this.card != null) {
-            towerSpaceWrapperNode.put("card", card.toString());
+            towerSpaceWrapperNode.put("card", card.toJson());
         }
+
+        return towerSpaceWrapperNode;
+    }
+
+
+    @Override
+    public String toString() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode towerSpaceWrapperNode = toJson();
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(towerSpaceWrapperNode);
