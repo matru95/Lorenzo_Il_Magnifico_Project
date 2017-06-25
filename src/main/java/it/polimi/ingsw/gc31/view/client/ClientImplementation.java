@@ -28,7 +28,7 @@ public class ClientImplementation implements Client, Serializable{
         GameServer gameServer = (GameServer) registry.lookup("game_server");
 
         Client client = new ClientImplementation();
-        UnicastRemoteObject.exportObject(client, 8081);
+        UnicastRemoteObject.exportObject(client, 8082);
         registry.rebind("game_client", client);
 
         client.joinServer(gameServer, "Endi", PlayerColor.BLUE);
