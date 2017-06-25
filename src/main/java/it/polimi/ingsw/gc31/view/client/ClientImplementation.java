@@ -45,7 +45,6 @@ public class ClientImplementation implements Client, Serializable{
         this.playerID = payload.get("playerID");
         this.gameID = payload.get("gameID");
 
-
         view = new GameViewCLI(playerID);
     }
 
