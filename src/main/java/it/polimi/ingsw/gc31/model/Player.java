@@ -60,21 +60,27 @@ public class Player implements Serializable{
 
 	}
 
-    @Override
-    public String toString() {
-	    ObjectMapper mapper = new ObjectMapper();
-		ObjectNode playerNode = mapper.createObjectNode();
+	public ObjectNode toJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode playerNode = mapper.createObjectNode();
 
-		playerNode.put("playerID", playerID.toString());
-		playerNode.put("playerName", playerName);
-		playerNode.put("playerColor", playerColor.toString());
-		playerNode.put("playerOrder", playerOrder);
-		playerNode.put("playerOrder", playerOrder);
-		playerNode.put("isMovedThisTurn", isMovedThisTurn);
-		playerNode.set("res", createResourceJson(mapper));
+        playerNode.put("playerID", playerID.toString());
+        playerNode.put("playerName", playerName);
+        playerNode.put("playerColor", playerColor.toString());
+        playerNode.put("playerOrder", playerOrder);
+        playerNode.put("playerOrder", playerOrder);
+        playerNode.put("isMovedThisTurn", isMovedThisTurn);
+        playerNode.set("res", createResourceJson(mapper));
         playerNode.set("familyMembers", createFamilyMembersJson(mapper));
         playerNode.set("cards", createCardsJson(mapper));
 
+        return playerNode;
+    }
+
+    @Override
+    public String toString() {
+	    ObjectMapper mapper = new ObjectMapper();
+        ObjectNode playerNode = toJson();
 
 		try {
 			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(playerNode);
@@ -89,7 +95,7 @@ public class Player implements Serializable{
 	    ArrayNode familyMembersArray = mapper.createArrayNode();
 
 	    for(FamilyMember familyMember: familyMembers) {
-	        familyMembersArray.add(familyMember.toString());
+	        familyMembersArray.add(familyMember.toJson());
         }
 
         return familyMembersArray;

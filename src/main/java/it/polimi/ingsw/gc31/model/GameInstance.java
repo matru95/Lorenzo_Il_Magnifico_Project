@@ -78,7 +78,7 @@ public class GameInstance implements Serializable, Runnable {
         ArrayNode playersArray = mapper.createArrayNode();
 
         for(Player player: players) {
-            playersArray.add(player.toString());
+            playersArray.add(player.toJson());
         }
 
         return playersArray;

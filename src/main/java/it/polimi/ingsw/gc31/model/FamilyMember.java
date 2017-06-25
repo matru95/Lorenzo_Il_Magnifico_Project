@@ -41,6 +41,17 @@ public class FamilyMember {
 
 	}
 
+	public ObjectNode toJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode familyMemberNode = mapper.createObjectNode();
+
+        familyMemberNode.put("color", dice.getColor().toString());
+        familyMemberNode.put("value", dice.getValue());
+        familyMemberNode.put("currentPositionID", currentPosition.getPositionID());
+
+        return familyMemberNode;
+    }
+
     /**
      * Returns a JSON String of the class
      * @return JSON String
