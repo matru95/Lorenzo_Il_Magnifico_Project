@@ -21,6 +21,10 @@ public class FailMessage implements Message{
         return basicMessage.getRequestType();
     }
 
+    public FailType getFailType() {
+        return failType;
+    }
+
     @Override
     public String getMessage() {
         return message;

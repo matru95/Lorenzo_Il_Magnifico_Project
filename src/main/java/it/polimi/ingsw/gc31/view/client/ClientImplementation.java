@@ -1,9 +1,11 @@
 package it.polimi.ingsw.gc31.view.client;
 
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
+import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -55,23 +57,25 @@ public class ClientImplementation implements Client, Serializable{
     }
 
     @Override
-    public void send(Map<String, String> response) throws NoResourceMatch, RemoteException {
-        String responseType = response.get("responseType");
+    public void send(Message request) throws NoResourceMatch, IOException {
+        RequestType requestType = request.getRequestType();
 
-        switch (responseType) {
-            case "action":
-                processAction(response);
-                break;
-            case "fail":
-                processFail(response);
-                break;
-            default:
-                return;
+        if(requestType == RequestType.ACTION) {
+            ActionMessage actionMessage = (ActionMessage) request;
+            ActionType actionType = actionMessage.getActionType();
+
+            processAction(actionMessage);
+        } else if(requestType == RequestType.FAIL) {
+            FailMessage failMessage = (FailMessage) request;
+            FailType failType = failMessage.getFailType();
+
+            processFail(failMessage);
         }
+
     }
 
-    private void processFail(Map<String, String> response) {
-        String failMessage = response.get("failMessage");
+    private void processFail(FailMessage message) {
+        String failMessage = message.getMessage();
 
     }
 
@@ -80,14 +84,17 @@ public class ClientImplementation implements Client, Serializable{
         this.playerID = playerID;
     }
 
-    private void processAction(Map<String, String> response) throws NoResourceMatch, RemoteException {
-        String actionType = response.get("actionType");
-        Map<String, String> request = new HashMap<>();
+    private void processAction(ActionMessage message) throws NoResourceMatch, IOException {
+        ActionType actionType = message.getActionType();
+        BasicMessage basicRequest = new BasicMessage(RequestType.ACTION);
 
         switch (actionType) {
-            case "update":
-                request.put("actionType", "getGameStateData");
+            case UPDATE:
+                Message request = new ActionMessage(basicRequest, ActionType.UPDATE);
                 Map<String, String> gameStateData =  server.sendData(request);
+                break;
+            default:
+                break;
 //              TODO handle updating the view
         }
 

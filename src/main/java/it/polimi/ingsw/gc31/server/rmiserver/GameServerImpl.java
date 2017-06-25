@@ -14,6 +14,7 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -135,7 +136,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public Map<String, String> sendData(Message request) throws RemoteException, NoResourceMatch {
+    public Map<String, String> sendData(Message request) throws IOException, NoResourceMatch {
         RequestType requestType = request.getRequestType();
 
         if(requestType == RequestType.ACTION) {
@@ -158,7 +159,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
 
-    private Map<String, String> processMovementAction(String gameID, String JSONData) throws NoResourceMatch {
+    private Map<String, String> processMovementAction(String gameID, String JSONData) throws NoResourceMatch, IOException {
         UUID gameInstanceID = UUID.fromString(gameID);
 
         GameInstance gameInstance = games.get(gameInstanceID);

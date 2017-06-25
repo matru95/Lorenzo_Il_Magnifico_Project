@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.controller;
 
+import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.view.client.Client;
 
@@ -24,5 +25,5 @@ public abstract class Controller {
         return views;
     }
 
-    public abstract void updateClients(Map<String, String> response);
+    public abstract void updateClients(Message request);
 }

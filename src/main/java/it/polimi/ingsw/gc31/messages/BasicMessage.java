@@ -7,6 +7,9 @@ public class BasicMessage implements Message{
         this.requestType = requestType;
     }
 
+    public BasicMessage() {
+    }
+
     @Override
     public void setRequestType(RequestType requestType) {
         this.requestType = requestType;
@@ -19,6 +22,6 @@ public class BasicMessage implements Message{
 
     @Override
     public String getMessage() {
-        return requestType;
+        return requestType.toString();
     }
 }

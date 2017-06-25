@@ -6,6 +6,7 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Map;
@@ -37,6 +38,6 @@ public interface GameServer extends Remote {
      * @return Response to the client
      * @throws RemoteException
      */
-    Map<String, String> sendData(Message request) throws RemoteException, NoResourceMatch;
+    Map<String, String> sendData(Message request) throws IOException, NoResourceMatch;
 
 }

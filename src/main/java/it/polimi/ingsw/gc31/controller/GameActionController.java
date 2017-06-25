@@ -1,6 +1,9 @@
 package it.polimi.ingsw.gc31.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
+import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
@@ -8,6 +11,7 @@ import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,34 +23,45 @@ public class GameActionController extends Controller{
     }
 
     @Override
-    public void updateClients(Map<String, String> response) {
+    public void updateClients(Message request) {
         return;
     }
 
-    public void movementAction(String movementData) throws NoResourceMatch {
-        Map<String, String> response = new HashMap<>();
-        String playerID = movementData.get("playerID");
-        String familyMemberColor = movementData.get("familyMemberColor");
-        String positionID = movementData.get("positionID");
+    public void movementAction(String movementData) throws NoResourceMatch, IOException {
+        Message request = null;
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode rootNode = mapper.readTree(movementData);
+        BasicMessage basicRequest = new BasicMessage();
+
+        String playerID = rootNode.path("playerID").toString();
+        String familyMemberColor = rootNode.path("familyMemberColor").toString();
+        String positionID = rootNode.path("positionID").toString();
 
         GameInstance game = super.getModel();
+
         Player player = game.getPlayerFromId(UUID.fromString(playerID));
-        FamilyMember familyMember = player.getSpecificFamilyMember(DiceColor.valueOf(familyMemberColor));
+
+        DiceColor realFamilyMemberColor = DiceColor.valueOf(familyMemberColor);
+        FamilyMember familyMember = player.getSpecificFamilyMember(realFamilyMemberColor);
+
         List<SpaceWrapper> possibleMovements = familyMember.checkPossibleMovements();
 
         if(isMovementValid(positionID, possibleMovements)) {
             SpaceWrapper position = game.getGameBoard().getSpaceById(Integer.valueOf(positionID));
-            Integer servantsToPay = Integer.valueOf(movementData.get("servantsToPay"));
+            Integer servantsToPay = rootNode.path("servantsToPay").asInt();
 
             familyMember.moveToPosition(position, servantsToPay);
-            response.put("responseType", "action");
-            response.put("actionType", "update");
+
+//          Create message for client
+            basicRequest.setRequestType(RequestType.ACTION);
+            request = new ActionMessage(basicRequest, ActionType.UPDATE);
         } else {
-            response.put("responseType", "fail");
-            response.put("failMessage", "{\"message\": \"Cannot move there \"}");
+
+            basicRequest.setRequestType(RequestType.FAIL);
+            request = new FailMessage(basicRequest, FailType.MOVEMENTNOTPOSSIBLE);
         }
 
-        updateClients(response);
+        updateClients(request);
     }
 
     private boolean isMovementValid(String positionID, List<SpaceWrapper> possibleMovements) {

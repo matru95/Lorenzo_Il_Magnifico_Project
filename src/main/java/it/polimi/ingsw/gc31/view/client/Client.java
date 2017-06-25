@@ -1,9 +1,11 @@
 package it.polimi.ingsw.gc31.view.client;
 
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
+import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Map;
@@ -18,9 +20,9 @@ public interface Client extends Remote{
 
     /**
      * Method used by the controller and RMI server to send a response to the client
-     * @param response
+     * @param request The Message request
      */
-    void send(Map<String, String> response) throws NoResourceMatch, RemoteException;
+    void send(Message request) throws NoResourceMatch, IOException;
 
     void setPlayerID(UUID playerID);
 }
