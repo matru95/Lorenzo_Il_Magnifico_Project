@@ -39,17 +39,18 @@ public class GameViewCLI implements GameView {
         this.playerID = playerID;
         this.mapper = new ObjectMapper();
         this.rootNode = null;
+        printView();
     }
 
     /**
      * Method to print on Console the current GameView of Client's Player.
      * @throws IOException
      */
-    public void printView() throws IOException {
+    private void printView() throws IOException {
         printHeader();
         printTowers();
         //printSpaces();
-        printPlayer();
+        printPlayers();
         printFamilyMembers();
         printMovementQuery();
         //System.out.print(gameState.get("GameBoard").toString());
@@ -124,38 +125,43 @@ public class GameViewCLI implements GameView {
     /**
      * Method to print information (status) regarding a single player.
      */
-    private void printPlayer() throws IOException {
-        /*
+    private void printPlayers() throws IOException {
+
         rootNode = mapper.readTree(gameState.get("GameInstance"));
         JsonNode players = rootNode.path("players");
-        for (JsonNode singlePlayer: players) {
-            System.out.println(go(singlePlayer.path("playerName")));
-        }
 
         AsciiTable at = new AsciiTable();
         at.addRule();
-
-        at.addRow(null, null, null, "PLAYERS");
+        at.addRow("PLAYERS");
         at.addRule();
-
-        at.addRow("[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName(),
-                "[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName(),
-                "[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName(),
-                "[" + playerModel.getPlayerColor() + "]: " + playerModel.getPlayerName()
-                );
-        at.addRule();
-        for(ResourceName resName: ResourceName.values()) {
-            at.addRow(resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
-                    resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
-                    resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
-                    resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]"
-                    );
-            at.addRule();
-        }
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25));
+        at.getRenderer().setCWC(new CWC_FixedWidth().add((155)));
         System.out.println(at.render() + "\n");
-        */
+
+        for (JsonNode singlePlayer: players) {
+            AsciiTable atp = new AsciiTable();
+            atp.addRule();
+
+            atp.addRow("[" + go(singlePlayer.path("playerColor")) + "]: " + go(singlePlayer.path("playerName")), null, null, null, null,
+                    "RESOURCESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+            );
+            atp.addRule();
+            atp.addRow("CARTA1", "CARTA2", "CARTA3", "CARTA4", "CARTA5", "CARTA6");
+            atp.addRule();
+            /*
+            for(ResourceName resName: ResourceName.values()) {
+                at.addRow(resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
+                        resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
+                        resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]",
+                        resName.toString() + ":[" + playerModel.getRes().get(resName).getNumOf() + "]"
+                );
+                at.addRule();
+            }*/
+            atp.setTextAlignment(TextAlignment.CENTER);
+            atp.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25).add(25).add(25));
+            System.out.println(atp.render() + "\n");
+
+        }
     }
 
     /**
@@ -290,11 +296,14 @@ public class GameViewCLI implements GameView {
 
     public static void main(String[] args) throws NoResourceMatch, IOException {
         Player p = new Player(UUID.randomUUID(), "MATRU", PlayerColor.BLUE);
+        Player p2 = new Player(UUID.randomUUID(), "LOLOL", PlayerColor.RED);
         GameInstance gameInstance = new GameInstance(UUID.randomUUID());
         gameInstance.addPlayer(p);
+        gameInstance.addPlayer(p2);
         GameBoard gameBoard = new GameBoard(gameInstance);
         gameInstance.setGameBoard(gameBoard);
         p.setGameBoard(gameBoard);
+        p2.setGameBoard(gameBoard);
 
         Map<String, String> gameState = new HashMap<>();
         gameState.put("GameInstance", gameInstance.toString());
@@ -305,6 +314,6 @@ public class GameViewCLI implements GameView {
         CardParser cardParser = new CardParser("src/config/Card.json");
         cardParser.parse();
         cards = cardParser.getCards();
-        view.printView();
+        view.update(gameState);
     }
 }
