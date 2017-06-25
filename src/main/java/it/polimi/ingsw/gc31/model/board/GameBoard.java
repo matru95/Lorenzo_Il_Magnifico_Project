@@ -9,6 +9,8 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.model.FaithTile;
+import it.polimi.ingsw.gc31.model.FaithTileParser;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
@@ -23,10 +25,11 @@ public class GameBoard implements Serializable {
     private Map<CardColor,Tower> towers;
     private Map<DiceColor, Dice> dices;
     private Map<Integer, SpaceWrapper> boardSpaces;
+    private Map<Integer, FaithTile> church;
     private GameInstance gameInstance;
     private transient GameBoardParser parser;
     private CardParser cardParser;
-
+    private FaithTileParser faithTileParser;
     public GameBoard(GameInstance gameInstance) {
 
         this.gameInstance = gameInstance;
@@ -35,7 +38,7 @@ public class GameBoard implements Serializable {
         this.parser = new GameBoardParser("src/config/Settings.json", this);
         this.cardParser = new CardParser("src/config/Card.json");
         this.cardParser.parse();
-
+        this.faithTileParser= new FaithTileParser("src/config/FaithTile.json");
         //Initialize dice
         createDice();
 
@@ -67,6 +70,16 @@ public class GameBoard implements Serializable {
         for(MartWrapper myMartWrapper : marketZones) {
             boardSpaces.put(myMartWrapper.getPositionID(), myMartWrapper);
         }
+
+        //Inizialize FaitTiles
+        this.church=new HashMap<>();
+        faithTileParser.parse();
+        List <FaithTile> inGameFaithTiles=faithTileParser.getTilesByAge();
+        int i=0;
+        for (i=0;i<=2;i++){
+            this.church.put(i,inGameFaithTiles.get(i));
+        }
+
     }
 
     @Override

@@ -41,6 +41,8 @@ public class FaithTile {
         return age;
     }
 
+    public int getId() { return this.id;}
+
     public FaithEffect getEffect() {
         return effect;
     }
@@ -108,4 +110,5 @@ public class FaithTile {
 	public void setLoseForEveryResource(boolean loseForEveryResource) {
 		this.loseForEveryResource = loseForEveryResource;
 	}
+
 }
