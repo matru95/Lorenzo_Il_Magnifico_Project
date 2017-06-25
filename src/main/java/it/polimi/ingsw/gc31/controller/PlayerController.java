@@ -4,16 +4,16 @@ import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
-import it.polimi.ingsw.gc31.view.cli.GameView;
+import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 public class PlayerController implements PlayerControllerInterface {
 
     private Player playerModel;
-    private GameView view;
+    //private GameViewCLI view;
 
     public PlayerController(Player playerModel) {
         this.playerModel = playerModel;
-        view = new GameView(playerModel, this);
+        //view = new GameViewCLI(playerModel, this);
     }
 
     @Override
