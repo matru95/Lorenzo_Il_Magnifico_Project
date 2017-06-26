@@ -27,6 +27,7 @@ public class FamilyMember {
 	private GameBoard board;
 
 	public FamilyMember(DiceColor color, Player player, GameBoard board) {
+
 		this.playerColor = player.getPlayerColor();
         this.player = player;
 		this.isPlaced = false;
@@ -52,10 +53,6 @@ public class FamilyMember {
         return familyMemberNode;
     }
 
-    /**
-     * Returns a JSON String of the class
-     * @return JSON String
-     */
     @Override
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
@@ -138,10 +135,6 @@ public class FamilyMember {
         }
     }
 
-	public DiceColor getColor() {
-		return this.dice.getColor();
-	}
-
     public void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
         checkAndPayExtraGold(position);
         player.addCard(position.getCard());
@@ -189,41 +182,82 @@ public class FamilyMember {
         return false;
     }
 
+    /**
+     * Getter for attribute "color" of FamilyMember's attribute "dice"
+     * @return DiceColor
+     */
+    public DiceColor getColor() {
+        return this.dice.getColor();
+    }
 
+    /**
+     * Getter for attribute "currentPosition"
+     * @return SpaceWrapper
+     */
 	public SpaceWrapper getCurrentPosition() {
 		return currentPosition;
 	}
 
+    /**
+     * Getter for attribute "isPlaced"
+     * @return Boolean
+     */
 	public Boolean getPlaced() {
 		return isPlaced;
 	}
 
+    /**
+     * Getter for attribute "player"
+     * @return Player
+     */
 	public Player getPlayer() {
 		return player;
 	}
 
+    /**
+     * Getter for attribute "value"
+     * @return int
+     */
 	public int getValue() {
 	    return this.value;
     }
 
+    /**
+     * Getter for attribute "isNeutral"
+     * @return Boolean
+     */
     public Boolean getNeutral() {
-
         return isNeutral;
     }
 
+    /**
+     * Getter for attribute "playerColor"
+     * @return PlayerColor
+     */
     public PlayerColor getPlayerColor() {
-
         return playerColor;
     }
 
+    /**
+     * Getter for attribute "dicePoints"
+     * @return int
+     */
     public int getDicePoints() {
         return dicePoints;
     }
 
+    /**
+     * Getter for attribute "dice"
+     * @return Dice
+     */
     public Dice getDice() {
         return dice;
     }
 
+    /**
+     * Getter for attribute "board"
+     * @return GameBoard
+     */
     public GameBoard getBoard() {
         return board;
     }

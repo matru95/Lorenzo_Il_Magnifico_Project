@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,11 +15,23 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.parser.PlayerTileParser;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
-public class Player implements Serializable{
+public class Player implements Serializable {
+
+	/**
+	 * Comparator to compare Players based on their WarPoints
+	 */
+	public static final Comparator<Player> PlayerWarPointsComparator = (p1, p2) -> {
+
+		Integer p1WarPoints = p1.getRes().get(ResourceName.WARPOINTS).getNumOf();
+		Integer p2WarPoints = p2.getRes().get(ResourceName.WARPOINTS).getNumOf();
+
+		//Descending order
+		return p2WarPoints.compareTo(p1WarPoints);
+	};
+
 	private final UUID playerID;
 	private final String playerName;
 	private final PlayerColor playerColor;
@@ -37,7 +50,7 @@ public class Player implements Serializable{
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
 
-	public Player(UUID playerID, String playerName, PlayerColor playerColor) throws NoResourceMatch {
+	public Player(UUID playerID, String playerName, PlayerColor playerColor) {
 		this.playerID = playerID;
 		this.playerName = playerName;
 		this.playerColor = playerColor;
@@ -85,7 +98,7 @@ public class Player implements Serializable{
 		try {
 			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(playerNode);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 			return "";
 		}
 
@@ -140,18 +153,28 @@ public class Player implements Serializable{
 		return cardsNode;
 	}
 
+	/**
+	 * Setter for attribute "gameBoard" and init "familyMembers"
+	 * @param gameBoard GameBoard
+	 */
     public void setGameBoard(GameBoard gameBoard) {
 		this.board = gameBoard;
 		this.initFamilyMembers();
 	}
 
+	/**
+	 * Method for init all objects Card ("cards") of the Player
+	 */
 	private void initCards() {
 	    for(CardColor cardColor: CardColor.values()) {
 	        this.cards.put(cardColor, new ArrayList<>());
         }
     }
 
-    private void initResources() {
+	/**
+	 * Method for init all objects Resource ("res") of the Player
+	 */
+	private void initResources() {
 
         for(ResourceName resourceName: ResourceName.values()) {
             int initialNumOf = resInitNumOf(resourceName);
@@ -159,7 +182,12 @@ public class Player implements Serializable{
         }
     }
 
-    private int resInitNumOf(ResourceName resourceName) {
+	/**
+	 * Method that init a Resource to an int value, based on his ResourceName.
+	 * @param resourceName
+	 * @return int: the initial  value of that Resource.
+	 */
+	private int resInitNumOf(ResourceName resourceName) {
 
 	    switch (resourceName) {
             case GOLD:
@@ -182,6 +210,9 @@ public class Player implements Serializable{
         }
     }
 
+	/**
+	 * Method that init familyMembers for a Player
+	 */
 	public void initFamilyMembers() {
 	    int i = 0;
         for (DiceColor diceColor: DiceColor.values()) {
@@ -190,22 +221,47 @@ public class Player implements Serializable{
         }
     }
 
+	public void doPlayerActions() {
+		logger.fine("Doing player Actions!");
+	}
+
+	/**
+	 * Getter for attribute "numOfCards"
+	 * @return int
+	 */
     public int getNumOfCards(CardColor cardColor) {
 		return cards.get(cardColor).size();
 	}
 
+	/**
+	 * Setter for attribute "playerOrder"
+	 * @param order int
+	 */
 	public void setPlayerOrder(int order) {
 		this.playerOrder = order;
 	}
 
+	/**
+	 * Getter for attribute "playerOrder"
+	 * @return int
+	 */
 	public int getPlayerOrder() {
 	    return this.playerOrder;
     }
 
+	/**
+	 * Getter for attribute "familyMembers"
+	 * @return FamilyMember[]
+	 */
 	public FamilyMember[] getFamilyMembers() {
 		return familyMembers;
 	}
-	
+
+	/**
+	 * Getter for a specific FamilyMember in "familyMembers", based on DiceColor.
+	 * @param color DiceColor
+	 * @return FamilyMember of that color
+	 */
 	public FamilyMember getSpecificFamilyMember(DiceColor color) {
 		for(FamilyMember member: familyMembers) {
 		    DiceColor familyMemberColor = member.getColor();
@@ -216,64 +272,100 @@ public class Player implements Serializable{
 		return null;
 	}
 
-	public void doPlayerActions() {
-	    //System.out.println("Doing player Actions!");
-    }
-
+	/**
+	 * Getter for attribute "playerID"
+	 * @return UUID
+	 */
 	public UUID getPlayerID() {
 		return playerID;
 	}
 
+	/**
+	 * Getter for attribute "playerName"
+	 * @return String
+	 */
 	public String getPlayerName() {
 		return playerName;
 	}
 
+	/**
+	 * Getter for attribute "playerColor"
+	 * @return PlayerColor
+	 */
 	public PlayerColor getPlayerColor() {
 		return playerColor;
 	}
 
+	/**
+	 * Getter for attribute "isMovedThisTurn"
+	 * @return Boolean
+	 */
     public Boolean getMovedThisTurn() {
         return isMovedThisTurn;
     }
 
+	/**
+	 * Getter for attribute "faithCards"
+	 * @return FaithTile[]
+	 */
 	public FaithTile[] getFaithCards() {
 		return faithCards;
 	}
 
+	/**
+	 * Getter for attribute "board"
+	 * @return GameBoard
+	 */
     public GameBoard getBoard() {
         return board;
     }
 
+	/**
+	 * Getter for attribute "cards"
+	 * @return Map with a CardColor as Key and a List of objects Card as Value
+	 */
     public Map<CardColor, List<Card>> getCards() {
         return cards;
     }
 
-    public void addCard(Card card){
+	/**
+	 * Method for adding a Card to my "cards"
+	 * @param card Card
+	 */
+	public void addCard(Card card){
 		this.cards.get(card.getCardColor()).add(card);
 	}
+
+	/**
+	 * Setter for attribute "res"
+	 * @param res: Map with a ResourceName as Key and an object Resource as Value
+	 */
 	public void setRes(Map<ResourceName, Resource> res) {
 		this.res = res;
 	}
 
+	/**
+	 * Getter for attribute "res"
+	 * @return Map with a ResourceName as Key and an object Resource as Value
+	 */
 	public Map<ResourceName, Resource> getRes() {
 		return this.res;
 	}
 
+	/**
+	 * Getter for attribute "playerTile"
+	 * @return PlayerTile
+	 */
 	public PlayerTile getPlayerTile() {
 		return playerTile;
 	}
 
+	/**
+	 * Setter for attribute "playerTile"
+	 * @param playerTile PlayerTile
+	 */
 	public void setPlayerTile(PlayerTile playerTile) {
 		this.playerTile = playerTile;
 	}
 
-	public static Comparator<Player> PlayerWarPointsComparator
-			= (p1, p2) -> {
-
-                Integer p1WarPoints = p1.getRes().get(ResourceName.WARPOINTS).getNumOf();
-                Integer p2WarPoints = p2.getRes().get(ResourceName.WARPOINTS).getNumOf();
-
-                //Descending order
-                return p2WarPoints.compareTo(p1WarPoints);
-            };
 }

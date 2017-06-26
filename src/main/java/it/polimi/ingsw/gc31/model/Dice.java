@@ -15,6 +15,9 @@ public final class Dice implements Serializable{
         this.color = color;
     }
 
+    /**
+     * Method for randomizing the "value" of the dice (Zero if NEUTRAL)
+     */
     public void throwDice() {
 
         Random r = new Random();
@@ -37,10 +40,18 @@ public final class Dice implements Serializable{
         }
     }
 
+    /**
+     * Getter for attribute "value"
+     * @return int
+     */
     public int getValue() {
         return value;
     }
 
+    /**
+     * Getter for attribute "color"
+     * @return DiceColor
+     */
     public DiceColor getColor() {
         return color;
     }
