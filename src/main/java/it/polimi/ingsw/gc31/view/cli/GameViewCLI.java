@@ -13,16 +13,10 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardParser;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.GameView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
 
 public class GameViewCLI implements GameView {
 
@@ -49,6 +43,7 @@ public class GameViewCLI implements GameView {
      * Method to print on Console the current GameView of Client's Player.
      */
     private void printView() {
+
         initPlayerName();
         printHeader();
         printTowers();
@@ -115,12 +110,20 @@ public class GameViewCLI implements GameView {
      * Method to print all the Spaces on the board (except the ones on the towers).
      */
     private void printSpaces() {
+
+        int spaceNum = 0;
+        JsonNode boardSpaces = rootBoard.path("boardSpaces");
+        for (JsonNode space: boardSpaces) spaceNum++;
+
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("CIAO", "HOLA", "HALO", "AJO", "HELLO");
+        at.addRow("~ BOARD SPACES ~", go(boardSpaces.path("17")), go(boardSpaces.path("18")), go(boardSpaces.path("23")));
         at.addRule();
+        at.addRow(go(boardSpaces.path("19")), go(boardSpaces.path("20")), go(boardSpaces.path("21")), go(boardSpaces.path("22")));
+        at.addRule();
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(35).add(36).add(36).add(36));
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
+
         sb.append(at.render() + "\n");
     }
 
@@ -237,7 +240,7 @@ public class GameViewCLI implements GameView {
      * in order to choose the space in which move the FamilyMember
      * and its color.
      */
-    private Object[] printMovementQuery() throws IOException {
+    public Object[] printMovementQuery() throws IOException {
 
         Integer id = 0;
         DiceColor color = null;
@@ -354,19 +357,23 @@ public class GameViewCLI implements GameView {
 
     }
 
-    public static void main(String[] args) throws NoResourceMatch, IOException {
+    public static void main(String[] args) throws IOException {
         List<Card> cards;
         Player p1 = new Player(UUID.randomUUID(), "MATRU", PlayerColor.BLUE);
         Player p2 = new Player(UUID.randomUUID(), "ENDI", PlayerColor.RED);
+        Player p3 = new Player(UUID.randomUUID(), "PLUX", PlayerColor.GREEN);
+        Player p4 = new Player(UUID.randomUUID(), "VALE", PlayerColor.YELLOW);
         GameInstance gameInstance = new GameInstance(UUID.randomUUID());
         gameInstance.addPlayer(p1);
         gameInstance.addPlayer(p2);
+        gameInstance.addPlayer(p3);
+        gameInstance.addPlayer(p4);
         GameBoard gameBoard = new GameBoard(gameInstance);
         gameInstance.setGameBoard(gameBoard);
         p1.setGameBoard(gameBoard);
         p2.setGameBoard(gameBoard);
-        p1.setPlayerOrder(2);
-        p2.setPlayerOrder(1);
+        p3.setGameBoard(gameBoard);
+        p4.setGameBoard(gameBoard);
 
         CardParser cardParser = new CardParser("src/config/Card.json");
         cardParser.parse();
@@ -377,13 +384,12 @@ public class GameViewCLI implements GameView {
         p1.getCards().get(CardColor.GREEN).add(cards.get(1));
         p1.getCards().get(CardColor.BLUE).add(cards.get(25));
         p1.getCards().get(CardColor.PURPLE).add(cards.get(74));
+        (new Thread(gameInstance)).start();
         gameInstance.run();
         Map<String, String> gameState = new HashMap<>();
         gameState.put("GameInstance", gameInstance.toString());
         gameState.put("GameBoard", gameInstance.getGameBoard().toString());
         GameViewCLI view = new GameViewCLI(p1.getPlayerID());
-        (new Thread(gameInstance)).start();
-
         view.update(gameState);
     }
 }
