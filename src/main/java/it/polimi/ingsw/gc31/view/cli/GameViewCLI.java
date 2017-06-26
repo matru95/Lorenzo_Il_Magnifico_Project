@@ -114,6 +114,7 @@ public class GameViewCLI implements GameView {
 
         att.setTextAlignment(TextAlignment.CENTER);
         att.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
+
         System.out.println(at.render());
         System.out.println(att.render() + "\n");
 
@@ -182,6 +183,7 @@ public class GameViewCLI implements GameView {
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add((125)));
+
         System.out.println(at.render());
         System.out.println(render);
     }
@@ -190,29 +192,33 @@ public class GameViewCLI implements GameView {
      * Method to print the FamilyMembers and their status.
      */
     private void printFamilyMembers() {
-/*
+
+        JsonNode players = rootInstance.path("players");
+
         AsciiTable at = new AsciiTable();
         at.addRule();
-
-        at.addRow(null, null, null, "MY FAMILY MEMBERS");
-        at.addRule();
-
-        at.addRow("BLACK:[" + playerModel.getSpecificFamilyMember(DiceColor.BLACK).getValue() + "]",
-                "WHITE:["+ playerModel.getSpecificFamilyMember(DiceColor.WHITE).getValue() + "]",
-                "ORANGE:["+ playerModel.getSpecificFamilyMember(DiceColor.ORANGE).getValue() + "]",
-                "NEUTRAL:["+ playerModel.getSpecificFamilyMember(DiceColor.NEUTRAL).getValue() + "]"
-        );
-        at.addRule();
-        at.addRow(playerModel.getSpecificFamilyMember(DiceColor.BLACK).getCurrentPosition().getPositionID(),
-                playerModel.getSpecificFamilyMember(DiceColor.WHITE).getCurrentPosition().getPositionID(),
-                playerModel.getSpecificFamilyMember(DiceColor.ORANGE).getCurrentPosition().getPositionID(),
-                playerModel.getSpecificFamilyMember(DiceColor.NEUTRAL).getCurrentPosition().getPositionID()
-        );
+        at.addRow("~ FAMILY MEMBERS ~");
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(25).add(25).add(25).add(25));
-        System.out.println(at.render() + "\n");
-*/
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(146));
+
+        AsciiTable atfm = new AsciiTable();
+        atfm.addRule();
+        for (JsonNode singlePlayer: players) {
+            JsonNode familyMembers = singlePlayer.path("familyMembers");
+            atfm.addRow(go(singlePlayer.path("playerName")),
+                    go(familyMembers.path(0)),
+                    go(familyMembers.path(1)),
+                    go(familyMembers.path(2)),
+                    go(familyMembers.path(3))
+            );
+            atfm.addRule();
+        }
+        atfm.setTextAlignment(TextAlignment.CENTER);
+        atfm.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
+
+        System.out.println(at.render());
+        System.out.println(atfm.render() + "\n");
     }
 
     /**
@@ -314,7 +320,11 @@ public class GameViewCLI implements GameView {
      * @return String
      */
     public static String go(JsonNode node) {
-        return node.toString().replace("\"", "").replace("{","").replace("}","").replace(",", ", ");
+        return node.toString().replace("\"", "")
+                .replace("{","")
+                .replace("}","")
+                .replace(",", ", ")
+                .replace("currentPositionID:0", "[HASN'T_MOVED_YET]");
 
     }
 
