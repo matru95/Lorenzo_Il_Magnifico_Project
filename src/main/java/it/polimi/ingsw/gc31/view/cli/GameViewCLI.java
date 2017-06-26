@@ -23,56 +23,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GameViewCLI implements GameView {
 
     private static final String PN = "playerName";
+    private static final String PL = "players";
     private static final String CARDS = "cards";
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
-    private final UUID playerID;
+    private final UUID myPlayerID;
     private final ObjectMapper mapper;
+    private String myPlayerName;
+    private StringBuilder sb;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
 
     public GameViewCLI(UUID playerID) {
-        this.playerID = playerID;
+        this.myPlayerID = playerID;
         this.mapper = new ObjectMapper();
+        this.myPlayerName = "";
+        initStringBuilder();
         printLogo();
     }
 
     /**
-     * Method to print a game logo for the CLI View.
-     */
-    private void printLogo() {
-        System.out.println(                                                                                                       "\n" +
-                "                                  ██╗      ██████╗ ██████╗ ███████╗███╗   ██╗███████╗ ██████╗          ██╗██╗     \n" +
-                "                                  ██║     ██╔═══██╗██╔══██╗██╔════╝████╗  ██║╚══███╔╝██╔═══██╗         ██║██║     \n" +
-                "                                  ██║     ██║   ██║██████╔╝█████╗  ██╔██╗ ██║  ███╔╝ ██║   ██║         ██║██║     \n" +
-                "                                  ██║     ██║   ██║██╔══██╗██╔══╝  ██║╚██╗██║ ███╔╝  ██║   ██║         ██║██║     \n" +
-                "                                  ███████╗╚██████╔╝██║  ██║███████╗██║ ╚████║███████╗╚██████╔╝         ██║███████╗\n" +
-                "                                  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝          ╚═╝╚══════╝\n\n" +
-                "                                       ███╗   ███╗ █████╗  ██████╗ ███╗   ██╗██╗███████╗██╗ ██████╗ ██████╗       \n" +
-                "                                       ████╗ ████║██╔══██╗██╔════╝ ████╗  ██║██║██╔════╝██║██╔════╝██╔═══██╗      \n" +
-                "                                       ██╔████╔██║███████║██║  ███╗██╔██╗ ██║██║█████╗  ██║██║     ██║   ██║      \n" +
-                "                                       ██║╚██╔╝██║██╔══██║██║   ██║██║╚██╗██║██║██╔══╝  ██║██║     ██║   ██║      \n" +
-                "                                       ██║ ╚═╝ ██║██║  ██║╚██████╔╝██║ ╚████║██║██║     ██║╚██████╗╚██████╔╝      \n" +
-                "                                       ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝       \n\n");
-    }
-
-    /**
      * Method to print on Console the current GameView of Client's Player.
-     * @throws IOException
      */
     private void printView() {
+        initPlayerName();
         printHeader();
         printTowers();
-        //printSpaces();
+        printSpaces();
         printPlayers();
         printFamilyMembers();
-        //printMovementQuery();
+
+        System.out.print(sb);
+        initStringBuilder();
     }
 
     /**
@@ -83,13 +68,14 @@ public class GameViewCLI implements GameView {
         AsciiTable at = new AsciiTable();
         at.addRule();
 
-        at.addRow("GameID: [" + go(rootInstance.path("instanceID")) + "]",
-                "MyPlayerID: [" + playerID + "]",
-                "AGE: [" + rootInstance.path("age") + "] TURN: [" + rootInstance.path("turn") + "]");
+        at.addRow("GameID:[" + go(rootInstance.path("instanceID")) + "]",
+                "AGE:[" + rootInstance.path("age") + "] TURN:[" + rootInstance.path("turn") + "]",
+                "MyID:[" + myPlayerID + "]",
+                "MyName:[" + myPlayerName + "]");
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(60).add(60).add(24));
-        System.out.println(at.render() + "\n");
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(48).add(20).add(48).add(27));
+        sb.append(at.render() + "\n");
 
     }
 
@@ -120,8 +106,8 @@ public class GameViewCLI implements GameView {
         att.setTextAlignment(TextAlignment.CENTER);
         att.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
 
-        System.out.println(at.render());
-        System.out.println(att.render() + "\n");
+        sb.append(at.render() + "\n");
+        sb.append(att.render() + "\n");
 
     }
 
@@ -135,7 +121,7 @@ public class GameViewCLI implements GameView {
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
-        System.out.println(at.render() + "\n");
+        sb.append(at.render() + "\n");
     }
 
     /**
@@ -143,7 +129,7 @@ public class GameViewCLI implements GameView {
      */
     private void printPlayers() {
 
-        JsonNode players = rootInstance.path("players");
+        JsonNode players = rootInstance.path(PL);
         Map<Integer, String> orderedPlayers = new HashMap<>();
         StringBuilder render = new StringBuilder();
 
@@ -190,8 +176,8 @@ public class GameViewCLI implements GameView {
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add((125)));
 
-        System.out.println(at.render());
-        System.out.println(render);
+        sb.append(at.render() + "\n");
+        sb.append(render + "\n");
     }
 
     /**
@@ -199,7 +185,7 @@ public class GameViewCLI implements GameView {
      */
     private void printFamilyMembers() {
 
-        JsonNode players = rootInstance.path("players");
+        JsonNode players = rootInstance.path(PL);
 
         AsciiTable at = new AsciiTable();
         at.addRule();
@@ -223,8 +209,27 @@ public class GameViewCLI implements GameView {
         atfm.setTextAlignment(TextAlignment.CENTER);
         atfm.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
 
-        System.out.println(at.render());
-        System.out.println(atfm.render() + "\n");
+        sb.append(at.render() + "\n");
+        sb.append(atfm.render() + "\n");
+    }
+
+    /**
+     * Method to print a game logo for the CLI View.
+     */
+    private void printLogo() {
+        sb.append(                                                                                                                "\n" +
+                "                                  ██╗      ██████╗ ██████╗ ███████╗███╗   ██╗███████╗ ██████╗          ██╗██╗     \n" +
+                "                                  ██║     ██╔═══██╗██╔══██╗██╔════╝████╗  ██║╚══███╔╝██╔═══██╗         ██║██║     \n" +
+                "                                  ██║     ██║   ██║██████╔╝█████╗  ██╔██╗ ██║  ███╔╝ ██║   ██║         ██║██║     \n" +
+                "                                  ██║     ██║   ██║██╔══██╗██╔══╝  ██║╚██╗██║ ███╔╝  ██║   ██║         ██║██║     \n" +
+                "                                  ███████╗╚██████╔╝██║  ██║███████╗██║ ╚████║███████╗╚██████╔╝         ██║███████╗\n" +
+                "                                  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝          ╚═╝╚══════╝\n\n" +
+                "                                       ███╗   ███╗ █████╗  ██████╗ ███╗   ██╗██╗███████╗██╗ ██████╗ ██████╗       \n" +
+                "                                       ████╗ ████║██╔══██╗██╔════╝ ████╗  ██║██║██╔════╝██║██╔════╝██╔═══██╗      \n" +
+                "                                       ██╔████╔██║███████║██║  ███╗██╔██╗ ██║██║█████╗  ██║██║     ██║   ██║      \n" +
+                "                                       ██║╚██╔╝██║██╔══██║██║   ██║██║╚██╗██║██║██╔══╝  ██║██║     ██║   ██║      \n" +
+                "                                       ██║ ╚═╝ ██║██║  ██║╚██████╔╝██║ ╚████║██║██║     ██║╚██████╗╚██████╔╝      \n" +
+                "                                       ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝       \n\n");
     }
 
     /**
@@ -232,36 +237,37 @@ public class GameViewCLI implements GameView {
      * in order to choose the space in which move the FamilyMember
      * and its color.
      */
-    private void printMovementQuery() throws IOException {
+    private Object[] printMovementQuery() throws IOException {
 
         Integer id = 0;
-        DiceColor color;
+        DiceColor color = null;
 
-        System.out.println("\nIt's your turn, move a Family Member into a Space:\n");
+        sb.append("\nIt's your turn, move a Family Member into a Space:\n");
 
-        System.out.println("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL\n");
+        sb.append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL\n");
         Boolean  isCorrect = false;
         do {
             try {
                 color = readColor();
                 isCorrect = true;
             } catch (IllegalArgumentException e) {
-                System.out.println("You must insert a valid color among these: \n" +
+                sb.append("You must insert a valid color among these: \n" +
                         "BLACK, WHITE, ORANGE, NEUTRAL.");
             }
         } while (!isCorrect);
 
-        System.out.println("\nEnter the ID of the Space:\n");
+        sb.append("\nEnter the ID of the Space:\n");
         isCorrect = false;
         do {
             try {
                 id = readMovement();
                 isCorrect = true;
             } catch (NumberFormatException e) {
-                System.out.println("You must insert a number, not a string");
+                sb.append("You must insert a number, not a string");
             }
         } while (!isCorrect);
 
+        return new Object[]{id, color};
     }
 
     /**
@@ -289,7 +295,7 @@ public class GameViewCLI implements GameView {
      * in order to choose the bonus of a parchment.
      */
     private void printParchementQuery() {
-        System.out.println("Choose a BONUS for parchement between this: \n" +
+        sb.append("Choose a BONUS for parchement between this: \n" +
             "Type 0 for: 1 Wood && 1 Stone \n" +
             "Type 1 for: 2 Servants \n" +
             "Type 2 for: 2 Golds \n" +
@@ -304,9 +310,26 @@ public class GameViewCLI implements GameView {
      */
     private void printFaithQuery() {
         /**
-        System.out.println("Do you really wanna take this faith effect?" +
+         sb.append("Do you really wanna take this faith effect?" +
                 gameBoardModel.getFaithCard.getEffect.toString());  */
         //TODO
+    }
+
+    /**
+     * Reinitialize the StringBuilder, throwing off the old one
+     */
+    private void initStringBuilder() {
+        this.sb = new StringBuilder();
+    }
+
+    /**
+     * Method to init myPlayerName from GameView's JSON
+     */
+    private void initPlayerName() {
+        if (myPlayerName == "")
+            for (JsonNode singleplayer: rootInstance.path(PL))
+                if (go(singleplayer.path("playerID")).equals(myPlayerID.toString()))
+                    myPlayerName = go(singleplayer.path("playerName"));
     }
 
     @Override
