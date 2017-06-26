@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_FixedWidth;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
-import it.polimi.ingsw.gc31.controller.PlayerController;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.model.GameInstance;
@@ -24,23 +23,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GameViewCLI implements GameView {
 
-    //TODO RIMUOVI cards
-    public static List<Card> cards;
+    private static final String PN = "playerName";
+    private static final String CARDS = "cards";
 
-    private Map<String, String> gameState;
+    private Logger logger = Logger.getLogger(this.getClass().getName());
     private final UUID playerID;
     private final ObjectMapper mapper;
-    private JsonNode rootInstance, rootBoard;
+    private JsonNode rootInstance;
+    private JsonNode rootBoard;
 
-    public GameViewCLI(UUID playerID) throws IOException {
+    public GameViewCLI(UUID playerID) {
         this.playerID = playerID;
         this.mapper = new ObjectMapper();
         printLogo();
     }
 
+    /**
+     * Method to print a game logo for the CLI View.
+     */
     private void printLogo() {
         System.out.println(                                                                                                       "\n" +
                 "                                  ██╗      ██████╗ ██████╗ ███████╗███╗   ██╗███████╗ ██████╗          ██╗██╗     \n" +
@@ -61,7 +66,7 @@ public class GameViewCLI implements GameView {
      * Method to print on Console the current GameView of Client's Player.
      * @throws IOException
      */
-    private void printView() throws IOException {
+    private void printView() {
         printHeader();
         printTowers();
         //printSpaces();
@@ -73,7 +78,7 @@ public class GameViewCLI implements GameView {
     /**
      * Method to print an header with information regard the current GameInstance.
      */
-    private void printHeader() throws IOException {
+    private void printHeader() {
 
         AsciiTable at = new AsciiTable();
         at.addRule();
@@ -126,28 +131,28 @@ public class GameViewCLI implements GameView {
     private void printSpaces() {
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("CIAO", "HOLA", "HALO", "AJO");
+        at.addRow("CIAO", "HOLA", "HALO", "AJO", "HELLO");
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
-        at.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(30).add(30).add(30));
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
         System.out.println(at.render() + "\n");
     }
 
     /**
      * Method to print information (status) regarding a single player.
      */
-    private void printPlayers() throws IOException {
+    private void printPlayers() {
 
         JsonNode players = rootInstance.path("players");
         Map<Integer, String> orderedPlayers = new HashMap<>();
-        String render = "";
+        StringBuilder render = new StringBuilder();
 
         for (JsonNode singlePlayer: players) {
 
             AsciiTable atp = new AsciiTable();
             atp.addRule();
 
-            atp.addRow("[" + go(singlePlayer.path("playerColor")) + "]: " + go(singlePlayer.path("playerName")),
+            atp.addRow("[" + go(singlePlayer.path("playerColor")) + "]: " + go(singlePlayer.path(PN)),
                     null, null, null, null, null,
                     "RESOURCES: [ " + go(singlePlayer.path("res")).replace(","," | ") + " ]"
             );
@@ -156,30 +161,31 @@ public class GameViewCLI implements GameView {
             for (CardColor cardColor: CardColor.values()) {
                 String color = cardColor.toString();
                 atp.addRow(color + " CARDS:",
-                        go(singlePlayer.path("cards").path(color).path(0)),
-                        go(singlePlayer.path("cards").path(color).path(1)),
-                        go(singlePlayer.path("cards").path(color).path(2)),
-                        go(singlePlayer.path("cards").path(color).path(3)),
-                        go(singlePlayer.path("cards").path(color).path(4)),
-                        go(singlePlayer.path("cards").path(color).path(5))
+                        go(singlePlayer.path(CARDS).path(color).path(0)),
+                        go(singlePlayer.path(CARDS).path(color).path(1)),
+                        go(singlePlayer.path(CARDS).path(color).path(2)),
+                        go(singlePlayer.path(CARDS).path(color).path(3)),
+                        go(singlePlayer.path(CARDS).path(color).path(4)),
+                        go(singlePlayer.path(CARDS).path(color).path(5))
                 );
                 atp.addRule();
             }
 
             atp.setTextAlignment(TextAlignment.CENTER);
             atp.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20).add(20).add(20).add(20));
-            render += atp.render() + "\n";
-            orderedPlayers.put(singlePlayer.path("playerOrder").asInt(), singlePlayer.path("playerName").toString());
+            render.append(atp.render() + "\n");
+
+            orderedPlayers.put(singlePlayer.path("playerOrder").asInt(), singlePlayer.path(PN).toString());
         }
 
-        String order = "PLAYERS ORDER: ";
+        StringBuilder order = new StringBuilder("PLAYERS ORDER: ");
         for (int i = 1; i <= 4; i++) {
-            if (orderedPlayers.get(i) != null) order += "[" + i + "]: " + orderedPlayers.get(i) + " ";
+            if (orderedPlayers.get(i) != null) order.append("[" + i + "]: " + orderedPlayers.get(i) + " ");
         }
 
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("~ PLAYERS ~", order.replace("\"",""));
+        at.addRow("~ PLAYERS ~", order.toString().replace("\"",""));
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add((125)));
@@ -206,7 +212,7 @@ public class GameViewCLI implements GameView {
         atfm.addRule();
         for (JsonNode singlePlayer: players) {
             JsonNode familyMembers = singlePlayer.path("familyMembers");
-            atfm.addRow(go(singlePlayer.path("playerName")),
+            atfm.addRow(go(singlePlayer.path(PN)),
                     go(familyMembers.path(0)),
                     go(familyMembers.path(1)),
                     go(familyMembers.path(2)),
@@ -265,8 +271,7 @@ public class GameViewCLI implements GameView {
      */
     private int readMovement() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Integer id = Integer.valueOf(br.readLine());
-        return id;
+        return Integer.valueOf(br.readLine());
     }
 
     /**
@@ -276,8 +281,7 @@ public class GameViewCLI implements GameView {
      */
     private DiceColor readColor() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        DiceColor color = DiceColor.valueOf(br.readLine().toUpperCase());
-        return color;
+        return DiceColor.valueOf(br.readLine().toUpperCase());
     }
 
     /**
@@ -307,7 +311,6 @@ public class GameViewCLI implements GameView {
 
     @Override
     public void update(Map<String, String> gameState) throws IOException {
-        this.gameState = gameState;
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
         printView();
@@ -329,6 +332,7 @@ public class GameViewCLI implements GameView {
     }
 
     public static void main(String[] args) throws NoResourceMatch, IOException {
+        List<Card> cards;
         Player p1 = new Player(UUID.randomUUID(), "MATRU", PlayerColor.BLUE);
         Player p2 = new Player(UUID.randomUUID(), "ENDI", PlayerColor.RED);
         GameInstance gameInstance = new GameInstance(UUID.randomUUID());
