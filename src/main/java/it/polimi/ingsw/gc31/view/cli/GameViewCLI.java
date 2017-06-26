@@ -111,9 +111,7 @@ public class GameViewCLI implements GameView {
      */
     private void printSpaces() {
 
-        int spaceNum = 0;
         JsonNode boardSpaces = rootBoard.path("boardSpaces");
-        for (JsonNode space: boardSpaces) spaceNum++;
 
         AsciiTable at = new AsciiTable();
         at.addRule();
