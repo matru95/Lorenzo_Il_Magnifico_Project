@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.controller;
 
 import it.polimi.ingsw.gc31.model.GameInstance;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.GameEndState;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.TurnState;
@@ -31,7 +32,7 @@ public class GameInstanceController implements GameInstanceControllerInterface {
     }
 
     @Override
-    public void playGame() {
+    public void playGame() throws NoResourceMatch {
 
         model.generatePlayerOrders();
 

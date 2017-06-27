@@ -4,15 +4,19 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
+import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameEndState implements State {
 
     private static final ResourceName WP = ResourceName.WARPOINTS;
 
     @Override
-    public void doAction(GameInstance context) {
+    public void doAction(GameInstance context) throws NoResourceMatch {
 
         for(Player p: context.getPlayers()) {
 
@@ -21,7 +25,7 @@ public class GameEndState implements State {
             num += applyGreenCardsPoints(p);
             num += applyBlueCardsPoints(p);
             num += applyResourcesPoints(p);
-            num += applyPurpleCardsPoints(p);
+            applyPurpleCardsPoints(p);
 
             p.getRes().get(ResourceName.VICTORYPOINTS).addNumOf(num);
         }
@@ -95,17 +99,18 @@ public class GameEndState implements State {
         return (totalRes/5);
     }
 
-    /** Method that calculate Victory Points of a player
+    /** Method that calculates Victory Points of a player
      * taken as parameter, due to Normal Effects of PurpleCards in his possession.
      * @param player (Player)
-     * @return The amount (as an int) of Victory Points
      */
-    private int applyPurpleCardsPoints(Player player) {
-        int tmp = 0;
-        for (int i = 0; i < player.getCards().get(CardColor.PURPLE).size() ; i++) {
-            tmp += player.getCards().get(CardColor.PURPLE).get(i).getNormalEffectResources().get(0).getNumOf();
+    private void applyPurpleCardsPoints(Player player) throws NoResourceMatch {
+        List<Card> purpleCards = player.getCards().get(CardColor.PURPLE);
+        for(Card purpleCard: purpleCards) {
+            for(Effect effect: purpleCard.getNormalEffects()) {
+
+                effect.exec(player);
+            }
         }
-        return tmp;
     }
 
     /** Method that adds the final Military Bonus

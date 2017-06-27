@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
+import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.effects.boardeffects.HarvestEffect;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
@@ -32,7 +34,9 @@ public class HarvestWrapper extends SpaceWrapper {
 
     @Override
     public void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
-        harvest(familyMember, amountOfServants);
+        int value = familyMember.getValue() + amountOfServants - malus;
+        HarvestEffect harvestEffect = new HarvestEffect();
+        harvestEffect.exec(familyMember.getPlayer(), value);
         if (!isMultiple) setOccupied(true);
     }
 
@@ -79,22 +83,6 @@ public class HarvestWrapper extends SpaceWrapper {
     public void setFamilyMember(FamilyMember familyMember) {
 
         familyMembers.add(familyMember);
-    }
-
-    private void harvest(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
-        int familyMemberValue =familyMember.getValue()+amountOfServants;
-        List<Card> greenCards=familyMember.getPlayer().getCards().get(CardColor.GREEN);
-        //EFFETTO HARVESTTILE ESGUITO UNA SOLA VOLTA
-        List <Resource> harvestTileRes=familyMember.getPlayer().getPlayerTile().getHarvestBonus();
-        Effect harvestTile = new AddResEffect(harvestTileRes);
-        harvestTile.exec(familyMember.getPlayer());
-
-        for (Card singleCard : greenCards){
-
-            if(singleCard.getActivationValue()<=familyMemberValue){
-                singleCard.execNormalEffect(familyMember.getPlayer());
-            }
-        }
     }
 
     public void setMalus(int malus) {

@@ -1,12 +1,14 @@
-package it.polimi.ingsw.gc31.model.cards;
+package it.polimi.ingsw.gc31.model.effects;
 
+import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import jdk.nashorn.internal.ir.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class Exchange {
+public class Exchange extends Effect{
     private List<Resource> resourcesToGive;
     private List<Resource> resourcesToReceive;
     private int numOfParchmentsToReceive;
@@ -16,6 +18,16 @@ public class Exchange {
         this.resourcesToGive = new ArrayList<>();
         this.resourcesToReceive = new ArrayList<>();
         this.numOfParchmentsToReceive = 0;
+    }
+
+    @Override
+    public void exec(Player player) throws NoResourceMatch {
+
+    }
+
+    @Override
+    public ObjectNode toJson() {
+        return null;
     }
 
     public void setNumOfParchmentsToReceive(int numOfParchmentsToReceive) {
@@ -45,4 +57,5 @@ public class Exchange {
     public void setResourcesToReceive(List<Resource> resourcesToReceive) {
         this.resourcesToReceive = resourcesToReceive;
     }
+
 }

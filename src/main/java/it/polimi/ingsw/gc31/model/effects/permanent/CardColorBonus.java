@@ -1,21 +1,16 @@
-package it.polimi.ingsw.gc31.model.cards;
+package it.polimi.ingsw.gc31.model.effects.permanent;
 
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FreeCardChoice {
-//  If points != 0 and cardColor == null, then you can choose from all colors
+public class CardColorBonus implements Bonus{
     private int points;
     private CardColor cardColor;
     private List<Resource> resources;
 
-    public FreeCardChoice() {
-        points = 0;
-        cardColor = null;
-        resources = new ArrayList<>();
+    public CardColorBonus() {
     }
 
     public void setPoints(int points) {
@@ -26,7 +21,20 @@ public class FreeCardChoice {
         this.cardColor = cardColor;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public CardColor getCardColor() {
+        return cardColor;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
     public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
+
 }

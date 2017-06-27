@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
@@ -89,11 +90,19 @@ public class GameInstance implements Serializable, Runnable {
 	    this.generatePlayerOrders();
 //	    Game preparation state
 		this.state = new GamePrepState();
-		this.state.doAction(this);
+		try {
+			this.state.doAction(this);
+		} catch (NoResourceMatch noResourceMatch) {
+			noResourceMatch.printStackTrace();
+		}
 
 //		Turns
         this.state = new TurnState();
-        this.state.doAction(this);
+		try {
+			this.state.doAction(this);
+		} catch (NoResourceMatch noResourceMatch) {
+			noResourceMatch.printStackTrace();
+		}
 	}
 
     public boolean addPlayer(Player player) {

@@ -14,6 +14,7 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
 import it.polimi.ingsw.gc31.model.parser.PlayerTileParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
@@ -44,8 +45,11 @@ public class Player implements Serializable {
 	
 	//Cards
 	private Map<CardColor, List<Card>> cards;
+
 	private FaithTile[] faithCards;
 	private FamilyMember[] familyMembers;
+
+	private List<Bonus> bonuses;
 
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
@@ -65,8 +69,10 @@ public class Player implements Serializable {
         playerTileParser.parse();
         this.playerTile = playerTileParser.getPlayerTiles().get(0);
 
-//		Cards
 		this.familyMembers = new FamilyMember[4];
+
+		this.bonuses = new ArrayList<>();
+
 
 		initCards();
 		initResources();
@@ -367,5 +373,13 @@ public class Player implements Serializable {
 	public void setPlayerTile(PlayerTile playerTile) {
 		this.playerTile = playerTile;
 	}
+
+    /**
+     * Inserts a bonus into bonuses
+     * @param bonus the bonus to add
+     */
+    public void addBonus(Bonus bonus) {
+	    this.bonuses.add(bonus);
+    }
 
 }
