@@ -48,6 +48,7 @@ public class GameViewCLI implements GameView {
         printHeader();
         printTowers();
         printSpaces();
+        printFaithCards();
         printPlayers();
         printFamilyMembers();
 
@@ -63,7 +64,7 @@ public class GameViewCLI implements GameView {
         AsciiTable at = new AsciiTable();
         at.addRule();
 
-        at.addRow("GameID:[" + go(rootInstance.path("instanceID")) + "]",
+        at.addRow("GameID:[" + beauty(rootInstance.path("instanceID")) + "]",
                 "AGE:[" + rootInstance.path("age") + "] TURN:[" + rootInstance.path("turn") + "]",
                 "MyID:[" + myPlayerID + "]",
                 "MyName:[" + myPlayerName + "]");
@@ -94,7 +95,7 @@ public class GameViewCLI implements GameView {
         for (CardColor cardColor: CardColor.values()) {
             String color = cardColor.toString();
             JsonNode node = rootBoard.path("towers").path(color).path("towerSpaces");
-            att.addRow(color + " TOWER", go(node.path("0")), go(node.path("1")), go(node.path("2")), go(node.path("3")));
+            att.addRow(color + " TOWER", beauty(node.path("0")), beauty(node.path("1")), beauty(node.path("2")), beauty(node.path("3")));
             att.addRule();
         }
 
@@ -107,6 +108,23 @@ public class GameViewCLI implements GameView {
     }
 
     /**
+     * Method to print all the Faith Cards.
+     */
+    private void printFaithCards() {
+
+        JsonNode faithTiles = rootBoard.path("faithTiles");
+
+        AsciiTable at = new AsciiTable();
+        at.addRule();
+        at.addRow("~ FAITH CARDS ~", beauty(faithTiles.path("1")), beauty(faithTiles.path("2")), beauty(faithTiles.path("3")) );
+        at.addRule();
+        at.getRenderer().setCWC(new CWC_FixedWidth().add(35).add(36).add(36).add(36));
+        at.setTextAlignment(TextAlignment.CENTER);
+
+        sb.append(at.render() + "\n");
+    }
+
+    /**
      * Method to print all the Spaces on the board (except the ones on the towers).
      */
     private void printSpaces() {
@@ -115,9 +133,9 @@ public class GameViewCLI implements GameView {
 
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("~ BOARD SPACES ~", go(boardSpaces.path("17")), go(boardSpaces.path("18")), go(boardSpaces.path("23")));
+        at.addRow("~ OTHER BOARD SPACES ~", beauty(boardSpaces.path("17")), beauty(boardSpaces.path("18")), beauty(boardSpaces.path("23")));
         at.addRule();
-        at.addRow(go(boardSpaces.path("19")), go(boardSpaces.path("20")), go(boardSpaces.path("21")), go(boardSpaces.path("22")));
+        at.addRow(beauty(boardSpaces.path("19")), beauty(boardSpaces.path("20")), beauty(boardSpaces.path("21")), beauty(boardSpaces.path("22")));
         at.addRule();
         at.getRenderer().setCWC(new CWC_FixedWidth().add(35).add(36).add(36).add(36));
         at.setTextAlignment(TextAlignment.CENTER);
@@ -139,21 +157,21 @@ public class GameViewCLI implements GameView {
             AsciiTable atp = new AsciiTable();
             atp.addRule();
 
-            atp.addRow("[" + go(singlePlayer.path("playerColor")) + "]: " + go(singlePlayer.path(PN)),
+            atp.addRow("[" + beauty(singlePlayer.path("playerColor")) + "]: " + beauty(singlePlayer.path(PN)),
                     null, null, null, null, null,
-                    "RESOURCES: [ " + go(singlePlayer.path("res")).replace(","," | ") + " ]"
+                    "RESOURCES: [ " + beauty(singlePlayer.path("res")).replace(","," | ") + " ]"
             );
             atp.addRule();
 
             for (CardColor cardColor: CardColor.values()) {
                 String color = cardColor.toString();
                 atp.addRow(color + " CARDS:",
-                        go(singlePlayer.path(CARDS).path(color).path(0)),
-                        go(singlePlayer.path(CARDS).path(color).path(1)),
-                        go(singlePlayer.path(CARDS).path(color).path(2)),
-                        go(singlePlayer.path(CARDS).path(color).path(3)),
-                        go(singlePlayer.path(CARDS).path(color).path(4)),
-                        go(singlePlayer.path(CARDS).path(color).path(5))
+                        beauty(singlePlayer.path(CARDS).path(color).path(0)),
+                        beauty(singlePlayer.path(CARDS).path(color).path(1)),
+                        beauty(singlePlayer.path(CARDS).path(color).path(2)),
+                        beauty(singlePlayer.path(CARDS).path(color).path(3)),
+                        beauty(singlePlayer.path(CARDS).path(color).path(4)),
+                        beauty(singlePlayer.path(CARDS).path(color).path(5))
                 );
                 atp.addRule();
             }
@@ -199,11 +217,11 @@ public class GameViewCLI implements GameView {
         atfm.addRule();
         for (JsonNode singlePlayer: players) {
             JsonNode familyMembers = singlePlayer.path("familyMembers");
-            atfm.addRow(go(singlePlayer.path(PN)),
-                    go(familyMembers.path(0)),
-                    go(familyMembers.path(1)),
-                    go(familyMembers.path(2)),
-                    go(familyMembers.path(3))
+            atfm.addRow(beauty(singlePlayer.path(PN)),
+                    beauty(familyMembers.path(0)),
+                    beauty(familyMembers.path(1)),
+                    beauty(familyMembers.path(2)),
+                    beauty(familyMembers.path(3))
             );
             atfm.addRule();
         }
@@ -329,8 +347,8 @@ public class GameViewCLI implements GameView {
     private void initPlayerName() {
         if (myPlayerName == "")
             for (JsonNode singleplayer: rootInstance.path(PL))
-                if (go(singleplayer.path("playerID")).equals(myPlayerID.toString()))
-                    myPlayerName = go(singleplayer.path("playerName"));
+                if (beauty(singleplayer.path("playerID")).equals(myPlayerID.toString()))
+                    myPlayerName = beauty(singleplayer.path("playerName"));
     }
 
     @Override
@@ -346,7 +364,7 @@ public class GameViewCLI implements GameView {
      * @param node: JsonNode for a JSON Parser.
      * @return String
      */
-    public static String go(JsonNode node) {
+    public static String beauty(JsonNode node) {
         return node.toString().replace("\"", "")
                 .replace("{","")
                 .replace("}","")
