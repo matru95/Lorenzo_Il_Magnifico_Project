@@ -49,10 +49,13 @@ public class Player implements Serializable {
 	private FaithTile[] faithCards;
 	private FamilyMember[] familyMembers;
 
+<<<<<<< HEAD
 	//FatihTiles
 	private List<FaithTile> excommunication;
+=======
 	private List<Bonus> bonuses;
-	
+
+>>>>>>> cardeffects
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
 

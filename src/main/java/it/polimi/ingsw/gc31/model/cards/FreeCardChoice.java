@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FreeCardChoice {
+
 //  If points != 0 and cardColor == null, then you can choose from all colors
     private int points;
     private CardColor cardColor;

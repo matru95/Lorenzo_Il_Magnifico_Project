@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.CardParser;
+import it.polimi.ingsw.gc31.model.effects.Effect;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -71,7 +72,7 @@ public class CardParserTest extends TestCase{
     public void testCardParserShouldInsertMultiplier() {
         Card testCard = cards.get(27);
 
-        Map<String, Object> testCardMultiplier = testCard.getNormalMultiplier();
+        Effect testCardMultiplier = testCard.getNormalEffects().get(0);
         assertNotNull(testCardMultiplier);
     }
 
@@ -86,14 +87,7 @@ public class CardParserTest extends TestCase{
     public void testCardParserShouldHaveInstantMultiplier() {
         Card testCard = cards.get(65);
 
-        assertNotNull(testCard.getInstantMultiplier());
-    }
-
-    @Test
-    public void testCardParserShoudNotParseInstantMultiplier() {
-        Card testCard = cards.get(28);
-
-        assertNull(testCard.getInstantMultiplier());
+        assertNotNull(testCard.getInstantEffects().get(0));
     }
 
 }

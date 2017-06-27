@@ -1,10 +1,12 @@
 package it.polimi.ingsw.gc31.model.cards;
 
+import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import jdk.nashorn.internal.ir.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Exchange {
     private List<Resource> resourcesToGive;
@@ -17,6 +19,7 @@ public class Exchange {
         this.resourcesToReceive = new ArrayList<>();
         this.numOfParchmentsToReceive = 0;
     }
+
 
     public void setNumOfParchmentsToReceive(int numOfParchmentsToReceive) {
         this.numOfParchmentsToReceive = numOfParchmentsToReceive;
@@ -45,4 +48,5 @@ public class Exchange {
     public void setResourcesToReceive(List<Resource> resourcesToReceive) {
         this.resourcesToReceive = resourcesToReceive;
     }
+
 }

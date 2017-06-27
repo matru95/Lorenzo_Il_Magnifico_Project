@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
+import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.effects.boardeffects.ProductionEffect;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
@@ -34,7 +36,9 @@ public class ProductionWrapper extends SpaceWrapper {
 
     @Override
     public void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
-        produce(familyMember,amountOfServants);
+        int value = familyMember.getValue() + amountOfServants - malus;
+        ProductionEffect productionEffect = new ProductionEffect();
+        productionEffect.exec(familyMember.getPlayer(), malus);
         if (!isMultiple) setOccupied(true);
     }
 
@@ -60,24 +64,6 @@ public class ProductionWrapper extends SpaceWrapper {
             return "";
         }
 
-    }
-
-    private void produce(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
-        {
-            int familyMemberValue = familyMember.getValue() + amountOfServants;
-            List<Card> yellowCards = familyMember.getPlayer().getCards().get(CardColor.YELLOW);
-
-            List<Resource> productionTileRes = familyMember.getPlayer().getPlayerTile().getProductionBonus();
-            Effect productionTile = new AddResEffect(productionTileRes);
-            productionTile.exec(familyMember.getPlayer());
-
-            //TODO DA VERIFICARE LA SCELTA DELL'UTENTE SULL'ESECUZIONE DEGLI EFFETTI DELLE CARTE
-            for (Card singleCard : yellowCards) {
-                if (singleCard.getActivationValue() <= familyMemberValue) {
-                    singleCard.execNormalEffect(familyMember.getPlayer());
-                }
-            }
-        }
     }
 
     @Override

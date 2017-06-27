@@ -1,22 +1,16 @@
-package it.polimi.ingsw.gc31.model.cards;
+package it.polimi.ingsw.gc31.model.effects.permanent;
 
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.List;
 
-public class CardColorBonus {
+public class CardColorBonus implements Bonus{
     private int points;
     private CardColor cardColor;
     private List<Resource> resources;
-    private boolean exists;
 
     public CardColorBonus() {
-        this.exists = false;
-    }
-
-    public boolean exists() {
-        return exists;
     }
 
     public void setPoints(int points) {
@@ -27,11 +21,20 @@ public class CardColorBonus {
         this.cardColor = cardColor;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public CardColor getCardColor() {
+        return cardColor;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
     public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
 
-    public void setExists(boolean exists) {
-        this.exists = exists;
-    }
 }

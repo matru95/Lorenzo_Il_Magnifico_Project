@@ -4,6 +4,8 @@ package it.polimi.ingsw.gc31.model.cards;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.model.effects.*;
+import it.polimi.ingsw.gc31.model.effects.permanent.*;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -89,8 +91,7 @@ public class CardParser {
         if(normalEffectNode.has("multiplier")) {
             Map<String, Object> multiplier = new HashMap<>();
 
-            parseMultiplier(normalEffectNode, multiplier);
-            card.setNormalMultiplier(multiplier);
+            card.addNormalEffect(parseMultiplier(normalEffectNode, multiplier));
         }
 
 //      Normal effect with exchange
@@ -146,16 +147,15 @@ public class CardParser {
 //      Multiplier
         if(instantEffectNode.has("multiplier")) {
             Map<String, Object> multiplier = new HashMap<>();
-            parseMultiplier(instantEffectNode, multiplier);
 
-            card.setInstantMultiplier(multiplier);
+            card.addInstantEffect(parseMultiplier(instantEffectNode, multiplier));
         }
 
 //      Instant production or harvest bonus
         if(instantEffectNode.has("productionOrHarvestBonus")) {
             JsonNode productionOrHarvestBonusNode = instantEffectNode.path("productionOrHarvestBonus");
 
-            parseProductionOrHarvestBonus(productionOrHarvestBonusNode, card, "instant");
+            parseProductionOrHarvestBonus(productionOrHarvestBonusNode, card);
         }
 
     }
@@ -188,11 +188,11 @@ public class CardParser {
             int value = actionNode.path(actionType).asInt();
 
             if(actionType == "production") {
-
-                card.setProductionAction(value);
+                ProductionActionEffect productionActionEffect = new ProductionActionEffect(value);
+                card.addInstantEffect(productionActionEffect);
             } else {
-
-                card.setHarvestAction(value);
+                HarvestActionEffect harvestActionEffect = new HarvestActionEffect(value);
+                card.addInstantEffect(harvestActionEffect);
             }
         }
 
@@ -239,25 +239,27 @@ public class CardParser {
             parseCardColorBonus(cardColorBonusNode, card);
         } else if (permanentEffectNode.has("productionOrHarvestBonus")) {
 
-            parseProductionOrHarvestBonus(permanentEffectNode.path("productionOrHarvestBonus"), card, "normal");
+            parseProductionOrHarvestBonus(permanentEffectNode.path("productionOrHarvestBonus"), card);
         } else if (permanentEffectNode.has("blockTowerBonus")){
+            BlockTowerBonusEffect blockTowerBonusEffect = new BlockTowerBonusEffect();
 
-            card.setBlockTowerBonus(true);
+            card.addInstantEffect(blockTowerBonusEffect);
         }
     }
 
-    private void parseProductionOrHarvestBonus(JsonNode productionOrHarvestBonusNode, Card card, String effectType) {
-        Map<String, Object> productionBonus = new HashMap<>();
-        Map<String, Object> harvestBonus = new HashMap<>();
-
+    private void parseProductionOrHarvestBonus(JsonNode productionOrHarvestBonusNode, Card card) {
         int productionBonusPoints = productionOrHarvestBonusNode.path("production").asInt();
         int harvestBonusPoints = productionOrHarvestBonusNode.path("harvest").asInt();
 
-        productionBonus.put(effectType, productionBonusPoints);
-        harvestBonus.put(effectType, harvestBonusPoints);
+        ProductionBonus productionBonus = new ProductionBonus(productionBonusPoints);
+        ProductionBonusEffect productionBonusEffect = new ProductionBonusEffect(productionBonus);
 
-        card.setProductionBonusPoints(productionBonus);
-        card.setHarvestBonusPoints(harvestBonus);
+        HarvestBonus harvestBonus = new HarvestBonus(harvestBonusPoints);
+        HarvestBonusEffect harvestBonusEffect = new HarvestBonusEffect(harvestBonus);
+
+        card.addInstantEffect(productionBonusEffect);
+        card.addInstantEffect(harvestBonusEffect);
+
         return;
     }
 
@@ -271,13 +273,16 @@ public class CardParser {
 
         List<Resource> resources = parseResources(resourceNode);
 
+
         CardColorBonus cardColorBonus = new CardColorBonus();
-        cardColorBonus.setExists(true);
         cardColorBonus.setCardColor(cardColor);
         cardColorBonus.setPoints(points);
         cardColorBonus.setResources(resources);
 
-        card.setCardColorBonus(cardColorBonus);
+        CardColorBonusEffect cardColorBonusEffect = new CardColorBonusEffect(cardColorBonus);
+
+//      CardColorBonus is added as instant because it's executed once
+        card.addInstantEffect(cardColorBonusEffect);
     }
 
     private List<Resource> parseResources(JsonNode node) {
@@ -313,7 +318,7 @@ public class CardParser {
     }
 
 
-    private void parseMultiplier(JsonNode effectNode, Map<String, Object> multiplier) {
+    private MultiplierEffect parseMultiplier(JsonNode effectNode, Map<String, Object> multiplier) {
 //      Receive part
         JsonNode receiveNode = effectNode.path("multiplier").path("receive");
 
@@ -336,6 +341,9 @@ public class CardParser {
             multiplier.put("for", forResourceName);
         }
 
+        MultiplierEffect multiplierEffect = new MultiplierEffect(multiplier);
+        return multiplierEffect;
+
     }
 
     private Resource parseSingleResource(JsonNode resourceNode) {
@@ -353,8 +361,18 @@ public class CardParser {
         List<Resource> normalEffectResources = initEffectResources(normalEffectResourcesNode);
         List<Resource> instantEffectResources = initEffectResources(instantEffectNode);
 
-        card.setInstantEffectResources(instantEffectResources);
-        card.setNormalEffectResources(normalEffectResources);
+        if(normalEffectResources.size() != 0) {
+            AddResEffect addResEffect = new AddResEffect(normalEffectResources);
+
+            card.addNormalEffect(addResEffect);
+        }
+
+        if(instantEffectResources.size() != 0) {
+            AddResEffect addResEffect = new AddResEffect(instantEffectResources);
+
+            card.addInstantEffect(addResEffect);
+        }
+
     }
 
     private void setParchments(JsonNode cardJSON, Card card) {

@@ -5,6 +5,7 @@ package it.polimi.ingsw.gc31.model.effects;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import jdk.nashorn.internal.ir.ObjectNode;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -65,5 +66,10 @@ public class ResForResEffect extends Effect{
                 }
             } while ((numscelta != 1) || (numscelta != 2));
         }
+    }
+
+    @Override
+    public ObjectNode toJson() {
+        return null;
     }
 }
