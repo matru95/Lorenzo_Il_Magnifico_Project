@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc31.model.effects;
+package it.polimi.ingsw.gc31.model.cards;
 
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;

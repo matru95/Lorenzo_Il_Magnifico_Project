@@ -5,6 +5,7 @@ import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import jdk.nashorn.internal.ir.ObjectNode;
 
 import java.util.Map;
 
@@ -29,6 +30,11 @@ public class MultiplierEffect extends Effect{
             int numOfResource = player.getRes().get(resourceFor).getNumOf();
         }
 
+    }
+
+    @Override
+    public ObjectNode toJson() {
+        return null;
     }
 
     private void multiply(Resource resource, int number, Player player) {

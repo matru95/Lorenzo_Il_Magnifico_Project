@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.model.effects;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.*;
+import jdk.nashorn.internal.ir.ObjectNode;
 
 
 import java.util.HashMap;
@@ -108,5 +109,10 @@ public class ParchementEffect extends Effect{
             effetti[choicenum[exit]].exec(player);
             exit++;
         }
+    }
+
+    @Override
+    public ObjectNode toJson() {
+        return null;
     }
 }

@@ -4,6 +4,7 @@ import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.effects.boardeffects.HarvestEffect;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import jdk.nashorn.internal.ir.ObjectNode;
 
 public class HarvestActionEffect extends Effect{
     private int value;
@@ -19,5 +20,10 @@ public class HarvestActionEffect extends Effect{
     public void exec(Player player) throws NoResourceMatch {
         HarvestEffect harvestEffect = new HarvestEffect();
         harvestEffect.exec(player, value);
+    }
+
+    @Override
+    public ObjectNode toJson() {
+        return null;
     }
 }
