@@ -35,8 +35,9 @@ public class GameViewCLI implements GameView {
         this.myPlayerID = playerID;
         this.mapper = new ObjectMapper();
         this.myPlayerName = "";
-        initStringBuilder();
+        this.sb = new StringBuilder();
         printLogo();
+        printStringBuilder();
     }
 
     /**
@@ -51,9 +52,7 @@ public class GameViewCLI implements GameView {
         printFaithCards();
         printPlayers();
         printFamilyMembers();
-
-        System.out.print(sb);
-        initStringBuilder();
+        printStringBuilder();
     }
 
     /**
@@ -256,7 +255,7 @@ public class GameViewCLI implements GameView {
      * in order to choose the space in which move the FamilyMember
      * and its color.
      */
-    public Object[] printMovementQuery() throws IOException {
+    public String printMovementQuery() throws IOException {
 
         Integer id = 0;
         DiceColor color = null;
@@ -264,6 +263,7 @@ public class GameViewCLI implements GameView {
         sb.append("\nIt's your turn, move a Family Member into a Space:\n");
 
         sb.append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL\n");
+        printStringBuilder();
         Boolean  isCorrect = false;
         do {
             try {
@@ -272,10 +272,12 @@ public class GameViewCLI implements GameView {
             } catch (IllegalArgumentException e) {
                 sb.append("You must insert a valid color among these: \n" +
                         "BLACK, WHITE, ORANGE, NEUTRAL.");
+                printStringBuilder();
             }
         } while (!isCorrect);
 
         sb.append("\nEnter the ID of the Space:\n");
+        printStringBuilder();
         isCorrect = false;
         do {
             try {
@@ -283,10 +285,11 @@ public class GameViewCLI implements GameView {
                 isCorrect = true;
             } catch (NumberFormatException e) {
                 sb.append("You must insert a number, not a string");
+                printStringBuilder();
             }
         } while (!isCorrect);
 
-        return new Object[]{id, color};
+        return color + ", " + id;
     }
 
     /**
@@ -313,14 +316,16 @@ public class GameViewCLI implements GameView {
      * This method is used to print the query for the player,
      * in order to choose the bonus of a parchment.
      */
-    private void printParchementQuery() {
+    public String parchementQuery() {
+
+        printStringBuilder();
         sb.append("Choose a BONUS for parchement between this: \n" +
             "Type 0 for: 1 Wood && 1 Stone \n" +
             "Type 1 for: 2 Servants \n" +
             "Type 2 for: 2 Golds \n" +
             "Type 3 for: 2 Military Points \n" +
             "Type 4 for: 1 Faith Points \n");
-        //TODO
+        return "0";
     }
 
     /**
@@ -335,9 +340,10 @@ public class GameViewCLI implements GameView {
     }
 
     /**
-     * Reinitialize the StringBuilder, throwing off the old one
+     * Print the actual String Builder and then reinitialize it, throwing off the old one
      */
-    private void initStringBuilder() {
+    private void printStringBuilder() {
+        System.out.println(this.sb);
         this.sb = new StringBuilder();
     }
 
@@ -356,6 +362,7 @@ public class GameViewCLI implements GameView {
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
         printView();
+        System.out.println(printMovementQuery());
     }
 
     /**
