@@ -46,12 +46,15 @@ public class FaithTileParser {
             int id=faithTile.path("id").asInt();
             int age=faithTile.path("age").asInt();
 
+
             FaithTile faithTile1=new FaithTile(id,age);
 
             List <Resource> gainFewerStack;
             if(faithTile.has("gainfewer")){
                 JsonNode gainFewer=faithTile.path("gainfewer");
                 gainFewerStack=parseResources(gainFewer);
+
+
                 faithTile1.setGainFewerStack(gainFewerStack);
 
             }else {
@@ -80,27 +83,22 @@ public class FaithTileParser {
 
                 int diceValue=fewerDiceCard.path("dicevalue").asInt();
                 faithTile1.setFewerDiceCardValue(diceValue);
-
             }
 
             boolean noMarket=faithTile.path("nomarket").asBoolean();
             faithTile1.setNoMarket(noMarket);
 
-
             boolean doubleServants=faithTile.path("doubleservants").asBoolean();
             faithTile1.setDoubleServants(doubleServants);
 
-
             boolean skipFirstRound=faithTile.path("skipfirstround").asBoolean();
             faithTile1.setSkipFirstRound(skipFirstRound);
-
 
             if(faithTile.has("noendgamepoints")){
                 JsonNode noEndGamePoints=faithTile.path("noendgamepoints");
                 String cardColorString=noEndGamePoints.path("cardcolor").asText().toUpperCase();
 
                 CardColor cardColor=CardColor.valueOf(cardColorString);
-
                 faithTile1.setNoEndGamePointsCardColor(cardColor);
             }
             List <Resource> forEveryRes;
@@ -115,22 +113,23 @@ public class FaithTileParser {
 
                 loseRes=parseResources(lose);
                 faithTile1.setLoseRes(loseRes);
-
             }
             if(faithTile.has("loseforeverycost")){
                 JsonNode loseForEveryCost=faithTile.path("loseforeverycost");
                 String cardColorString=loseForEveryCost.path("cardcolor").asText().toUpperCase();
-                CardColor cardColor=CardColor.valueOf(cardColorString);
+                JsonNode cardType=loseForEveryCost.path("cardtypecost");
+                List <Resource> cardTypeCost=parseResources(cardType);
 
+                CardColor cardColor=CardColor.valueOf(cardColorString);
                 faithTile1.setLoseForEveryCostCardColor(cardColor);
+                faithTile1.setLoseForEveryCost(cardTypeCost);
             }
             boolean loseForEveryResource=faithTile.path("loseforeveryresource").asBoolean();
 
+
             faithTile1.setLoseForEveryResource(loseForEveryResource);
             this.faithTiles.add(faithTile1);
-
         }
-
     }
     private List<Resource> parseResources(JsonNode node) {
         List<Resource> exchangeResources = new ArrayList<>();
@@ -168,7 +167,7 @@ public class FaithTileParser {
         Collections.shuffle(secondAgeTiles, new Random(seed));
         Collections.shuffle(thirdAgeTiles, new Random(seed));
 
-        FaithTile firstAgeTile=secondAgeTiles.get(0);
+        FaithTile firstAgeTile=firstAgeTiles.get(0);
         FaithTile secondAgeTile=secondAgeTiles.get(0);
         FaithTile thirdAgeTile=thirdAgeTiles.get(0);
 

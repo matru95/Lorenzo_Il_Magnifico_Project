@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
+import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
@@ -23,6 +24,7 @@ public class FaithTile {
 	private List <Resource> forEveryRes=new ArrayList<>();
 	private List <Resource> loseRes=new ArrayList<>();
 	private CardColor loseForEveryCostCardColor;
+	private List <Resource> loseForEveryCost;
 	private boolean loseForEveryResource;
 
 
@@ -33,8 +35,12 @@ public class FaithTile {
 		this.effect = new FaithEffect();
 	}
 	
-	public void execute() {
+	public void execute(Player player) {
 		return;
+	}
+
+	public void createFaithEffect(){
+		//TODO inserire i relativi valori nella class
 	}
 
     public int getAge() {
@@ -107,8 +113,13 @@ public class FaithTile {
 		this.loseForEveryCostCardColor = loseForEveryCostCardColor;
 	}
 
+	public void setLoseForEveryCost(List<Resource> loseForEveryCost) {
+		this.loseForEveryCost = loseForEveryCost;
+	}
+
 	public void setLoseForEveryResource(boolean loseForEveryResource) {
 		this.loseForEveryResource = loseForEveryResource;
 	}
+
 
 }

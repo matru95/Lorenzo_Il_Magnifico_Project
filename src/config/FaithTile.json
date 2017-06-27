@@ -135,10 +135,14 @@
       }
     },
     {
-      "id":19,
-      "age":3,
-      "loseforeverycost":{
-        "cardcolor":"yellow"
+      "id": 19,
+      "age": 3,
+      "loseforeverycost": {
+        "cardcolor": "yellow",
+        "cardtypecost": {
+          "wood": 1,
+          "stone":1
+        }
       }
     },
     {
