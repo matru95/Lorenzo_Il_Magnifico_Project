@@ -99,21 +99,21 @@
     {
       "id":15,
       "age":3,
-      "noendgamepoints":{
-        "cardcolor":"purple"
+      "noEndGamePoints":{
+        "cardColor":"purple"
       }
     },
     {
       "id":16,
       "age":3,
-      "noendgamepoints":{
-        "cardcolor":"green"
+      "noEndGamePoints":{
+        "cardColor":"green"
       }
     },
     {
       "id":17,
       "age":3,
-      "loseforevery": {
+      "loseForEvery": {
         "for":{
           "victorypoints":5
         },
@@ -125,7 +125,7 @@
     {
       "id":18,
       "age":3,
-      "loseforevery": {
+      "loseForEvery": {
         "for":{
           "warpoints":1
         },
@@ -137,9 +137,9 @@
     {
       "id": 19,
       "age": 3,
-      "loseforeverycost": {
-        "cardcolor": "yellow",
-        "cardtypecost": {
+      "loseForEveryCost": {
+        "cardColor": "yellow",
+        "cardTypeCost": {
           "wood": 1,
           "stone":1
         }
@@ -148,7 +148,7 @@
     {
       "id":20,
       "age":3,
-      "loseforeveryresource":true
+      "loseForEveryResource":true
     }
   ]
 }

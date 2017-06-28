@@ -56,7 +56,6 @@ public class FaithTileParser {
 
 
                 faithTile1.setGainFewerStack(gainFewerStack);
-
             }else {
                 gainFewerStack=null;
                 faithTile1.setGainFewerStack(gainFewerStack);
@@ -95,10 +94,10 @@ public class FaithTileParser {
             faithTile1.setSkipFirstRound(skipFirstRound);
 
             if(faithTile.has("noEndGamePoints")){
-                JsonNode noEndGamePoints=faithTile.path("NoEndGamePoints");
+                JsonNode noEndGamePoints=faithTile.path("noEndGamePoints");
                 String cardColorString=noEndGamePoints.path("cardColor").asText().toUpperCase();
-
                 CardColor cardColor=CardColor.valueOf(cardColorString);
+
                 faithTile1.setNoEndGamePointsCardColor(cardColor);
             }
             List <Resource> forEveryRes;
