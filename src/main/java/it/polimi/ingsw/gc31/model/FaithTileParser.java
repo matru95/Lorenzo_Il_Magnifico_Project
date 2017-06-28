@@ -40,8 +40,8 @@ public class FaithTileParser {
     }
 
     public void parse() {
-        JsonNode faithtilesJSON= rootNode.path("faithtiles");
-        for (JsonNode faithTile : faithtilesJSON){
+        JsonNode faithTilesJSON= rootNode.path("faithTiles");
+        for (JsonNode faithTile : faithTilesJSON){
 
             int id=faithTile.path("id").asInt();
             int age=faithTile.path("age").asInt();
