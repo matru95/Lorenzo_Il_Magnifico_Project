@@ -1,8 +1,6 @@
 package it.polimi.ingsw.gc31.server.rmiserver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.polimi.ingsw.gc31.controller.Controller;
-import it.polimi.ingsw.gc31.controller.GameActionController;
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
@@ -132,12 +130,28 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     private void updateClients(List<Client> clients) throws NoResourceMatch, IOException {
-        BasicMessage basicMessage = new BasicMessage(RequestType.ACTION);
-        Message request = new ActionMessage(basicMessage, ActionType.UPDATE);
 
         for(Client client: clients) {
-            client.requestUpdate();
+            updateClient(client);
         }
+    }
+
+    private void updateClient(Client client) throws NoResourceMatch, IOException {
+        UUID gameID = client.getGameID();
+        Map<String, String> payload = getGameState(gameID.toString());
+        ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
+
+        client.send(request);
+    }
+
+    private Map<String, String> getGameState(String gameID) {
+        GameInstance gameInstance = games.get(UUID.fromString(gameID));
+        Map<String, String> response = new HashMap<>();
+
+        response.put("GameInstance", gameInstance.toString());
+        response.put("GameBoard", gameInstance.getGameBoard().toString());
+
+        return response;
     }
 
     @Override
@@ -158,52 +172,55 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         return payload;
     }
 
-    @Override
-    public Map<String, String> sendData(Message request) throws IOException, NoResourceMatch {
-        RequestType requestType = request.getRequestType();
+    public Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch {
+        ClientMessageEnum requestType = request.getClientMessageType();
 
-        if(requestType == RequestType.ACTION) {
-            ActionMessage requestAction = (ActionMessage) request;
-            ActionType actionType = requestAction.getActionType();
-
-            if(actionType == ActionType.UPDATE) {
-                String gameID = requestAction.getGameID();
-
-                return getGameState(gameID);
-            } else if(actionType == ActionType.MOVE) {
-                String gameID = requestAction.getGameID();
-                String JSONData = requestAction.getMessage();
-
-                return processMovementAction(gameID, JSONData);
-            }
+        switch (requestType) {
+            case MOVE:
+                Map<String, String> payload = request.getPayload();
+                String gameID = request.getGameID();
+                String playerID = request.getPlayerID();
+                String familyMemberColor = payload.get("familyMemberColor");
+                String positionID = payload.get("positionID");
         }
-
         return null;
     }
+
+//        RequestType requestType = request.getRequestType();
+//
+//        if(requestType == RequestType.ACTION) {
+//            ActionMessage requestAction = (ActionMessage) request;
+//            ActionType actionType = requestAction.getActionType();
+//
+//            if(actionType == ActionType.UPDATE) {
+//                String gameID = requestAction.getGameID();
+//
+//                return getGameState(gameID);
+//            } else if(actionType == ActionType.MOVE) {
+//                String gameID = requestAction.getGameID();
+//                String JSONData = requestAction.getMessage();
+//
+//                return processMovementAction(gameID, JSONData);
+//            }
+//        }
+//
+//        return null;
+//    }
 
 
     private Map<String, String> processMovementAction(String gameID, String JSONData) throws NoResourceMatch, IOException {
-        UUID gameInstanceID = UUID.fromString(gameID);
-
-        GameInstance gameInstance = games.get(gameInstanceID);
-        List<Client> gameClients = clients.get(gameInstance.getInstanceID());
-
-
-        Controller controller = new GameActionController(gameInstance, gameClients);
-        ((GameActionController) controller).movementAction(JSONData);
-
+//        UUID gameInstanceID = UUID.fromString(gameID);
+//
+//        GameInstance gameInstance = games.get(gameInstanceID);
+//        List<Client> gameClients = clients.get(gameInstance.getInstanceID());
+//
+//
+//        Controller controller = new GameActionController(gameInstance, gameClients);
+//        ((GameActionController) controller).movementAction(JSONData);
+//
         return null;
     }
 
-    private Map<String, String> getGameState(String gameID) {
-        GameInstance gameInstance = games.get(UUID.fromString(gameID));
-        Map<String, String> response = new HashMap<>();
-
-        response.put("GameInstance", gameInstance.toString());
-        response.put("GameBoard", gameInstance.getGameBoard().toString());
-
-        return response;
-    }
 
 
     @Override

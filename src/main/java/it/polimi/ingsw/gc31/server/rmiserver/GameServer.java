@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.server.rmiserver;
 
+import it.polimi.ingsw.gc31.messages.ClientMessage;
 import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -38,6 +39,6 @@ public interface GameServer extends Remote {
      * @return Response to the client
      * @throws RemoteException
      */
-    Map<String, String> sendData(Message request) throws IOException, NoResourceMatch;
+    Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch;
 
 }

@@ -55,34 +55,13 @@ public class ClientImplementation implements Client, Serializable{
 
 
     @Override
-    public void send(Message request) throws NoResourceMatch, IOException {
-        RequestType requestType = request.getRequestType();
+    public void send(ServerMessage request) throws NoResourceMatch, IOException {
+        ServerMessageEnum requestType = request.getMessageType();
 
-        if(requestType == RequestType.ACTION) {
-            ActionMessage actionMessage = (ActionMessage) request;
-            ActionType actionType = actionMessage.getActionType();
-
-            processAction(actionMessage);
-        } else if(requestType == RequestType.FAIL) {
-            FailMessage failMessage = (FailMessage) request;
-            FailType failType = failMessage.getFailType();
-
-            processFail(failMessage);
-        }
-
-    }
-
-    private void processFail(FailMessage message) {
-        String failMessage = message.getMessage();
-
-    }
-
-    private void processAction(ActionMessage message) throws NoResourceMatch, IOException {
-        ActionType actionType = message.getActionType();
-
-        switch (actionType) {
+        switch (requestType) {
             case UPDATE:
-                requestUpdate();
+                Map<String, String> payload = request.getPayload();
+                view.update(payload);
                 break;
             default:
                 break;
@@ -90,14 +69,9 @@ public class ClientImplementation implements Client, Serializable{
 
     }
 
-    public void requestUpdate() throws IOException, NoResourceMatch {
-        BasicMessage basicRequest = new BasicMessage(RequestType.ACTION);
-        Message request = new ActionMessage(basicRequest, ActionType.UPDATE);
-        ActionMessage message = (ActionMessage) request;
-        message.setGameID(gameID.toString());
-        Map<String, String> gameState = server.sendData(message);
-
-        view.update(gameState);
+    @Override
+    public UUID getGameID() {
+        return gameID;
     }
 
 }
