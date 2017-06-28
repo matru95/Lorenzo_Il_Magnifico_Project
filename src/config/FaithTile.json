@@ -3,21 +3,21 @@
     {
       "id":0,
       "age":1,
-      "gainfewer":{
+      "gainFewer":{
         "warpoints":1
       }
     },
     {
       "id":1,
       "age":1,
-      "gainfewer":{
+      "gainFewer":{
         "gold":1
       }
     },
     {
       "id":2,
       "age":1,
-      "gainfewer":{
+      "gainFewer":{
         "servants":1
       }
     },
@@ -25,7 +25,7 @@
       "id":3,
       "age":1
     ,
-      "gainfewer":{
+      "gainFewer":{
         "stone":1,
         "wood":1
       }
@@ -33,67 +33,67 @@
     {
       "id":4,
       "age":1,
-      "harvestfewer":3
+      "harvestFewer":3
     },
     {
       "id":5,
       "age":1,
-      "productionfewer":3
+      "productionFewer":3
     },
     {
       "id":6,
       "age":1,
-      "dicefewer":1
+      "diceFewer":1
     },
     {
       "id":7,
       "age":2,
-      "fewerdicecard":{
-        "cardcolor":"green",
-        "dicevalue":4
+      "fewerDiceCard":{
+        "cardColor":"green",
+        "diceValue":4
       }
     },
     {
       "id":8,
       "age":2,
-      "fewerdicecard":{
-        "cardcolor":"yellow",
-        "dicevalue":4
+      "fewerDiceCard":{
+        "cardColor":"yellow",
+        "diceValue":4
       }
     },
     {
       "id":9,
       "age":2,
-      "fewerdicecard":{
-        "cardcolor":"blue",
-        "dicevalue":4
+      "fewerDiceCard":{
+        "cardColor":"blue",
+        "diceValue":4
       }
     },
     {
       "id":10,
       "age":2,
-      "fewerdicecard":{
-        "cardcolor":"purple",
-        "dicevalue":4
+      "fewerDiceCard":{
+        "cardColor":"purple",
+        "diceValue":4
       }
     },{
       "id":11,
       "age":2,
-      "nomarket":true
+      "noMarket":true
     },{
       "id":12,
       "age":2,
-      "doubleservants":true
+      "doubleServants":true
     },{
       "id":13,
       "age":2,
-      "skipfirstround":true
+      "skipFirstRound":true
     },
     {
       "id":14,
       "age":3,
-      "noendgamepoints":{
-        "cardcolor":"blue"
+      "noEndGamePoints":{
+        "cardColor":"blue"
       }
     },
     {
