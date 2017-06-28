@@ -23,4 +23,5 @@ public interface Client extends Remote{
      */
     void send(Message request) throws NoResourceMatch, IOException;
 
+    void requestUpdate() throws IOException, NoResourceMatch;
 }

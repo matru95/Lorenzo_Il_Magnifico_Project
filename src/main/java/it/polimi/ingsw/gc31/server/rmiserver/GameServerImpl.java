@@ -136,7 +136,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         Message request = new ActionMessage(basicMessage, ActionType.UPDATE);
 
         for(Client client: clients) {
-            client.send(request);
+            client.requestUpdate();
         }
     }
 
