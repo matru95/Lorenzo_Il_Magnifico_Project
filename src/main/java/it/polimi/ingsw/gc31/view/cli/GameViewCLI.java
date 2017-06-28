@@ -70,7 +70,7 @@ public class GameViewCLI implements GameView {
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(48).add(20).add(48).add(27));
-        sb.append(at.render() + "\n");
+        sb.append(at.render()).append("\n");
 
     }
 
@@ -101,8 +101,8 @@ public class GameViewCLI implements GameView {
         att.setTextAlignment(TextAlignment.CENTER);
         att.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
 
-        sb.append(at.render() + "\n");
-        sb.append(att.render() + "\n");
+        sb.append(at.render()).append("\n")
+          .append(att.render()).append("\n");
 
     }
 
@@ -120,7 +120,7 @@ public class GameViewCLI implements GameView {
         at.getRenderer().setCWC(new CWC_FixedWidth().add(35).add(36).add(36).add(36));
         at.setTextAlignment(TextAlignment.CENTER);
 
-        sb.append(at.render() + "\n");
+        sb.append(at.render()).append("\n");
     }
 
     /**
@@ -139,7 +139,7 @@ public class GameViewCLI implements GameView {
         at.getRenderer().setCWC(new CWC_FixedWidth().add(35).add(36).add(36).add(36));
         at.setTextAlignment(TextAlignment.CENTER);
 
-        sb.append(at.render() + "\n");
+        sb.append(at.render()).append("\n");
     }
 
     /**
@@ -177,14 +177,16 @@ public class GameViewCLI implements GameView {
 
             atp.setTextAlignment(TextAlignment.CENTER);
             atp.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20).add(20).add(20).add(20));
-            render.append(atp.render() + "\n");
+            render.append(atp.render()).append("\n");
 
             orderedPlayers.put(singlePlayer.path("playerOrder").asInt(), singlePlayer.path(PN).toString());
         }
 
         StringBuilder order = new StringBuilder("PLAYERS ORDER: ");
         for (int i = 1; i <= 4; i++) {
-            if (orderedPlayers.get(i) != null) order.append("[" + i + "]: " + orderedPlayers.get(i) + " ");
+            if (orderedPlayers.get(i) != null) {
+                order.append("[").append(i).append("]: ").append(orderedPlayers.get(i)).append(" ");
+            }
         }
 
         AsciiTable at = new AsciiTable();
@@ -194,8 +196,8 @@ public class GameViewCLI implements GameView {
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add((125)));
 
-        sb.append(at.render() + "\n");
-        sb.append(render + "\n");
+        sb.append(at.render()).append("\n")
+          .append(render).append("\n");
     }
 
     /**
@@ -227,27 +229,26 @@ public class GameViewCLI implements GameView {
         atfm.setTextAlignment(TextAlignment.CENTER);
         atfm.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
 
-        sb.append(at.render() + "\n");
-        sb.append(atfm.render() + "\n");
+        sb.append(at.render()).append("\n")
+        .append(atfm.render()).append("\n");
     }
 
     /**
      * Method to print a game logo for the CLI View.
      */
     private void printLogo() {
-        sb.append(                                                                                                                "\n" +
-                "                                  ██╗      ██████╗ ██████╗ ███████╗███╗   ██╗███████╗ ██████╗          ██╗██╗     \n" +
-                "                                  ██║     ██╔═══██╗██╔══██╗██╔════╝████╗  ██║╚══███╔╝██╔═══██╗         ██║██║     \n" +
-                "                                  ██║     ██║   ██║██████╔╝█████╗  ██╔██╗ ██║  ███╔╝ ██║   ██║         ██║██║     \n" +
-                "                                  ██║     ██║   ██║██╔══██╗██╔══╝  ██║╚██╗██║ ███╔╝  ██║   ██║         ██║██║     \n" +
-                "                                  ███████╗╚██████╔╝██║  ██║███████╗██║ ╚████║███████╗╚██████╔╝         ██║███████╗\n" +
-                "                                  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝          ╚═╝╚══════╝\n\n" +
-                "                                       ███╗   ███╗ █████╗  ██████╗ ███╗   ██╗██╗███████╗██╗ ██████╗ ██████╗       \n" +
-                "                                       ████╗ ████║██╔══██╗██╔════╝ ████╗  ██║██║██╔════╝██║██╔════╝██╔═══██╗      \n" +
-                "                                       ██╔████╔██║███████║██║  ███╗██╔██╗ ██║██║█████╗  ██║██║     ██║   ██║      \n" +
-                "                                       ██║╚██╔╝██║██╔══██║██║   ██║██║╚██╗██║██║██╔══╝  ██║██║     ██║   ██║      \n" +
-                "                                       ██║ ╚═╝ ██║██║  ██║╚██████╔╝██║ ╚████║██║██║     ██║╚██████╗╚██████╔╝      \n" +
-                "                                       ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝       \n\n");
+        sb.append("\n") .append("                                  ██╗      ██████╗ ██████╗ ███████╗███╗   ██╗███████╗ ██████╗          ██╗██╗     \n")
+                        .append("                                  ██║     ██╔═══██╗██╔══██╗██╔════╝████╗  ██║╚══███╔╝██╔═══██╗         ██║██║     \n")
+                        .append("                                  ██║     ██║   ██║██████╔╝█████╗  ██╔██╗ ██║  ███╔╝ ██║   ██║         ██║██║     \n")
+                        .append("                                  ██║     ██║   ██║██╔══██╗██╔══╝  ██║╚██╗██║ ███╔╝  ██║   ██║         ██║██║     \n")
+                        .append("                                  ███████╗╚██████╔╝██║  ██║███████╗██║ ╚████║███████╗╚██████╔╝         ██║███████╗\n")
+                        .append("                                  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝          ╚═╝╚══════╝\n\n")
+                        .append("                                       ███╗   ███╗ █████╗  ██████╗ ███╗   ██╗██╗███████╗██╗ ██████╗ ██████╗       \n")
+                        .append("                                       ████╗ ████║██╔══██╗██╔════╝ ████╗  ██║██║██╔════╝██║██╔════╝██╔═══██╗      \n")
+                        .append("                                       ██╔████╔██║███████║██║  ███╗██╔██╗ ██║██║█████╗  ██║██║     ██║   ██║      \n")
+                        .append("                                       ██║╚██╔╝██║██╔══██║██║   ██║██║╚██╗██║██║██╔══╝  ██║██║     ██║   ██║      \n")
+                        .append("                                       ██║ ╚═╝ ██║██║  ██║╚██████╔╝██║ ╚████║██║██║     ██║╚██████╗╚██████╔╝      \n")
+                        .append("                                       ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝       \n\n");
     }
 
     /**
@@ -257,47 +258,112 @@ public class GameViewCLI implements GameView {
      */
     public String printMovementQuery() throws IOException {
 
-        Integer id = 0;
-        DiceColor color = null;
+        Integer id;
+        DiceColor color;
 
-        sb.append("\nIt's your turn, move a Family Member into a Space:\n");
-
-        sb.append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL\n");
+        sb.append("\nIt's your turn, move a Family Member into a Space:\n")
+          .append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL\n");
         printStringBuilder();
-        Boolean  isCorrect = false;
+
         do {
             try {
-                color = readColor();
-                isCorrect = true;
+                color = readDiceColor();
+                break;
             } catch (IllegalArgumentException e) {
                 sb.append("You must insert a valid color among these: \n" +
-                        "BLACK, WHITE, ORANGE, NEUTRAL.");
+                        "BLACK, WHITE, ORANGE, NEUTRAL\n");
                 printStringBuilder();
             }
-        } while (!isCorrect);
+        } while (true);
 
         sb.append("\nEnter the ID of the Space:\n");
         printStringBuilder();
-        isCorrect = false;
         do {
             try {
-                id = readMovement();
-                isCorrect = true;
+                id = readInteger();
+                if (id > 0 && id <= 23) break;
+                sb.append("You must insert a valid number between 1 and 23:\n");
+                printStringBuilder();
             } catch (NumberFormatException e) {
-                sb.append("You must insert a number, not a string");
+                sb.append("You must insert a valid number between 1 and 23:\n");
                 printStringBuilder();
             }
-        } while (!isCorrect);
+        } while (true);
 
         return color + ", " + id;
     }
 
     /**
+     * This method is used to print the query for the player,
+     * in order to choose the bonus of a parchment.
+     */
+    public String printParchmentQuery() throws IOException {
+
+        sb.append("\nChoose a BONUS for parchment between this: \n" +
+            "Type 0 for: 1 Wood && 1 Stone \n" +
+            "Type 1 for: 2 Servants \n" +
+            "Type 2 for: 2 Golds \n" +
+            "Type 3 for: 2 Military Points \n" +
+            "Type 4 for: 1 Faith Points \n");
+        printStringBuilder();
+
+        Integer choice;
+        do {
+            try {
+                choice = readInteger();
+                if (choice >= 0 && choice <= 4) break;
+                sb.append("You must insert a valid number between 0 and 4:\n");
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid number between 0 and 4:\n");
+                printStringBuilder();
+            }
+        } while (true);
+
+        return choice.toString();
+    }
+
+    /**
+     * This method is used to print the query for the player,
+     * in order to choose if accept or not the effect of an excommunication.
+     */
+    public String printFaithQuery(String faithTile) throws IOException {
+
+        sb.append("\nChoose if you wanna take this excommunication (YES/NO):\n")
+                .append(beauty(mapper.readTree(faithTile).path("faithTiles").path("effect"))).append("\n");
+        printStringBuilder();
+
+        String choice;
+        do {
+            try {
+                choice = readString().toUpperCase();
+                if (choice.equals("YES") || choice.equals("NO")) break;
+                sb.append("You must insert a valid choice among these: (YES, NO)\n");
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid choice among these: (YES, NO)\n");
+                printStringBuilder();
+            }
+        } while (true);
+        return choice;
+    }
+
+    /**
+     * Method to read a String from Input.
+     * @return String
+     * @throws IOException: Error during input reading.
+     */
+    private String readString() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return br.readLine();
+    }
+
+    /**
      * Method to read an Integer from Input.
      * @return Integer
-     * @throws IOException
+     * @throws IOException: Error during input reading.
      */
-    private int readMovement() throws IOException {
+    private int readInteger() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return Integer.valueOf(br.readLine());
     }
@@ -305,38 +371,11 @@ public class GameViewCLI implements GameView {
     /**
      * Method to read a DiceColor from Input.
      * @return DiceColor (enum element)
-     * @throws IOException
+     * @throws IOException: Error during input reading.
      */
-    private DiceColor readColor() throws IOException {
+    private DiceColor readDiceColor() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return DiceColor.valueOf(br.readLine().toUpperCase());
-    }
-
-    /**
-     * This method is used to print the query for the player,
-     * in order to choose the bonus of a parchment.
-     */
-    public String parchementQuery() {
-
-        printStringBuilder();
-        sb.append("Choose a BONUS for parchement between this: \n" +
-            "Type 0 for: 1 Wood && 1 Stone \n" +
-            "Type 1 for: 2 Servants \n" +
-            "Type 2 for: 2 Golds \n" +
-            "Type 3 for: 2 Military Points \n" +
-            "Type 4 for: 1 Faith Points \n");
-        return "0";
-    }
-
-    /**
-     * This method is used to print the query for the player,
-     * in order to choose if accept or not the effect of an excommunication.
-     */
-    private void printFaithQuery() {
-        /**
-         sb.append("Do you really wanna take this faith effect?" +
-                gameBoardModel.getFaithCard.getEffect.toString());  */
-        //TODO
     }
 
     /**
@@ -351,7 +390,7 @@ public class GameViewCLI implements GameView {
      * Method to init myPlayerName from GameView's JSON
      */
     private void initPlayerName() {
-        if (myPlayerName == "")
+        if (myPlayerName.equals(""))
             for (JsonNode singleplayer: rootInstance.path(PL))
                 if (beauty(singleplayer.path("playerID")).equals(myPlayerID.toString()))
                     myPlayerName = beauty(singleplayer.path("playerName"));
@@ -362,7 +401,6 @@ public class GameViewCLI implements GameView {
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
         printView();
-        System.out.println(printMovementQuery());
     }
 
     /**
@@ -371,7 +409,7 @@ public class GameViewCLI implements GameView {
      * @param node: JsonNode for a JSON Parser.
      * @return String
      */
-    public static String beauty(JsonNode node) {
+    private static String beauty(JsonNode node) {
         return node.toString().replace("\"", "")
                 .replace("{","")
                 .replace("}","")
