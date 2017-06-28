@@ -533,7 +533,7 @@ public class GameViewCLI implements GameView {
         GameViewCLI view = new GameViewCLI(p1.getPlayerID());
         view.update(gameState);
 
-        Map<String, String> parchment = new HashMap<>();
+/*        Map<String, String> parchment = new HashMap<>();
         parchment.put("parchments", "3");
         //view.printParchmentQuery(parchment);
 
@@ -542,6 +542,6 @@ public class GameViewCLI implements GameView {
 
         Map<String, String> cardID = new HashMap<>();
         cardID.put("cardID", "72");
-        //view.printCostQuery(cardID);
+        //view.printCostQuery(cardID);*/
     }
 }
