@@ -26,5 +26,5 @@ public interface Client extends Remote{
 
     UUID getGameID() throws RemoteException;
 
-    UUID getPlayerID();
+    UUID getPlayerID() throws RemoteException;
 }

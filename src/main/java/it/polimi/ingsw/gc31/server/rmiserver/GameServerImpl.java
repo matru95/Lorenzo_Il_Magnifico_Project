@@ -169,7 +169,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         return payload;
     }
 
-    public Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch {
+    public Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException {
         ClientMessageEnum requestType = request.getClientMessageType();
 
         switch (requestType) {
@@ -185,7 +185,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
 
-    private Map<String, String> processMovementAction(String gameID, String playerID, Map<String, String> payload) throws NoResourceMatch, IOException {
+    private Map<String, String> processMovementAction(String gameID, String playerID, Map<String, String> payload) throws NoResourceMatch, IOException, InterruptedException {
         UUID gameInstanceID = UUID.fromString(gameID);
 
         GameController game = games.get(gameInstanceID);

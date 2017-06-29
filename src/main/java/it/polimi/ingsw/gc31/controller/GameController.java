@@ -12,6 +12,7 @@ import it.polimi.ingsw.gc31.model.states.TurnState;
 import it.polimi.ingsw.gc31.view.client.Client;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.*;
 
 public class GameController extends Controller implements Runnable{
@@ -175,9 +176,11 @@ public class GameController extends Controller implements Runnable{
         this.endTime = System.nanoTime();
     }
 
-    private Client getClientFromPlayerID(UUID playerID) {
+    private Client getClientFromPlayerID(UUID playerID) throws RemoteException {
+
         for(Client client: super.getViews()) {
-            if(client.getPlayerID() == playerID) {
+            if(client.getPlayerID().equals(playerID)) {
+                System.out.println("here");
 
                 return client;
             }

@@ -36,6 +36,6 @@ public interface GameServer extends Remote {
      * @return Response to the client
      * @throws RemoteException
      */
-    Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch;
+    Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException;
 
 }

@@ -76,7 +76,7 @@ public class ClientImplementation implements Client, Serializable{
     }
 
     @Override
-    public UUID getPlayerID() {
+    public UUID getPlayerID() throws RemoteException {
         return playerID;
     }
 
