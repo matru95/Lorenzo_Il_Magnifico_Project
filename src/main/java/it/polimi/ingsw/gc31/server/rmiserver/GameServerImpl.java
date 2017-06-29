@@ -52,7 +52,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void join(UUID playerID, String playerName, PlayerColor color, Client client) throws IOException, NoResourceMatch {
+    public void join(UUID playerID, String playerName, PlayerColor color, Client client) throws IOException, NoResourceMatch, InterruptedException {
         Player player = new Player(playerID, playerName, color);
         GameController openGame;
 
@@ -69,6 +69,8 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                         } catch (NoResourceMatch noResourceMatch) {
                             noResourceMatch.printStackTrace();
                         } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
@@ -101,7 +103,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         clients.put(openGameID, game.getViews());
     }
 
-    private void joinExistingGame(Player player, Client client) throws NoResourceMatch, IOException {
+    private void joinExistingGame(Player player, Client client) throws NoResourceMatch, IOException, InterruptedException {
         GameController openGame = games.get(openGameID);
         openGame.addPlayer(player, client);
 
@@ -113,7 +115,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         }
     }
 
-    private void startGame() throws NoResourceMatch, IOException {
+    private void startGame() throws NoResourceMatch, IOException, InterruptedException {
         GameController openGame = games.get(openGameID);
         List<Client> clientsToUpdate = clients.get(openGameID);
         openGameID = null;
@@ -126,14 +128,14 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     }
 
-    private void updateClients(List<Client> clients) throws NoResourceMatch, IOException {
+    private void updateClients(List<Client> clients) throws NoResourceMatch, IOException, InterruptedException {
 
         for(Client client: clients) {
             updateClient(client);
         }
     }
 
-    private void updateClient(Client client) throws NoResourceMatch, IOException {
+    private void updateClient(Client client) throws NoResourceMatch, IOException, InterruptedException {
         UUID gameID = client.getGameID();
         Map<String, String> payload = getGameState(gameID.toString());
         ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
@@ -152,7 +154,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public Map<String, UUID> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch {
+    public Map<String, UUID> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
         Map<String, UUID> payload = new HashMap<>();
         UUID playerID = UUID.randomUUID();
 

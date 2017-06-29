@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface Client extends Remote{
-    void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch;
+    void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException;
 
     void ping() throws RemoteException;
 
@@ -22,7 +22,7 @@ public interface Client extends Remote{
      * Method used by the controller and RMI server to send a response to the client
      * @param request The Message request
      */
-    void send(ServerMessage request) throws NoResourceMatch, IOException;
+    void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException;
 
     UUID getGameID() throws RemoteException;
 

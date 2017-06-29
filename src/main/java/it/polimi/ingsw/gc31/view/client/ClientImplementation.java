@@ -23,7 +23,7 @@ public class ClientImplementation implements Client, Serializable {
     private GameView view;
     private UUID gameID;
 
-    public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch {
+    public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException {
 
         Registry registry = LocateRegistry.getRegistry(8080);
         GameServer gameServer = (GameServer) registry.lookup("game_server");
@@ -39,7 +39,7 @@ public class ClientImplementation implements Client, Serializable {
     }
 
     @Override
-    public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch {
+    public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
         Map<String, UUID> payload = s.register(this, playerName, playerColor);
 
         this.server = s;
@@ -55,7 +55,7 @@ public class ClientImplementation implements Client, Serializable {
 
 
     @Override
-    public void send(ServerMessage request) throws NoResourceMatch, IOException {
+    public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
         ServerMessageEnum requestType = request.getMessageType();
         Map<String, String> payload = request.getPayload();
 

@@ -1,8 +1,9 @@
 package it.polimi.ingsw.gc31.messages;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class ClientMessage implements Message{
+public class ClientMessage implements Message, Serializable{
     private Map<String, String> payload;
     private String gameID;
     private ClientMessageEnum clientMessageType;
