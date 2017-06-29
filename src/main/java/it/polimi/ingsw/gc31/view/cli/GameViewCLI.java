@@ -23,6 +23,7 @@ public class GameViewCLI implements GameView {
     private static final String PN = "playerName";
     private static final String PL = "players";
     private static final String CARDS = "cards";
+    private static final String CARDID = "cardID";
 
     private final UUID myPlayerID;
     private final ObjectMapper mapper;
@@ -321,7 +322,7 @@ public class GameViewCLI implements GameView {
 
         HashMap<String, String> result = new HashMap<>();
         int numOfParchments = Integer.parseInt(map.get("parchments"));
-        ArrayList<Integer> lastChoices = new ArrayList();
+        ArrayList<Integer> lastChoices = new ArrayList<>();
         if (numOfParchments > 1)
             sb.append("Now you'll have to choose ").append(numOfParchments).append(" different parchments.\n");
 
@@ -394,9 +395,9 @@ public class GameViewCLI implements GameView {
         HashMap<String, String> result = new HashMap<>();
         String choice;
 
-        for (JsonNode singlePurpleCard: rootBoard.path("cards").path("PURPLE"))
-            if (beauty(singlePurpleCard.path("cardID")).equals(map.get("cardID")))
-                sb.append("\nChoose which cost to pay to take the card (1 OR 2):\n{(")
+        for (JsonNode singlePurpleCard: rootBoard.path(CARDS).path("PURPLE"))
+            if (beauty(singlePurpleCard.path(CARDID)).equals(map.get(CARDID)))
+                sb.append("\n{(")
                         .append(beauty(singlePurpleCard.path("cost").path(0))).append(") OR (")
                         .append(beauty(singlePurpleCard.path("cost").path(1))).append(")}");
         printStringBuilder();
@@ -405,14 +406,74 @@ public class GameViewCLI implements GameView {
             try {
                 choice = readString().toUpperCase();
                 if (choice.equals("1") || choice.equals("2")) break;
-                sb.append("You must insert a valid choice among these: (1, 2)\n");
+                sb.append("You must insert a valid choice among these: (1, 2).\n");
                 printStringBuilder();
             } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid choice among these: (1, 2)\n");
+                sb.append("You must insert a valid choice among these: (1, 2).\n");
                 printStringBuilder();
             }
         } while (true);
         result.put("cardCostChoice", choice);
+
+        return result;
+    }
+
+    /**
+     * This method is used to print the query for the player,
+     * in order to choose whether or not activate an exchange effect
+     * of a YellowCard during a "produce" action.
+     */
+    public Map<String, String> printExchangeQuery(Map<String, String> map) throws IOException {
+
+        HashMap<String, String> result = new HashMap<>();
+        String choice;
+        String str = null;
+
+        for (JsonNode singleYellowCard: rootBoard.path(CARDS).path("YELLOW"))
+            for (int i = 1; i <= 6; i++) {
+                if (beauty(singleYellowCard.path(CARDID)).equals(map.get(CARDID + i))) {
+                    Integer exchangesNumber = singleYellowCard.path("normalEffect").path("exchange").size();
+                    /*Integer exchangesNumber = 0;
+                    for (JsonNode singleExchange: singleYellowCard.path("normalEffect").path("exchange")) {
+                        exchangesNumber++;
+                    }*/
+
+                    switch (exchangesNumber) {
+                        case 2:
+                            sb.append("You've to choose whether or not activate the following exchange effects for the card #")
+                                    .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
+                                    .append("Type 0 to avoid activation of the exchanges;\n")
+                                    .append("Type 1 to activate the first exchange effect;\n")
+                                    .append("Type 2 to activate the second exchange effect.");
+                            printStringBuilder();
+                            str = "(0, 1, 2)";
+                            break;
+                        case 1:
+                        default:
+                            sb.append("You've to choose whether or not activate the following exchange effect for the card #")
+                                .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
+                                .append("Type 0 to avoid activation of the exchange;\n")
+                                .append("Type 1 to activate the exchange effect.");
+                            printStringBuilder();
+                            str = "(0, 1)";
+                    }
+
+                    do {
+                        try {
+                            choice = readString().toUpperCase();
+
+                            if ((exchangesNumber.equals(1) && (choice.equals("0") || choice.equals("1")))
+                                    || (exchangesNumber.equals(2) && (choice.equals("0") || choice.equals("1") || choice.equals("2")))) break;
+                            sb.append("You must insert a valid choice among these: ").append(str);
+                            printStringBuilder();
+                        } catch (IllegalArgumentException e) {
+                            sb.append("You must insert a valid choice among these: ").append(str);
+                            printStringBuilder();
+                        }
+                    } while (true);
+                    result.put("cardCostChoice", choice);
+                }
+            }
 
         return result;
     }
