@@ -31,11 +31,13 @@ public class GameViewCLI implements GameView {
     private StringBuilder sb;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
+    private boolean isWaitingForInput;
 
     public GameViewCLI(UUID playerID) {
         this.myPlayerID = playerID;
         this.mapper = new ObjectMapper();
         this.myPlayerName = "";
+        this.isWaitingForInput = true;
         this.sb = new StringBuilder();
         printLogo();
         printStringBuilder();
@@ -256,6 +258,8 @@ public class GameViewCLI implements GameView {
      * This method is used to print the query for the player,
      * in order to choose the space in which move the FamilyMember
      * and its color.
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
      */
     public Map<String, String> printMovementQuery() throws IOException {
 
@@ -317,6 +321,9 @@ public class GameViewCLI implements GameView {
     /**
      * This method is used to print the query for the player,
      * in order to choose the bonus of one or more parchments.
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
      */
     public Map<String, String> printParchmentQuery(Map<String, String> map) throws IOException {
 
@@ -357,6 +364,8 @@ public class GameViewCLI implements GameView {
     /**
      * This method is used to print the query for the player,
      * in order to choose if accept or not the effect of an excommunication.
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
      */
     public Map<String, String> printFaithQuery() throws IOException {
 
@@ -389,11 +398,14 @@ public class GameViewCLI implements GameView {
     /**
      * This method is used to print the query for the player,
      * in order to choose which cost to pay to take a purple card.
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
      */
     public Map<String, String> printCostQuery(Map<String, String> map) throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
-        String choice;
+        Integer choice;
 
         for (JsonNode singlePurpleCard: rootBoard.path(CARDS).path("PURPLE"))
             if (beauty(singlePurpleCard.path(CARDID)).equals(map.get(CARDID)))
@@ -404,16 +416,16 @@ public class GameViewCLI implements GameView {
 
         do {
             try {
-                choice = readString().toUpperCase();
-                if (choice.equals("1") || choice.equals("2")) break;
-                sb.append("You must insert a valid choice among these: (1, 2).\n");
+                choice = readInteger();
+                if (choice.equals(1) || choice.equals(2)) break;
+                sb.append("You must insert a valid number among these: (1, 2).\n");
                 printStringBuilder();
             } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid choice among these: (1, 2).\n");
+                sb.append("You must insert a valid number among these: (1, 2).\n");
                 printStringBuilder();
             }
         } while (true);
-        result.put("cardCostChoice", choice);
+        result.put("cardCostChoice", choice.toString());
 
         return result;
     }
@@ -422,12 +434,15 @@ public class GameViewCLI implements GameView {
      * This method is used to print the query for the player,
      * in order to choose whether or not activate an exchange effect
      * of a YellowCard during a "produce" action.
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
      */
     public Map<String, String> printExchangeQuery(Map<String, String> map) throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
-        String choice;
-        String str = null;
+        Integer choice;
+        String str;
 
         for (JsonNode singleYellowCard: rootBoard.path(CARDS).path("YELLOW"))
             for (int i = 1; i <= 6; i++) {
@@ -460,20 +475,63 @@ public class GameViewCLI implements GameView {
 
                     do {
                         try {
-                            choice = readString().toUpperCase();
+                            choice = readInteger();
 
-                            if ((exchangesNumber.equals(1) && (choice.equals("0") || choice.equals("1")))
-                                    || (exchangesNumber.equals(2) && (choice.equals("0") || choice.equals("1") || choice.equals("2")))) break;
-                            sb.append("You must insert a valid choice among these: ").append(str);
+                            if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
+                                    || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
+                            sb.append("You must insert a valid number among these: ").append(str);
                             printStringBuilder();
                         } catch (IllegalArgumentException e) {
-                            sb.append("You must insert a valid choice among these: ").append(str);
+                            sb.append("You must insert a valid number among these: ").append(str);
                             printStringBuilder();
                         }
                     } while (true);
-                    result.put("cardCostChoice", choice);
+                    result.put(CARDID, choice.toString());
                 }
             }
+
+        return result;
+    }
+
+    /**
+     * This method is used to print the query for the player,
+     * in order to choose which card you'd like to pick
+     * (this is due to a BLUE CARD's instantEffect).
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
+     */
+    public Map<String, String> printFreeCardQuery(Map<String, String> map) throws IOException {
+
+        HashMap<String, String> result = new HashMap<>();
+        StringBuilder str = new StringBuilder();
+        Integer choice;
+
+        Boolean isFirstLoop = true;
+        for (Map.Entry<String, String> entry: map.entrySet()) {
+            if (isFirstLoop) str.append(entry.getValue());
+            else str.append(", ").append(entry.getValue());
+            isFirstLoop = false;
+
+        }
+
+        sb.append("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n")
+                .append("Here there's a list of possible cards you can pick: ").append(str);
+        printStringBuilder();
+        
+        do {
+            try {
+                choice = readInteger();
+                if (map.containsValue(choice.toString())) break;
+                sb.append("You must insert a valid number between these: ").append(str);
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid number between these: ").append(str);
+                printStringBuilder();
+            }
+        } while (true);
+
+        result.put(CARDID, choice.toString());
 
         return result;
     }
@@ -526,7 +584,6 @@ public class GameViewCLI implements GameView {
         return 0;
     }
 
-
     /**
      * Method to init myPlayerName from GameView's JSON
      */
@@ -542,6 +599,14 @@ public class GameViewCLI implements GameView {
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
         printView();
+    }
+
+    /**
+     * Setter for isWaitingForInput attribute.
+     * @param bool: Boolean
+     */
+    public void setWaitingForInput(boolean bool) {
+        this.isWaitingForInput = bool;
     }
 
     /**
@@ -592,7 +657,7 @@ public class GameViewCLI implements GameView {
         gameState.put("GameInstance", gameInstance.toString());
         gameState.put("GameBoard", gameInstance.getGameBoard().toString());
         GameViewCLI view = new GameViewCLI(p1.getPlayerID());
-        view.update(gameState);
+        //view.update(gameState);
 
 /*        Map<String, String> parchment = new HashMap<>();
         parchment.put("parchments", "3");
@@ -604,5 +669,12 @@ public class GameViewCLI implements GameView {
         Map<String, String> cardID = new HashMap<>();
         cardID.put("cardID", "72");
         //view.printCostQuery(cardID);*/
+
+        Map<String, String> freeCards = new HashMap<>();
+        freeCards.put("cardID1", "72");
+        freeCards.put("cardID2", "8");
+        freeCards.put("cardID3", "42");
+        freeCards.put("cardID4", "22");
+        view.printFreeCardQuery(freeCards);
     }
 }
