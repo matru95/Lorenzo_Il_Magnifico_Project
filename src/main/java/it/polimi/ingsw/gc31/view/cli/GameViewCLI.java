@@ -297,7 +297,7 @@ public class GameViewCLI implements GameView {
                 printStringBuilder();
             }
         } while (true);
-        result.put("spaceID", id.toString());
+        result.put("positionID", id.toString());
 
         Integer max = getMyServants();
 

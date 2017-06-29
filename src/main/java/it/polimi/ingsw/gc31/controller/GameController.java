@@ -25,6 +25,7 @@ public class GameController extends Controller implements Runnable{
 
     public GameController(GameInstance model, List<Client> views) {
         super(model, views);
+        this.waitingTime = 60000;
         this.movementReceived = false;
     }
 
@@ -58,8 +59,8 @@ public class GameController extends Controller implements Runnable{
 
             this.movementReceived = false;
         } else {
-            this.endTime = System.nanoTime();
-            this.waitingTime = waitingTime - (endTime - startTime);
+            this.endTime = System.currentTimeMillis() ;
+            //this.waitingTime = waitingTime - (endTime - startTime);
 
             request.setMessageType(ServerMessageEnum.MOVEMENTFAIL);
             waitForMove(UUID.fromString(playerID), getClientFromPlayerID(UUID.fromString(playerID)));
@@ -70,6 +71,7 @@ public class GameController extends Controller implements Runnable{
 
     private boolean isMovementValid(String positionID, List<SpaceWrapper> possibleMovements) {
         for(SpaceWrapper possibleMovement: possibleMovements) {
+            System.out.println(positionID);
             if(possibleMovement.getPositionID() == Integer.valueOf(positionID)) {
                 return true;
             }
@@ -155,7 +157,7 @@ public class GameController extends Controller implements Runnable{
         this.playerWaitingFromID = playerID.toString();
 
 
-        this.startTime = System.nanoTime();
+        this.startTime = System.currentTimeMillis();
         waitForMove(playerID, client);
     }
 
@@ -167,21 +169,20 @@ public class GameController extends Controller implements Runnable{
         //      Check if a movement was made
         if(!this.movementReceived) {
 
+            System.out.println(waitingTime);
             payload.put("playerID", playerID.toString());
             ServerMessage timeOutRequest = new ServerMessage(ServerMessageEnum.TIMEOUT, payload);
 
             client.send(timeOutRequest);
         }
 
-        this.endTime = System.nanoTime();
+        this.endTime = System.currentTimeMillis();
     }
 
     private Client getClientFromPlayerID(UUID playerID) throws RemoteException {
 
         for(Client client: super.getViews()) {
             if(client.getPlayerID().equals(playerID)) {
-                System.out.println("here");
-
                 return client;
             }
         }

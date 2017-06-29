@@ -179,7 +179,7 @@ public class GameInstance implements Serializable, Runnable {
 	    Player player = null;
 
 	    for(Player playerIter: players) {
-	        if(playerIter.getPlayerID() == playerID) {
+	        if(playerIter.getPlayerID().equals(playerID)) {
 	            player = playerIter;
             }
         }

@@ -29,10 +29,10 @@ public class ClientImplementation implements Client, Serializable {
         GameServer gameServer = (GameServer) registry.lookup("game_server");
 
         Client client = new ClientImplementation();
-        UnicastRemoteObject.exportObject(client, 8081);
+        UnicastRemoteObject.exportObject(client, 8082);
         registry.rebind("game_client", client);
 
-        client.joinServer(gameServer, "Matteo", PlayerColor.RED);
+        client.joinServer(gameServer, "MAT2", PlayerColor.BLUE);
     }
 
     public ClientImplementation() {
@@ -58,13 +58,16 @@ public class ClientImplementation implements Client, Serializable {
     public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
         ServerMessageEnum requestType = request.getMessageType();
         Map<String, String> payload = request.getPayload();
+        ClientMessage clientMessage;
 
         switch (requestType) {
             case UPDATE:
                 view.update(payload);
                 break;
             case MOVEREQUEST:
-                server.send(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID.toString()));
+                clientMessage = new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID.toString());
+                clientMessage.setGameID(gameID.toString());
+                server.send(clientMessage);
                 break;
             case PARCHMENTREQUEST:
                 server.send(new ClientMessage(ClientMessageEnum.PARCHMENTCHOICE, view.parchmentQuery(payload), playerID.toString()));
