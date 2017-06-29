@@ -1,8 +1,9 @@
 package it.polimi.ingsw.gc31.messages;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class ServerMessage implements Message{
+public class ServerMessage implements Message, Serializable{
     private Map<String, String> payload;
     private ServerMessageEnum messageType;
 
@@ -26,5 +27,9 @@ public class ServerMessage implements Message{
 
     public ServerMessageEnum getMessageType() {
         return messageType;
+    }
+
+    public void setMessageType(ServerMessageEnum messageType) {
+        this.messageType = messageType;
     }
 }

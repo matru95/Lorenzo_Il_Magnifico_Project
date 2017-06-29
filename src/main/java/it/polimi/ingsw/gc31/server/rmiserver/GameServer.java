@@ -1,8 +1,7 @@
 package it.polimi.ingsw.gc31.server.rmiserver;
 
+import it.polimi.ingsw.gc31.controller.GameController;
 import it.polimi.ingsw.gc31.messages.ClientMessage;
-import it.polimi.ingsw.gc31.messages.Message;
-import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
@@ -14,11 +13,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface GameServer extends Remote {
-    Map<UUID, GameInstance> getGames() throws RemoteException;
+    Map<UUID, GameController> getGames() throws RemoteException;
 
-    GameInstance getGame(UUID instanceID) throws RemoteException;
-
-    void join(UUID playerID, String playerName, PlayerColor color) throws IOException, NoResourceMatch;
+    void join(UUID playerID, String playerName, PlayerColor color, Client client) throws IOException, NoResourceMatch;
 
     void leave(UUID playerID) throws RemoteException;
 

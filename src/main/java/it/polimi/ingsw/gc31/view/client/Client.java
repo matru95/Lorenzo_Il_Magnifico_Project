@@ -24,5 +24,7 @@ public interface Client extends Remote{
      */
     void send(ServerMessage request) throws NoResourceMatch, IOException;
 
-    UUID getGameID();
+    UUID getGameID() throws RemoteException;
+
+    UUID getPlayerID();
 }

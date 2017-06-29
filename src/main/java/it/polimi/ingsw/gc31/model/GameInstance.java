@@ -39,7 +39,7 @@ public class GameInstance implements Serializable, Runnable {
 
         //Initialize first turn and first age.
 		age = 1;
-		turn = 1;
+		turn = 0;
 
 		this.state = null;
         playerOrder = 0;
@@ -88,8 +88,10 @@ public class GameInstance implements Serializable, Runnable {
 	@Override
 	public void run() {
 	    this.generatePlayerOrders();
+
 //	    Game preparation state
 		this.state = new GamePrepState();
+
 		try {
 			this.state.doAction(this);
 		} catch (NoResourceMatch noResourceMatch) {
@@ -123,7 +125,9 @@ public class GameInstance implements Serializable, Runnable {
             do {
                 rnd = new Random().nextInt(this.players.size());
             } while (generatedNumbers.contains(rnd+1));
+
             generatedNumbers.add(rnd+1);
+
             this.players.get(i).setPlayerOrder(rnd+1);
         }
     }
@@ -182,4 +186,8 @@ public class GameInstance implements Serializable, Runnable {
 
         return player;
     }
+
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
 }

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc31.server.rmiserver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.polimi.ingsw.gc31.controller.Controller;
+import it.polimi.ingsw.gc31.controller.GameController;
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
@@ -17,7 +19,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 public class GameServerImpl extends UnicastRemoteObject implements GameServer{
-    private Map<UUID, GameInstance> games;
+    private Map<UUID, GameController> games;
     private UUID openGameID;
     private Map<UUID, List<Client>> clients;
     private Timer timer;
@@ -44,25 +46,18 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public Map<UUID, GameInstance> getGames() throws RemoteException {
+    public Map<UUID, GameController> getGames() throws RemoteException {
 
         return games;
     }
 
     @Override
-    public GameInstance getGame(UUID instanceID) throws RemoteException {
-
-        return null;
-    }
-
-    @Override
-    public void join(UUID playerID, String playerName, PlayerColor color) throws IOException, NoResourceMatch {
+    public void join(UUID playerID, String playerName, PlayerColor color, Client client) throws IOException, NoResourceMatch {
         Player player = new Player(playerID, playerName, color);
-        GameInstance openGame;
+        GameController openGame;
 
         if(this.openGameID != null) {
-            System.out.println("Joining existing game");
-            joinExistingGame(player);
+            joinExistingGame(player, client);
 
             if(timer == null) {
                 timer = new Timer();
@@ -90,34 +85,36 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     private void createNewGame(Player player) {
         GameInstance openGame;
+        GameController game;
 
         openGame = new GameInstance(UUID.randomUUID());
         this.openGameID = openGame.getInstanceID();
 
+        game = new GameController(openGame, new ArrayList<>());
         openGame.addPlayer(player);
+
         GameBoard gameBoard = new GameBoard(openGame);
         openGame.setGameBoard(gameBoard);
         player.setGameBoard(gameBoard);
 
-        games.put(openGameID, openGame);
-        clients.put(openGameID, new ArrayList<>());
+        games.put(openGameID, game);
+        clients.put(openGameID, game.getViews());
     }
 
-    private void joinExistingGame(Player player) throws NoResourceMatch, IOException {
-        GameInstance openGame = games.get(openGameID);
-        openGame.addPlayer(player);
+    private void joinExistingGame(Player player, Client client) throws NoResourceMatch, IOException {
+        GameController openGame = games.get(openGameID);
+        openGame.addPlayer(player, client);
 
-        GameBoard gameBoard = openGame.getGameBoard();
+        GameBoard gameBoard = openGame.getModel().getGameBoard();
         player.setGameBoard(gameBoard);
 
-        if(openGame.getNumOfPlayers() == 4) {
+        if(openGame.getModel().getNumOfPlayers() == 4) {
             startGame();
         }
     }
 
     private void startGame() throws NoResourceMatch, IOException {
-        System.out.println("starting game!");
-        GameInstance openGame = games.get(openGameID);
+        GameController openGame = games.get(openGameID);
         List<Client> clientsToUpdate = clients.get(openGameID);
         openGameID = null;
         timer.cancel();
@@ -145,7 +142,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     private Map<String, String> getGameState(String gameID) {
-        GameInstance gameInstance = games.get(UUID.fromString(gameID));
+        GameInstance gameInstance = games.get(UUID.fromString(gameID)).getModel();
         Map<String, String> response = new HashMap<>();
 
         response.put("GameInstance", gameInstance.toString());
@@ -159,7 +156,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         Map<String, UUID> payload = new HashMap<>();
         UUID playerID = UUID.randomUUID();
 
-        this.join(playerID, playerName, playerColor);
+        this.join(playerID, playerName, playerColor, client);
 
         List<Client> gameClients = this.clients.get(openGameID);
 
@@ -180,44 +177,25 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 Map<String, String> payload = request.getPayload();
                 String gameID = request.getGameID();
                 String playerID = request.getPlayerID();
-                String familyMemberColor = payload.get("familyMemberColor");
-                String positionID = payload.get("positionID");
+
+                return processMovementAction(gameID, playerID, payload);
         }
         return null;
+
     }
 
-//        RequestType requestType = request.getRequestType();
-//
-//        if(requestType == RequestType.ACTION) {
-//            ActionMessage requestAction = (ActionMessage) request;
-//            ActionType actionType = requestAction.getActionType();
-//
-//            if(actionType == ActionType.UPDATE) {
-//                String gameID = requestAction.getGameID();
-//
-//                return getGameState(gameID);
-//            } else if(actionType == ActionType.MOVE) {
-//                String gameID = requestAction.getGameID();
-//                String JSONData = requestAction.getMessage();
-//
-//                return processMovementAction(gameID, JSONData);
-//            }
-//        }
-//
-//        return null;
-//    }
 
+    private Map<String, String> processMovementAction(String gameID, String playerID, Map<String, String> payload) throws NoResourceMatch, IOException {
+        UUID gameInstanceID = UUID.fromString(gameID);
 
-    private Map<String, String> processMovementAction(String gameID, String JSONData) throws NoResourceMatch, IOException {
-//        UUID gameInstanceID = UUID.fromString(gameID);
-//
-//        GameInstance gameInstance = games.get(gameInstanceID);
-//        List<Client> gameClients = clients.get(gameInstance.getInstanceID());
-//
-//
-//        Controller controller = new GameActionController(gameInstance, gameClients);
-//        ((GameActionController) controller).movementAction(JSONData);
-//
+        GameController game = games.get(gameInstanceID);
+        synchronized (game) {
+            game.setMovementReceived(true);
+            game.notify();
+        }
+
+        game.movementAction(playerID, payload);
+
         return null;
     }
 

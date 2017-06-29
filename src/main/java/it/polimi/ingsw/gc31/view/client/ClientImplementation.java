@@ -10,6 +10,7 @@ import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 import java.io.IOException;
 import java.io.Serializable;
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -17,7 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ClientImplementation implements Client, Serializable{
-    private transient UUID playerID;
+    private UUID playerID;
     private GameServer server;
     private GameView view;
     private UUID gameID;
@@ -31,7 +32,7 @@ public class ClientImplementation implements Client, Serializable{
         UnicastRemoteObject.exportObject(client, 8081);
         registry.rebind("game_client", client);
 
-        client.joinServer(gameServer, "Matteo", PlayerColor.RED);
+        client.joinServer(gameServer, "Endi", PlayerColor.BLUE);
     }
 
     public ClientImplementation() {
@@ -70,8 +71,13 @@ public class ClientImplementation implements Client, Serializable{
     }
 
     @Override
-    public UUID getGameID() {
+    public UUID getGameID() throws RemoteException {
         return gameID;
+    }
+
+    @Override
+    public UUID getPlayerID() {
+        return playerID;
     }
 
 }

@@ -10,15 +10,19 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class TurnState implements State {
-
     private Player[] orderedPlayers;
 
     @Override
     public void doAction(GameInstance context) {
+        int turn = context.getTurn();
         Map<CardColor, Tower> towers= context.getGameBoard().getTowers();
+
+        context.setTurn(turn+1);
+
         for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
             towerEntry.getValue().drawCards();
         }
+
         this.orderedPlayers = new Player[context.getNumOfPlayers()];
         ArrayList<Player> players = context.getPlayers();
 
@@ -32,6 +36,10 @@ public class TurnState implements State {
         for(int i=0; i<this.orderedPlayers.length; i++) {
             this.orderedPlayers[i].doPlayerActions();
         }
+    }
+
+    public Player[] getOrderedPlayers() {
+        return orderedPlayers;
     }
 
     private Player[] orderPlayerActions(ArrayList<Player> players) {
