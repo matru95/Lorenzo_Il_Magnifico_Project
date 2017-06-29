@@ -32,7 +32,7 @@ public class ClientImplementation implements Client, Serializable {
         UnicastRemoteObject.exportObject(client, 8082);
         registry.rebind("game_client", client);
 
-        client.joinServer(gameServer, "MAT2", PlayerColor.BLUE);
+        client.joinServer(gameServer, "MAT2", PlayerColor.RED);
     }
 
     public ClientImplementation() {

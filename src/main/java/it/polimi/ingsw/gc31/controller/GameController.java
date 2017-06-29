@@ -85,6 +85,31 @@ public class GameController extends Controller implements Runnable{
         super.getViews().add(client);
     }
 
+    private void updateClients() throws NoResourceMatch, IOException, InterruptedException {
+        List<Client> clients = super.getViews();
+
+        for(Client client: clients) {
+            updateClient(client);
+        }
+    }
+
+    private void updateClient(Client client) throws NoResourceMatch, IOException, InterruptedException {
+        Map<String, String> payload = getGameState();
+        ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
+
+        client.send(request);
+    }
+
+    private Map<String,String> getGameState() {
+        GameInstance gameInstance = super.getModel();
+        Map<String, String> gameState = new HashMap<>();
+
+        gameState.put("GameInstance", gameInstance.toString());
+        gameState.put("GameBoard", gameInstance.getGameBoard().toString());
+
+        return gameState;
+    }
+
     @Override
     public void run() {
 //      Start the game
@@ -98,6 +123,16 @@ public class GameController extends Controller implements Runnable{
         State gamePrepState = gameInstance.getState();
         executeState(gamePrepState);
 
+        try {
+            updateClients();
+        } catch (NoResourceMatch noResourceMatch) {
+            noResourceMatch.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         int age = gameInstance.getAge();
         int turn = gameInstance.getTurn();
 
@@ -105,7 +140,10 @@ public class GameController extends Controller implements Runnable{
 
             while (turn <= 2) {
                 try {
+                    gameInstance.setTurn(turn);
+
                     doTurn();
+                    turn += 1;
                 } catch (NoResourceMatch noResourceMatch) {
                     noResourceMatch.printStackTrace();
                 } catch (IOException e) {
@@ -114,6 +152,7 @@ public class GameController extends Controller implements Runnable{
                     e.printStackTrace();
                 }
             }
+            turn = 1;
         }
 
 

@@ -117,40 +117,11 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     private void startGame() throws NoResourceMatch, IOException, InterruptedException {
         GameController openGame = games.get(openGameID);
-        List<Client> clientsToUpdate = clients.get(openGameID);
         openGameID = null;
         timer.cancel();
         timer.purge();
 
         (new Thread(openGame)).start();
-
-        updateClients(clientsToUpdate);
-
-    }
-
-    private void updateClients(List<Client> clients) throws NoResourceMatch, IOException, InterruptedException {
-
-        for(Client client: clients) {
-            updateClient(client);
-        }
-    }
-
-    private void updateClient(Client client) throws NoResourceMatch, IOException, InterruptedException {
-        UUID gameID = client.getGameID();
-        Map<String, String> payload = getGameState(gameID.toString());
-        ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
-
-        client.send(request);
-    }
-
-    private Map<String, String> getGameState(String gameID) {
-        GameInstance gameInstance = games.get(UUID.fromString(gameID)).getModel();
-        Map<String, String> response = new HashMap<>();
-
-        response.put("GameInstance", gameInstance.toString());
-        response.put("GameBoard", gameInstance.getGameBoard().toString());
-
-        return response;
     }
 
     @Override

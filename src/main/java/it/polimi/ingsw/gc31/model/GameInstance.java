@@ -39,7 +39,7 @@ public class GameInstance implements Serializable, Runnable {
 
         //Initialize first turn and first age.
 		age = 1;
-		turn = 0;
+		turn = 1;
 
 		this.state = null;
         playerOrder = 0;
@@ -98,13 +98,6 @@ public class GameInstance implements Serializable, Runnable {
 			noResourceMatch.printStackTrace();
 		}
 
-//		Turns
-        this.state = new TurnState();
-		try {
-			this.state.doAction(this);
-		} catch (NoResourceMatch noResourceMatch) {
-			noResourceMatch.printStackTrace();
-		}
 	}
 
     public boolean addPlayer(Player player) {
