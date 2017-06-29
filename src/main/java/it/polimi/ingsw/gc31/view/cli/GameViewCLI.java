@@ -254,14 +254,15 @@ public class GameViewCLI implements GameView {
                         .append("                                       ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝       \n\n");
     }
 
-    /**
-     * This method is used to print the query for the player,
-     * in order to choose the space in which move the FamilyMember
-     * and its color.
-     * @return Map where key is String and values are String
-     * @throws IOException: Error during input reading.
-     */
-    public Map<String, String> printMovementQuery() throws IOException {
+    @Override
+    public void update(Map<String, String> gameState) throws IOException {
+        this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
+        this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
+        printView();
+    }
+
+    @Override
+    public Map<String, String> movementQuery() throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
         DiceColor color;
@@ -318,14 +319,8 @@ public class GameViewCLI implements GameView {
         return result;
     }
 
-    /**
-     * This method is used to print the query for the player,
-     * in order to choose the bonus of one or more parchments.
-     * @param map Map<String, String>
-     * @return Map where key is String and values are String
-     * @throws IOException: Error during input reading.
-     */
-    public Map<String, String> printParchmentQuery(Map<String, String> map) throws IOException {
+    @Override
+    public Map<String, String> parchmentQuery(Map<String, String> map) throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
         int numOfParchments = Integer.parseInt(map.get("parchments"));
@@ -361,13 +356,8 @@ public class GameViewCLI implements GameView {
         return result;
     }
 
-    /**
-     * This method is used to print the query for the player,
-     * in order to choose if accept or not the effect of an excommunication.
-     * @return Map where key is String and values are String
-     * @throws IOException: Error during input reading.
-     */
-    public Map<String, String> printFaithQuery() throws IOException {
+    @Override
+    public Map<String, String> faithQuery() throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
         String choice;
@@ -395,14 +385,8 @@ public class GameViewCLI implements GameView {
         return result;
     }
 
-    /**
-     * This method is used to print the query for the player,
-     * in order to choose which cost to pay to take a purple card.
-     * @param map Map<String, String>
-     * @return Map where key is String and values are String
-     * @throws IOException: Error during input reading.
-     */
-    public Map<String, String> printCostQuery(Map<String, String> map) throws IOException {
+    @Override
+    public Map<String, String> costQuery(Map<String, String> map) throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
         Integer choice;
@@ -430,15 +414,8 @@ public class GameViewCLI implements GameView {
         return result;
     }
 
-    /**
-     * This method is used to print the query for the player,
-     * in order to choose whether or not activate an exchange effect
-     * of a YellowCard during a "produce" action.
-     * @param map Map<String, String>
-     * @return Map where key is String and values are String
-     * @throws IOException: Error during input reading.
-     */
-    public Map<String, String> printExchangeQuery(Map<String, String> map) throws IOException {
+    @Override
+    public Map<String, String> exchangeQuery(Map<String, String> map) throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
         Integer choice;
@@ -493,15 +470,8 @@ public class GameViewCLI implements GameView {
         return result;
     }
 
-    /**
-     * This method is used to print the query for the player,
-     * in order to choose which card you'd like to pick
-     * (this is due to a BLUE CARD's instantEffect).
-     * @param map Map<String, String>
-     * @return Map where key is String and values are String
-     * @throws IOException: Error during input reading.
-     */
-    public Map<String, String> printFreeCardQuery(Map<String, String> map) throws IOException {
+    @Override
+    public Map<String, String> freeCardQuery(Map<String, String> map) throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
         StringBuilder str = new StringBuilder();
@@ -594,13 +564,6 @@ public class GameViewCLI implements GameView {
                     myPlayerName = beauty(singleplayer.path("playerName"));
     }
 
-    @Override
-    public void update(Map<String, String> gameState) throws IOException {
-        this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
-        this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
-        printView();
-    }
-
     /**
      * Setter for isWaitingForInput attribute.
      * @param bool: Boolean
@@ -621,7 +584,6 @@ public class GameViewCLI implements GameView {
                 .replace("}","")
                 .replace(",", ", ")
                 .replace("currentPositionID:0", "[HASN'T_MOVED_YET]");
-
     }
 
     public static void main(String[] args) throws IOException {
@@ -675,6 +637,6 @@ public class GameViewCLI implements GameView {
         freeCards.put("cardID2", "8");
         freeCards.put("cardID3", "42");
         freeCards.put("cardID4", "22");
-        view.printFreeCardQuery(freeCards);
+        view.freeCardQuery(freeCards);
     }
 }
