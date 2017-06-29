@@ -23,6 +23,7 @@ public class GameViewCLI implements GameView {
     private static final String PN = "playerName";
     private static final String PL = "players";
     private static final String CARDS = "cards";
+    private static final String CARDID = "cardID";
 
     private final UUID myPlayerID;
     private final ObjectMapper mapper;
@@ -30,11 +31,13 @@ public class GameViewCLI implements GameView {
     private StringBuilder sb;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
+    private boolean isWaitingForInput;
 
     public GameViewCLI(UUID playerID) {
         this.myPlayerID = playerID;
         this.mapper = new ObjectMapper();
         this.myPlayerName = "";
+        this.isWaitingForInput = true;
         this.sb = new StringBuilder();
         printLogo();
         printStringBuilder();
@@ -115,7 +118,7 @@ public class GameViewCLI implements GameView {
 
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("~ FAITH CARDS ~", beauty(faithTiles.path("1")), beauty(faithTiles.path("2")), beauty(faithTiles.path("3")) );
+        at.addRow("~ FAITH CARDS ~", beauty(faithTiles.path(0)), beauty(faithTiles.path(1)), beauty(faithTiles.path(2)));
         at.addRule();
         at.getRenderer().setCWC(new CWC_FixedWidth().add(35).add(36).add(36).add(36));
         at.setTextAlignment(TextAlignment.CENTER);
@@ -255,14 +258,18 @@ public class GameViewCLI implements GameView {
      * This method is used to print the query for the player,
      * in order to choose the space in which move the FamilyMember
      * and its color.
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
      */
-    public String printMovementQuery() throws IOException {
+    public Map<String, String> printMovementQuery() throws IOException {
 
-        Integer id;
+        HashMap<String, String> result = new HashMap<>();
         DiceColor color;
+        Integer id;
+        Integer servants;
 
         sb.append("\nIt's your turn, move a Family Member into a Space:\n")
-          .append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL\n");
+                .append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL");
         printStringBuilder();
 
         do {
@@ -270,70 +277,108 @@ public class GameViewCLI implements GameView {
                 color = readDiceColor();
                 break;
             } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid color among these: \n" +
-                        "BLACK, WHITE, ORANGE, NEUTRAL\n");
+                sb.append("You must insert a valid color among these: BLACK, WHITE, ORANGE, NEUTRAL");
                 printStringBuilder();
             }
         } while (true);
+        result.put("diceColor", color.toString());
 
-        sb.append("\nEnter the ID of the Space:\n");
+        sb.append("\nEnter the ID of the Space:");
         printStringBuilder();
         do {
             try {
                 id = readInteger();
                 if (id > 0 && id <= 23) break;
-                sb.append("You must insert a valid number between 1 and 23:\n");
+                sb.append("You must insert a valid number between 1 and 23:");
                 printStringBuilder();
             } catch (NumberFormatException e) {
-                sb.append("You must insert a valid number between 1 and 23:\n");
+                sb.append("You must insert a valid number between 1 and 23:");
                 printStringBuilder();
             }
         } while (true);
+        result.put("spaceID", id.toString());
 
-        return color + ", " + id;
+        Integer max = getMyServants();
+
+        sb.append("\nEnter the number of servants you'd like to add (if you won't enter 0):");
+        printStringBuilder();
+        do {
+            try {
+                servants = readInteger();
+                if (servants >= 0 && servants <= max) break;
+                sb.append("You must insert a valid number between 1 and ").append(max).append(":");
+                printStringBuilder();
+            } catch (NumberFormatException e) {
+                sb.append("You must insert a valid number between 1 and ").append(max).append(":");
+                printStringBuilder();
+            }
+        } while (true);
+        result.put("servantsToPay", servants.toString());
+
+        return result;
     }
 
     /**
      * This method is used to print the query for the player,
-     * in order to choose the bonus of a parchment.
+     * in order to choose the bonus of one or more parchments.
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
      */
-    public String printParchmentQuery() throws IOException {
+    public Map<String, String> printParchmentQuery(Map<String, String> map) throws IOException {
 
-        sb.append("\nChoose a BONUS for parchment between this: \n" +
-            "Type 0 for: 1 Wood && 1 Stone \n" +
-            "Type 1 for: 2 Servants \n" +
-            "Type 2 for: 2 Golds \n" +
-            "Type 3 for: 2 Military Points \n" +
-            "Type 4 for: 1 Faith Points \n");
-        printStringBuilder();
+        HashMap<String, String> result = new HashMap<>();
+        int numOfParchments = Integer.parseInt(map.get("parchments"));
+        ArrayList<Integer> lastChoices = new ArrayList<>();
+        if (numOfParchments > 1)
+            sb.append("Now you'll have to choose ").append(numOfParchments).append(" different parchments.\n");
 
-        Integer choice;
-        do {
-            try {
-                choice = readInteger();
-                if (choice >= 0 && choice <= 4) break;
-                sb.append("You must insert a valid number between 0 and 4:\n");
-                printStringBuilder();
-            } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid number between 0 and 4:\n");
-                printStringBuilder();
-            }
-        } while (true);
+        for (int i = 1; i <= numOfParchments; i++) {
+            sb.append("Choose a parchment's bonus between this: \n" +
+                    "Type 0 for: 1 Wood && 1 Stone \n" +
+                    "Type 1 for: 2 Servants \n" +
+                    "Type 2 for: 2 Golds \n" +
+                    "Type 3 for: 2 Military Points \n" +
+                    "Type 4 for: 1 Faith Points ");
+            printStringBuilder();
 
-        return choice.toString();
+            Integer choice;
+            do {
+                try {
+                    choice = readInteger();
+                    if (choice >= 0 && choice <= 4 && !lastChoices.contains(choice)) break;
+                    sb.append("You must insert a valid number between 0 and 4 and different from previous choices:");
+                    printStringBuilder();
+                } catch (IllegalArgumentException e) {
+                    sb.append("You must insert a valid number between 0 and 4 and different from previous choices:");
+                    printStringBuilder();
+                }
+            } while (true);
+            result.put(String.valueOf(i), choice.toString());
+            lastChoices.add(choice);
+        }
+
+        return result;
     }
 
     /**
      * This method is used to print the query for the player,
      * in order to choose if accept or not the effect of an excommunication.
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
      */
-    public String printFaithQuery(String faithTile) throws IOException {
+    public Map<String, String> printFaithQuery() throws IOException {
 
-        sb.append("\nChoose if you wanna take this excommunication (YES/NO):\n")
-                .append(beauty(mapper.readTree(faithTile).path("faithTiles").path("effect"))).append("\n");
-        printStringBuilder();
-
+        HashMap<String, String> result = new HashMap<>();
         String choice;
+
+        for (JsonNode singleFaithTile: rootBoard.path("faithTiles"))
+            if (beauty(singleFaithTile.path("age")).equals(beauty(rootInstance.path("age")))) {
+                sb.append("\nChoose if you wanna take this excommunication (YES/NO):\n")
+                        .append(beauty(singleFaithTile.path("effect"))).append("\n");
+                printStringBuilder();
+            }
+
         do {
             try {
                 choice = readString().toUpperCase();
@@ -345,7 +390,150 @@ public class GameViewCLI implements GameView {
                 printStringBuilder();
             }
         } while (true);
-        return choice;
+        result.put("applyExcommunication", choice);
+
+        return result;
+    }
+
+    /**
+     * This method is used to print the query for the player,
+     * in order to choose which cost to pay to take a purple card.
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
+     */
+    public Map<String, String> printCostQuery(Map<String, String> map) throws IOException {
+
+        HashMap<String, String> result = new HashMap<>();
+        Integer choice;
+
+        for (JsonNode singlePurpleCard: rootBoard.path(CARDS).path("PURPLE"))
+            if (beauty(singlePurpleCard.path(CARDID)).equals(map.get(CARDID)))
+                sb.append("\n{(")
+                        .append(beauty(singlePurpleCard.path("cost").path(0))).append(") OR (")
+                        .append(beauty(singlePurpleCard.path("cost").path(1))).append(")}");
+        printStringBuilder();
+
+        do {
+            try {
+                choice = readInteger();
+                if (choice.equals(1) || choice.equals(2)) break;
+                sb.append("You must insert a valid number among these: (1, 2).\n");
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid number among these: (1, 2).\n");
+                printStringBuilder();
+            }
+        } while (true);
+        result.put("cardCostChoice", choice.toString());
+
+        return result;
+    }
+
+    /**
+     * This method is used to print the query for the player,
+     * in order to choose whether or not activate an exchange effect
+     * of a YellowCard during a "produce" action.
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
+     */
+    public Map<String, String> printExchangeQuery(Map<String, String> map) throws IOException {
+
+        HashMap<String, String> result = new HashMap<>();
+        Integer choice;
+        String str;
+
+        for (JsonNode singleYellowCard: rootBoard.path(CARDS).path("YELLOW"))
+            for (int i = 1; i <= 6; i++) {
+                if (beauty(singleYellowCard.path(CARDID)).equals(map.get(CARDID + i))) {
+                    Integer exchangesNumber = singleYellowCard.path("normalEffect").path("exchange").size();
+                    /*Integer exchangesNumber = 0;
+                    for (JsonNode singleExchange: singleYellowCard.path("normalEffect").path("exchange")) {
+                        exchangesNumber++;
+                    }*/
+
+                    switch (exchangesNumber) {
+                        case 2:
+                            sb.append("You've to choose whether or not activate the following exchange effects for the card #")
+                                    .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
+                                    .append("Type 0 to avoid activation of the exchanges;\n")
+                                    .append("Type 1 to activate the first exchange effect;\n")
+                                    .append("Type 2 to activate the second exchange effect.");
+                            printStringBuilder();
+                            str = "(0, 1, 2)";
+                            break;
+                        case 1:
+                        default:
+                            sb.append("You've to choose whether or not activate the following exchange effect for the card #")
+                                .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
+                                .append("Type 0 to avoid activation of the exchange;\n")
+                                .append("Type 1 to activate the exchange effect.");
+                            printStringBuilder();
+                            str = "(0, 1)";
+                    }
+
+                    do {
+                        try {
+                            choice = readInteger();
+
+                            if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
+                                    || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
+                            sb.append("You must insert a valid number among these: ").append(str);
+                            printStringBuilder();
+                        } catch (IllegalArgumentException e) {
+                            sb.append("You must insert a valid number among these: ").append(str);
+                            printStringBuilder();
+                        }
+                    } while (true);
+                    result.put(CARDID, choice.toString());
+                }
+            }
+
+        return result;
+    }
+
+    /**
+     * This method is used to print the query for the player,
+     * in order to choose which card you'd like to pick
+     * (this is due to a BLUE CARD's instantEffect).
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
+     */
+    public Map<String, String> printFreeCardQuery(Map<String, String> map) throws IOException {
+
+        HashMap<String, String> result = new HashMap<>();
+        StringBuilder str = new StringBuilder();
+        Integer choice;
+
+        Boolean isFirstLoop = true;
+        for (Map.Entry<String, String> entry: map.entrySet()) {
+            if (isFirstLoop) str.append(entry.getValue());
+            else str.append(", ").append(entry.getValue());
+            isFirstLoop = false;
+
+        }
+
+        sb.append("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n")
+                .append("Here there's a list of possible cards you can pick: ").append(str);
+        printStringBuilder();
+        
+        do {
+            try {
+                choice = readInteger();
+                if (map.containsValue(choice.toString())) break;
+                sb.append("You must insert a valid number between these: ").append(str);
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid number between these: ").append(str);
+                printStringBuilder();
+            }
+        } while (true);
+
+        result.put(CARDID, choice.toString());
+
+        return result;
     }
 
     /**
@@ -387,6 +575,16 @@ public class GameViewCLI implements GameView {
     }
 
     /**
+     * Method to get my number of servants.
+     */
+    private Integer getMyServants(){
+        for (JsonNode singlePlayer: rootInstance.path(PL))
+            if (beauty(singlePlayer.path("playerID")).equals(myPlayerID.toString()))
+                return singlePlayer.path("res").path("SERVANTS").asInt();
+        return 0;
+    }
+
+    /**
      * Method to init myPlayerName from GameView's JSON
      */
     private void initPlayerName() {
@@ -401,6 +599,14 @@ public class GameViewCLI implements GameView {
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
         printView();
+    }
+
+    /**
+     * Setter for isWaitingForInput attribute.
+     * @param bool: Boolean
+     */
+    public void setWaitingForInput(boolean bool) {
+        this.isWaitingForInput = bool;
     }
 
     /**
@@ -451,6 +657,24 @@ public class GameViewCLI implements GameView {
         gameState.put("GameInstance", gameInstance.toString());
         gameState.put("GameBoard", gameInstance.getGameBoard().toString());
         GameViewCLI view = new GameViewCLI(p1.getPlayerID());
-        view.update(gameState);
+        //view.update(gameState);
+
+/*        Map<String, String> parchment = new HashMap<>();
+        parchment.put("parchments", "3");
+        //view.printParchmentQuery(parchment);
+
+        //view.printFaithQuery();
+        //view.printMovementQuery();
+
+        Map<String, String> cardID = new HashMap<>();
+        cardID.put("cardID", "72");
+        //view.printCostQuery(cardID);*/
+
+        Map<String, String> freeCards = new HashMap<>();
+        freeCards.put("cardID1", "72");
+        freeCards.put("cardID2", "8");
+        freeCards.put("cardID3", "42");
+        freeCards.put("cardID4", "22");
+        view.printFreeCardQuery(freeCards);
     }
 }
