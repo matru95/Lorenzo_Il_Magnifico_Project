@@ -89,8 +89,13 @@ public class Tower implements Serializable{
     }
 
     public boolean hasFamilyMemberSameColor(PlayerColor playerColor) {
+
         for(Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry: towerSpaces.entrySet()) {
+
             if(towerSpaceWrapperEntry.getValue().isOccupied()) {
+                System.out.println(towerSpaceWrapperEntry);
+                System.out.println(towerSpaceWrapperEntry.getValue());
+                System.out.println(towerSpaceWrapperEntry.getValue().getFamilyMember());
                 if(towerSpaceWrapperEntry.getValue().getFamilyMember().getPlayerColor() == playerColor) {
                     return  true;
                 }

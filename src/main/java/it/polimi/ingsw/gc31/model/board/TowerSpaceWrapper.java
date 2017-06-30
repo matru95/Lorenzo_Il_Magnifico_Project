@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.model.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -75,57 +76,82 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
+        List<Map<ResourceName, Resource>> cardCost = this.getCard().getCost();
+        boolean[] results = new boolean[cardCost.size()];
 
-        List<Map<ResourceName, Resource>> cardResources = this.getCard().getCost();
-        boolean[] results = new boolean[cardResources.size()];
-
-        int index = 0;
-
-        for(Map<ResourceName, Resource> cardResource: cardResources) {
-            for(Map.Entry<ResourceName, Resource> playerResource: playerResources.entrySet()) {
-                int playerResourceValue = playerResource.getValue().getNumOf();
-                String resourceNameString = playerResource.getKey().toString();
-
-                Resource singleCardResource = cardResource.get(ResourceName.valueOf(resourceNameString));
-                int cardResourceValue = 0;
-
-                if(singleCardResource != null) {
-                    cardResourceValue = singleCardResource.getNumOf();
-                }
-
-                if(playerResourceValue < cardResourceValue) {
-                    results[index] = false;
-                }
-
-            }
-            results[index] = true;
-            index++;
-        }
-
-        index = 0;
-
-//      Check if family member has enough gold to occupy a occupied tower
         if(this.tower.isOccupied()) {
-            int playerGold = playerResources.get(ResourceName.GOLD).getNumOf();
 
-            for(Map<ResourceName, Resource> cardResource: cardResources) {
-                int possibleCost = cardResource.get(ResourceName.GOLD).getNumOf()+3;
+            if(!isTowerOccupiedAffordable(playerResources, playerColor)) {
+//              Tower is occupied and familymember can't pay gold
+                return false;
+            }
+        }
 
-                if(playerGold < possibleCost) {
-                    results[index] = false;
+        return canPayCost(playerResources, playerColor);
+    }
+
+    /**
+     * Method that check if a family member has enough gold to occupy an already occupied tower
+     * @param playerResources
+     * @param color
+     * @return boolean
+     */
+    private boolean isTowerOccupiedAffordable(Map<ResourceName, Resource> playerResources, PlayerColor color) {
+        int playerGold = playerResources.get(ResourceName.GOLD).getNumOf();
+        List<Map<ResourceName, Resource>> cardCost = this.getCard().getCost();
+
+        for(Map<ResourceName, Resource> cardResource: cardCost) {
+            int possibleCost = cardResource.get(ResourceName.GOLD).getNumOf()+3;
+
+            if(playerGold < possibleCost) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean canPayCost(Map<ResourceName, Resource> playerResources, PlayerColor color) {
+        List<Map<ResourceName, Resource>> cardCosts = getCard().getCost();
+        boolean result = false;
+
+//      Check if the card has a cost, if not, return true immediately
+        if(cardCosts.size() == 0) {
+            return true;
+        }
+
+//      Check if the card requires gold and if the tower is occupied
+
+
+        for(Map<ResourceName, Resource> cardCost: cardCosts) {
+            boolean singleCostResult = true;
+
+            if(cardCost.get(ResourceName.GOLD) != null && tower.isOccupied()) {
+                int goldToPay = cardCost.get(ResourceName.GOLD).getNumOf() + 3;
+
+                if(goldToPay > playerResources.get(ResourceName.GOLD).getNumOf()) {
+
+                    return false;
                 }
-                index++;
+            }
+
+            for(Map.Entry<ResourceName, Resource> singleCardCostField: cardCost.entrySet()) {
+                Resource playerResource = playerResources.get(singleCardCostField.getKey());
+                int playerResourceAmount = playerResource.getNumOf();
+                int cardCostAmount = singleCardCostField.getValue().getNumOf();
+
+                if(playerResourceAmount < cardCostAmount) {
+                    singleCostResult = false;
+                }
+            }
+
+            if(singleCostResult == true) {
+                result = true;
             }
         }
 
-//      If at least one of the costs is less than player resources, return true
-        for(boolean affordability: results) {
-            if(affordability) {
-                return true;
-            }
-        }
+        return result;
 
-        return false;
     }
 
     public CardColor getColor() {

@@ -2,8 +2,10 @@ package it.polimi.ingsw.gc31.controller;
 
 import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.model.GameInstance;
+import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -25,5 +27,5 @@ public abstract class Controller {
         return views;
     }
 
-    public abstract void updateClients(Message request);
+    protected abstract void updateClients() throws NoResourceMatch, IOException, InterruptedException;
 }

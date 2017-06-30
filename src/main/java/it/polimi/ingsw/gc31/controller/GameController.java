@@ -29,11 +29,6 @@ public class GameController extends Controller implements Runnable{
         this.movementReceived = false;
     }
 
-    @Override
-    public void updateClients(Message request) {
-        return;
-    }
-
     public void movementAction(String playerID, Map<String, String> movementData) throws NoResourceMatch, IOException, InterruptedException {
 //      this.movementReceived is true at this point
 
@@ -66,13 +61,13 @@ public class GameController extends Controller implements Runnable{
             waitForMove(UUID.fromString(playerID), getClientFromPlayerID(UUID.fromString(playerID)));
         }
 
-        updateClients(request);
+        updateClients();
     }
 
     private boolean isMovementValid(String positionID, List<SpaceWrapper> possibleMovements) {
         for(SpaceWrapper possibleMovement: possibleMovements) {
-            System.out.println(positionID);
-            if(possibleMovement.getPositionID() == Integer.valueOf(positionID)) {
+
+            if(Integer.valueOf(positionID).equals(possibleMovement.getPositionID())) {
                 return true;
             }
         }
@@ -85,7 +80,8 @@ public class GameController extends Controller implements Runnable{
         super.getViews().add(client);
     }
 
-    private void updateClients() throws NoResourceMatch, IOException, InterruptedException {
+    @Override
+    protected void updateClients() throws NoResourceMatch, IOException, InterruptedException {
         List<Client> clients = super.getViews();
 
         for(Client client: clients) {
@@ -167,6 +163,7 @@ public class GameController extends Controller implements Runnable{
 
         try {
             turnState.doAction(gameInstance);
+            updateClients();
         } catch (NoResourceMatch noResourceMatch) {
             noResourceMatch.printStackTrace();
         }
@@ -208,7 +205,6 @@ public class GameController extends Controller implements Runnable{
         //      Check if a movement was made
         if(!this.movementReceived) {
 
-            System.out.println(waitingTime);
             payload.put("playerID", playerID.toString());
             ServerMessage timeOutRequest = new ServerMessage(ServerMessageEnum.TIMEOUT, payload);
 
@@ -216,6 +212,7 @@ public class GameController extends Controller implements Runnable{
         }
 
         this.endTime = System.currentTimeMillis();
+        updateClients();
     }
 
     private Client getClientFromPlayerID(UUID playerID) throws RemoteException {

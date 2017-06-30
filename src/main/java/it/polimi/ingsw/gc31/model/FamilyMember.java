@@ -84,22 +84,22 @@ public class FamilyMember {
 	public List<SpaceWrapper> checkPossibleMovements() {
 
 	    //TODO This method will be changed once FaithCards are implemented
-
         List<SpaceWrapper> possibleMovements = new ArrayList<>();
-        insertOpenSpaces(possibleMovements);
+        List<SpaceWrapper> openSpaces = new ArrayList<>();
 
-        int possiblePoints = this.player.getRes().get(ResourceName.SERVANTS).getNumOf();
+        insertOpenSpaces(openSpaces);
 
-        List<SpaceWrapper> towerSpaceWrappers = new ArrayList<>();
-        insertTowerSpaceWrappers(towerSpaceWrappers);
+        int possiblePoints = dicePoints + this.player.getRes().get(ResourceName.SERVANTS).getNumOf();
+
+        insertTowerSpaceWrappers(openSpaces);
 
 
+        for(SpaceWrapper spaceWrapper: openSpaces) {
+            boolean isAffordable = spaceWrapper.isAffordable(this.player.getRes(), this.playerColor);
+            int spaceDiceBond = spaceWrapper.getDiceBond();
 
-        for(SpaceWrapper towerSpaceWrapper: towerSpaceWrappers) {
-            boolean isAffordable = towerSpaceWrapper.isAffordable(this.player.getRes(), this.playerColor);
-            int spaceDiceBond = towerSpaceWrapper.getDiceBond();
             if(isAffordable && spaceDiceBond <= possiblePoints) {
-                possibleMovements.add(towerSpaceWrapper);
+                possibleMovements.add(spaceWrapper);
             }
         }
 
@@ -107,6 +107,8 @@ public class FamilyMember {
 	}
 
 	private void insertOpenSpaces(List<SpaceWrapper> possibleMovements) {
+
+//	    Get every board space except towers
         for(Map.Entry<String, SpaceWrapper> spaceEntry: board.getOpenSpaces().entrySet()) {
             possibleMovements.add(spaceEntry.getValue());
         }
@@ -120,8 +122,9 @@ public class FamilyMember {
         Map<CardColor, Tower> towers = this.board.getTowers();
 
         for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
-            //verifico il numero di carte del player per ogni colore. Se è <6 allora...
-            if(cardNumBond(towerEntry.getKey())) {
+
+            if(checkCardNumBond(towerEntry.getKey())) {
+
                 Tower tower = towerEntry.getValue();
                 boolean hasFamilyMemberColor = tower.hasFamilyMemberSameColor(playerColor);
 
@@ -175,10 +178,12 @@ public class FamilyMember {
         }
 
     }
-    public boolean cardNumBond(CardColor cardColor){
-        if ( this.player.getCards().get(cardColor).size()<6){
+    public boolean checkCardNumBond(CardColor cardColor){
+
+        if (this.player.getCards().get(cardColor).size() < 6) {
             return true;
         }
+
         return false;
     }
 
