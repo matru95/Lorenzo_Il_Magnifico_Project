@@ -177,15 +177,16 @@ public class FaithTile {
 			loseForEvery.add(lost);
 		}
 		if(this.loseForEveryCostCardColor!=null){
-			ArrayNode loseForEveryCost= mapper.createArrayNode();
+			ObjectNode loseForEveryCost= mapper.createObjectNode();
 			ObjectNode loseForEveryCardColor= mapper.createObjectNode();
 			loseForEveryCardColor.put("cardColor",loseForEveryCostCardColor.toString());
-			loseForEveryCost.add(loseForEveryCardColor);
+			loseForEveryCost.set("loseForEveryCost",loseForEveryCardColor);
+
 			ObjectNode cardTypeCost= mapper.createObjectNode();
 			for(Resource resource: this.loseForEveryCost){
 				cardTypeCost.put(resource.getResourceName().toString(), resource.getNumOf());
 			}
-			loseForEveryCost.add(cardTypeCost);
+			loseForEveryCost.set("loseForEveryCost", cardTypeCost);
 		}
 		return faithObjectNode;
 	}
