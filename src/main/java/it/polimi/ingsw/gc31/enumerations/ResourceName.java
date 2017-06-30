@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.enumerations;
 
 public enum ResourceName {
+
     GOLD("GOLD"),
     FAITHPOINTS("FAITHPOINTS"),
     SERVANTS("SERVANTS"),
@@ -19,4 +20,5 @@ public enum ResourceName {
     public String toString() {
         return resourceString;
     }
+
 }
