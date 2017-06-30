@@ -28,16 +28,14 @@ public class FaithPointParser {
         }
 
     }
-    public void parse() {
+    public Map<Integer, Integer> parse() {
         JsonNode faithPointsJSON= rootNode.path("faithPoints");
         for(JsonNode faithPoint: faithPointsJSON){
             JsonNode id=faithPoint.path("id");
             JsonNode victoryPoints=faithPoint.path("victoryPoints");
             this.faithPoints.put(id.asInt(),victoryPoints.asInt());
         }
-    }
-
-    public Map<Integer, Integer> getFaithPoints() {
         return faithPoints;
     }
+
 }

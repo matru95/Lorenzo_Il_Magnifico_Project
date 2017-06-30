@@ -45,12 +45,10 @@ public class Player implements Serializable {
 	
 	//Cards
 	private Map<CardColor, List<Card>> cards;
-
-	private FaithTile[] faithCards;
 	private FamilyMember[] familyMembers;
 
 	//FatihTiles
-	private List<FaithTile> excommunication;
+	private List<FaithTile> excommunications;
 	private List<Bonus> bonuses;
 	
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
@@ -312,12 +310,8 @@ public class Player implements Serializable {
         return isMovedThisTurn;
     }
 
-	/**
-	 * Getter for attribute "faithCards"
-	 * @return FaithTile[]
-	 */
-	public FaithTile[] getFaithCards() {
-		return faithCards;
+	public List<FaithTile> getExcommunications() {
+		return excommunications;
 	}
 
 	/**

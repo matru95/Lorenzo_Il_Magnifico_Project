@@ -28,6 +28,7 @@ public class GameBoard implements Serializable {
     private transient GameBoardParser parser;
     private CardParser cardParser;
     private FaithTileParser faithTileParser;
+
     public GameBoard(GameInstance gameInstance) {
 
         this.gameInstance = gameInstance;
@@ -73,8 +74,7 @@ public class GameBoard implements Serializable {
         this.church=new HashMap<>();
         faithTileParser.parse();
         List <FaithTile> inGameFaithTiles=faithTileParser.getTilesByAge();
-        int i=0;
-        for (i=0;i<=2;i++){
+        for (int i = 1; i <= 3; i++) {
             this.church.put(i,inGameFaithTiles.get(i));
         }
 
@@ -192,6 +192,10 @@ public class GameBoard implements Serializable {
                 positionIter.getPositionID() == positionID).findFirst().orElse(null);
 
         return position;
+    }
+
+    public Map<Integer, FaithTile> getChurch() {
+        return church;
     }
 
     public GameInstance getGameInstance() {
