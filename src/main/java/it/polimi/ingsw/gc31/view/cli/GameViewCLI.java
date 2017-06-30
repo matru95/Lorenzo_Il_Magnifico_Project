@@ -262,6 +262,12 @@ public class GameViewCLI implements GameView {
     }
 
     @Override
+    public void movementFail(Map<String, String> map) {
+        sb.append("Movement is NOT Valid, try again: \n");
+        printStringBuilder();
+    }
+
+    @Override
     public Map<String, String> movementQuery() throws IOException {
 
         HashMap<String, String> result = new HashMap<>();

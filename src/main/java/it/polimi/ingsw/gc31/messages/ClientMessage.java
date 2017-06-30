@@ -3,31 +3,31 @@ package it.polimi.ingsw.gc31.messages;
 import java.io.Serializable;
 import java.util.Map;
 
-public class ClientMessage implements Message, Serializable{
-    private Map<String, String> payload;
-    private String gameID;
+public class ClientMessage implements Message, Serializable {
+
     private ClientMessageEnum clientMessageType;
+    private Map<String, String> payload;
     private String playerID;
+    private String gameID;
 
-
-    public ClientMessage(String playerID) {
-        this.playerID = playerID;
-    }
-
-    public ClientMessage(ClientMessageEnum clientMessageType, Map<String, String> payload, String playerID) {
+    public ClientMessage(ClientMessageEnum clientMessageType, Map<String, String> payload, String playerID, String gameID) {
         this.clientMessageType = clientMessageType;
         this.payload = payload;
         this.playerID = playerID;
+        this.gameID = gameID;
     }
 
-
-    public void setPlayerID(String playerID) {
-        this.playerID = playerID;
+    public ClientMessageEnum getClientMessageType() {
+        return clientMessageType;
     }
 
-    public String getPlayerID() {
+    public void setClientMessageType(ClientMessageEnum clientMessageType) {
+        this.clientMessageType = clientMessageType;
+    }
 
-        return playerID;
+    @Override
+    public Map<String, String> getPayload() {
+        return payload;
     }
 
     @Override
@@ -35,25 +35,20 @@ public class ClientMessage implements Message, Serializable{
         this.payload = payLoad;
     }
 
+    public String getPlayerID() {
+        return playerID;
+    }
+
+    public void setPlayerID(String playerID) {
+        this.playerID = playerID;
+    }
+
+    public String getGameID() {
+        return gameID;
+    }
+
     public void setGameID(String gameID) {
         this.gameID = gameID;
     }
 
-    public void setClientMessageType(ClientMessageEnum clientMessageType) {
-        this.clientMessageType = clientMessageType;
-    }
-
-    public String getGameID() {
-
-        return gameID;
-    }
-
-    public ClientMessageEnum getClientMessageType() {
-        return clientMessageType;
-    }
-
-    @Override
-    public Map<String, String> getPayload() {
-        return payload;
-    }
 }

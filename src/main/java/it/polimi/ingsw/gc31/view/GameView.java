@@ -9,9 +9,15 @@ public interface GameView {
      * Method for updating the Client's GameView, taking as input a Map
      * which contains JSONs of GameBoard and GameInstance
      * @param gameState: a Map with a String as Key and a String (JSON) as Value
-     * @throws IOException
      */
     void update(Map<String, String> gameState) throws IOException;
+
+    /**
+     * Method to print a message to notify the fail of a movement.
+     * @param gameState: a Map with a String as Key and a String (JSON) as Value
+     * @throws IOException
+     */
+    void movementFail(Map<String, String> gameState);
 
     /**
      * This method is used to print the query for the player,

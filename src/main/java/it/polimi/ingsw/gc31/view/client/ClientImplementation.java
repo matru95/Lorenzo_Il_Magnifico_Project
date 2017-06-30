@@ -29,10 +29,10 @@ public class ClientImplementation implements Client, Serializable {
         GameServer gameServer = (GameServer) registry.lookup("game_server");
 
         Client client = new ClientImplementation();
-        UnicastRemoteObject.exportObject(client, 8082);
+        UnicastRemoteObject.exportObject(client, 8081);
         registry.rebind("game_client", client);
 
-        client.joinServer(gameServer, "MAT2", PlayerColor.RED);
+        client.joinServer(gameServer, "MAT2", PlayerColor.BLUE);
     }
 
     public ClientImplementation() {
@@ -56,33 +56,35 @@ public class ClientImplementation implements Client, Serializable {
 
     @Override
     public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
+
         ServerMessageEnum requestType = request.getMessageType();
         Map<String, String> payload = request.getPayload();
-        ClientMessage clientMessage;
 
         switch (requestType) {
             case UPDATE:
                 view.update(payload);
                 break;
+            case MOVEMENTFAIL:
+                view.movementFail(payload);
+                server.send(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID.toString(), gameID.toString()));
+                break;
             case MOVEREQUEST:
-                clientMessage = new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID.toString());
-                clientMessage.setGameID(gameID.toString());
-                server.send(clientMessage);
+                server.send(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID.toString(), gameID.toString()));
                 break;
             case PARCHMENTREQUEST:
-                server.send(new ClientMessage(ClientMessageEnum.PARCHMENTCHOICE, view.parchmentQuery(payload), playerID.toString()));
+                server.send(new ClientMessage(ClientMessageEnum.PARCHMENTCHOICE, view.parchmentQuery(payload), playerID.toString(), gameID.toString()));
                 break;
             case EXCOMMUNICATIONREQUEST:
-                server.send(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID.toString()));
+                server.send(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID.toString(), gameID.toString()));
                 break;
             case COSTREQUEST:
-                server.send(new ClientMessage(ClientMessageEnum.COSTCHOICE, view.costQuery(payload), playerID.toString()));
+                server.send(new ClientMessage(ClientMessageEnum.COSTCHOICE, view.costQuery(payload), playerID.toString(), gameID.toString()));
                 break;
             case EXCHANGEREQUEST:
-                server.send(new ClientMessage(ClientMessageEnum.EXCHANGECHOICES, view.exchangeQuery(payload), playerID.toString()));
+                server.send(new ClientMessage(ClientMessageEnum.EXCHANGECHOICES, view.exchangeQuery(payload), playerID.toString(), gameID.toString()));
                 break;
             case FREECARDREQUEST:
-                server.send(new ClientMessage(ClientMessageEnum.FREECARDCHOICE, view.freeCardQuery(payload), playerID.toString()));
+                server.send(new ClientMessage(ClientMessageEnum.FREECARDCHOICE, view.freeCardQuery(payload), playerID.toString(), gameID.toString()));
                 break;
             default:
                 break;
