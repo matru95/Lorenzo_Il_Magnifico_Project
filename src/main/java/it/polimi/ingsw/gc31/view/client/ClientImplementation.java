@@ -18,9 +18,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public class ClientImplementation implements Client, Serializable {
+
     private transient UUID playerID;
-    private GameServer server;
-    private GameView view;
+    private transient GameServer server;
+    private transient GameView view;
     private UUID gameID;
 
     public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException {
@@ -32,10 +33,7 @@ public class ClientImplementation implements Client, Serializable {
         UnicastRemoteObject.exportObject(client, 8081);
         registry.rebind("game_client", client);
 
-        client.joinServer(gameServer, "MAT2", PlayerColor.BLUE);
-    }
-
-    public ClientImplementation() {
+        client.joinServer(gameServer, "MAT", PlayerColor.RED);
     }
 
     @Override
@@ -52,7 +50,6 @@ public class ClientImplementation implements Client, Serializable {
     public void ping() {
         System.out.println("YAY! Joined!");
     }
-
 
     @Override
     public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
