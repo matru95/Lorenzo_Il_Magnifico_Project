@@ -12,7 +12,7 @@ import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
-import it.polimi.ingsw.gc31.model.cards.CardParser;
+import it.polimi.ingsw.gc31.model.parser.CardParser;
 import it.polimi.ingsw.gc31.view.GameView;
 
 import java.io.*;

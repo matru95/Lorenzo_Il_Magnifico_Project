@@ -10,15 +10,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FaithTile;
-import it.polimi.ingsw.gc31.model.FaithTileParser;
+import it.polimi.ingsw.gc31.model.parser.FaithTileParser;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
-import it.polimi.ingsw.gc31.model.cards.CardParser;
+import it.polimi.ingsw.gc31.model.parser.CardParser;
 import it.polimi.ingsw.gc31.model.parser.GameBoardParser;
-
-import javax.smartcardio.Card;
 
 public class GameBoard implements Serializable {
 

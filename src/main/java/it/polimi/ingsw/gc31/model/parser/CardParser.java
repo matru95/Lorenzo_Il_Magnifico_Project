@@ -1,9 +1,12 @@
-package it.polimi.ingsw.gc31.model.cards;
+package it.polimi.ingsw.gc31.model.parser;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.cards.Exchange;
+import it.polimi.ingsw.gc31.model.cards.FreeCardChoice;
 import it.polimi.ingsw.gc31.model.effects.*;
 import it.polimi.ingsw.gc31.model.effects.permanent.*;
 import it.polimi.ingsw.gc31.model.resources.Resource;
