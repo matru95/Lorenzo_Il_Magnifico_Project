@@ -38,8 +38,8 @@ public class ClientImplementation implements Client, Serializable {
 
     @Override
     public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
-        Map<String, UUID> payload = s.register(this, playerName, playerColor);
 
+        Map<String, UUID> payload = s.register(this, playerName, playerColor);
         this.server = s;
         this.playerID = payload.get("playerID");
         this.gameID = payload.get("gameID");

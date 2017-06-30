@@ -17,10 +17,18 @@ public class ClientMessage implements Message, Serializable {
         this.gameID = gameID;
     }
 
+    /**
+     * Getter for "clientMessageType" attribute.
+     * @return ClientMessageEnum
+     */
     public ClientMessageEnum getClientMessageType() {
         return clientMessageType;
     }
 
+    /**
+     * Setter for "clientMessageType" attribute.
+     * @param clientMessageType: ClientMessageEnum
+     */
     public void setClientMessageType(ClientMessageEnum clientMessageType) {
         this.clientMessageType = clientMessageType;
     }
@@ -35,18 +43,34 @@ public class ClientMessage implements Message, Serializable {
         this.payload = payLoad;
     }
 
+    /**
+     * Getter for "playerID" attribute.
+     * @return String
+     */
     public String getPlayerID() {
         return playerID;
     }
 
+    /**
+     * Setter for "playerID" attribute.
+     * @param playerID: String
+     */
     public void setPlayerID(String playerID) {
         this.playerID = playerID;
     }
 
+    /**
+     * Getter for "gameID" attribute.
+     * @return String
+     */
     public String getGameID() {
         return gameID;
     }
 
+    /**
+     * Setter for "gameID" attribute.
+     * @param gameID: String
+     */
     public void setGameID(String gameID) {
         this.gameID = gameID;
     }
