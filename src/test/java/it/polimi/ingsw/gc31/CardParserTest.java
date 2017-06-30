@@ -3,7 +3,7 @@ package it.polimi.ingsw.gc31;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
-import it.polimi.ingsw.gc31.model.cards.CardParser;
+import it.polimi.ingsw.gc31.model.parser.CardParser;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -11,7 +11,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -6,7 +6,7 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
-import it.polimi.ingsw.gc31.model.cards.CardParser;
+import it.polimi.ingsw.gc31.model.parser.CardParser;
 import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import org.junit.Test;
 

@@ -12,7 +12,7 @@ import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
-import it.polimi.ingsw.gc31.model.cards.CardParser;
+import it.polimi.ingsw.gc31.model.parser.CardParser;
 import it.polimi.ingsw.gc31.view.GameView;
 
 import java.io.*;
@@ -259,6 +259,12 @@ public class GameViewCLI implements GameView {
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
         printView();
+    }
+
+    @Override
+    public void movementFail(Map<String, String> map) {
+        sb.append("Movement is NOT Valid, try again: \n");
+        printStringBuilder();
     }
 
     @Override

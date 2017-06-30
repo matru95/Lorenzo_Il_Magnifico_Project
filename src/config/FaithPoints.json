@@ -1,0 +1,68 @@
+{
+  "faithPoints": [
+    {
+      "id": 0,
+      "victoryPoints": 0
+    },
+    {
+      "id": 1,
+      "victoryPoints": 1
+    },
+    {
+      "id": 2,
+      "victoryPoints": 2
+    },
+    {
+      "id": 3,
+      "victoryPoints": 3
+    },
+    {
+      "id": 4,
+      "victoryPoints": 4
+    },
+    {
+      "id": 5,
+      "victoryPoints": 5
+    },
+    {
+      "id": 6,
+      "victoryPoints": 7
+    },
+    {
+      "id": 7,
+      "victoryPoints": 9
+    },
+    {
+      "id": 8,
+      "victoryPoints": 11
+    },
+    {
+      "id": 9,
+      "victoryPoints": 13
+    },
+    {
+      "id": 10,
+      "victoryPoints": 15
+    },
+    {
+      "id": 11,
+      "victoryPoints": 17
+    },
+    {
+      "id": 12,
+      "victoryPoints": 19
+    },
+    {
+      "id": 13,
+      "victoryPoints": 22
+    },
+    {
+      "id": 14,
+      "victoryPoints": 25
+    },
+    {
+      "id": 15,
+      "victoryPoints": 30
+    }
+  ]
+}

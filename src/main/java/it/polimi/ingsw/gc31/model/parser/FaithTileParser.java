@@ -1,9 +1,10 @@
-package it.polimi.ingsw.gc31.model;
+package it.polimi.ingsw.gc31.model.parser;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
+import it.polimi.ingsw.gc31.model.FaithTile;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.io.File;
@@ -31,12 +32,6 @@ public class FaithTileParser {
         } catch (IOException e) {
             logger.log(Level.SEVERE, "JSON file for FaithTiles not found");
         }
-    }
-
-    public static void main(String[] args) {
-        FaithTileParser faithTileParser=new FaithTileParser("src/config/FaithTile.json");
-        faithTileParser.parse();
-
     }
 
     public void parse() {
