@@ -74,8 +74,8 @@ public class GameBoard implements Serializable {
         this.church=new HashMap<>();
         faithTileParser.parse();
         List <FaithTile> inGameFaithTiles=faithTileParser.getTilesByAge();
-        for (int i = 1; i <= 3; i++) {
-            this.church.put(i,inGameFaithTiles.get(i));
+        for (int i = 0; i <= 2; i++) {
+            this.church.put(i+1,inGameFaithTiles.get(i));
         }
 
     }
