@@ -1,9 +1,6 @@
 package it.polimi.ingsw.gc31.model.cards;
 
-import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
-import jdk.nashorn.internal.ir.ObjectNode;
 
 import java.util.ArrayList;
 import java.util.List;

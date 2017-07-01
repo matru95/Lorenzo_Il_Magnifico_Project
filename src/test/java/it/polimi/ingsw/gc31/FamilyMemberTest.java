@@ -1,8 +1,8 @@
 package it.polimi.ingsw.gc31;
 
-import it.polimi.ingsw.gc31.controller.GameController;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
+import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.ProductionWrapper;
@@ -11,7 +11,7 @@ import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.parser.CardParser;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
 import junit.framework.TestCase;
@@ -101,7 +101,7 @@ public class FamilyMemberTest extends TestCase{
     }
 
     @Test
-    public void testFamilyMemberShouldMoveToPositionAndOccupyIt() throws NoResourceMatch {
+    public void testFamilyMemberShouldMoveToPositionAndOccupyIt() throws NoResourceMatch, MovementInvalidException {
         FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
         Dice dice = this.gameBoard.getDiceByColor(DiceColor.BLACK);
         dice.throwDice();

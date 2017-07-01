@@ -2,7 +2,7 @@ package it.polimi.ingsw.gc31.view.client;
 
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 
 import java.io.IOException;

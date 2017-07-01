@@ -3,7 +3,7 @@ package it.polimi.ingsw.gc31.server.rmiserver;
 import it.polimi.ingsw.gc31.controller.GameController;
 import it.polimi.ingsw.gc31.messages.ClientMessage;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
 
 import java.io.IOException;

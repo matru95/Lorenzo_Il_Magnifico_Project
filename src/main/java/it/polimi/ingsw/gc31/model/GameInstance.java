@@ -9,10 +9,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
-import it.polimi.ingsw.gc31.model.states.TurnState;
 
 public class GameInstance implements Serializable, Runnable {
 

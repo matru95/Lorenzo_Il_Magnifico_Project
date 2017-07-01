@@ -3,7 +3,7 @@ package it.polimi.ingsw.gc31.model.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.sun.org.apache.regexp.internal.RE;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -35,7 +35,14 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     public void execWrapper(FamilyMember familyMember, int amountOfServants) {
         payCost(familyMember.getPlayer(),this.card);
         execTowerBonus(familyMember.getPlayer().getRes());
-        //TODO EXEC OF CARD
+        Card card = getCard();
+
+        try {
+            card.execInstantEffect(familyMember.getPlayer());
+        } catch (NoResourceMatch noResourceMatch) {
+            noResourceMatch.printStackTrace();
+        }
+
         setOccupied(true);
     }
 
@@ -181,7 +188,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         return this.familyMember;
     }
 
-    private void payCost(Player player, Card card){
+    private void payCost(Player player, Card card) {
         List <Map<ResourceName,Resource>> cardCost = card.getCost();
         if(cardCost.size()==1){
             Map<ResourceName,Resource> singleCardCost= cardCost.get(0);

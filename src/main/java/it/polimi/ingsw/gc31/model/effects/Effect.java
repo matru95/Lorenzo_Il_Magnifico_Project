@@ -1,11 +1,8 @@
 package it.polimi.ingsw.gc31.model.effects;
 
-import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import jdk.nashorn.internal.ir.ObjectNode;
-
-import java.util.Map;
 
 public abstract class Effect {
 

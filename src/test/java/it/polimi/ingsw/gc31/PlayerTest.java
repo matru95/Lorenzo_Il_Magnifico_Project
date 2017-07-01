@@ -4,7 +4,7 @@ import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import junit.framework.TestCase;
 import org.junit.Test;
 

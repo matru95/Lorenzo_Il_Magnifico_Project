@@ -9,9 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
+import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -65,25 +66,28 @@ public class FamilyMember {
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(familyMemberNode);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             return "";
         }
 
     }
 
-	public void setValueFromDice() {
-//	    This will be called after the dice is thrown for the first time.
+    /**
+     * Finds the correct dice by color and sets its value to this family member.
+     */
+    public void setValueFromDice() {
         this.value = this.dice.getValue();
 
     }
 
+    /**
+     * It's called once after the creation of the family member and sets the dice color.
+     * @param color the dice color that belongs to this family member.
+     */
     private void setMyDice(DiceColor color) {
 		this.dice = this.board.getDiceByColor(color);
     }
 
 	public List<SpaceWrapper> checkPossibleMovements() {
-
-	    //TODO This method will be changed once FaithCards are implemented
         List<SpaceWrapper> possibleMovements = new ArrayList<>();
         List<SpaceWrapper> openSpaces = new ArrayList<>();
 
@@ -129,24 +133,30 @@ public class FamilyMember {
                 boolean hasFamilyMemberColor = tower.hasFamilyMemberSameColor(playerColor);
 
                 if (!hasFamilyMemberColor) {
-
                     for (Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry : towerEntry.getValue().getTowerSpace().entrySet()) {
-                        towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
+                        if(!towerSpaceWrapperEntry.getValue().isOccupied()) {
+
+                            towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
+                        }
                     }
                 }
             }
         }
     }
 
-    public void moveToTower(TowerSpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
+    public void moveToTower(TowerSpaceWrapper position) {
         checkAndPayExtraGold(position);
         player.addCard(position.getCard());
     }
 
-	public void moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch {
+	public void moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch, MovementInvalidException {
+
+	    if(!isMovementPossible(position)) {
+	        throw new MovementInvalidException();
+        }
 
         if(position.getClass() == TowerSpaceWrapper.class) {
-            moveToTower((TowerSpaceWrapper) position, numOfServantsPaid);
+            moveToTower((TowerSpaceWrapper) position);
         }
 
 	    int positionDiceBond = position.getDiceBond();
@@ -155,8 +165,22 @@ public class FamilyMember {
 	    checkAndPayServants(positionDiceBond);
 
 		this.currentPosition = position;
+		position.setFamilyMember(this);
 		position.execWrapper(this, numOfServantsPaid);
 	}
+
+	private boolean isMovementPossible(SpaceWrapper position) {
+        List<SpaceWrapper> possibleMovements = this.checkPossibleMovements();
+
+        for(SpaceWrapper possibleMovement: possibleMovements) {
+            if(position == possibleMovement) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
 	private void checkAndPayServants(int positionDiceBond) {
@@ -178,13 +202,10 @@ public class FamilyMember {
         }
 
     }
+
     public boolean checkCardNumBond(CardColor cardColor){
 
-        if (this.player.getCards().get(cardColor).size() < 6) {
-            return true;
-        }
-
-        return false;
+        return this.player.getCards().get(cardColor).size() < 6;
     }
 
     /**

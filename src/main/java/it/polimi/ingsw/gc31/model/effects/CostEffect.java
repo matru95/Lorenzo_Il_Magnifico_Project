@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc31.model.effects;
 
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import jdk.nashorn.internal.ir.ObjectNode;

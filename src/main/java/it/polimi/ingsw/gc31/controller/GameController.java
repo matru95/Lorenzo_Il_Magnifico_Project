@@ -1,12 +1,13 @@
 package it.polimi.ingsw.gc31.controller;
 
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
+import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
 import it.polimi.ingsw.gc31.view.client.Client;
@@ -22,6 +23,7 @@ public class GameController extends Controller implements Runnable{
     private ClientMessageEnum waitingMessageType;
     private String playerWaitingFromID;
     private long waitingTime;
+    Thread messageThread;
 
     public GameController(GameInstance model, List<Client> views) {
         super(model, views);
@@ -32,28 +34,23 @@ public class GameController extends Controller implements Runnable{
     public void movementAction(String playerID, Map<String, String> movementData) throws NoResourceMatch, IOException, InterruptedException {
 //      this.movementReceived is true at this point
 
-        ServerMessage request = new ServerMessage();
-
+        GameInstance game = super.getModel();
+        Player player = game.getPlayerFromId(UUID.fromString(playerID));
         String familyMemberColor = movementData.get("diceColor");
         String positionID = movementData.get("positionID");
-
-        GameInstance game = super.getModel();
-
-        Player player = game.getPlayerFromId(UUID.fromString(playerID));
 
         DiceColor realFamilyMemberColor = DiceColor.valueOf(familyMemberColor);
         FamilyMember familyMember = player.getSpecificFamilyMember(realFamilyMemberColor);
 
-        List<SpaceWrapper> possibleMovements = familyMember.checkPossibleMovements();
+        SpaceWrapper position = game.getGameBoard().getSpaceById(Integer.valueOf(positionID));
+        Integer servantsToPay = Integer.valueOf(movementData.get("servantsToPay"));
 
-        if(isMovementValid(positionID, possibleMovements)) {
-            SpaceWrapper position = game.getGameBoard().getSpaceById(Integer.valueOf(positionID));
-            Integer servantsToPay = Integer.valueOf(movementData.get("servantsToPay"));
-
+        try {
             familyMember.moveToPosition(position, servantsToPay);
-
             this.movementReceived = false;
-        } else {
+        } catch (MovementInvalidException e) {
+            ServerMessage request = new ServerMessage();
+
             this.endTime = System.currentTimeMillis() ;
             //this.waitingTime = waitingTime - (endTime - startTime);
 
@@ -62,17 +59,6 @@ public class GameController extends Controller implements Runnable{
         }
 
         updateClients();
-    }
-
-    private boolean isMovementValid(String positionID, List<SpaceWrapper> possibleMovements) {
-        for(SpaceWrapper possibleMovement: possibleMovements) {
-
-            if(Integer.valueOf(positionID).equals(possibleMovement.getPositionID())) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public void addPlayer(Player player, Client client) {
@@ -109,7 +95,6 @@ public class GameController extends Controller implements Runnable{
     @Override
     public void run() {
 //      Start the game
-
         GameInstance gameInstance = super.getModel();
 
 //      Initiate player order, start game preparation state
@@ -118,16 +103,6 @@ public class GameController extends Controller implements Runnable{
 //      Prepare the game
         State gamePrepState = gameInstance.getState();
         executeState(gamePrepState);
-
-        try {
-            updateClients();
-        } catch (NoResourceMatch noResourceMatch) {
-            noResourceMatch.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         int age = gameInstance.getAge();
         int turn = gameInstance.getTurn();
@@ -148,6 +123,7 @@ public class GameController extends Controller implements Runnable{
                     e.printStackTrace();
                 }
             }
+            System.out.println("Turn ended");
             turn = 1;
         }
 
@@ -177,6 +153,7 @@ public class GameController extends Controller implements Runnable{
 
                 singleAction(player);
             }
+            System.out.println("Finished mini turn");
         }
 
     }
@@ -187,27 +164,45 @@ public class GameController extends Controller implements Runnable{
         ServerMessage request = new ServerMessage();
         request.setMessageType(ServerMessageEnum.MOVEREQUEST);
         Client client = getClientFromPlayerID(playerID);
-        client.send(request);
+
+        messageThread = new Thread(() -> {
+            try {
+                client.send(request);
+            } catch (NoResourceMatch noResourceMatch) {
+                noResourceMatch.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        messageThread.start();
+
 
         this.waitingMessageType = ClientMessageEnum.MOVE;
         this.playerWaitingFromID = playerID.toString();
-
 
         this.startTime = System.currentTimeMillis();
         waitForMove(playerID, client);
     }
 
-    private synchronized void waitForMove(UUID playerID, Client client) throws InterruptedException, NoResourceMatch, IOException {
+    private void waitForMove(UUID playerID, Client client) throws InterruptedException, NoResourceMatch, IOException {
         Map<String, String> payload = new HashMap<>();
 
-        this.wait(waitingTime);
+        synchronized (this) {
+            System.out.println("Started wait");
+            this.wait(waitingTime);
+        }
+
+        System.out.println("stopped waiting " + (System.currentTimeMillis() - startTime));
 
         //      Check if a movement was made
         if(!this.movementReceived) {
 
             payload.put("playerID", playerID.toString());
             ServerMessage timeOutRequest = new ServerMessage(ServerMessageEnum.TIMEOUT, payload);
-
+            messageThread.interrupt();
             client.send(timeOutRequest);
         }
 

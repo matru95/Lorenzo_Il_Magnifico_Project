@@ -3,7 +3,7 @@ package it.polimi.ingsw.gc31.model.effects.permanent;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.effects.boardeffects.HarvestEffect;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import jdk.nashorn.internal.ir.ObjectNode;
 
 public class HarvestActionEffect extends Effect{

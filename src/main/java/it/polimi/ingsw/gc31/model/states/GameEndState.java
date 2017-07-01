@@ -6,7 +6,7 @@ import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.effects.Effect;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 
 import java.util.ArrayList;
 import java.util.List;

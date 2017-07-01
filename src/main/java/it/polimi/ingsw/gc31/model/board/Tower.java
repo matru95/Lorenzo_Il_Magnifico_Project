@@ -93,9 +93,8 @@ public class Tower implements Serializable{
         for(Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry: towerSpaces.entrySet()) {
 
             if(towerSpaceWrapperEntry.getValue().isOccupied()) {
-                System.out.println(towerSpaceWrapperEntry);
-                System.out.println(towerSpaceWrapperEntry.getValue());
-                System.out.println(towerSpaceWrapperEntry.getValue().getFamilyMember());
+                System.out.println(towerSpaceWrapperEntry.getValue().isOccupied());
+                System.out.println(towerSpaceWrapperEntry.getValue().getPositionID());
                 if(towerSpaceWrapperEntry.getValue().getFamilyMember().getPlayerColor() == playerColor) {
                     return  true;
                 }

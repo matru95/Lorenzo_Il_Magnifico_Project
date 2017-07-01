@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc31.model.states;
 
 import it.polimi.ingsw.gc31.model.GameInstance;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 
 public interface State {
 

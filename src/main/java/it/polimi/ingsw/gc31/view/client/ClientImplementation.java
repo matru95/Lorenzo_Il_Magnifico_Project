@@ -2,7 +2,7 @@ package it.polimi.ingsw.gc31.view.client;
 
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.messages.*;
-import it.polimi.ingsw.gc31.model.resources.NoResourceMatch;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 import it.polimi.ingsw.gc31.view.GameView;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
@@ -30,10 +30,10 @@ public class ClientImplementation implements Client, Serializable {
         GameServer gameServer = (GameServer) registry.lookup("game_server");
 
         Client client = new ClientImplementation();
-        UnicastRemoteObject.exportObject(client, 8081);
+        UnicastRemoteObject.exportObject(client, 8082);
         registry.rebind("game_client", client);
 
-        client.joinServer(gameServer, "MAT1", PlayerColor.BLUE);
+        client.joinServer(gameServer, "Matteo", PlayerColor.GREEN);
     }
 
     public ClientImplementation() {
