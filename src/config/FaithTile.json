@@ -23,8 +23,7 @@
     },
     {
       "id":3,
-      "age":1
-    ,
+      "age":1,
       "gainFewer":{
         "stone":1,
         "wood":1
