@@ -5,7 +5,9 @@ import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public abstract class Controller {
@@ -17,6 +19,15 @@ public abstract class Controller {
         this.views = views;
     }
 
+    protected Map<String,String> getGameState() {
+        GameInstance gameInstance = getModel();
+        Map<String, String> gameState = new HashMap<>();
+
+        gameState.put("GameInstance", gameInstance.toString());
+        gameState.put("GameBoard", gameInstance.getGameBoard().toString());
+
+        return gameState;
+    }
     public GameInstance getModel() {
         return model;
     }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.server.rmiserver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.polimi.ingsw.gc31.controller.ActionController;
 import it.polimi.ingsw.gc31.controller.GameController;
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.GameInstance;
@@ -161,15 +162,16 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         UUID gameInstanceID = UUID.fromString(gameID);
 
         GameController game = games.get(gameInstanceID);
+        ActionController actionController = (ActionController) game.getActionController();
 
-        synchronized (game) {
-            game.setMovementReceived(true);
+        synchronized (actionController) {
+            actionController.setMovementReceived(true);
             System.out.println("notifying");
 
-            game.notify();
+            actionController.notify();
         }
 
-        game.movementAction(playerID, payload);
+        actionController.movementAction(playerID, payload);
 
         return null;
     }
