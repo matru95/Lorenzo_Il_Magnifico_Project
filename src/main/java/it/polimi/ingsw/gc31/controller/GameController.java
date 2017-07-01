@@ -5,6 +5,7 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.State;
+import it.polimi.ingsw.gc31.model.states.TurnEndState;
 import it.polimi.ingsw.gc31.model.states.TurnState;
 import it.polimi.ingsw.gc31.view.client.Client;
 
@@ -23,8 +24,6 @@ public class GameController extends Controller implements Runnable{
     public void run() {
 //      Start the game
         GameInstance gameInstance = super.getModel();
-
-//      Initiate player order, start game preparation state
         gameInstance.run();
 
 //      Prepare the game
@@ -49,12 +48,27 @@ public class GameController extends Controller implements Runnable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                System.out.println("Turn ended");
+
+                try {
+                    endTurn();
+                } catch (NoResourceMatch noResourceMatch) {
+                }
             }
-            System.out.println("Turn ended");
             turn = 1;
         }
 
 
+    }
+
+    private void endTurn() throws NoResourceMatch {
+        GameInstance gameInstance = super.getModel();
+
+        State turnEndState = new TurnEndState();
+        gameInstance.setState(turnEndState);
+
+        turnEndState.doAction(gameInstance);
     }
 
     private void doTurn() throws NoResourceMatch, IOException, InterruptedException {
