@@ -86,6 +86,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         List<Map<ResourceName, Resource>> cardCost = this.getCard().getCost();
         boolean[] results = new boolean[cardCost.size()];
 
+
         if(this.tower.isOccupied()) {
 
             if(!isTowerOccupiedAffordable(playerResources, playerColor)) {

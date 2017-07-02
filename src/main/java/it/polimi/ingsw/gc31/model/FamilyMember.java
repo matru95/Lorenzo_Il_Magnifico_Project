@@ -93,7 +93,8 @@ public class FamilyMember {
 
         insertOpenSpaces(openSpaces);
 
-        int possiblePoints = dicePoints + this.player.getRes().get(ResourceName.SERVANTS).getNumOf();
+        int possiblePoints = value + this.player.getRes().get(ResourceName.SERVANTS).getNumOf();
+        System.out.println(possiblePoints);
 
         insertTowerSpaceWrappers(openSpaces);
 
@@ -185,6 +186,7 @@ public class FamilyMember {
 
 	private void checkAndPayServants(int positionDiceBond) {
         if(positionDiceBond > this.dicePoints) {
+            System.out.println("here");
             Map<ResourceName, Resource> playerResources = player.getRes();
             int currentServants = playerResources.get(ResourceName.SERVANTS).getNumOf();
             int costToPay = positionDiceBond - this.dicePoints;
