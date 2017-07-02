@@ -71,7 +71,7 @@ public class MartWrapper extends SpaceWrapper {
     }
 
     @Override
-    public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
+    public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
         return true;
     }
 

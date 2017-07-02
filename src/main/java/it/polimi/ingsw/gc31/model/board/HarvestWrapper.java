@@ -59,15 +59,15 @@ public class HarvestWrapper extends SpaceWrapper {
     }
 
     @Override
-    public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
+    public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
 
         if(!isMultiple && familyMembers.size() == 1) {
             return false;
         }
 
 //      Check if there's already a FM with the same color
-        for(FamilyMember familyMember: familyMembers) {
-            if(familyMember.getPlayerColor() == playerColor) {
+        for(FamilyMember myFamilyMember: familyMembers) {
+            if(myFamilyMember.getPlayerColor() == playerColor) {
                 return false;
             }
         }

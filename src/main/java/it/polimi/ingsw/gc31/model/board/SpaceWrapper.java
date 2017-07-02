@@ -36,7 +36,7 @@ public abstract class SpaceWrapper implements Serializable{
     public abstract String toString();
 
 //  Check whether a player has enough resources to move a familymember here.
-    public abstract boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor);
+    public abstract boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor);
 
     public abstract void setFamilyMember(FamilyMember familyMember);
 

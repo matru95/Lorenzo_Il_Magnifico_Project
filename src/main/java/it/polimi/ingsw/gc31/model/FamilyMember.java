@@ -1,7 +1,5 @@
 package it.polimi.ingsw.gc31.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,8 +20,7 @@ public class FamilyMember {
 	private final PlayerColor playerColor;
 	private Boolean isNeutral;
 	private Boolean isPlaced;
-	private int dicePoints;
-	private int value;
+    private int value;
 	private SpaceWrapper currentPosition;
 	private GameBoard board;
 
@@ -87,64 +84,6 @@ public class FamilyMember {
 		this.dice = this.board.getDiceByColor(color);
     }
 
-	public List<SpaceWrapper> checkPossibleMovements() {
-        List<SpaceWrapper> possibleMovements = new ArrayList<>();
-        List<SpaceWrapper> openSpaces = new ArrayList<>();
-
-        insertOpenSpaces(openSpaces);
-
-        int possiblePoints = value + this.player.getRes().get(ResourceName.SERVANTS).getNumOf();
-        System.out.println(possiblePoints);
-
-        insertTowerSpaceWrappers(openSpaces);
-
-
-        for(SpaceWrapper spaceWrapper: openSpaces) {
-            boolean isAffordable = spaceWrapper.isAffordable(this.player.getRes(), this.playerColor);
-            int spaceDiceBond = spaceWrapper.getDiceBond();
-
-            if(isAffordable && spaceDiceBond <= possiblePoints) {
-                possibleMovements.add(spaceWrapper);
-            }
-        }
-
-        return possibleMovements;
-	}
-
-	private void insertOpenSpaces(List<SpaceWrapper> possibleMovements) {
-
-//	    Get every board space except towers
-        for(Map.Entry<String, SpaceWrapper> spaceEntry: board.getOpenSpaces().entrySet()) {
-            possibleMovements.add(spaceEntry.getValue());
-        }
-    }
-
-    private void insertTowerSpaceWrappers(List<SpaceWrapper> towerSpaceWrappers) {
-	    /*
-	    Insert towerSpaceWrappers from towers that do not already have a family member
-	    of the same color
-	     */
-        Map<CardColor, Tower> towers = this.board.getTowers();
-
-        for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
-
-            if(checkCardNumBond(towerEntry.getKey())) {
-
-                Tower tower = towerEntry.getValue();
-                boolean hasFamilyMemberColor = tower.hasFamilyMemberSameColor(playerColor);
-
-                if (!hasFamilyMemberColor) {
-                    for (Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry : towerEntry.getValue().getTowerSpace().entrySet()) {
-                        if(!towerSpaceWrapperEntry.getValue().isOccupied()) {
-
-                            towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public void moveToTower(TowerSpaceWrapper position) {
         checkAndPayExtraGold(position);
         player.addCard(position.getCard());
@@ -171,25 +110,22 @@ public class FamilyMember {
 	}
 
 	private boolean isMovementPossible(SpaceWrapper position) {
-        List<SpaceWrapper> possibleMovements = this.checkPossibleMovements();
+        Map<ResourceName, Resource> playerResources = this.player.getRes();
 
-        for(SpaceWrapper possibleMovement: possibleMovements) {
-            if(position == possibleMovement) {
-
-                return true;
-            }
+        if(position.isOccupied()) {
+            return false;
         }
 
-        return false;
+        return position.isAffordable(this, playerResources, playerColor);
     }
 
 
 	private void checkAndPayServants(int positionDiceBond) {
-        if(positionDiceBond > this.dicePoints) {
-            System.out.println("here");
+        if(positionDiceBond > this.value) {
+            System.out.println("paying servants");
             Map<ResourceName, Resource> playerResources = player.getRes();
             int currentServants = playerResources.get(ResourceName.SERVANTS).getNumOf();
-            int costToPay = positionDiceBond - this.dicePoints;
+            int costToPay = positionDiceBond - this.value;
 
             playerResources.get(ResourceName.SERVANTS).setNumOf(currentServants - costToPay);
         }
@@ -264,14 +200,6 @@ public class FamilyMember {
      */
     public PlayerColor getPlayerColor() {
         return playerColor;
-    }
-
-    /**
-     * Getter for attribute "dicePoints"
-     * @return int
-     */
-    public int getDicePoints() {
-        return dicePoints;
     }
 
     /**
