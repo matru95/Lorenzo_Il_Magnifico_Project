@@ -21,7 +21,7 @@ public interface Client extends Remote {
      * @throws NoResourceMatch
      * @throws InterruptedException
      */
-    void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException;
+    void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException, ClassNotFoundException;
 
     /**
      * Method to ping.

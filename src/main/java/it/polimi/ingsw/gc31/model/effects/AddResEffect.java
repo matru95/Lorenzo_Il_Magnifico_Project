@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model.effects;
 
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -18,7 +19,7 @@ public class AddResEffect extends Effect{
     }
 
     @Override
-    public void exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) throws NoResourceMatch {
         Map<ResourceName, Resource> playerResources = player.getRes();
 
         for(Resource resourceToAdd: resourcesToAdd) {
@@ -27,7 +28,7 @@ public class AddResEffect extends Effect{
 
             playerResources.get(resourceName).addNumOf(value);
         }
-
+        return null;
     }
 
     @Override

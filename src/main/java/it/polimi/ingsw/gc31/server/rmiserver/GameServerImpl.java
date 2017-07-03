@@ -11,7 +11,9 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -19,22 +21,19 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 public class GameServerImpl extends UnicastRemoteObject implements GameServer{
-    private Map<UUID, GameController> games;
+    private transient Map<UUID, GameController> games;
     private UUID openGameID;
     private Map<UUID, List<Client>> clients;
-    private Timer timer;
+    private transient Timer timer;
     ObjectMapper mapper;
 
-    public static void main(String[] args) throws RemoteException {
+    public static void main(String[] args) throws IOException {
         System.out.println("Constructing server implementation");
         GameServerImpl gameServer = new GameServerImpl();
+        gameServer.startRMI();
+        gameServer.startSocket();
 
-        System.out.println("Binding server implementation to registry...");
-        LocateRegistry.createRegistry(8080);
-        Registry registry = LocateRegistry.getRegistry(8080);
-        registry.rebind("game_server", gameServer);
 
-        System.out.println("Waiting for invocation from clients");
     }
 
     public GameServerImpl() throws RemoteException {
@@ -43,6 +42,44 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         this.openGameID = null;
         this.timer = null;
         this.mapper = new ObjectMapper();
+    }
+
+    private void startSocket() throws IOException {
+        ServerSocket server = null;
+        Socket socket = null;
+        boolean condition = true;
+
+        try {
+            server = new ServerSocket(29999);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("SOC Waiting for connection ");
+
+        while (condition) {
+            try {
+                socket = server.accept();
+                SocketThread socketThread = new SocketThread(socket, this);
+                Thread clientSocketThread = new Thread(socketThread);
+                clientSocketThread.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+                condition = false;
+            }
+        }
+
+        server.close();
+        System.out.println("Socket connection closed");
+
+    }
+
+    private void startRMI() throws RemoteException {
+        System.out.println("Binding server implementation to registry...");
+        LocateRegistry.createRegistry(8080);
+        Registry registry = LocateRegistry.getRegistry(8080);
+        registry.rebind("game_server", this);
+
+        System.out.println("Waiting for invocation from clients");
     }
 
     @Override
@@ -125,16 +162,16 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public Map<String, UUID> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
-        Map<String, UUID> payload = new HashMap<>();
+    public Map<String, String> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
+        Map<String, String> payload = new HashMap<>();
         UUID playerID = UUID.randomUUID();
 
         this.join(playerID, playerName, playerColor, client);
 
         List<Client> gameClients = this.clients.get(openGameID);
 
-        payload.put("playerID", playerID);
-        payload.put("gameID", openGameID);
+        payload.put("playerID", playerID.toString());
+        payload.put("gameID", openGameID.toString());
 
         gameClients.add(client);
 
@@ -144,14 +181,24 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     public Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException {
         ClientMessageEnum requestType = request.getClientMessageType();
+        Map<String, String> payload = new HashMap<>();
 
         switch (requestType) {
             case MOVE:
-                Map<String, String> payload = request.getPayload();
+                payload = request.getPayload();
                 String gameID = request.getGameID();
                 String playerID = request.getPlayerID();
 
                 return processMovementAction(gameID, playerID, payload);
+            case REGISTER:
+                payload = request.getPayload();
+                String playerName = payload.get("playerName");
+                String playerColor = payload.get("playerColor");
+                Client client = request.getClient();
+
+                return register(client, playerName, PlayerColor.valueOf(playerColor.toUpperCase()));
+
+
         }
         return null;
 

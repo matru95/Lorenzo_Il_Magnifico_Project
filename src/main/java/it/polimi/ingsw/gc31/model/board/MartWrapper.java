@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -22,13 +23,14 @@ public class MartWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember, int amountOfServants) {
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
         setOccupied(true);
         Map<ResourceName, Resource> playerResources = familyMember.getPlayer().getRes();
         for(Resource myResource : res) {
             int amount = myResource.getNumOf();
             playerResources.get(myResource.getResourceName()).addNumOf(amount);
         }
+        return null;
     }
 
     @Override

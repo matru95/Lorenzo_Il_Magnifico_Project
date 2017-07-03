@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.board;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
@@ -25,7 +26,7 @@ public abstract class SpaceWrapper implements Serializable{
         isOccupied = false;
     }
 
-    public abstract void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch;
+    public abstract ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch;
 
     public abstract ObjectNode toJson();
 

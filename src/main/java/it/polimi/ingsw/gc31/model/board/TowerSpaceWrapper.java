@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -32,10 +33,8 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember, int amountOfServants) {
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
         payCost(familyMember.getPlayer(), this.card);
-
-        System.out.println(tower.isOccupied());
 
         if(tower.isOccupied()) {
             familyMember.getPlayer().getRes().get(ResourceName.GOLD).subNumOf(3);
@@ -51,6 +50,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
         setOccupied(true);
         tower.setOccupied(true);
+        return null;
     }
 
     @Override
@@ -181,12 +181,9 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         return tower;
     }
 
-
     public void setFamilyMember(FamilyMember familyMember) {
         this.familyMember = familyMember;
     }
-
-
 
     public FamilyMember getFamilyMember() {
         return this.familyMember;

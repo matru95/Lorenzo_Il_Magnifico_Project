@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.model.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.effects.boardeffects.ProductionEffect;
@@ -30,11 +31,12 @@ public class ProductionWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
         int value = familyMember.getValue() + amountOfServants - malus;
         ProductionEffect productionEffect = new ProductionEffect();
         productionEffect.exec(familyMember.getPlayer(), malus);
         if (!isMultiple) setOccupied(true);
+        return null;
     }
 
     @Override

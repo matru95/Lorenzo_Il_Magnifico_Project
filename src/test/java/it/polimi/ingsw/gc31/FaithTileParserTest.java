@@ -35,7 +35,7 @@ public class FaithTileParserTest extends TestCase {
     public void testFaithTileParserShouldParseFaithTile() {
         ObjectMapper mapper =new ObjectMapper();
         File jsonInputFile = new File("src/config/FaithTile.json");
-        int lengthTilesJson = 0;
+        int lengthTilesJson = 21;
 
         try {
             JsonNode rootNode = mapper.readTree(jsonInputFile);
@@ -48,7 +48,7 @@ public class FaithTileParserTest extends TestCase {
             logger.log(Level.SEVERE, "JSON file for FaithTile not found");
         }
 
-        assertEquals(lengthTilesJson,faithTiles.size());
+        assertEquals(lengthTilesJson, faithTiles.size());
     }
 }
 

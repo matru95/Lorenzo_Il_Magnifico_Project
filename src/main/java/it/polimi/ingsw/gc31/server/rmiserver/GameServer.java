@@ -28,7 +28,7 @@ public interface GameServer extends Remote {
      * @throws RemoteException
      * @throws NoResourceMatch
      */
-    Map<String, UUID> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException;
+    Map<String, String> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException;
 
     /**
      * Receives raw data from the remote client

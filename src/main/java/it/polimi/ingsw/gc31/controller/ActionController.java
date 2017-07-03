@@ -52,7 +52,7 @@ public class ActionController extends Controller implements Runnable {
         Integer servantsToPay = Integer.valueOf(movementData.get("servantsToPay"));
 
         try {
-            familyMember.moveToPosition(position, servantsToPay);
+            ServerMessage message = familyMember.moveToPosition(position, servantsToPay);
             this.movementReceived = false;
             updateClients();
 

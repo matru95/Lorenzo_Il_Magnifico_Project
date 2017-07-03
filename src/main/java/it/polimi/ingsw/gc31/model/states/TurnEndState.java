@@ -19,7 +19,7 @@ public class TurnEndState implements State{
         int index;
 
         for(index=0; index<orderedPlayers.length; index++) {
-            orderedPlayers[index].setPlayerOrder(index);
+            orderedPlayers[index].setPlayerOrder(index+1);
         }
     }
 }

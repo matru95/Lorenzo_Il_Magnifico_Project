@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.effects;
 
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.resources.*;
 import jdk.nashorn.internal.ir.ObjectNode;
@@ -18,7 +19,7 @@ public class ParchementEffect extends Effect{
     }
 
     @Override
-    public void exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) throws NoResourceMatch {
 
         int exit=0;
         int[] choicenum= new int[this.numparchment];
@@ -110,6 +111,7 @@ public class ParchementEffect extends Effect{
             effetti[choicenum[exit]].exec(player);
             exit++;
         }
+        return null;
     }
 
     @Override

@@ -8,44 +8,52 @@ import it.polimi.ingsw.gc31.view.GameView;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.Socket;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ClientImplementation implements Client, Serializable {
+public class ClientImplementation extends UnicastRemoteObject implements Client, Serializable {
 
     private transient UUID playerID;
     private transient GameServer server;
     private transient GameView view;
     private UUID gameID;
 
-    public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException {
+    public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException, ClassNotFoundException {
 
         Registry registry = LocateRegistry.getRegistry(8080);
         GameServer gameServer = (GameServer) registry.lookup("game_server");
 
         Client client = new ClientImplementation();
-        UnicastRemoteObject.exportObject(client, 8082);
-        registry.rebind("game_client", client);
 
-        client.joinServer(gameServer, "Matteo", PlayerColor.GREEN);
+        client.joinServer(gameServer, "Endi", PlayerColor.RED);
     }
 
-    public ClientImplementation() {
+    public ClientImplementation() throws RemoteException {
+        super();
+    }
+
+    private void socketConnection(String playerName, PlayerColor playerColor) throws IOException, ClassNotFoundException {
+
+
     }
 
     @Override
     public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
 
-        Map<String, UUID> payload = s.register(this, playerName, playerColor);
+        Map<String, String> payload = s.register(this, playerName, playerColor);
         this.server = s;
-        this.playerID = payload.get("playerID");
-        this.gameID = payload.get("gameID");
+        this.playerID = UUID.fromString(payload.get("playerID"));
+        this.gameID = UUID.fromString(payload.get("gameID"));
         this.view = new GameViewCLI(playerID);
     }
 

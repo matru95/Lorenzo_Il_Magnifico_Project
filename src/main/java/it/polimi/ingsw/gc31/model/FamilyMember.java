@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
@@ -89,7 +90,7 @@ public class FamilyMember {
         player.addCard(position.getCard());
     }
 
-	public void moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch, MovementInvalidException {
+	public ServerMessage moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch, MovementInvalidException {
 
 	    if(!isMovementPossible(position)) {
 	        throw new MovementInvalidException();
@@ -106,13 +107,19 @@ public class FamilyMember {
 
 		this.currentPosition = position;
 		position.setFamilyMember(this);
-		position.execWrapper(this, numOfServantsPaid);
-	}
+		ServerMessage request =  position.execWrapper(this, numOfServantsPaid);
+        return request;
+    }
 
 	private boolean isMovementPossible(SpaceWrapper position) {
         Map<ResourceName, Resource> playerResources = this.player.getRes();
+        boolean cardLimitReached = false;
 
-        if(position.isOccupied()) {
+        if(position.getClass() == TowerSpaceWrapper.class) {
+            cardLimitReached = isCardLimitReached(((TowerSpaceWrapper) position).getColor());
+        }
+
+        if(position.isOccupied() || cardLimitReached) {
             return false;
         }
 
@@ -122,7 +129,6 @@ public class FamilyMember {
 
 	private void checkAndPayServants(int positionDiceBond) {
         if(positionDiceBond > this.value) {
-            System.out.println("paying servants");
             Map<ResourceName, Resource> playerResources = player.getRes();
             int currentServants = playerResources.get(ResourceName.SERVANTS).getNumOf();
             int costToPay = positionDiceBond - this.value;
@@ -141,9 +147,9 @@ public class FamilyMember {
 
     }
 
-    public boolean checkCardNumBond(CardColor cardColor){
+    public boolean isCardLimitReached(CardColor cardColor){
 
-        return this.player.getCards().get(cardColor).size() < 6;
+        return this.player.getCards().get(cardColor).size() == 6;
     }
 
     /**
