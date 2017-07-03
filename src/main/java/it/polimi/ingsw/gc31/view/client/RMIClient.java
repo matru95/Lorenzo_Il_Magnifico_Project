@@ -8,20 +8,16 @@ import it.polimi.ingsw.gc31.view.GameView;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.net.Socket;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class ClientImplementation extends UnicastRemoteObject implements Client, Serializable {
+public class RMIClient extends UnicastRemoteObject implements Client, Serializable {
 
     private transient UUID playerID;
     private transient GameServer server;
@@ -33,18 +29,13 @@ public class ClientImplementation extends UnicastRemoteObject implements Client,
         Registry registry = LocateRegistry.getRegistry(8080);
         GameServer gameServer = (GameServer) registry.lookup("game_server");
 
-        Client client = new ClientImplementation();
+        Client client = new RMIClient();
 
-        client.joinServer(gameServer, "Endi", PlayerColor.RED);
+        client.joinServer(gameServer, "Matteo", PlayerColor.BLUE);
     }
 
-    public ClientImplementation() throws RemoteException {
+    public RMIClient() throws RemoteException {
         super();
-    }
-
-    private void socketConnection(String playerName, PlayerColor playerColor) throws IOException, ClassNotFoundException {
-
-
     }
 
     @Override

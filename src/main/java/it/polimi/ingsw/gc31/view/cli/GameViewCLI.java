@@ -18,7 +18,7 @@ import it.polimi.ingsw.gc31.view.GameView;
 import java.io.*;
 import java.util.*;
 
-public class GameViewCLI implements GameView {
+public class GameViewCLI implements GameView, Serializable {
 
     private static final String PN = "playerName";
     private static final String PL = "players";

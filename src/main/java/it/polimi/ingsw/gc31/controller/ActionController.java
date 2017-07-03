@@ -10,6 +10,7 @@ import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
+import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 import it.polimi.ingsw.gc31.view.client.Client;
 
 import java.io.IOException;
@@ -30,8 +31,8 @@ public class ActionController extends Controller implements Runnable {
     private long endTime;
     private Thread messageThread;
 
-    public ActionController(GameInstance model, List<Client> clients, GameController gameController) {
-        super(model, clients);
+    public ActionController(GameInstance model, List<Client> clients, GameController gameController, GameServer server) {
+        super(model, clients, server);
         this.waitingTime = 60000;
         this.movementReceived = false;
         this.gameController = gameController;
@@ -130,6 +131,7 @@ public class ActionController extends Controller implements Runnable {
         ServerMessage request = new ServerMessage();
         request.setMessageType(ServerMessageEnum.MOVEREQUEST);
         Client client = null;
+
         try {
             client = getClientFromPlayerID(playerID);
         } catch (RemoteException e) {

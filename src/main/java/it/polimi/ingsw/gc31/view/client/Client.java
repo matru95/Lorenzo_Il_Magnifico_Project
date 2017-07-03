@@ -49,4 +49,5 @@ public interface Client extends Remote {
      * @throws RemoteException
      */
     UUID getPlayerID() throws RemoteException;
+
 }

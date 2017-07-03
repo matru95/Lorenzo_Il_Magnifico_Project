@@ -5,11 +5,11 @@ import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ClientMessage;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
+import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 import it.polimi.ingsw.gc31.view.GameView;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
-import javax.swing.text.View;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -24,9 +24,9 @@ public class SocketClient implements Client, Serializable{
     private static Socket socket;
     private transient ObjectInputStream objIn;
     private transient ObjectOutputStream objOut;
-    private transient String playerID;
+    private String playerID;
     private transient String gameID;
-    private transient GameView gameView;
+    private transient GameView view;
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
         socket = new Socket("localhost", 29999);
@@ -61,7 +61,13 @@ public class SocketClient implements Client, Serializable{
         Map<String, String> response = (Map<String, String>) objIn.readObject();
         this.playerID = response.get("playerID");
         this.gameID = response.get("playerID");
-        this.gameView = new GameViewCLI(UUID.fromString(playerID));
+        this.view = new GameViewCLI(UUID.fromString(playerID));
+
+//      Register was a success, tell the server
+        ClientMessage successMessage = new ClientMessage(ClientMessageEnum.REGISTERSUCCESS, null, playerID, gameID);
+        objOut.writeObject(successMessage);
+        objOut.flush();
+
         getResponses();
     }
 
@@ -86,7 +92,18 @@ public class SocketClient implements Client, Serializable{
 
     @Override
     public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
+        ServerMessageEnum requestType = request.getMessageType();
+        Map<String, String> payload = request.getPayload();
+        System.out.println(payload);
+        System.out.println(view);
 
+        switch (requestType) {
+            case UPDATE:
+                view.update(payload);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -97,5 +114,17 @@ public class SocketClient implements Client, Serializable{
     @Override
     public UUID getPlayerID() throws RemoteException {
         return UUID.fromString(playerID);
+    }
+
+    public String getPlayerIDString() {
+        return playerID;
+    }
+
+    public void setGameID(String gameID) {
+        this.gameID = gameID;
+    }
+
+    public void setPlayerID(String playerID) {
+        this.playerID = playerID;
     }
 }

@@ -10,6 +10,7 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
+import it.polimi.ingsw.gc31.view.client.SocketClient;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -19,11 +20,14 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     private transient Map<UUID, GameController> games;
     private UUID openGameID;
     private Map<UUID, List<Client>> clients;
+    private List<SocketThread> socketThreads;
     private transient Timer timer;
     ObjectMapper mapper;
 
@@ -42,6 +46,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         this.openGameID = null;
         this.timer = null;
         this.mapper = new ObjectMapper();
+        this.socketThreads = new ArrayList<>();
     }
 
     private void startSocket() throws IOException {
@@ -59,15 +64,18 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         while (condition) {
             try {
                 socket = server.accept();
+
                 SocketThread socketThread = new SocketThread(socket, this);
                 Thread clientSocketThread = new Thread(socketThread);
                 clientSocketThread.start();
+                socketThreads.add(socketThread);
             } catch (IOException e) {
                 e.printStackTrace();
                 condition = false;
             }
         }
 
+        socketThreads = null;
         server.close();
         System.out.println("Socket connection closed");
 
@@ -90,31 +98,29 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     @Override
     public void join(UUID playerID, String playerName, PlayerColor color, Client client) throws IOException, NoResourceMatch, InterruptedException {
+        System.out.println("Player id: " + playerID);
         Player player = new Player(playerID, playerName, color);
         GameController openGame;
 
         if(this.openGameID != null) {
             joinExistingGame(player, client);
-
-            if(timer == null) {
-                timer = new Timer();
-                TimerTask timerTask = new TimerTask() {
+            timer = new Timer();
+            TimerTask timerTask = new TimerTask() {
                     @Override
                     public void run() {
-                        try {
-                            startGame();
-                        } catch (NoResourceMatch noResourceMatch) {
-                            noResourceMatch.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        startGame();
+                    } catch (NoResourceMatch noResourceMatch) {
+                        noResourceMatch.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+                }
                 };
 
-                timer.schedule(timerTask, 5000);
-            }
+            timer.schedule(timerTask, 5000);
         } else {
             System.out.println("Creating new game");
             createNewGame(player);
@@ -129,7 +135,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         openGame = new GameInstance(UUID.randomUUID());
         this.openGameID = openGame.getInstanceID();
 
-        game = new GameController(openGame, new ArrayList<>());
+        game = new GameController(openGame, new ArrayList<>(), this);
         openGame.addPlayer(player);
 
         GameBoard gameBoard = new GameBoard(openGame);
@@ -153,10 +159,10 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     private void startGame() throws NoResourceMatch, IOException, InterruptedException {
+        System.out.println("starting game");
         GameController openGame = games.get(openGameID);
         openGameID = null;
         timer.cancel();
-        timer.purge();
 
         (new Thread(openGame)).start();
     }
@@ -166,9 +172,15 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         Map<String, String> payload = new HashMap<>();
         UUID playerID = UUID.randomUUID();
 
+
         this.join(playerID, playerName, playerColor, client);
 
         List<Client> gameClients = this.clients.get(openGameID);
+
+        if(client.getClass() == SocketClient.class) {
+            ((SocketClient) client).setPlayerID(playerID.toString());
+            ((SocketClient) client).setGameID(openGameID.toString());
+        }
 
         payload.put("playerID", playerID.toString());
         payload.put("gameID", openGameID.toString());
@@ -223,10 +235,20 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         return null;
     }
 
-
-
     @Override
     public void leave(UUID playerID) throws RemoteException {
 
+    }
+
+    public SocketThread getSocketByID(String playerID) {
+        System.out.println(playerID);
+        for(SocketThread socketThread: socketThreads) {
+            if(socketThread.getPlayerID().equals(playerID)) {
+
+                return socketThread;
+            }
+        }
+
+        return null;
     }
 }

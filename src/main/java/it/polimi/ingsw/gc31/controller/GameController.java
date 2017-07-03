@@ -7,7 +7,11 @@ import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnEndState;
 import it.polimi.ingsw.gc31.model.states.TurnState;
+import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
+import it.polimi.ingsw.gc31.server.rmiserver.GameServerImpl;
+import it.polimi.ingsw.gc31.server.rmiserver.SocketThread;
 import it.polimi.ingsw.gc31.view.client.Client;
+import it.polimi.ingsw.gc31.view.client.SocketClient;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,9 +19,9 @@ import java.util.*;
 public class GameController extends Controller implements Runnable{
     private ActionController actionController;
 
-    public GameController(GameInstance model, List<Client> views) {
-        super(model, views);
-        this.actionController = new ActionController(model, views, this);
+    public GameController(GameInstance model, List<Client> views, GameServer server) {
+        super(model, views, server);
+        this.actionController = new ActionController(model, views, this, server);
     }
 
     @Override
@@ -100,11 +104,9 @@ public class GameController extends Controller implements Runnable{
                     this.wait();
                 }
 
-                System.out.println("game controller stopped waiting");
                 actionThread.interrupt();
                 updateClients();
             }
-            System.out.println("Finished mini turn");
         }
 
     }
@@ -128,7 +130,17 @@ public class GameController extends Controller implements Runnable{
         Map<String, String> payload = super.getGameState();
         ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
 
-        client.send(request);
+        if(client.getClass() == SocketClient.class) {
+            GameServerImpl gameServer = (GameServerImpl) super.getServer();
+            SocketThread socketThread = gameServer.getSocketByID(((SocketClient) client).getPlayerIDString());
+
+            if(socketThread != null)
+                socketThread.updateClient(super.getGameState());
+        } else {
+
+            client.send(request);
+        }
+
     }
 
 
