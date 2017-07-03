@@ -60,8 +60,8 @@ public class FaithTileParser {
             faithTile1.setHarvestFewer(harvestFewer);
 
 
-            int profuctionFewer=faithTile.path("productionFewer").asInt();
-            faithTile1.setProfuctionFewer(profuctionFewer);
+            int productionFewer=faithTile.path("productionFewer").asInt();
+            faithTile1.setProductionFewer(productionFewer);
 
             int diceFewer=0;
             diceFewer=faithTile.path("diceFewer").asInt();
@@ -73,7 +73,7 @@ public class FaithTileParser {
                 String cardColorString=fewerDiceCard.path("cardColor").asText().toUpperCase();
 
                 CardColor cardColor=CardColor.valueOf(cardColorString);
-                faithTile1.setFewerdicecardcolor(cardColor);
+                faithTile1.setFewerDiceCardColor(cardColor);
 
                 int diceValue=fewerDiceCard.path("diceValue").asInt();
                 faithTile1.setFewerDiceCardValue(diceValue);
