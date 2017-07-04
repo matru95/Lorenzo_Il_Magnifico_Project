@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
@@ -17,6 +18,7 @@ public class GameInstance implements Serializable, Runnable {
 
 	private GameBoard gameBoard;
 	private ArrayList<Player> players;
+	private List<PlayerColor> availableColors;
 
 	private int age;
 	private int turn;
@@ -27,9 +29,6 @@ public class GameInstance implements Serializable, Runnable {
 
 	private transient Logger logger = Logger.getLogger(GameInstance.class.getName());
 
-    //currentPlayer is for saving the order of players that use CouncilsPalace Bonus
-    //TODO reinizializza playerOrder a 0 ogni turno
-    private int playerOrder;
 
 	public GameInstance(UUID instanceID) {
 
@@ -41,8 +40,7 @@ public class GameInstance implements Serializable, Runnable {
 		turn = 1;
 
 		this.state = null;
-        playerOrder = 0;
-
+		this.availableColors = PlayerColor.toList();
 	}
 
     /**
@@ -99,12 +97,11 @@ public class GameInstance implements Serializable, Runnable {
 
 	}
 
-    public boolean addPlayer(Player player) {
-		if(this.players.size() < 4) {
-			players.add(player);
-			return true;
-		}
-		return false;
+    public void addPlayer(Player player) {
+        PlayerColor firstAvailableColor = availableColors.get(0);
+        player.setPlayerColor(firstAvailableColor);
+        availableColors.remove(firstAvailableColor);
+        players.add(player);
 	}
 
 	public void generatePlayerOrders() {
@@ -122,11 +119,6 @@ public class GameInstance implements Serializable, Runnable {
 
             this.players.get(i).setPlayerOrder(rnd+1);
         }
-    }
-
-    public void putPlayerInQueue(Player p) {
-        p.setPlayerOrder(playerOrder);
-        playerOrder++;
     }
 
 	public GameBoard getGameBoard() {

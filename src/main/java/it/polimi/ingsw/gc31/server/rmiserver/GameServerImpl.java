@@ -95,8 +95,8 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void join(UUID playerID, String playerName, PlayerColor color, Client client) throws IOException, NoResourceMatch, InterruptedException {
-        Player player = new Player(playerID, playerName, color);
+    public void join(UUID playerID, String playerName, Client client) throws IOException, NoResourceMatch, InterruptedException {
+        Player player = new Player(playerID, playerName);
 
         if(this.openGameID != null) {
             joinExistingGame(player, client);
@@ -163,11 +163,11 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
+    public void register(Client client, String playerName) throws IOException, NoResourceMatch, InterruptedException {
         Map<String, String> payload = new HashMap<>();
         UUID playerID = UUID.randomUUID();
 
-        this.join(playerID, playerName, playerColor, client);
+        this.join(playerID, playerName, client);
 
         payload.put("playerID", playerID.toString());
         payload.put("gameID", openGameID.toString());
@@ -199,10 +199,9 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
             case REGISTER:
                 payload = request.getPayload();
                 String playerName = payload.get("playerName");
-                String playerColor = payload.get("playerColor");
                 Client client = request.getClient();
 
-                register(client, playerName, PlayerColor.valueOf(playerColor.toUpperCase()));
+                register(client, playerName);
                 break;
         }
 

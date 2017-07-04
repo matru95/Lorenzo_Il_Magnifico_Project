@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc31;
 
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
-import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
@@ -19,7 +18,7 @@ public class PlayerTest extends TestCase {
 
     @Override
     public void setUp() throws Exception {
-        this.player = new Player(UUID.randomUUID(), "Pippo", PlayerColor.BLUE);
+        this.player = new Player(UUID.randomUUID(), "Pippo");
         this.players = new Player[1];
         this.players[0] = player;
 

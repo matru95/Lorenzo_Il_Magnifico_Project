@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.view.client;
 
-import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ClientMessage;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
@@ -36,17 +35,16 @@ public class SocketClient implements Client, Serializable{
 
     public SocketClient() throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
         this.socketClientID = UUID.randomUUID().toString();
-        this.joinServer(null, "Endi", PlayerColor.RED);
+        this.joinServer(null, "Endi");
     }
 
 
     @Override
-    public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException, ClassNotFoundException {
+    public void joinServer(GameServer s, String playerName) throws IOException, NoResourceMatch, InterruptedException, ClassNotFoundException {
         objOut = new ObjectOutputStream(socket.getOutputStream());
 
         Map<String, String> payload = new HashMap<>();
         payload.put("playerName", playerName);
-        payload.put("playerColor", playerColor.toString());
         payload.put("socketClientID", socketClientID);
         ClientMessage request = new ClientMessage();
         request.setClient(this);

@@ -16,20 +16,20 @@ import java.util.UUID;
 public interface GameServer extends Remote {
     Map<UUID, GameController> getGames() throws RemoteException;
 
-    void join(UUID playerID, String playerName, PlayerColor color, Client client) throws IOException, NoResourceMatch, InterruptedException;
 
     void leave(UUID playerID) throws RemoteException;
+
+    void join(UUID playerID, String playerName, Client client) throws IOException, NoResourceMatch, InterruptedException;
 
     /**
      *
      * @param client the Client that is being registered
      * @param playerName
-     * @param playerColor
      * @return
      * @throws RemoteException
      * @throws NoResourceMatch
      */
-    void register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException;
+    void register(Client client, String playerName) throws IOException, NoResourceMatch, InterruptedException;
 
     /**
      * Receives raw data from the remote client

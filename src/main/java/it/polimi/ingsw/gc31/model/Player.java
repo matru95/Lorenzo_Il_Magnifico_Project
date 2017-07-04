@@ -35,7 +35,7 @@ public class Player implements Serializable {
 
 	private final UUID playerID;
 	private final String playerName;
-	private final PlayerColor playerColor;
+	private PlayerColor playerColor;
 	private GameBoard board;
 	private int playerOrder; // From 1 to 4
 	private Boolean isMovedThisTurn;
@@ -54,10 +54,9 @@ public class Player implements Serializable {
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
 
-	public Player(UUID playerID, String playerName, PlayerColor playerColor) {
+	public Player(UUID playerID, String playerName) {
 		this.playerID = playerID;
 		this.playerName = playerName;
-		this.playerColor = playerColor;
 
 		this.isMovedThisTurn = false;
 		
@@ -378,4 +377,11 @@ public class Player implements Serializable {
 	    this.bonuses.add(bonus);
     }
 
+	/**
+	 * Set the player color
+	 * @param playerColor
+	 */
+	public void setPlayerColor(PlayerColor playerColor) {
+		this.playerColor = playerColor;
+	}
 }

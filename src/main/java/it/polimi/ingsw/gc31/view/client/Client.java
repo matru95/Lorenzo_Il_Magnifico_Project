@@ -16,12 +16,11 @@ public interface Client extends Remote {
      * Method to make the client join a server
      * @param s
      * @param playerName
-     * @param playerColor
      * @throws IOException
      * @throws NoResourceMatch
      * @throws InterruptedException
      */
-    void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException, ClassNotFoundException;
+    void joinServer(GameServer s, String playerName) throws IOException, NoResourceMatch, InterruptedException, ClassNotFoundException;
 
     /**
      * Method to ping.
@@ -50,7 +49,7 @@ public interface Client extends Remote {
      */
     String getPlayerID() throws RemoteException;
 
-    String getSocketClientID();
+    String getSocketClientID() throws RemoteException;
 
-    void setPlayerID(String playerID);
+    void setPlayerID(String playerID) throws RemoteException;
 }

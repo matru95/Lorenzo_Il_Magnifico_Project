@@ -9,7 +9,6 @@ import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.parser.CardParser;
@@ -594,10 +593,10 @@ public class GameViewCLI implements GameView, Serializable {
 
     public static void main(String[] args) throws IOException {
         List<Card> cards;
-        Player p1 = new Player(UUID.randomUUID(), "MATRU", PlayerColor.BLUE);
-        Player p2 = new Player(UUID.randomUUID(), "ENDI", PlayerColor.RED);
-        Player p3 = new Player(UUID.randomUUID(), "PLUX", PlayerColor.GREEN);
-        Player p4 = new Player(UUID.randomUUID(), "VALE", PlayerColor.YELLOW);
+        Player p1 = new Player(UUID.randomUUID(), "MATRU");
+        Player p2 = new Player(UUID.randomUUID(), "ENDI");
+        Player p3 = new Player(UUID.randomUUID(), "PLUX");
+        Player p4 = new Player(UUID.randomUUID(), "VALE");
         GameInstance gameInstance = new GameInstance(UUID.randomUUID());
         gameInstance.addPlayer(p1);
         gameInstance.addPlayer(p2);

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.view.client;
 
-import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
@@ -24,6 +23,9 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     private transient GameView view;
     private UUID gameID;
 
+    protected RMIClient() throws RemoteException {
+    }
+
     public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException, ClassNotFoundException {
 
         Registry registry = LocateRegistry.getRegistry(8080);
@@ -31,16 +33,12 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
 
         Client client = new RMIClient();
 
-        client.joinServer(gameServer, "Matteo", PlayerColor.BLUE);
-    }
-
-    public RMIClient() throws RemoteException {
-        super();
+        client.joinServer(gameServer, "Matteo");
     }
 
     @Override
-    public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
-        s.register(this, playerName, playerColor);
+    public void joinServer(GameServer s, String playerName) throws IOException, NoResourceMatch, InterruptedException {
+        s.register(this, playerName);
         this.server = s;
     }
 
@@ -108,12 +106,12 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     }
 
     @Override
-    public String getSocketClientID() {
+    public String getSocketClientID() throws RemoteException {
         return null;
     }
 
     @Override
-    public void setPlayerID(String playerID) {
+    public void setPlayerID(String playerID) throws RemoteException {
         this.playerID = UUID.fromString(playerID);
     }
 
