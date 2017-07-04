@@ -10,6 +10,7 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
+import it.polimi.ingsw.gc31.view.client.RMIClient;
 import it.polimi.ingsw.gc31.view.client.SocketClient;
 
 import java.io.*;
@@ -20,8 +21,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     private transient Map<UUID, GameController> games;
@@ -225,14 +224,13 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
         synchronized (actionController) {
             actionController.setMovementReceived(true);
-            System.out.println("notifying");
-
             actionController.notify();
         }
 
         actionController.movementAction(playerID, payload);
 
         return null;
+
     }
 
     @Override
@@ -240,8 +238,21 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     }
 
+    @Override
+    public void sendMessageToClient(Client client, ServerMessage request) throws InterruptedException, IOException, NoResourceMatch {
+
+        if(client.getClass() == SocketClient.class) {
+
+            SocketThread socketThread = getSocketByID(client.getPlayerID());
+            socketThread.send(request);
+        } else {
+
+            client.send(request);
+        }
+
+    }
+
     public SocketThread getSocketByID(String playerID) {
-        System.out.println(playerID);
         for(SocketThread socketThread: socketThreads) {
             if(socketThread.getPlayerID().equals(playerID)) {
 

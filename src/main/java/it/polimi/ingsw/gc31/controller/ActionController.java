@@ -63,7 +63,7 @@ public class ActionController extends Controller implements Runnable {
 
         } catch (MovementInvalidException e) {
             ServerMessage request = new ServerMessage();
-            Client client = getClientFromPlayerID(UUID.fromString(playerID));
+            Client client = getClientFromPlayerID(playerID);
 
             this.endTime = System.currentTimeMillis();
             this.waitingTime = waitingTime - (endTime - startTime);
@@ -71,7 +71,7 @@ public class ActionController extends Controller implements Runnable {
             request.setMessageType(ServerMessageEnum.MOVEMENTFAIL);
             sendMessage(request, client);
 
-            waitForMove(UUID.fromString(playerID), getClientFromPlayerID(UUID.fromString(playerID)));
+            waitForMove(UUID.fromString(playerID), getClientFromPlayerID(playerID));
         }
 
         updateClients();
@@ -85,7 +85,8 @@ public class ActionController extends Controller implements Runnable {
 
         messageThread = new Thread(() -> {
             try {
-                client.send(request);
+                System.out.println("Sending message: " + request.getMessageType());
+                super.getServer().sendMessageToClient(client, request);
             } catch (NoResourceMatch noResourceMatch) {
                 noResourceMatch.printStackTrace();
             } catch (IOException e) {
@@ -102,14 +103,15 @@ public class ActionController extends Controller implements Runnable {
         List<Client> clients = super.getViews();
 
         for(Client client: clients) {
-            updateClient(client);
+            super.updateClient(client);
         }
     }
 
-    private Client getClientFromPlayerID(UUID playerID) throws RemoteException {
+    private Client getClientFromPlayerID(String playerID) throws RemoteException {
 
         for(Client client: super.getViews()) {
-            if(client.getPlayerID().equals(playerID)) {
+            String clientID = client.getPlayerID();
+            if(clientID.equals(playerID)) {
                 return client;
             }
         }
@@ -117,12 +119,6 @@ public class ActionController extends Controller implements Runnable {
         return null;
     }
 
-    private void updateClient(Client client) throws NoResourceMatch, IOException, InterruptedException {
-        Map<String, String> payload = super.getGameState();
-        ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
-
-        client.send(request);
-    }
 
     @Override
     public void run() {
@@ -133,7 +129,7 @@ public class ActionController extends Controller implements Runnable {
         Client client = null;
 
         try {
-            client = getClientFromPlayerID(playerID);
+            client = getClientFromPlayerID(playerID.toString());
         } catch (RemoteException e) {
         }
 

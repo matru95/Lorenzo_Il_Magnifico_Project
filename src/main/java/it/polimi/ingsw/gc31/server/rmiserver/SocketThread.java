@@ -15,6 +15,8 @@ public class SocketThread implements Runnable{
     private GameServer gameServer;
     private String playerID;
     private String gameID;
+    ObjectOutputStream objectOutputStream;
+    ObjectInputStream objectInputStream;
 
     public SocketThread(Socket clientSocket, GameServer gameServer) {
         this.clientSocket = clientSocket;
@@ -24,18 +26,15 @@ public class SocketThread implements Runnable{
 
     @Override
     public void run() {
-        ObjectOutputStream objOut = null;
-        ObjectInputStream objIn = null;
-
         try {
-            objOut = new ObjectOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
-            objIn = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
+            objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
+            objectInputStream = new ObjectInputStream(new BufferedInputStream(clientSocket.getInputStream()));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            getMessages(objOut, objIn);
+            getMessages();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,13 +42,13 @@ public class SocketThread implements Runnable{
 
     }
 
-    private void getMessages(ObjectOutputStream objOut, ObjectInputStream objIn) throws IOException {
-        boolean end = false;
+    private void getMessages() throws IOException {
+        boolean condition = true;
 
-        while (!end){
+        while (condition){
             try{
 //              Receive message from client
-                ClientMessage request = (ClientMessage) objIn.readObject();
+                ClientMessage request = (ClientMessage) objectInputStream.readObject();
 
                 if(request.getClientMessageType() == ClientMessageEnum.REGISTERSUCCESS) {
                     this.playerID = request.getPlayerID();
@@ -58,13 +57,17 @@ public class SocketThread implements Runnable{
 //                  Send to Server and get response
                     Map<String, String> response = gameServer.send(request);
 //                  Send the response to the client
-                    objOut.writeObject(response);
-                    objOut.flush();
+                    if(response != null) {
+                        objectOutputStream.writeObject(response);
+                        objectOutputStream.flush();
+                    }
                 }
 
-                end = (request.getClientMessageType() == ClientMessageEnum.ENDCONNECTION);
+                condition = (request.getClientMessageType() != ClientMessageEnum.ENDCONNECTION);
+                System.out.println(condition);
             }catch (IOException ioe){
-                end = true;
+                ioe.printStackTrace();
+                condition = false;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (NoResourceMatch noResourceMatch) {
@@ -74,17 +77,26 @@ public class SocketThread implements Runnable{
             }
         }
 
+        System.out.println("closing socket");
         clientSocket.close();
-        objIn.close();
-        objOut.close();
+        objectOutputStream.close();
+        objectOutputStream.close();
     }
 
     public void updateClient(Map<String, String> gameState) throws IOException {
-        ObjectOutputStream objOut = new ObjectOutputStream(clientSocket.getOutputStream());
         Map<String, String> payload = gameState;
         ServerMessage serverMessage = new ServerMessage(ServerMessageEnum.UPDATE, payload);
-        objOut.writeObject(serverMessage);
-        objOut.flush();
+        send(serverMessage);
+    }
+
+    public void send(ServerMessage request) {
+        try {
+            objectOutputStream.reset();
+            objectOutputStream.writeObject(request);
+            objectOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getGameID() {

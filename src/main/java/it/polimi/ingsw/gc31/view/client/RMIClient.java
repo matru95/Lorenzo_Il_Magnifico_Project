@@ -92,13 +92,13 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     }
 
     @Override
-    public UUID getGameID() throws RemoteException {
-        return gameID;
+    public String getGameID() throws RemoteException {
+        return gameID.toString();
     }
 
     @Override
-    public UUID getPlayerID() throws RemoteException {
-        return playerID;
+    public String getPlayerID() throws RemoteException {
+        return playerID.toString();
     }
 
 }

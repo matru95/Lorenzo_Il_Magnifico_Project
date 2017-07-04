@@ -122,27 +122,9 @@ public class GameController extends Controller implements Runnable{
         List<Client> clients = super.getViews();
 
         for(Client client: clients) {
-            updateClient(client);
+            super.updateClient(client);
         }
     }
-
-    private void updateClient(Client client) throws NoResourceMatch, IOException, InterruptedException {
-        Map<String, String> payload = super.getGameState();
-        ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
-
-        if(client.getClass() == SocketClient.class) {
-            GameServerImpl gameServer = (GameServerImpl) super.getServer();
-            SocketThread socketThread = gameServer.getSocketByID(((SocketClient) client).getPlayerIDString());
-
-            if(socketThread != null)
-                socketThread.updateClient(super.getGameState());
-        } else {
-
-            client.send(request);
-        }
-
-    }
-
 
     private void executeState(State state) {
         GameInstance context = super.getModel();

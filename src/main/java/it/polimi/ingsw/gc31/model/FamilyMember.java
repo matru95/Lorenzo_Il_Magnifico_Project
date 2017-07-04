@@ -24,6 +24,7 @@ public class FamilyMember {
     private int value;
 	private SpaceWrapper currentPosition;
 	private GameBoard board;
+	private boolean isMovedThisTurn;
 
 	public FamilyMember(DiceColor color, Player player, GameBoard board) {
 
@@ -90,7 +91,8 @@ public class FamilyMember {
         player.addCard(position.getCard());
     }
 
-	public ServerMessage moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch, MovementInvalidException {
+
+    public ServerMessage moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch, MovementInvalidException {
 
 	    if(!isMovementPossible(position)) {
 	        throw new MovementInvalidException();
@@ -107,6 +109,7 @@ public class FamilyMember {
 
 		this.currentPosition = position;
 		position.setFamilyMember(this);
+		this.isMovedThisTurn = true;
 		ServerMessage request =  position.execWrapper(this, numOfServantsPaid);
         return request;
     }
@@ -119,7 +122,7 @@ public class FamilyMember {
             cardLimitReached = isCardLimitReached(((TowerSpaceWrapper) position).getColor());
         }
 
-        if(position.isOccupied() || cardLimitReached) {
+        if(position.isOccupied() || cardLimitReached || this.isMovedThisTurn) {
             return false;
         }
 
@@ -222,5 +225,9 @@ public class FamilyMember {
      */
     public GameBoard getBoard() {
         return board;
+    }
+
+    public void setMovedThisTurn(boolean movedThisTurn) {
+        isMovedThisTurn = movedThisTurn;
     }
 }

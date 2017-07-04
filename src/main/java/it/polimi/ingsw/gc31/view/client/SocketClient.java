@@ -60,7 +60,7 @@ public class SocketClient implements Client, Serializable{
 
         Map<String, String> response = (Map<String, String>) objIn.readObject();
         this.playerID = response.get("playerID");
-        this.gameID = response.get("playerID");
+        this.gameID = response.get("gameID");
         this.view = new GameViewCLI(UUID.fromString(playerID));
 
 //      Register was a success, tell the server
@@ -69,13 +69,13 @@ public class SocketClient implements Client, Serializable{
         objOut.flush();
 
         getResponses();
+        socket.close();
     }
 
     private void getResponses() throws ClassNotFoundException, NoResourceMatch, InterruptedException {
         boolean condition = true;
         while (condition) {
             try {
-                objIn = new ObjectInputStream(socket.getInputStream());
                 ServerMessage response = (ServerMessage) objIn.readObject();
                 send(response);
             } catch (IOException e) {
@@ -94,29 +94,31 @@ public class SocketClient implements Client, Serializable{
     public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
         ServerMessageEnum requestType = request.getMessageType();
         Map<String, String> payload = request.getPayload();
-        System.out.println(payload);
-        System.out.println(view);
 
         switch (requestType) {
             case UPDATE:
+                System.out.println(payload);
                 view.update(payload);
+                break;
+            case MOVEREQUEST:
+                sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
                 break;
             default:
                 break;
         }
     }
 
-    @Override
-    public UUID getGameID() throws RemoteException {
-        return UUID.fromString(gameID);
+    private void sendMessageToServer(ClientMessage clientMessage) throws IOException {
+        objOut.writeObject(clientMessage);
     }
 
     @Override
-    public UUID getPlayerID() throws RemoteException {
-        return UUID.fromString(playerID);
+    public String getGameID() throws RemoteException {
+        return gameID;
     }
 
-    public String getPlayerIDString() {
+    @Override
+    public String getPlayerID() throws RemoteException {
         return playerID;
     }
 

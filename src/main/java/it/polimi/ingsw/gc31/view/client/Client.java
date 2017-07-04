@@ -8,7 +8,6 @@ import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.UUID;
 
 public interface Client extends Remote {
 
@@ -41,13 +40,13 @@ public interface Client extends Remote {
      * @return UUID
      * @throws RemoteException
      */
-    UUID getGameID() throws RemoteException;
+    String getGameID() throws RemoteException;
 
     /**
      * Getter for "playerID" attribute.
-     * @return UUID
+     * @return String
      * @throws RemoteException
      */
-    UUID getPlayerID() throws RemoteException;
+    String getPlayerID() throws RemoteException;
 
 }
