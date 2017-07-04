@@ -382,9 +382,15 @@ public class CardParser {
         int numOfInstantParchment = getNumOfParchment(cardJSON.path("instantEffect"));
         int numOfNormalParchment = getNumOfParchment(cardJSON.path("normalEffect"));
 
+        if(numOfInstantParchment > 0) {
+            Effect parchmentEffect = new ParchmentEffect(numOfInstantParchment);
+            card.addInstantEffect(parchmentEffect);
+        }
 
-        card.setNumOfInstantParchment(numOfInstantParchment);
-        card.setNumOfNormalParchment(numOfNormalParchment);
+        if(numOfNormalParchment > 0) {
+            Effect parchmentEffect = new ParchmentEffect(numOfNormalParchment);
+            card.addNormalEffect(parchmentEffect);
+        }
     }
 
 
