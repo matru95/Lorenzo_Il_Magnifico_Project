@@ -1543,7 +1543,7 @@
     },
     {
       "id": 57,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Captain",
       "cardColor": "blue",
       "cost": [
@@ -1567,7 +1567,7 @@
     },
     {
       "id": 58,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Architect",
       "cardColor": "blue",
       "cost": [
@@ -1594,7 +1594,7 @@
     },
     {
       "id": 59,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Patron",
       "cardColor": "blue",
       "cost": [
@@ -1620,7 +1620,7 @@
     },
     {
       "id": 60,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Hero",
       "cardColor": "blue",
       "cost": [
@@ -1644,7 +1644,7 @@
     },
     {
       "id": 61,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Peasant",
       "cardColor": "blue",
       "cost": [
@@ -1668,7 +1668,7 @@
     },
     {
       "id": 62,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Scholar",
       "cardColor": "blue",
       "cost": [
@@ -1692,7 +1692,7 @@
     },
     {
       "id": 63,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Papal Messenger",
       "cardColor": "blue",
       "cost": [
@@ -1712,7 +1712,7 @@
     },
     {
       "id": 64,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Royal Messenger",
       "cardColor": "blue",
       "cost": [
@@ -1732,7 +1732,7 @@
     },
     {
       "id": 65,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Noble",
       "cardColor": "blue",
       "cost": [
@@ -1759,7 +1759,7 @@
     },
     {
       "id": 66,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Governor",
       "cardColor": "blue",
       "cost": [
@@ -1786,7 +1786,7 @@
     },
     {
       "id": 67,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Paramour",
       "cardColor": "blue",
       "cost": [
@@ -1813,7 +1813,7 @@
     },
     {
       "id": 68,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Herald",
       "cardColor": "blue",
       "cost": [
@@ -1840,7 +1840,7 @@
     },
     {
       "id": 69,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Cardinal",
       "cardColor": "blue",
       "cost": [
@@ -1863,7 +1863,7 @@
     },
     {
       "id": 70,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Bishop",
       "cardColor": "blue",
       "cost": [
@@ -1886,7 +1886,7 @@
     },
     {
       "id": 71,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "General",
       "cardColor": "blue",
       "cost": [
@@ -1913,7 +1913,7 @@
     },
     {
       "id": 72,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Ambassador",
       "cardColor": "blue",
       "cost": [
@@ -2122,7 +2122,7 @@
     },
     {
       "id": 81,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Hiring Soldiers",
       "cardColor": "purple",
       "cost": [
@@ -2143,7 +2143,7 @@
     },
     {
       "id": 82,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Repairing the Abbey",
       "cardColor": "purple",
       "cost": [
@@ -2166,7 +2166,7 @@
     },
     {
       "id": 83,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Building the Bastions",
       "cardColor": "purple",
       "cost": [
@@ -2188,7 +2188,7 @@
     },
     {
       "id": 84,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Support to the King",
       "cardColor": "purple",
       "cost": [
@@ -2213,7 +2213,7 @@
     },
     {
       "id": 85,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Improving the Canals",
       "cardColor": "purple",
       "cost": [
@@ -2237,7 +2237,7 @@
     },
     {
       "id": 86,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Hosting Foreigners",
       "cardColor": "purple",
       "cost": [
@@ -2258,7 +2258,7 @@
     },
     {
       "id": 87,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Crusade",
       "cardColor": "purple",
       "cost": [
@@ -2283,7 +2283,7 @@
     },
     {
       "id": 88,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Support to the Cardinal",
       "cardColor": "purple",
       "cost": [
@@ -2312,7 +2312,7 @@
     },
     {
       "id": 89,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Hiring Mercenaries",
       "cardColor": "purple",
       "cost": [
@@ -2333,7 +2333,7 @@
     },
     {
       "id": 90,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Repairing the Cathedral",
       "cardColor": "purple",
       "cost": [
@@ -2359,7 +2359,7 @@
     },
     {
       "id": 91,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Building the Towers",
       "cardColor": "purple",
       "cost": [
@@ -2381,7 +2381,7 @@
     },
     {
       "id": 92,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Promoting Sacred Art",
       "cardColor": "purple",
       "cost": [
@@ -2402,7 +2402,7 @@
     },
     {
       "id": 93,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Military Conquest",
       "cardColor": "purple",
       "cost": [
@@ -2421,6 +2421,83 @@
       "normalEffect": {
         "bonus": {
           "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 94,
+      "cardAge": 3,
+      "title": "Improving the Roads",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "servants": 3,
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "productionOrHarvestAction": {
+          "production": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 95,
+      "cardAge": 3,
+      "title": "Sacred War",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 8
+        }
+      ],
+      "costBond": {
+        "warPoints": 15
+      },
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 8
+        }
+      }
+    },
+    {
+      "id": 96,
+      "cardAge": 3,
+      "title": "Support to the Pope",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 5
+        },
+        {
+          "wood": 3,
+          "stone": 3,
+          "gold": 4
+        }
+      ],
+      "costBond": {
+        "warPoints": 5
+      },
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 10
         }
       }
     }

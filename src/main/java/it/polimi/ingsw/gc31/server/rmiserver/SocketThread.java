@@ -90,8 +90,8 @@ public class SocketThread implements Runnable{
 
     public void send(ServerMessage request) {
         try {
-            objectOutputStream.reset();
             objectOutputStream.writeObject(request);
+            objectOutputStream.reset();
             objectOutputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
