@@ -2,9 +2,7 @@ package it.polimi.ingsw.gc31.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import java.util.ArrayList;
@@ -13,12 +11,12 @@ import java.util.List;
 public class FaithTile {
 	private int age;
 	private int id;
-	private FaithEffect effect;
+	private FaithEffect faithEffect;
 	private List<Resource> gainFewerStack;
 	private int harvestFewer=0;
 	private int productionFewer=0;
 	private int diceFewer=0;
-	private CardColor fewerdicecardcolor;
+	private CardColor fewerDiceCardColor;
 	private int fewerDiceCardValue=0;
 	private boolean noMarket=false;
 	private boolean doubleServants=false;
@@ -32,7 +30,7 @@ public class FaithTile {
 	public FaithTile(int id, int age) {
 		this.id=id;
 		this.age = age;
-		this.effect = new FaithEffect();
+		this.faithEffect = new FaithEffect();
 	}
 
 	public void execute(Player player) {
@@ -50,15 +48,15 @@ public class FaithTile {
 			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(faithObjectNode);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-			return null;
+			return "";
 		}
 	}
 	public int getAge() {
 		return age;
 	}
 	public int getId() { return this.id;}
-	public FaithEffect getEffect() {
-		return effect;
+	public FaithEffect getFaithEffect() {
+		return faithEffect;
 	}
 	public void setAge(int age) {
 		this.age = age;
@@ -72,14 +70,14 @@ public class FaithTile {
 	public void setHarvestFewer(int harvestFewer) {
 		this.harvestFewer = harvestFewer;
 	}
-	public void setProfuctionFewer(int productionFewer) {
+	public void setProductionFewer(int productionFewer) {
 		this.productionFewer = productionFewer;
 	}
 	public void setDiceFewer(int diceFewer) {
 		this.diceFewer = diceFewer;
 	}
-	public void setFewerdicecardcolor(CardColor fewerdicecardcolor) {
-		this.fewerdicecardcolor = fewerdicecardcolor;
+	public void setFewerDiceCardColor(CardColor fewerDiceCardColor) {
+		this.fewerDiceCardColor = fewerDiceCardColor;
 	}
 	public void setFewerDiceCardValue(int fewerDiceCardValue) {
 		this.fewerDiceCardValue = fewerDiceCardValue;
@@ -116,77 +114,142 @@ public class FaithTile {
 		ObjectNode faithObjectNode = mapper.createObjectNode();
 		faithObjectNode.put("id", this.id);
 		faithObjectNode.put("age", this.age);
+		String description= new String();
+		ObjectNode effect=mapper.createObjectNode();
+
 		//TODO TOJSON CON LA SCRITTA DEL DETERMINATO EFFETTO GIA FORMATA
 		if(!(this.gainFewerStack.isEmpty())){
-			ArrayNode gainFewerStack= mapper.createArrayNode();
-			ObjectNode gainFewerRes= mapper.createObjectNode();
+
+			ObjectNode gainFewer= mapper.createObjectNode();
+
 			for (Resource resource :this.gainFewerStack){
-				gainFewerRes.put(resource.getResourceName().toString(),resource.getNumOf());
-				gainFewerStack.add(gainFewerRes);
+				gainFewer.put(resource.getResourceName().toString().toLowerCase(),resource.getNumOf());
+				description+="You will get("+resource.getNumOf()+") less "+resource.getResourceName()+" for each faithEffect that comes from an action space or from one development card. ";
 			}
-			faithObjectNode.set("gainFewer",gainFewerStack);
+			effect.set("gainFewer",gainFewer);
+			effect.put("description",description);
+			faithObjectNode.set("faithEffect",effect);
 		}
+
 		if(this.harvestFewer!=0){
-			ObjectNode harvestFewer= mapper.createObjectNode();
-			harvestFewer.put("harvestFewer",this.harvestFewer);
-			faithObjectNode.set("harvestFewer",harvestFewer);
+
+
+			effect.put("harvestFewer",this.harvestFewer);
+			faithObjectNode.set("faithEffect",effect);
+
+			description+="Harvest's dice value now will be decrease by "+this.harvestFewer+" points.\n";
+			faithObjectNode.put("description",description);
 		}
+
 		if(this.productionFewer!=0){
-			ObjectNode productionFewer= mapper.createObjectNode();
-			productionFewer.put("productionFewer",this.productionFewer);
-			faithObjectNode.set("productionFewer",productionFewer);
+
+			effect.put("productionFewer",this.productionFewer);
+			faithObjectNode.set("faithEffect",effect);
+
+			description += "Production's dice value now will be decrease by "+ this.productionFewer+ " points.";
+			faithObjectNode.put("description",description);
 		}
+
 		if(this.diceFewer!=0){
-			ObjectNode diceFewer= mapper.createObjectNode();
-			diceFewer.put("diceFewer",this.diceFewer);
-			faithObjectNode.set("diceFewer",diceFewer);
+
+			effect.put("diceFewer",this.diceFewer);
+			faithObjectNode.set("faithEffect",effect);
+
+			description+="All your colored Family Members receive a -" + this.diceFewer + " reduction of their value each time you place them.";
+			faithObjectNode.put("description",description);
+
 		}
-		if(this.fewerdicecardcolor!=null){
-			ObjectNode fewerdicecard= mapper.createObjectNode();
-			fewerdicecard.put("cardColor",this.fewerdicecardcolor.toString());
-			fewerdicecard.put("diceValue",this.fewerDiceCardValue);
-			faithObjectNode.set("fewerDiceCard",fewerdicecard);
+
+		if(this.fewerDiceCardColor !=null){
+			ObjectNode fewerDiceCard= mapper.createObjectNode();
+			fewerDiceCard.put("cardColor",this.fewerDiceCardColor.toString());
+			fewerDiceCard.put("diceValue",this.fewerDiceCardValue);
+
+			description+="Each time you take a"+ this.fewerDiceCardColor.toString() +" Card your action receives a -"+this.fewerDiceCardValue+" reduction of its value.";
+			faithObjectNode.put("description",description);
+
+			effect.set("fewerDiceCard",fewerDiceCard);
+			faithObjectNode.set("faithEffect",effect);
 		}
+
 		if(this.noMarket){
-			faithObjectNode.put("noMarket",true);
+			effect.put("noMarket",true);
+			description+="You can’t place your Family Members in the Market action spaces.";
+			faithObjectNode.put("description",description);
+			faithObjectNode.set("faithEffect",effect);
 		}
+
 		if(this.doubleServants){
-			faithObjectNode.put("doubleServants",true);
+			description+="You have to spend 2 servants to increase your action value by 1";
+			faithObjectNode.put("description",description);
+
+			effect.put("doubleServants",true);
+			faithObjectNode.set("faithEffect",effect);
+
 		}
+
 		if(this.skipFirstRound){
-			faithObjectNode.put("noSkipFirstRound",true);
+			effect.put("noSkipFirstRound",true);
+			description+="Each round, you skip your first turn. You start taking actions from the second turn. When all players have taken all their turns, you may still place your last Family Member.";
+
+			faithObjectNode.put("description",description);
+			faithObjectNode.set("faithEffect",effect);
 		}
+
 		if(this.noEndGamePointsCardColor!=null){
-			ObjectNode noEndGamePoints= mapper.createObjectNode();
-			noEndGamePoints.put("cardColor",this.noEndGamePointsCardColor.toString());
+			effect.put("cardColor",this.noEndGamePointsCardColor.toString());
+
+			description+="No more end game effects for"+this.noEndGamePointsCardColor.toString()+" card";
+			faithObjectNode.put("description",description);
+			faithObjectNode.set("faithEffect",effect);
 		}
+
 		if(this.loseForEveryResource){
-			faithObjectNode.put("loseForEveryResource",this.skipFirstRound);
+			effect.put("loseForEveryResource",this.skipFirstRound);
+			description+="At the end of the game, you lose 1 Victory Point for every resource (wood, stone, coin, servant) in your supply on your Personal Board.";
+			faithObjectNode.put("description",description);
+			faithObjectNode.set("faithEffect",effect);
 		}
+
 		if(!(this.forEveryRes.isEmpty())){
-			ArrayNode loseForEvery= mapper.createArrayNode();
-			ObjectNode loseForEveryFor= mapper.createObjectNode();
-			for(Resource resource : forEveryRes){
-				loseForEveryFor.put(resource.getResourceName().toString(),resource.getNumOf());
-			}
-			loseForEvery.add(loseForEveryFor);
-			ObjectNode lost=mapper.createObjectNode();
+			description+="At the end of the game, ";
+			ObjectNode loseForEvery = mapper.createObjectNode();
+			ObjectNode loseForEveryFor = mapper.createObjectNode();
+			ObjectNode lost = mapper.createObjectNode();
 			for(Resource resource: this.loseRes){
 				lost.put(resource.getResourceName().toString(),resource.getNumOf());
+				description+="you lose"+resource.getNumOf()+" "+resource.getResourceName();
 			}
-			loseForEvery.add(lost);
-		}
-		if(this.loseForEveryCostCardColor!=null){
-			ObjectNode loseForEveryCost= mapper.createObjectNode();
-			ObjectNode loseForEveryCardColor= mapper.createObjectNode();
-			loseForEveryCardColor.put("cardColor",loseForEveryCostCardColor.toString());
-			loseForEveryCost.set("loseForEveryCost",loseForEveryCardColor);
+			loseForEvery.set("lost",lost);
 
-			ObjectNode cardTypeCost= mapper.createObjectNode();
+			for(Resource resource : this.forEveryRes){
+				loseForEveryFor.put(resource.getResourceName().toString().toLowerCase(),resource.getNumOf());
+				description+=" for every"+resource.getResourceName()+ " you have.";
+			}
+			loseForEvery.set("for",loseForEveryFor);
+
+			effect.set("loseForEvery",loseForEvery);
+
+			faithObjectNode.put("description",description);
+			faithObjectNode.set("faithEffect",effect);
+		}
+
+		if(this.loseForEveryCostCardColor!=null){
+
+			ObjectNode loseForEveryCost = mapper.createObjectNode();
+			loseForEveryCost.put("cardColor",loseForEveryCostCardColor.toString().toLowerCase());
+			description+="At the end of the game, you lose 1 Victory Point for every ";
+			ObjectNode cardTypeCost = mapper.createObjectNode();
 			for(Resource resource: this.loseForEveryCost){
+				description+=resource.getResourceName().toString()+" ";
 				cardTypeCost.put(resource.getResourceName().toString(), resource.getNumOf());
 			}
-			loseForEveryCost.set("loseForEveryCost", cardTypeCost);
+			loseForEveryCost.set("cardTypeCost", cardTypeCost);
+			description+=" on your "+ this.loseForEveryCostCardColor +" card";
+
+			effect.set("loseForEveryCost",loseForEveryCost);
+			faithObjectNode.set("faithEffect",effect);
+			faithObjectNode.put("description",description);
 		}
 		return faithObjectNode;
 	}
