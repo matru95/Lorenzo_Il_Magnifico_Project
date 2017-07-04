@@ -65,8 +65,10 @@ public class SocketClient implements Client, Serializable{
         while (condition) {
             try {
                 ServerMessage response = (ServerMessage) objIn.readObject();
+                System.out.println("receiving: "+response);
                 send(response);
             } catch (IOException e) {
+                e.printStackTrace();
                 condition = false;
             }
         }
@@ -104,13 +106,38 @@ public class SocketClient implements Client, Serializable{
             case MOVEREQUEST:
                 sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
                 break;
+            case MOVEMENTFAIL:
+                view.movementFail(payload);
+                sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
+                break;
+            case PARCHMENTREQUEST:
+                sendMessageToServer(new ClientMessage(ClientMessageEnum.PARCHMENTCHOICE, view.parchmentQuery(payload), playerID, gameID));
+                break;
+            case EXCOMMUNICATIONREQUEST:
+                sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID, gameID));
+                break;
+            case COSTREQUEST:
+                sendMessageToServer(new ClientMessage(ClientMessageEnum.COSTCHOICE, view.costQuery(payload), playerID, gameID));
+                break;
+            case EXCHANGEREQUEST:
+                sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCHANGECHOICES, view.exchangeQuery(payload), playerID, gameID));
+                break;
+            case FREECARDREQUEST:
+                sendMessageToServer(new ClientMessage(ClientMessageEnum.FREECARDCHOICE, view.freeCardQuery(payload), playerID, gameID));
+                break;
             default:
                 break;
         }
     }
 
-    private void sendMessageToServer(ClientMessage clientMessage) throws IOException {
-        objOut.writeObject(clientMessage);
+    private void sendMessageToServer(ClientMessage clientMessage) {
+        try {
+            objOut.writeObject(clientMessage);
+            objOut.flush();
+//            objOut.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

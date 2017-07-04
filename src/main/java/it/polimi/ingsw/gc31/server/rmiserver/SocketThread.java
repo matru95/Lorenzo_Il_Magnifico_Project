@@ -50,7 +50,7 @@ public class SocketThread implements Runnable{
             try{
 //              Receive message from client
                 ClientMessage request = (ClientMessage) objectInputStream.readObject();
-                System.out.println("Received request");
+                System.out.println("Received: "+ request.getClientMessageType());
 
                 if(request.getClientMessageType() == ClientMessageEnum.REGISTERSUCCESS) {
                     this.playerID = request.getPlayerID();

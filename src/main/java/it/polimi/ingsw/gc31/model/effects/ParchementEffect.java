@@ -14,18 +14,18 @@ import java.util.Map;
 
 
 public class ParchementEffect extends Effect{
+    private int numOfParchments;
 
-    int numparchment;
-    ParchementEffect( int numparchment) {
-        this.numparchment=numparchment;
+    ParchementEffect(int numOfParchments) {
+        this.numOfParchments = numOfParchments;
     }
 
     @Override
     public ServerMessage exec(Player player) throws NoResourceMatch {
         Map<String,String> payload= new HashMap<>();
-        payload.put("parchments",""+this.numparchment);
-        ServerMessage parchmentMsg= new ServerMessage(ServerMessageEnum.PARCHMENTREQUEST,payload);
-    return parchmentMsg;
+        payload.put("parchments", String.valueOf(numOfParchments));
+        ServerMessage request = new ServerMessage(ServerMessageEnum.PARCHMENTREQUEST, payload);
+    return request;
     }
 
     @Override
