@@ -27,15 +27,15 @@ public class SocketClient implements Client, Serializable{
     private String playerID;
     private transient String gameID;
     private transient GameView view;
+    private String socketClientID;
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
         socket = new Socket("localhost", 29999);
         SocketClient socketClient = new SocketClient();
-
     }
 
     public SocketClient() throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
-        System.out.println("Connected: "+ socket);
+        this.socketClientID = UUID.randomUUID().toString();
         this.joinServer(null, "Endi", PlayerColor.RED);
     }
 
@@ -47,6 +47,7 @@ public class SocketClient implements Client, Serializable{
         Map<String, String> payload = new HashMap<>();
         payload.put("playerName", playerName);
         payload.put("playerColor", playerColor.toString());
+        payload.put("socketClientID", socketClientID);
         ClientMessage request = new ClientMessage();
         request.setClient(this);
         request.setClientMessageType(ClientMessageEnum.REGISTER);
@@ -55,24 +56,13 @@ public class SocketClient implements Client, Serializable{
         objOut.writeObject(request);
         objOut.flush();
 
-
-        objIn = new ObjectInputStream(socket.getInputStream());
-
-        Map<String, String> response = (Map<String, String>) objIn.readObject();
-        this.playerID = response.get("playerID");
-        this.gameID = response.get("gameID");
-        this.view = new GameViewCLI(UUID.fromString(playerID));
-
-//      Register was a success, tell the server
-        ClientMessage successMessage = new ClientMessage(ClientMessageEnum.REGISTERSUCCESS, null, playerID, gameID);
-        objOut.writeObject(successMessage);
-        objOut.flush();
-
+        System.out.println("joined");
         getResponses();
         socket.close();
     }
 
-    private void getResponses() throws ClassNotFoundException, NoResourceMatch, InterruptedException {
+    private void getResponses() throws ClassNotFoundException, NoResourceMatch, InterruptedException, IOException {
+        objIn = new ObjectInputStream(socket.getInputStream());
         boolean condition = true;
         while (condition) {
             try {
@@ -90,14 +80,27 @@ public class SocketClient implements Client, Serializable{
 
     }
 
+    private void createView(Map<String, String> payload) throws IOException {
+        this.playerID = payload.get("playerID");
+        this.gameID = payload.get("gameID");
+        this.view = new GameViewCLI(UUID.fromString(playerID));
+
+//      Register was a success, tell the server
+        ClientMessage successMessage = new ClientMessage(ClientMessageEnum.REGISTERSUCCESS, null, playerID, gameID);
+        objOut.writeObject(successMessage);
+        objOut.flush();
+    }
+
     @Override
     public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
         ServerMessageEnum requestType = request.getMessageType();
         Map<String, String> payload = request.getPayload();
 
         switch (requestType) {
+            case REGISTERSUCCESS:
+                createView(payload);
+                break;
             case UPDATE:
-                System.out.println(payload);
                 view.update(payload);
                 break;
             case MOVEREQUEST:
@@ -120,6 +123,11 @@ public class SocketClient implements Client, Serializable{
     @Override
     public String getPlayerID() throws RemoteException {
         return playerID;
+    }
+
+    @Override
+    public String getSocketClientID() {
+        return socketClientID;
     }
 
     public void setGameID(String gameID) {

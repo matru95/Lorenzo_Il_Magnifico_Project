@@ -15,6 +15,7 @@ public class SocketThread implements Runnable{
     private GameServer gameServer;
     private String playerID;
     private String gameID;
+    private String socketClientID;
     ObjectOutputStream objectOutputStream;
     ObjectInputStream objectInputStream;
 
@@ -49,22 +50,20 @@ public class SocketThread implements Runnable{
             try{
 //              Receive message from client
                 ClientMessage request = (ClientMessage) objectInputStream.readObject();
+                System.out.println("Received request");
 
                 if(request.getClientMessageType() == ClientMessageEnum.REGISTERSUCCESS) {
                     this.playerID = request.getPlayerID();
                     this.gameID = request.getGameID();
+                } else if (request.getClientMessageType() == ClientMessageEnum.REGISTER) {
+                    this.socketClientID = request.getPayload().get("socketClientID");
+                    gameServer.send(request);
                 } else {
-//                  Send to Server and get response
-                    Map<String, String> response = gameServer.send(request);
-//                  Send the response to the client
-                    if(response != null) {
-                        objectOutputStream.writeObject(response);
-                        objectOutputStream.flush();
-                    }
+//                  Send to GameServer for processing
+                    gameServer.send(request);
                 }
 
                 condition = (request.getClientMessageType() != ClientMessageEnum.ENDCONNECTION);
-                System.out.println(condition);
             }catch (IOException ioe){
                 ioe.printStackTrace();
                 condition = false;
@@ -105,5 +104,9 @@ public class SocketThread implements Runnable{
 
     public String getPlayerID() {
         return playerID;
+    }
+
+    public String getSocketClientID() {
+        return socketClientID;
     }
 }

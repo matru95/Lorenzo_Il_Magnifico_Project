@@ -14,6 +14,7 @@ import it.polimi.ingsw.gc31.view.client.Client;
 import it.polimi.ingsw.gc31.view.client.SocketClient;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.*;
 
 public class GameController extends Controller implements Runnable{
@@ -112,7 +113,8 @@ public class GameController extends Controller implements Runnable{
     }
 
 
-    public void addPlayer(Player player, Client client) {
+    public void addPlayer(Player player, Client client) throws RemoteException {
+        client.setPlayerID(player.getPlayerID().toString());
         super.getModel().addPlayer(player);
         super.getViews().add(client);
     }

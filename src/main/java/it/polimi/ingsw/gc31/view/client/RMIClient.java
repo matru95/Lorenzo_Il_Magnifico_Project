@@ -40,17 +40,20 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
 
     @Override
     public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
-
-        Map<String, String> payload = s.register(this, playerName, playerColor);
+        s.register(this, playerName, playerColor);
         this.server = s;
-        this.playerID = UUID.fromString(payload.get("playerID"));
-        this.gameID = UUID.fromString(payload.get("gameID"));
-        this.view = new GameViewCLI(playerID);
     }
 
     @Override
     public void ping() {
         System.out.println("YAY! Joined!");
+    }
+
+    private void openView(Map<String, String> payload) {
+        this.playerID = UUID.fromString(payload.get("playerID"));
+        this.gameID = UUID.fromString(payload.get("gameID"));
+
+        this.view = new GameViewCLI(playerID);
     }
 
     @Override
@@ -60,6 +63,9 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
         Map<String, String> payload = request.getPayload();
 
         switch (requestType) {
+            case REGISTERSUCCESS:
+                openView(payload);
+                break;
             case UPDATE:
                 view.update(payload);
                 break;
@@ -99,6 +105,16 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     @Override
     public String getPlayerID() throws RemoteException {
         return playerID.toString();
+    }
+
+    @Override
+    public String getSocketClientID() {
+        return null;
+    }
+
+    @Override
+    public void setPlayerID(String playerID) {
+        this.playerID = UUID.fromString(playerID);
     }
 
 }

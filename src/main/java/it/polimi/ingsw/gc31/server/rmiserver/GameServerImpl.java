@@ -10,7 +10,6 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;
-import it.polimi.ingsw.gc31.view.client.RMIClient;
 import it.polimi.ingsw.gc31.view.client.SocketClient;
 
 import java.io.*;
@@ -97,9 +96,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     @Override
     public void join(UUID playerID, String playerName, PlayerColor color, Client client) throws IOException, NoResourceMatch, InterruptedException {
-        System.out.println("Player id: " + playerID);
         Player player = new Player(playerID, playerName, color);
-        GameController openGame;
 
         if(this.openGameID != null) {
             joinExistingGame(player, client);
@@ -122,12 +119,12 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
             timer.schedule(timerTask, 5000);
         } else {
             System.out.println("Creating new game");
-            createNewGame(player);
+            createNewGame(player, client);
         }
 
     }
 
-    private void createNewGame(Player player) {
+    private void createNewGame(Player player, Client client) throws RemoteException {
         GameInstance openGame;
         GameController game;
 
@@ -135,7 +132,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         this.openGameID = openGame.getInstanceID();
 
         game = new GameController(openGame, new ArrayList<>(), this);
-        openGame.addPlayer(player);
+        game.addPlayer(player, client);
 
         GameBoard gameBoard = new GameBoard(openGame);
         openGame.setGameBoard(gameBoard);
@@ -158,7 +155,6 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     private void startGame() throws NoResourceMatch, IOException, InterruptedException {
-        System.out.println("starting game");
         GameController openGame = games.get(openGameID);
         openGameID = null;
         timer.cancel();
@@ -167,32 +163,29 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public Map<String, String> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
+    public void register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
         Map<String, String> payload = new HashMap<>();
         UUID playerID = UUID.randomUUID();
 
-
         this.join(playerID, playerName, playerColor, client);
-
-        List<Client> gameClients = this.clients.get(openGameID);
-
-        if(client.getClass() == SocketClient.class) {
-            ((SocketClient) client).setPlayerID(playerID.toString());
-            ((SocketClient) client).setGameID(openGameID.toString());
-        }
 
         payload.put("playerID", playerID.toString());
         payload.put("gameID", openGameID.toString());
 
+        List<Client> gameClients = this.clients.get(openGameID);
         gameClients.add(client);
 
+//      Tell the client register was a success
+        ServerMessage request = new ServerMessage(ServerMessageEnum.REGISTERSUCCESS, payload);
+        sendMessageToClient(client, request);
+
         client.ping();
-        return payload;
     }
 
-    public Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException {
+    @Override
+    public void send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException {
         ClientMessageEnum requestType = request.getClientMessageType();
-        Map<String, String> payload = new HashMap<>();
+        Map<String, String> payload;
 
         switch (requestType) {
             case MOVE:
@@ -200,23 +193,23 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 String gameID = request.getGameID();
                 String playerID = request.getPlayerID();
 
-                return processMovementAction(gameID, playerID, payload);
+                processMovementAction(gameID, playerID, payload);
+                break;
+
             case REGISTER:
                 payload = request.getPayload();
                 String playerName = payload.get("playerName");
                 String playerColor = payload.get("playerColor");
                 Client client = request.getClient();
 
-                return register(client, playerName, PlayerColor.valueOf(playerColor.toUpperCase()));
-
-
+                register(client, playerName, PlayerColor.valueOf(playerColor.toUpperCase()));
+                break;
         }
-        return null;
 
     }
 
 
-    private Map<String, String> processMovementAction(String gameID, String playerID, Map<String, String> payload) throws NoResourceMatch, IOException, InterruptedException {
+    private void processMovementAction(String gameID, String playerID, Map<String, String> payload) throws NoResourceMatch, IOException, InterruptedException {
         UUID gameInstanceID = UUID.fromString(gameID);
 
         GameController game = games.get(gameInstanceID);
@@ -228,9 +221,6 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         }
 
         actionController.movementAction(playerID, payload);
-
-        return null;
-
     }
 
     @Override
@@ -243,7 +233,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
         if(client.getClass() == SocketClient.class) {
 
-            SocketThread socketThread = getSocketByID(client.getPlayerID());
+            SocketThread socketThread = getSocketByID(client.getSocketClientID());
             socketThread.send(request);
         } else {
 
@@ -252,9 +242,9 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
     }
 
-    public SocketThread getSocketByID(String playerID) {
+    public SocketThread getSocketByID(String socketClientID) {
         for(SocketThread socketThread: socketThreads) {
-            if(socketThread.getPlayerID().equals(playerID)) {
+            if(socketThread.getSocketClientID().equals(socketClientID)) {
 
                 return socketThread;
             }

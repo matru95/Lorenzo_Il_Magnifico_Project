@@ -29,7 +29,7 @@ public interface GameServer extends Remote {
      * @throws RemoteException
      * @throws NoResourceMatch
      */
-    Map<String, String> register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException;
+    void register(Client client, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException;
 
     /**
      * Receives raw data from the remote client
@@ -37,7 +37,7 @@ public interface GameServer extends Remote {
      * @return Response to the client
      * @throws RemoteException
      */
-    Map<String, String> send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException;
+    void send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException;
 
     void sendMessageToClient(Client client, ServerMessage request) throws InterruptedException, IOException, NoResourceMatch;
 }

@@ -46,7 +46,7 @@ public abstract class Controller {
 
         if(client.getClass() == SocketClient.class) {
             GameServerImpl gameServer = (GameServerImpl) getServer();
-            SocketThread socketThread = gameServer.getSocketByID(((SocketClient) client).getPlayerID());
+            SocketThread socketThread = gameServer.getSocketByID(client.getSocketClientID());
 
             if(socketThread != null)
                 socketThread.updateClient(payload);
