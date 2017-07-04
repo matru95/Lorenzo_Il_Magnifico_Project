@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc31.messages;
 
+import it.polimi.ingsw.gc31.view.client.Client;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -10,11 +12,18 @@ public class ClientMessage implements Message, Serializable {
     private String playerID;
     private String gameID;
 
+
+    private Client client;
+
     public ClientMessage(ClientMessageEnum clientMessageType, Map<String, String> payload, String playerID, String gameID) {
         this.clientMessageType = clientMessageType;
         this.payload = payload;
         this.playerID = playerID;
         this.gameID = gameID;
+    }
+
+    public ClientMessage() {
+
     }
 
     /**
@@ -75,4 +84,12 @@ public class ClientMessage implements Message, Serializable {
         this.gameID = gameID;
     }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Client getClient() {
+
+        return client;
+    }
 }

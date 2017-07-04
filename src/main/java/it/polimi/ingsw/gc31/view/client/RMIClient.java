@@ -17,35 +17,34 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Map;
 import java.util.UUID;
 
-public class ClientImplementation implements Client, Serializable {
+public class RMIClient extends UnicastRemoteObject implements Client, Serializable {
 
     private transient UUID playerID;
     private transient GameServer server;
     private transient GameView view;
     private UUID gameID;
 
-    public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException {
+    public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException, ClassNotFoundException {
 
         Registry registry = LocateRegistry.getRegistry(8080);
         GameServer gameServer = (GameServer) registry.lookup("game_server");
 
-        Client client = new ClientImplementation();
-        UnicastRemoteObject.exportObject(client, 8082);
-        registry.rebind("game_client", client);
+        Client client = new RMIClient();
 
-        client.joinServer(gameServer, "Endi", PlayerColor.BLUE);
+        client.joinServer(gameServer, "Matteo", PlayerColor.BLUE);
     }
 
-    public ClientImplementation() {
+    public RMIClient() throws RemoteException {
+        super();
     }
 
     @Override
     public void joinServer(GameServer s, String playerName, PlayerColor playerColor) throws IOException, NoResourceMatch, InterruptedException {
 
-        Map<String, UUID> payload = s.register(this, playerName, playerColor);
+        Map<String, String> payload = s.register(this, playerName, playerColor);
         this.server = s;
-        this.playerID = payload.get("playerID");
-        this.gameID = payload.get("gameID");
+        this.playerID = UUID.fromString(payload.get("playerID"));
+        this.gameID = UUID.fromString(payload.get("gameID"));
         this.view = new GameViewCLI(playerID);
     }
 
@@ -93,13 +92,13 @@ public class ClientImplementation implements Client, Serializable {
     }
 
     @Override
-    public UUID getGameID() throws RemoteException {
-        return gameID;
+    public String getGameID() throws RemoteException {
+        return gameID.toString();
     }
 
     @Override
-    public UUID getPlayerID() throws RemoteException {
-        return playerID;
+    public String getPlayerID() throws RemoteException {
+        return playerID.toString();
     }
 
 }

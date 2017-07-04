@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -20,11 +21,11 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     private final CardColor color;
     private final Tower tower;
-    private Card card;
+    private transient Card card;
     private Resource res;
-    private FamilyMember familyMember;
+    private transient FamilyMember familyMember;
 
-    public TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Tower tower, Resource res) {
+    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Tower tower, Resource res) {
         super(positionID, diceBond, gameBoard);
         this.color = tower.getTowerColor();
         this.tower = tower;
@@ -32,10 +33,14 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember, int amountOfServants) {
-        payCost(familyMember.getPlayer(),this.card);
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
+        payCost(familyMember.getPlayer(), this.card);
+
+        if(tower.isOccupied()) {
+            familyMember.getPlayer().getRes().get(ResourceName.GOLD).subNumOf(3);
+        }
+
         execTowerBonus(familyMember.getPlayer().getRes());
-        Card card = getCard();
 
         try {
             card.execInstantEffect(familyMember.getPlayer());
@@ -44,11 +49,12 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         }
 
         setOccupied(true);
+        tower.setOccupied(true);
+        return null;
     }
 
     @Override
     public ObjectNode toJson() {
-        ObjectMapper mapper = new ObjectMapper();
         ObjectNode towerSpaceWrapperNode = super.toObjectNode();
 
         if(this.card != null) {
@@ -82,29 +88,23 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         resourceToAddTo.addNumOf(numberToAdd);
     }
 
-    public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
-        List<Map<ResourceName, Resource>> cardCost = this.getCard().getCost();
-        boolean[] results = new boolean[cardCost.size()];
+    public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
 
 
-        if(this.tower.isOccupied()) {
-
-            if(!isTowerOccupiedAffordable(playerResources, playerColor)) {
-//              Tower is occupied and familymember can't pay gold
-                return false;
-            }
+        if(this.tower.isOccupied() && !isTowerOccupiedAffordable(playerResources)) {
+//          Tower is occupied and familymember can't pay gold
+            return false;
         }
 
-        return canPayCost(playerResources, playerColor);
+        return canPayCost(familyMember, playerResources);
     }
 
     /**
      * Method that check if a family member has enough gold to occupy an already occupied tower
      * @param playerResources
-     * @param color
      * @return boolean
      */
-    private boolean isTowerOccupiedAffordable(Map<ResourceName, Resource> playerResources, PlayerColor color) {
+    private boolean isTowerOccupiedAffordable(Map<ResourceName, Resource> playerResources) {
         int playerGold = playerResources.get(ResourceName.GOLD).getNumOf();
         List<Map<ResourceName, Resource>> cardCost = this.getCard().getCost();
 
@@ -119,12 +119,15 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         return true;
     }
 
-    private boolean canPayCost(Map<ResourceName, Resource> playerResources, PlayerColor color) {
+    private boolean canPayCost(FamilyMember familyMember, Map<ResourceName, Resource> playerResources) {
         List<Map<ResourceName, Resource>> cardCosts = getCard().getCost();
+        int playerServants = playerResources.get(ResourceName.SERVANTS).getNumOf();
+        int diceValue = familyMember.getValue();
         boolean result = false;
 
 //      Check if the card has a cost, if not, return true immediately
-        if(cardCosts.size() == 0) {
+        if(cardCosts.isEmpty() && this.getDiceBond() < diceValue+playerServants) {
+
             return true;
         }
 
@@ -148,12 +151,12 @@ public class TowerSpaceWrapper extends SpaceWrapper {
                 int playerResourceAmount = playerResource.getNumOf();
                 int cardCostAmount = singleCardCostField.getValue().getNumOf();
 
-                if(playerResourceAmount < cardCostAmount) {
+                if(playerResourceAmount < cardCostAmount || playerResource.getResourceName() == ResourceName.SERVANTS && playerResourceAmount < cardCostAmount+3) {
                     singleCostResult = false;
                 }
             }
 
-            if(singleCostResult == true) {
+            if(singleCostResult) {
                 result = true;
             }
         }
@@ -178,12 +181,9 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         return tower;
     }
 
-
     public void setFamilyMember(FamilyMember familyMember) {
         this.familyMember = familyMember;
     }
-
-
 
     public FamilyMember getFamilyMember() {
         return this.familyMember;

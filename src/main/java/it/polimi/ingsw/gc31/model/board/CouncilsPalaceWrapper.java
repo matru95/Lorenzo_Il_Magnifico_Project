@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.model.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.Player;
@@ -98,7 +99,8 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember , int amountOfServants) {
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
+        return null;
     }
 
     @Override
@@ -126,7 +128,7 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
+    public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
         return true;
     }
 

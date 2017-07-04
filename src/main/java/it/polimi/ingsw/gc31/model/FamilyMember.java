@@ -1,7 +1,5 @@
 package it.polimi.ingsw.gc31.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
@@ -22,10 +21,10 @@ public class FamilyMember {
 	private final PlayerColor playerColor;
 	private Boolean isNeutral;
 	private Boolean isPlaced;
-	private int dicePoints;
-	private int value;
+    private int value;
 	private SpaceWrapper currentPosition;
 	private GameBoard board;
+	private boolean isMovedThisTurn;
 
 	public FamilyMember(DiceColor color, Player player, GameBoard board) {
 
@@ -87,70 +86,13 @@ public class FamilyMember {
 		this.dice = this.board.getDiceByColor(color);
     }
 
-	public List<SpaceWrapper> checkPossibleMovements() {
-        List<SpaceWrapper> possibleMovements = new ArrayList<>();
-        List<SpaceWrapper> openSpaces = new ArrayList<>();
-
-        insertOpenSpaces(openSpaces);
-
-        int possiblePoints = value + this.player.getRes().get(ResourceName.SERVANTS).getNumOf();
-        System.out.println(possiblePoints);
-
-        insertTowerSpaceWrappers(openSpaces);
-
-
-        for(SpaceWrapper spaceWrapper: openSpaces) {
-            boolean isAffordable = spaceWrapper.isAffordable(this.player.getRes(), this.playerColor);
-            int spaceDiceBond = spaceWrapper.getDiceBond();
-
-            if(isAffordable && spaceDiceBond <= possiblePoints) {
-                possibleMovements.add(spaceWrapper);
-            }
-        }
-
-        return possibleMovements;
-	}
-
-	private void insertOpenSpaces(List<SpaceWrapper> possibleMovements) {
-
-//	    Get every board space except towers
-        for(Map.Entry<String, SpaceWrapper> spaceEntry: board.getOpenSpaces().entrySet()) {
-            possibleMovements.add(spaceEntry.getValue());
-        }
-    }
-
-    private void insertTowerSpaceWrappers(List<SpaceWrapper> towerSpaceWrappers) {
-	    /*
-	    Insert towerSpaceWrappers from towers that do not already have a family member
-	    of the same color
-	     */
-        Map<CardColor, Tower> towers = this.board.getTowers();
-
-        for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
-
-            if(checkCardNumBond(towerEntry.getKey())) {
-
-                Tower tower = towerEntry.getValue();
-                boolean hasFamilyMemberColor = tower.hasFamilyMemberSameColor(playerColor);
-
-                if (!hasFamilyMemberColor) {
-                    for (Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry : towerEntry.getValue().getTowerSpace().entrySet()) {
-                        if(!towerSpaceWrapperEntry.getValue().isOccupied()) {
-
-                            towerSpaceWrappers.add(towerSpaceWrapperEntry.getValue());
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public void moveToTower(TowerSpaceWrapper position) {
         checkAndPayExtraGold(position);
         player.addCard(position.getCard());
     }
 
-	public void moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch, MovementInvalidException {
+
+    public ServerMessage moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch, MovementInvalidException {
 
 	    if(!isMovementPossible(position)) {
 	        throw new MovementInvalidException();
@@ -167,29 +109,32 @@ public class FamilyMember {
 
 		this.currentPosition = position;
 		position.setFamilyMember(this);
-		position.execWrapper(this, numOfServantsPaid);
-	}
+		this.isMovedThisTurn = true;
+		ServerMessage request =  position.execWrapper(this, numOfServantsPaid);
+        return request;
+    }
 
 	private boolean isMovementPossible(SpaceWrapper position) {
-        List<SpaceWrapper> possibleMovements = this.checkPossibleMovements();
+        Map<ResourceName, Resource> playerResources = this.player.getRes();
+        boolean cardLimitReached = false;
 
-        for(SpaceWrapper possibleMovement: possibleMovements) {
-            if(position == possibleMovement) {
-
-                return true;
-            }
+        if(position.getClass() == TowerSpaceWrapper.class) {
+            cardLimitReached = isCardLimitReached(((TowerSpaceWrapper) position).getColor());
         }
 
-        return false;
+        if(position.isOccupied() || cardLimitReached || this.isMovedThisTurn) {
+            return false;
+        }
+
+        return position.isAffordable(this, playerResources, playerColor);
     }
 
 
 	private void checkAndPayServants(int positionDiceBond) {
-        if(positionDiceBond > this.dicePoints) {
-            System.out.println("here");
+        if(positionDiceBond > this.value) {
             Map<ResourceName, Resource> playerResources = player.getRes();
             int currentServants = playerResources.get(ResourceName.SERVANTS).getNumOf();
-            int costToPay = positionDiceBond - this.dicePoints;
+            int costToPay = positionDiceBond - this.value;
 
             playerResources.get(ResourceName.SERVANTS).setNumOf(currentServants - costToPay);
         }
@@ -205,9 +150,9 @@ public class FamilyMember {
 
     }
 
-    public boolean checkCardNumBond(CardColor cardColor){
+    public boolean isCardLimitReached(CardColor cardColor){
 
-        return this.player.getCards().get(cardColor).size() < 6;
+        return this.player.getCards().get(cardColor).size() == 6;
     }
 
     /**
@@ -267,14 +212,6 @@ public class FamilyMember {
     }
 
     /**
-     * Getter for attribute "dicePoints"
-     * @return int
-     */
-    public int getDicePoints() {
-        return dicePoints;
-    }
-
-    /**
      * Getter for attribute "dice"
      * @return Dice
      */
@@ -288,5 +225,9 @@ public class FamilyMember {
      */
     public GameBoard getBoard() {
         return board;
+    }
+
+    public void setMovedThisTurn(boolean movedThisTurn) {
+        isMovedThisTurn = movedThisTurn;
     }
 }

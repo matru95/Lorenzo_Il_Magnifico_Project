@@ -3,6 +3,7 @@ package it.polimi.ingsw.gc31.model.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.effects.boardeffects.HarvestEffect;
@@ -28,11 +29,12 @@ public class HarvestWrapper extends SpaceWrapper {
     }
 
     @Override
-    public void execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
         int value = familyMember.getValue() + amountOfServants - malus;
         HarvestEffect harvestEffect = new HarvestEffect();
         harvestEffect.exec(familyMember.getPlayer(), value);
         if (!isMultiple) setOccupied(true);
+        return null;
     }
 
     @Override
@@ -59,15 +61,15 @@ public class HarvestWrapper extends SpaceWrapper {
     }
 
     @Override
-    public boolean isAffordable(Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
+    public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
 
         if(!isMultiple && familyMembers.size() == 1) {
             return false;
         }
 
 //      Check if there's already a FM with the same color
-        for(FamilyMember familyMember: familyMembers) {
-            if(familyMember.getPlayerColor() == playerColor) {
+        for(FamilyMember myFamilyMember: familyMembers) {
+            if(myFamilyMember.getPlayerColor() == playerColor) {
                 return false;
             }
         }

@@ -1,8 +1,14 @@
 package it.polimi.ingsw.gc31.controller;
 
+import it.polimi.ingsw.gc31.messages.ServerMessage;
+import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
+import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
+import it.polimi.ingsw.gc31.server.rmiserver.GameServerImpl;
+import it.polimi.ingsw.gc31.server.rmiserver.SocketThread;
 import it.polimi.ingsw.gc31.view.client.Client;
+import it.polimi.ingsw.gc31.view.client.SocketClient;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,10 +19,12 @@ import java.util.Map;
 public abstract class Controller {
     private GameInstance model;
     private List<Client> views;
+    private GameServer server;
 
-    public Controller(GameInstance model, List<Client> views) {
+    public Controller(GameInstance model, List<Client> views, GameServer server) {
         this.model = model;
         this.views = views;
+        this.server = server;
     }
 
     protected Map<String,String> getGameState() {
@@ -32,9 +40,28 @@ public abstract class Controller {
         return model;
     }
 
+    protected void updateClient(Client client) throws NoResourceMatch, IOException, InterruptedException {
+        Map<String, String> payload = getGameState();
+        ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
+
+        if(client.getClass() == SocketClient.class) {
+            GameServerImpl gameServer = (GameServerImpl) getServer();
+            SocketThread socketThread = gameServer.getSocketByID(((SocketClient) client).getPlayerID());
+
+            if(socketThread != null)
+                socketThread.updateClient(payload);
+        } else {
+
+            client.send(request);
+        }
+    }
     public List<Client> getViews() {
         return views;
     }
 
     protected abstract void updateClients() throws NoResourceMatch, IOException, InterruptedException;
+
+    public GameServer getServer() {
+        return server;
+    }
 }

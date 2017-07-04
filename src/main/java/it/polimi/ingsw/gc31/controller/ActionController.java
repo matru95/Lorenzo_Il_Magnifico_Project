@@ -10,6 +10,7 @@ import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
+import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
 import it.polimi.ingsw.gc31.view.client.Client;
 
 import java.io.IOException;
@@ -30,8 +31,8 @@ public class ActionController extends Controller implements Runnable {
     private long endTime;
     private Thread messageThread;
 
-    public ActionController(GameInstance model, List<Client> clients, GameController gameController) {
-        super(model, clients);
+    public ActionController(GameInstance model, List<Client> clients, GameController gameController, GameServer server) {
+        super(model, clients, server);
         this.waitingTime = 60000;
         this.movementReceived = false;
         this.gameController = gameController;
@@ -52,7 +53,7 @@ public class ActionController extends Controller implements Runnable {
         Integer servantsToPay = Integer.valueOf(movementData.get("servantsToPay"));
 
         try {
-            familyMember.moveToPosition(position, servantsToPay);
+            ServerMessage message = familyMember.moveToPosition(position, servantsToPay);
             this.movementReceived = false;
             updateClients();
 
@@ -62,7 +63,7 @@ public class ActionController extends Controller implements Runnable {
 
         } catch (MovementInvalidException e) {
             ServerMessage request = new ServerMessage();
-            Client client = getClientFromPlayerID(UUID.fromString(playerID));
+            Client client = getClientFromPlayerID(playerID);
 
             this.endTime = System.currentTimeMillis();
             this.waitingTime = waitingTime - (endTime - startTime);
@@ -70,7 +71,7 @@ public class ActionController extends Controller implements Runnable {
             request.setMessageType(ServerMessageEnum.MOVEMENTFAIL);
             sendMessage(request, client);
 
-            waitForMove(UUID.fromString(playerID), getClientFromPlayerID(UUID.fromString(playerID)));
+            waitForMove(UUID.fromString(playerID), getClientFromPlayerID(playerID));
         }
 
         updateClients();
@@ -84,7 +85,8 @@ public class ActionController extends Controller implements Runnable {
 
         messageThread = new Thread(() -> {
             try {
-                client.send(request);
+                System.out.println("Sending message: " + request.getMessageType());
+                super.getServer().sendMessageToClient(client, request);
             } catch (NoResourceMatch noResourceMatch) {
                 noResourceMatch.printStackTrace();
             } catch (IOException e) {
@@ -101,14 +103,15 @@ public class ActionController extends Controller implements Runnable {
         List<Client> clients = super.getViews();
 
         for(Client client: clients) {
-            updateClient(client);
+            super.updateClient(client);
         }
     }
 
-    private Client getClientFromPlayerID(UUID playerID) throws RemoteException {
+    private Client getClientFromPlayerID(String playerID) throws RemoteException {
 
         for(Client client: super.getViews()) {
-            if(client.getPlayerID().equals(playerID)) {
+            String clientID = client.getPlayerID();
+            if(clientID.equals(playerID)) {
                 return client;
             }
         }
@@ -116,12 +119,6 @@ public class ActionController extends Controller implements Runnable {
         return null;
     }
 
-    private void updateClient(Client client) throws NoResourceMatch, IOException, InterruptedException {
-        Map<String, String> payload = super.getGameState();
-        ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
-
-        client.send(request);
-    }
 
     @Override
     public void run() {
@@ -130,8 +127,9 @@ public class ActionController extends Controller implements Runnable {
         ServerMessage request = new ServerMessage();
         request.setMessageType(ServerMessageEnum.MOVEREQUEST);
         Client client = null;
+
         try {
-            client = getClientFromPlayerID(playerID);
+            client = getClientFromPlayerID(playerID.toString());
         } catch (RemoteException e) {
         }
 

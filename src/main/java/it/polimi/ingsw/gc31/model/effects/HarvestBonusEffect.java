@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model.effects;
 
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.permanent.HarvestBonus;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
@@ -13,8 +14,9 @@ public class HarvestBonusEffect extends Effect{
     }
 
     @Override
-    public void exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) throws NoResourceMatch {
         player.addBonus(harvestBonus);
+        return null;
     }
 
     @Override

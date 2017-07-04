@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.effects;
 
 
 
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -29,7 +30,7 @@ public class ResForResEffect extends Effect{
     }
     //ESEGUO CODICE
     @Override
-    public void exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) throws NoResourceMatch {
         //----------------------------RESOURCE PER RESOURCE
 
         if (this.res2==null && this.tipoScambio=="RXC"){
@@ -66,6 +67,7 @@ public class ResForResEffect extends Effect{
                 }
             } while ((numscelta != 1) || (numscelta != 2));
         }
+        return null;
     }
 
     @Override

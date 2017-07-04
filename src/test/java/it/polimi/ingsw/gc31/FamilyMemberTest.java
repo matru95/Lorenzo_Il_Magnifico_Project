@@ -7,7 +7,6 @@ import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.ProductionWrapper;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
-import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.parser.CardParser;
@@ -17,7 +16,6 @@ import it.polimi.ingsw.gc31.model.states.TurnState;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -61,23 +59,14 @@ public class FamilyMemberTest extends TestCase{
     }
 
     @Test
-    public void testFamilyMemberShouldMoveToTowerSpacePositionAndGetCard() throws NoResourceMatch {
+    public void testFamilyMemberShouldMoveToTowerSpacePositionAndGetCard() throws NoResourceMatch, MovementInvalidException {
         FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
-
-        List<SpaceWrapper> availableSpaces = familyMember.checkPossibleMovements();
-        List<SpaceWrapper> availableTowerSpaces = new ArrayList<>();
 
         SpaceWrapper chosenPosition = gameBoard.getSpaceById(1);
 
-        boolean condition = false;
+        familyMember.moveToPosition(chosenPosition, 0);
 
-        for(SpaceWrapper spaceWrapper: availableSpaces) {
-            if(spaceWrapper.getPositionID() == chosenPosition.getPositionID()) {
-                condition = true;
-            }
-        }
-
-        assertTrue(condition);
+        assertFalse(playerWithTurn.getCards().get(CardColor.GREEN).isEmpty());
 
 
     }
@@ -94,13 +83,6 @@ public class FamilyMemberTest extends TestCase{
     }
 
     @Test
-    public void testFamilyMemberShouldHavePossibleMovements() {
-        FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
-        List<SpaceWrapper> possibleMovements = familyMember.checkPossibleMovements();
-        assertTrue(possibleMovements.size() > 0);
-    }
-
-    @Test
     public void testFamilyMemberShouldMoveToPositionAndOccupyIt() throws NoResourceMatch, MovementInvalidException {
         FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
         Dice dice = this.gameBoard.getDiceByColor(DiceColor.BLACK);
@@ -112,28 +94,29 @@ public class FamilyMemberTest extends TestCase{
     }
 
     @Test
-    public void testFamilyMemberShouldNotReturnGreenTowerWrappers(){
+    public void testFamilyMemberShouldNotGetCardAfterLimitIsReached(){
         FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
         CardParser cardParser = new CardParser("src/config/Card.json");
         cardParser.parse();
         List<Card> playerCards = cardParser.getCards();
+        boolean check = true;
 
         int i;
         for(i=0;i<6;i++){
             this.playerWithTurn.addCard(playerCards.get(i));
         }
 
-        boolean check = true;
 
-        List <SpaceWrapper> availableWrapper = familyMember.checkPossibleMovements();
-
-        for(SpaceWrapper spaceWrapper: availableWrapper){
-            if(spaceWrapper.getClass() == TowerSpaceWrapper.class) {
-                if(((TowerSpaceWrapper) spaceWrapper).getColor()==CardColor.GREEN) {
-                    check=false;
-                }
-            }
+        try {
+            familyMember.moveToPosition(gameBoard.getSpaceById(1), 0);
+            System.out.println("moving");
+            check = false;
+        } catch (NoResourceMatch noResourceMatch) {
+            noResourceMatch.printStackTrace();
+        } catch (MovementInvalidException e) {
+            check = true;
         }
+
         assertTrue(check);
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model.effects;
 
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -25,7 +26,7 @@ public class CostEffect extends Effect {
     }
 
     @Override
-    public void exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) throws NoResourceMatch {
 //--------------------CREAZIONE OGGETTI NECESSARI PER EXEC
 
         HashMap<ResourceName, Resource> startingmap1 = this.res1;
@@ -55,6 +56,7 @@ public class CostEffect extends Effect {
             }
             player.setRes(startingmap2);
         }
+        return null;
     }
 
     @Override
