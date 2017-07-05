@@ -48,12 +48,14 @@ public class GameViewCLI implements GameView, Serializable {
     private void printView() {
 
         initPlayerName();
+        printDivider();
         printHeader();
         printTowers();
         printSpaces();
         printFaithCards();
         printPlayers();
         printFamilyMembers();
+        printDivider();
         printStringBuilder();
     }
 
@@ -234,6 +236,15 @@ public class GameViewCLI implements GameView, Serializable {
         sb.append(at.render()).append("\n")
         .append(atfm.render()).append("\n");
     }
+
+    /**
+     * Method to print a divider for a Board.
+     */
+    private void printDivider() {
+        sb.append("\n\n\n+--------------------------------------------------------------------------------------------------------------------------------------------------+\n")
+                .append("+--------------------------------------------------------------------------------------------------------------------------------------------------+\n\n\n");
+    }
+
 
     /**
      * Method to print a game logo for the CLI View.
@@ -624,7 +635,7 @@ public class GameViewCLI implements GameView, Serializable {
         gameState.put("GameInstance", gameInstance.toString());
         gameState.put("GameBoard", gameInstance.getGameBoard().toString());
         GameViewCLI view = new GameViewCLI(p1.getPlayerID());
-        //view.update(gameState);
+        view.update(gameState);
 
 /*        Map<String, String> parchment = new HashMap<>();
         parchment.put("parchments", "3");
@@ -635,13 +646,13 @@ public class GameViewCLI implements GameView, Serializable {
 
         Map<String, String> cardID = new HashMap<>();
         cardID.put("cardID", "72");
-        //view.printCostQuery(cardID);*/
+        //view.printCostQuery(cardID);
 
         Map<String, String> freeCards = new HashMap<>();
         freeCards.put("cardID1", "72");
         freeCards.put("cardID2", "8");
         freeCards.put("cardID3", "42");
         freeCards.put("cardID4", "22");
-        view.freeCardQuery(freeCards);
+        view.freeCardQuery(freeCards);*/
     }
 }
