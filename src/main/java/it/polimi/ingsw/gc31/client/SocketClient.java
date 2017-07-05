@@ -29,7 +29,9 @@ public class SocketClient implements Client, Serializable{
     private String socketClientID;
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
-        socket = new Socket("localhost", 29999);
+
+        String serverIP = "127.0.0.1";
+        socket = new Socket(serverIP, 29999);
         SocketClient socketClient = new SocketClient();
     }
 

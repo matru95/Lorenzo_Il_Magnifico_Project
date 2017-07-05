@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc31.view.jfx.GameViewFXController">
+   <children>
+      <ImageView preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@towers.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="ap_1" layoutX="164.0" layoutY="844.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_2" layoutX="164.0" layoutY="594.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_3" layoutX="164.0" layoutY="344.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_4" layoutX="164.0" layoutY="94.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_5" layoutX="433.0" layoutY="844.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_6" layoutX="433.0" layoutY="594.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_7" layoutX="433.0" layoutY="344.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_8" layoutX="433.0" layoutY="94.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_9" layoutX="701.0" layoutY="844.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_10" layoutX="701.0" layoutY="594.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_11" layoutX="701.0" layoutY="344.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_12" layoutX="701.0" layoutY="94.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_13" layoutX="970.0" layoutY="844.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_14" layoutX="970.0" layoutY="594.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_15" layoutX="970.0" layoutY="344.0" prefHeight="100.0" prefWidth="100.0" />
+      <AnchorPane fx:id="ap_16" layoutX="970.0" layoutY="94.0" prefHeight="100.0" prefWidth="100.0" />
+      <ImageView fx:id="green_0" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="788.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@card.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
