@@ -186,4 +186,8 @@ public class Card {
     public List<Effect> getInstantEffects() {
         return instantEffects;
     }
+
+    public FreeCardChoice getFreeCardChoice() {
+        return freeCardChoice;
+    }
 }

@@ -30,4 +30,16 @@ public class FreeCardChoice {
     public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
+
+    public CardColor getCardColor() {
+        return cardColor;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
 }
