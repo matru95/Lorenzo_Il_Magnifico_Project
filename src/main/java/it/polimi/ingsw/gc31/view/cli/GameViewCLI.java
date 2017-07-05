@@ -119,7 +119,7 @@ public class GameViewCLI implements GameView, Serializable {
 
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("~ FAITH CARDS ~", beauty(faithTiles.path(0)), beauty(faithTiles.path(1)), beauty(faithTiles.path(2)));
+        at.addRow("~ FAITH CARDS ~", beauty(faithTiles.path("1")), beauty(faithTiles.path("2")), beauty(faithTiles.path("3")));
         at.addRule();
         at.getRenderer().setCWC(new CWC_FixedWidth().add(35).add(36).add(36).add(36));
         at.setTextAlignment(TextAlignment.CENTER);
@@ -635,7 +635,9 @@ public class GameViewCLI implements GameView, Serializable {
         gameState.put("GameInstance", gameInstance.toString());
         gameState.put("GameBoard", gameInstance.getGameBoard().toString());
         GameViewCLI view = new GameViewCLI(p1.getPlayerID());
+//        System.out.print(gameBoard);
         view.update(gameState);
+
 
 /*        Map<String, String> parchment = new HashMap<>();
         parchment.put("parchments", "3");

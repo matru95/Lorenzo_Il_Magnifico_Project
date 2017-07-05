@@ -23,7 +23,7 @@ public class GameBoard implements Serializable {
     private Map<CardColor,Tower> towers;
     private Map<DiceColor, Dice> dices;
     private Map<Integer, SpaceWrapper> boardSpaces;
-    private Map<Integer, FaithTile> church;
+    private Map<Integer, FaithTile> faithTiles;
     private GameInstance gameInstance;
     private transient GameBoardParser parser;
     private CardParser cardParser;
@@ -71,11 +71,11 @@ public class GameBoard implements Serializable {
         }
 
         //Inizialize FaitTiles
-        this.church=new HashMap<>();
+        this.faithTiles =new HashMap<>();
         faithTileParser.parse();
         List <FaithTile> inGameFaithTiles=faithTileParser.getTilesByAge();
         for (int i = 0; i <= 2; i++) {
-            this.church.put(i+1,inGameFaithTiles.get(i));
+            this.faithTiles.put(i+1,inGameFaithTiles.get(i));
         }
 
     }
@@ -88,6 +88,7 @@ public class GameBoard implements Serializable {
         gameBoardNode.set("towers", createTowersJson(mapper));
         gameBoardNode.set("dices", createDicesJson(mapper));
         gameBoardNode.set("boardSpaces", createBoardSpacesJson(mapper));
+        gameBoardNode.set("faithTiles", createFaithTilesJson(mapper));
 
         try {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(gameBoardNode);
@@ -97,6 +98,16 @@ public class GameBoard implements Serializable {
         }
 
 
+    }
+
+    private ObjectNode createFaithTilesJson(ObjectMapper mapper) {
+        ObjectNode faithTilesNode = mapper.createObjectNode();
+
+        for(Map.Entry<Integer, FaithTile> tile: faithTiles.entrySet()) {
+            faithTilesNode.set(tile.getKey().toString(), tile.getValue().toJson());
+        }
+
+        return faithTilesNode;
     }
 
     private ObjectNode createTowersJson(ObjectMapper mapper) {
@@ -194,8 +205,8 @@ public class GameBoard implements Serializable {
         return position;
     }
 
-    public Map<Integer, FaithTile> getChurch() {
-        return church;
+    public Map<Integer, FaithTile> getFaithTiles() {
+        return faithTiles;
     }
 
     public GameInstance getGameInstance() {

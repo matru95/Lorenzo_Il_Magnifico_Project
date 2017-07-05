@@ -30,15 +30,15 @@ public class GameAgeState implements State {
             switch (context.getAge()) {
                 case 1: if (choice.equals("NO") && myFaithPoints >=3)
                             payFaithPointsForVictoryPoints(p);
-                        else p.getExcommunications().add(context.getGameBoard().getChurch().get(context.getAge()));
+                        else p.getExcommunications().add(context.getGameBoard().getFaithTiles().get(context.getAge()));
                         break;
                 case 2: if (choice.equals("NO") && myFaithPoints >=4)
                              payFaithPointsForVictoryPoints(p);
-                        else p.getExcommunications().add(context.getGameBoard().getChurch().get(context.getAge()));
+                        else p.getExcommunications().add(context.getGameBoard().getFaithTiles().get(context.getAge()));
                         break;
                 case 3: if (myFaithPoints >= 5)
                             payFaithPointsForVictoryPoints(p);
-                        else p.getExcommunications().add(context.getGameBoard().getChurch().get(context.getAge()));
+                        else p.getExcommunications().add(context.getGameBoard().getFaithTiles().get(context.getAge()));
                         break;
             }
         }

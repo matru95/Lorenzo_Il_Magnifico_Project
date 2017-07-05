@@ -109,7 +109,9 @@ public class FaithTile {
 	public void setLoseForEveryResource(boolean loseForEveryResource) {
 		this.loseForEveryResource = loseForEveryResource;
 	}
+
 	public ObjectNode toJson() {
+
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode faithObjectNode = mapper.createObjectNode();
 		faithObjectNode.put("id", this.id);
@@ -118,6 +120,7 @@ public class FaithTile {
 		ObjectNode effect=mapper.createObjectNode();
 
 		//TODO TOJSON CON LA SCRITTA DEL DETERMINATO EFFETTO GIA FORMATA
+		/*
 		if(!(this.gainFewerStack.isEmpty())){
 
 			ObjectNode gainFewer= mapper.createObjectNode();
@@ -129,7 +132,7 @@ public class FaithTile {
 			effect.set("gainFewer",gainFewer);
 			effect.put("description",description);
 			faithObjectNode.set("faithEffect",effect);
-		}
+		}*/
 
 		if(this.harvestFewer!=0){
 
@@ -138,7 +141,7 @@ public class FaithTile {
 			faithObjectNode.set("faithEffect",effect);
 
 			description+="Harvest's dice value now will be decrease by "+this.harvestFewer+" points.\n";
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 		}
 
 		if(this.productionFewer!=0){
@@ -147,7 +150,7 @@ public class FaithTile {
 			faithObjectNode.set("faithEffect",effect);
 
 			description += "Production's dice value now will be decrease by "+ this.productionFewer+ " points.";
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 		}
 
 		if(this.diceFewer!=0){
@@ -156,7 +159,7 @@ public class FaithTile {
 			faithObjectNode.set("faithEffect",effect);
 
 			description+="All your colored Family Members receive a -" + this.diceFewer + " reduction of their value each time you place them.";
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 
 		}
 
@@ -166,7 +169,7 @@ public class FaithTile {
 			fewerDiceCard.put("diceValue",this.fewerDiceCardValue);
 
 			description+="Each time you take a"+ this.fewerDiceCardColor.toString() +" Card your action receives a -"+this.fewerDiceCardValue+" reduction of its value.";
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 
 			effect.set("fewerDiceCard",fewerDiceCard);
 			faithObjectNode.set("faithEffect",effect);
@@ -175,13 +178,13 @@ public class FaithTile {
 		if(this.noMarket){
 			effect.put("noMarket",true);
 			description+="You can’t place your Family Members in the Market action spaces.";
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 			faithObjectNode.set("faithEffect",effect);
 		}
 
 		if(this.doubleServants){
 			description+="You have to spend 2 servants to increase your action value by 1";
-			faithObjectNode.put("description",description);
+			faithObjectNode.put("description"," " + description);
 
 			effect.put("doubleServants",true);
 			faithObjectNode.set("faithEffect",effect);
@@ -192,7 +195,7 @@ public class FaithTile {
 			effect.put("noSkipFirstRound",true);
 			description+="Each round, you skip your first turn. You start taking actions from the second turn. When all players have taken all their turns, you may still place your last Family Member.";
 
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 			faithObjectNode.set("faithEffect",effect);
 		}
 
@@ -200,14 +203,14 @@ public class FaithTile {
 			effect.put("cardColor",this.noEndGamePointsCardColor.toString());
 
 			description+="No more end game effects for"+this.noEndGamePointsCardColor.toString()+" card";
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 			faithObjectNode.set("faithEffect",effect);
 		}
 
 		if(this.loseForEveryResource){
 			effect.put("loseForEveryResource",this.skipFirstRound);
 			description+="At the end of the game, you lose 1 Victory Point for every resource (wood, stone, coin, servant) in your supply on your Personal Board.";
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 			faithObjectNode.set("faithEffect",effect);
 		}
 
@@ -230,7 +233,7 @@ public class FaithTile {
 
 			effect.set("loseForEvery",loseForEvery);
 
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 			faithObjectNode.set("faithEffect",effect);
 		}
 
@@ -249,7 +252,7 @@ public class FaithTile {
 
 			effect.set("loseForEveryCost",loseForEveryCost);
 			faithObjectNode.set("faithEffect",effect);
-			faithObjectNode.put("description",description);
+            faithObjectNode.put("description"," " + description);
 		}
 		return faithObjectNode;
 	}
