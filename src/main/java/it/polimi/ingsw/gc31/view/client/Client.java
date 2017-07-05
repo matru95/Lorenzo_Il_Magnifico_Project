@@ -12,8 +12,8 @@ public interface Client extends Remote {
 
     /**
      * Method to make the client join a server
-     * @param s
-     * @param playerName
+     * @param s the game server this client is connected to.
+     * @param playerName the player name
      * @throws IOException
      * @throws NoResourceMatch
      * @throws InterruptedException
@@ -47,7 +47,17 @@ public interface Client extends Remote {
      */
     String getPlayerID() throws RemoteException;
 
+    /**
+     * Get the ID of the socket client in case it's a socket connection
+     * @return String socketClientID;
+     * @throws RemoteException
+     */
     String getSocketClientID() throws RemoteException;
 
+    /**
+     * Set the player id
+     * @param playerID
+     * @throws RemoteException
+     */
     void setPlayerID(String playerID) throws RemoteException;
 }
