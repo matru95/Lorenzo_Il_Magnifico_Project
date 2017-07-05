@@ -53,12 +53,6 @@ public class CardParserTest extends TestCase{
         assertEquals(lengthCardsJson, cards.size());
     }
 
-    @Test
-    public void testCardParserShouldInsertNumOfParchments() {
-        Card testCard = cards.get(20);
-
-        assertEquals(1, testCard.getNumOfInstantParchment());
-    }
 
     @Test
     public void testCardParserShouldInsertCost() {

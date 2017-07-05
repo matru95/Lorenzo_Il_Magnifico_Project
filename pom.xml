@@ -50,7 +50,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>it.polimi.ingsw.gc31.App</mainClass>
+							<mainClass>it.polimi.ingsw.gc31.client.App</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

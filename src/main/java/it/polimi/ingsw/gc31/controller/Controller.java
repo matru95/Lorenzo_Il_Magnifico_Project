@@ -7,8 +7,8 @@ import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.server.GameServerImpl;
 import it.polimi.ingsw.gc31.server.SocketThread;
-import it.polimi.ingsw.gc31.view.client.Client;
-import it.polimi.ingsw.gc31.view.client.SocketClient;
+import it.polimi.ingsw.gc31.client.Client;
+import it.polimi.ingsw.gc31.client.SocketClient;
 
 import java.io.IOException;
 import java.util.HashMap;

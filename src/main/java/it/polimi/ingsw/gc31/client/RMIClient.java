@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc31.view.client;
+package it.polimi.ingsw.gc31.client;
 
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;

@@ -8,8 +8,8 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
-import it.polimi.ingsw.gc31.view.client.Client;
-import it.polimi.ingsw.gc31.view.client.SocketClient;
+import it.polimi.ingsw.gc31.client.Client;
+import it.polimi.ingsw.gc31.client.SocketClient;
 
 import java.io.*;
 import java.net.ServerSocket;

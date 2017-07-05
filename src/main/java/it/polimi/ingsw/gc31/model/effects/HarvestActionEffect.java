@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc31.model.effects.permanent;
+package it.polimi.ingsw.gc31.model.effects;
 
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;

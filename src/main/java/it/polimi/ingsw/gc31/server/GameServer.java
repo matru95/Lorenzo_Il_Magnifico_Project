@@ -2,10 +2,9 @@ package it.polimi.ingsw.gc31.server;
 
 import it.polimi.ingsw.gc31.controller.GameController;
 import it.polimi.ingsw.gc31.messages.ClientMessage;
-import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
-import it.polimi.ingsw.gc31.view.client.Client;
+import it.polimi.ingsw.gc31.client.Client;
 
 import java.io.IOException;
 import java.rmi.Remote;

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.gc31.messages;
 
-import it.polimi.ingsw.gc31.view.client.Client;
+import it.polimi.ingsw.gc31.client.Client;
 
 import java.io.Serializable;
 import java.util.Map;
