@@ -129,12 +129,14 @@ public class GameBoardParser {
         JsonNode councilsPalaceJson = rootNode.path("councilsPalace");
         int positionID = councilsPalaceJson.path("positionID").asInt();
         int diceBond = councilsPalaceJson.path("diceBond").asInt();
+        int numOfParchments = councilsPalaceJson.path("parchment").asInt();
+
         JsonNode bonusJson = councilsPalaceJson.path("bonus");
         String bonusName = bonusJson.fieldNames().next().toString();
         int amount = bonusJson.path(bonusName).asInt();
 
         Resource res = new Resource(ResourceName.valueOf(bonusName.toUpperCase()), amount);
 
-        return new CouncilsPalaceWrapper(positionID, diceBond, this.gameBoard, res);
+        return new CouncilsPalaceWrapper(positionID, diceBond, this.gameBoard, res, numOfParchments);
     }
 }

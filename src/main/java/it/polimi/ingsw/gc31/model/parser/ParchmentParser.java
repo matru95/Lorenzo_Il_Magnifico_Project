@@ -20,6 +20,7 @@ public class ParchmentParser {
     public ParchmentParser(String path) throws IOException {
         File inputFile = new File(path);
         rootNode = mapper.readTree(inputFile).path("parchments");
+        this.parchments = new ArrayList<>();
     }
 
     public void parse() {

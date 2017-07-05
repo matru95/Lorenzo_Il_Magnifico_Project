@@ -3,10 +3,13 @@ package it.polimi.ingsw.gc31.model.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.effects.AddResEffect;
+import it.polimi.ingsw.gc31.model.effects.ParchmentEffect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import org.antlr.v4.runtime.misc.OrderedHashSet;
@@ -17,12 +20,14 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     private List<FamilyMember> familyMembers;
     private List<Player> players;
     private Resource res;
+    private int numOfParchments;
 
-    public CouncilsPalaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Resource res) {
+    public CouncilsPalaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Resource res, int numOfParchments) {
         super(positionID, diceBond, gameBoard);
         this.familyMembers = new ArrayList<>();
         this.res = res;
         this.players = gameBoard.getGameInstance().getPlayers();
+        this.numOfParchments = numOfParchments;
     }
 
     public Player[] getNewPlayerOrder() {
@@ -99,8 +104,20 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
-        return null;
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+        ParchmentEffect parchmentEffect = new ParchmentEffect(numOfParchments);
+        List<Resource> resources = new ArrayList<>();
+        resources.add(this.res);
+        AddResEffect addResEffect = new AddResEffect(resources);
+
+        addResEffect.exec(familyMember.getPlayer());
+
+
+        try {
+            return parchmentEffect.exec(familyMember.getPlayer());
+        } catch (NoResourceMatch noResourceMatch) {
+            return null;
+        }
     }
 
     @Override

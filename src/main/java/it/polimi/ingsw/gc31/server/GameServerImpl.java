@@ -124,10 +124,13 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     private void createNewGame(Player player, Client client) throws RemoteException {
-        GameInstance openGame;
+        GameInstance openGame = null;
         GameController game;
 
-        openGame = new GameInstance(UUID.randomUUID());
+        try {
+            openGame = new GameInstance(UUID.randomUUID());
+        } catch (IOException e) {
+        }
         this.openGameID = openGame.getInstanceID();
 
         game = new GameController(openGame, new ArrayList<>(), this);
@@ -210,6 +213,8 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 playerID = request.getPlayerID();
                 gameID = request.getGameID();
 
+                processParchmentChoice(gameID, playerID, payload);
+
         }
 
     }
@@ -222,7 +227,9 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
         synchronized (actionController) {
             actionController.parchmentAction(playerID, payload);
+            System.out.println("finished parchment action");
             actionController.notify();
+            System.out.println("released action controller");
         }
 
     }

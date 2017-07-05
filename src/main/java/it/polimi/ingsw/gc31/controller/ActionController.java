@@ -8,6 +8,7 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.GameInstance;
+import it.polimi.ingsw.gc31.model.Parchment;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.server.GameServer;
@@ -15,10 +16,7 @@ import it.polimi.ingsw.gc31.client.Client;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ActionController extends Controller implements Runnable {
     private GameController gameController;
@@ -83,7 +81,7 @@ public class ActionController extends Controller implements Runnable {
 
     }
 
-    protected void sendMessage(ServerMessage request, Client client) {
+    protected void sendMessage(ServerMessage request, Client client) throws InterruptedException {
 //      Destroy thread if exists
         if(this.messageThread != null){
             this.messageThread.interrupt();
@@ -103,7 +101,15 @@ public class ActionController extends Controller implements Runnable {
         });
 
         messageThread.start();
+
+        if(request.getMessageType() != ServerMessageEnum.MOVEREQUEST && request.getMessageType() != ServerMessageEnum.MOVEMENTFAIL) {
+            synchronized (this) {
+                this.wait();
+            }
+            System.out.println("Releasing thread");
+        }
     }
+
     @Override
     protected void updateClients() throws NoResourceMatch, IOException, InterruptedException {
         List<Client> clients = super.getViews();
@@ -139,7 +145,11 @@ public class ActionController extends Controller implements Runnable {
         } catch (RemoteException e) {
         }
 
-        sendMessage(request, client);
+        try {
+            sendMessage(request, client);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         this.waitingMessageType = ClientMessageEnum.MOVE;
         this.playerWaitingFromID = playerID.toString();
@@ -163,8 +173,6 @@ public class ActionController extends Controller implements Runnable {
         synchronized (this) {
             this.wait(waitingTime);
         }
-
-        System.out.println("stopped waiting " + (System.currentTimeMillis() - startTime));
 
         //      Check if a movement was made
         if(!this.movementReceived) {
@@ -193,6 +201,20 @@ public class ActionController extends Controller implements Runnable {
     }
 
     public void parchmentAction(String playerID, Map<String, String> payload) {
+        List<Parchment> parchmentsToExecute = new ArrayList<>();
+        GameInstance gameInstance = super.getModel();
+
+        for(Map.Entry<String, String> singleParchmentEntry: payload.entrySet()) {
+            parchmentsToExecute.add(gameInstance.getParchmentByID(singleParchmentEntry.getValue()));
+        }
+
+        for(Parchment parchment: parchmentsToExecute) {
+            try {
+                parchment.execParchment(player);
+            } catch (NoResourceMatch noResourceMatch) {
+            }
+        }
+
 
     }
 }

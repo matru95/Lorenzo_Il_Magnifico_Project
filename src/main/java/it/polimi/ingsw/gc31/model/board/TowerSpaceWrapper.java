@@ -10,10 +10,12 @@ import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +42,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
             familyMember.getPlayer().getRes().get(ResourceName.GOLD).subNumOf(3);
         }
 
-        execTowerBonus(familyMember.getPlayer().getRes());
+        execTowerBonus(familyMember.getPlayer());
 
         try {
             card.execInstantEffect(familyMember.getPlayer());
@@ -78,14 +80,19 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         }
     }
 
-    private void execTowerBonus(Map<ResourceName, Resource> playerResources) {
+    private void execTowerBonus(Player player) {
         if(res == null) {
             return;
         }
 
-        Resource resourceToAddTo = playerResources.get(res.getResourceName());
-        int numberToAdd = res.getNumOf();
-        resourceToAddTo.addNumOf(numberToAdd);
+        List<Resource> resources = new ArrayList<>();
+        resources.add(res);
+        AddResEffect addResEffect = new AddResEffect(resources);
+
+        try {
+            addResEffect.exec(player);
+        } catch (NoResourceMatch noResourceMatch) {
+        }
     }
 
     public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
