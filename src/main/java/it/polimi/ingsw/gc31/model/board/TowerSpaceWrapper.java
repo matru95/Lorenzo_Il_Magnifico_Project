@@ -215,10 +215,13 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     private ServerMessage payCost(Player player, Card card) {
         List <Map<ResourceName,Resource>> cardCost = card.getCost();
 
-        if(cardCost.size()==1){
+        if(cardCost.size() == 1){
             Map<ResourceName,Resource> singleCardCost = cardCost.get(0);
             paySingleCost(singleCardCost, player);
 
+            return null;
+        } else if(cardCost.size() == 0) {
+            
             return null;
         } else if(numOfCostsCanPay(player, card) == 1) {
 

@@ -1,14 +1,11 @@
 package it.polimi.ingsw.gc31.view.jfx;
 
-import it.polimi.ingsw.gc31.view.GameView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.Map;
 
 public class GameViewFX extends Application {
 

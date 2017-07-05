@@ -217,4 +217,8 @@ public class ActionController extends Controller implements Runnable {
 
 
     }
+
+    public void costChoiceAction(String playerID, Map<String, String> payload) {
+        return;
+    }
 }

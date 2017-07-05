@@ -214,9 +214,29 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 gameID = request.getGameID();
 
                 processParchmentChoice(gameID, playerID, payload);
+                break;
+
+            case COSTCHOICE:
+                payload = request.getPayload();
+                playerID = request.getPlayerID();
+                gameID = request.getGameID();
+
+                processCostChoice(gameID, playerID, payload);
 
         }
 
+    }
+
+    private void processCostChoice(String gameID, String playerID, Map<String, String> payload) {
+        UUID gameInstanceID = UUID.fromString(gameID);
+
+        GameController gameController = games.get(gameID);
+        ActionController actionController = (ActionController) gameController.getActionController();
+
+        synchronized (actionController) {
+            actionController.costChoiceAction(playerID, payload);
+            actionController.notify();
+        }
     }
 
     private void processParchmentChoice(String gameID, String playerID, Map<String, String> payload) {
@@ -227,9 +247,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
         synchronized (actionController) {
             actionController.parchmentAction(playerID, payload);
-            System.out.println("finished parchment action");
             actionController.notify();
-            System.out.println("released action controller");
         }
 
     }

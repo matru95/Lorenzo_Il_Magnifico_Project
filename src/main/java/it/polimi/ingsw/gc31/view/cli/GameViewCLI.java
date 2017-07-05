@@ -425,6 +425,7 @@ public class GameViewCLI implements GameView, Serializable {
                 printStringBuilder();
             }
         } while (true);
+        result.put("cardID", map.get("cardID"));
         result.put("cardCostChoice", choice.toString());
 
         return result;
