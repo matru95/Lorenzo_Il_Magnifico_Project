@@ -11,6 +11,7 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
+import it.polimi.ingsw.gc31.model.effects.CostEffect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -36,7 +37,6 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     @Override
     public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
-        payCost(familyMember.getPlayer(), this.card);
 
         if(tower.isOccupied()) {
             familyMember.getPlayer().getRes().get(ResourceName.GOLD).subNumOf(3);
@@ -52,7 +52,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
         setOccupied(true);
         tower.setOccupied(true);
-        return null;
+        return payCost(familyMember.getPlayer(), this.card);
     }
 
     @Override
@@ -172,6 +172,21 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     }
 
+    private boolean canPayCardCost(Player player, Map<ResourceName, Resource> cardCost) {
+        Map<ResourceName, Resource> playerResources = player.getRes();
+
+        for(Map.Entry<ResourceName, Resource> costResourceEntry: cardCost.entrySet()) {
+            Resource costResource = costResourceEntry.getValue();
+            Resource playerResource = playerResources.get(costResource.getResourceName());
+
+            if(playerResource.getNumOf() < costResource.getNumOf()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public CardColor getColor() {
         return color;
     }
@@ -196,15 +211,56 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         return this.familyMember;
     }
 
-    private void payCost(Player player, Card card) {
+
+    private ServerMessage payCost(Player player, Card card) {
         List <Map<ResourceName,Resource>> cardCost = card.getCost();
+
         if(cardCost.size()==1){
-            Map<ResourceName,Resource> singleCardCost= cardCost.get(0);
-            for(Map.Entry <ResourceName,Resource> singleCardCostEntry: singleCardCost.entrySet()){
-                ResourceName cardCostName=singleCardCostEntry.getKey();
-                int value=singleCardCostEntry.getValue().getNumOf();
-                player.getRes().get(cardCostName).subNumOf(value);
+            Map<ResourceName,Resource> singleCardCost = cardCost.get(0);
+            paySingleCost(singleCardCost, player);
+
+            return null;
+        } else if(numOfCostsCanPay(player, card) == 1) {
+
+            for(Map<ResourceName, Resource> singleCardCost: card.getCost()) {
+                if(canPayCardCost(player, singleCardCost)) {
+                    paySingleCost(singleCardCost, player);
+                }
+            }
+
+            return null;
+
+        } else {
+            CostEffect costEffect = new CostEffect(card);
+
+            try {
+                ServerMessage request = costEffect.exec(player);
+                return request;
+            } catch (NoResourceMatch noResourceMatch) {
+                return null;
+            }
+
+        }
+    }
+
+    private void paySingleCost(Map<ResourceName, Resource> singleCardCost, Player player) {
+
+        for(Map.Entry <ResourceName,Resource> singleCardCostEntry: singleCardCost.entrySet()){
+            ResourceName cardCostName = singleCardCostEntry.getKey();
+            int value = singleCardCostEntry.getValue().getNumOf();
+            player.getRes().get(cardCostName).subNumOf(value);
+        }
+    }
+
+    private int numOfCostsCanPay(Player player, Card card) {
+        int numOfCosts = 0;
+
+        for(Map<ResourceName, Resource> cardCost: card.getCost()) {
+            if(canPayCardCost(player, cardCost)) {
+                numOfCosts++;
             }
         }
+
+        return numOfCosts;
     }
 }

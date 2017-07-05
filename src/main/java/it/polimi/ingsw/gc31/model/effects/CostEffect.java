@@ -12,7 +12,6 @@ import jdk.nashorn.internal.ir.ObjectNode;
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO implementare il controllo nella board o nella classe player o...?
 public class CostEffect extends Effect {
     private Card card;
 
