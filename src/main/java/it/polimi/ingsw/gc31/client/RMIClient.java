@@ -28,7 +28,8 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
 
     public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException, ClassNotFoundException {
 
-        Registry registry = LocateRegistry.getRegistry(8080);
+        String serverIP = "127.0.0.1";
+        Registry registry = LocateRegistry.getRegistry(serverIP, 8080);
         GameServer gameServer = (GameServer) registry.lookup("game_server");
 
         Client client = new RMIClient();
