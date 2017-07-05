@@ -14,22 +14,20 @@ import java.util.Map;
 
 //TODO implementare il controllo nella board o nella classe player o...?
 public class CostEffect extends Effect {
-    private Card purpleCard;
+    private Card card;
 
-    CostEffect(Card purpleCard){
-        this.purpleCard=purpleCard;
+    public CostEffect(Card card){
+        this.card = card;
     }
 
     @Override
     public ServerMessage exec(Player player) throws NoResourceMatch {
-        if(this.purpleCard.getCost().size()==2 && this.purpleCard.getCardColor()== CardColor.PURPLE) {
-            Map<String, String> payload = new HashMap<>();
-            payload.put("cardID",String.valueOf(purpleCard.getCardID()));
-            ServerMessage request = new ServerMessage(ServerMessageEnum.COSTREQUEST,payload);
-            return request;
-        } else {
-            return null;
-        }
+        Map<String, String> payload = new HashMap<>();
+        String cardID = String.valueOf(card.getCardID());
+
+        payload.put("cardID", cardID);
+        ServerMessage request = new ServerMessage(ServerMessageEnum.COSTREQUEST,payload);
+        return request;
     }
 
     @Override

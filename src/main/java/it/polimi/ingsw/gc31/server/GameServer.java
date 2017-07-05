@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc31.server.rmiserver;
+package it.polimi.ingsw.gc31.server;
 
 import it.polimi.ingsw.gc31.controller.GameController;
 import it.polimi.ingsw.gc31.messages.ClientMessage;

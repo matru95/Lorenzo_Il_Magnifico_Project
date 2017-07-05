@@ -5,7 +5,7 @@ import it.polimi.ingsw.gc31.messages.ClientMessage;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
-import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
+import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.view.GameView;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
@@ -134,7 +134,6 @@ public class SocketClient implements Client, Serializable{
         try {
             objOut.writeObject(clientMessage);
             objOut.flush();
-//            objOut.reset();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc31.server.rmiserver;
+package it.polimi.ingsw.gc31.server;
 
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ClientMessage;
@@ -48,6 +48,7 @@ public class SocketThread implements Runnable{
 
         while (condition){
             try{
+                System.out.println("Starting receiving");
 //              Receive message from client
                 ClientMessage request = (ClientMessage) objectInputStream.readObject();
                 System.out.println("Received: "+ request.getClientMessageType());
@@ -57,29 +58,42 @@ public class SocketThread implements Runnable{
                     this.gameID = request.getGameID();
                 } else if (request.getClientMessageType() == ClientMessageEnum.REGISTER) {
                     this.socketClientID = request.getPayload().get("socketClientID");
-                    gameServer.send(request);
+                    sendToServer(request);
                 } else {
 //                  Send to GameServer for processing
-                    gameServer.send(request);
+                    sendToServer(request);
+                    System.out.println("sent to server");
                 }
 
                 condition = (request.getClientMessageType() != ClientMessageEnum.ENDCONNECTION);
             }catch (IOException ioe){
                 ioe.printStackTrace();
                 condition = false;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (NoResourceMatch noResourceMatch) {
-                noResourceMatch.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+
+            System.out.println("finished receiving");
         }
 
         System.out.println("closing socket");
         clientSocket.close();
         objectOutputStream.close();
         objectOutputStream.close();
+    }
+
+    private void sendToServer(ClientMessage request) {
+        new Thread(() -> {
+            try {
+                gameServer.send(request);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NoResourceMatch noResourceMatch) {
+                noResourceMatch.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void updateClient(Map<String, String> gameState) throws IOException {

@@ -10,7 +10,7 @@ import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
-import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
+import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.view.client.Client;
 
 import java.io.IOException;
@@ -55,7 +55,6 @@ public class ActionController extends Controller implements Runnable {
         try {
             ServerMessage message = familyMember.moveToPosition(position, servantsToPay);
             this.movementReceived = false;
-            updateClients();
 
             synchronized (gameController) {
                 gameController.notify();
@@ -72,9 +71,10 @@ public class ActionController extends Controller implements Runnable {
             sendMessage(request, client);
 
             waitForMove(UUID.fromString(playerID), getClientFromPlayerID(playerID));
+
         }
 
-        updateClients();
+//        updateClients();
     }
 
     protected void sendMessage(ServerMessage request, Client client) {
@@ -168,7 +168,7 @@ public class ActionController extends Controller implements Runnable {
             ServerMessage timeOutRequest = new ServerMessage(ServerMessageEnum.TIMEOUT, payload);
             messageThread.interrupt();
             client.send(timeOutRequest);
-            updateClients();
+//            updateClients();
 
             synchronized (gameController) {
                 System.out.println("notifying game controller");

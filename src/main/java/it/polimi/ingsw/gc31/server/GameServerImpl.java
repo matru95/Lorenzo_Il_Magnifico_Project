@@ -1,4 +1,4 @@
-package it.polimi.ingsw.gc31.server.rmiserver;
+package it.polimi.ingsw.gc31.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.controller.ActionController;
@@ -6,7 +6,6 @@ import it.polimi.ingsw.gc31.controller.GameController;
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.client.Client;

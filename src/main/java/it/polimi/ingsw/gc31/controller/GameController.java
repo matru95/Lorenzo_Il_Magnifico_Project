@@ -1,17 +1,13 @@
 package it.polimi.ingsw.gc31.controller;
 
-import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnEndState;
 import it.polimi.ingsw.gc31.model.states.TurnState;
-import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
-import it.polimi.ingsw.gc31.server.rmiserver.GameServerImpl;
-import it.polimi.ingsw.gc31.server.rmiserver.SocketThread;
+import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.view.client.Client;
-import it.polimi.ingsw.gc31.view.client.SocketClient;
 
 import java.io.IOException;
 import java.rmi.RemoteException;

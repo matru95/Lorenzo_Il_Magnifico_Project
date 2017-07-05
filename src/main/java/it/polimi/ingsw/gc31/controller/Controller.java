@@ -4,9 +4,9 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
-import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
-import it.polimi.ingsw.gc31.server.rmiserver.GameServerImpl;
-import it.polimi.ingsw.gc31.server.rmiserver.SocketThread;
+import it.polimi.ingsw.gc31.server.GameServer;
+import it.polimi.ingsw.gc31.server.GameServerImpl;
+import it.polimi.ingsw.gc31.server.SocketThread;
 import it.polimi.ingsw.gc31.view.client.Client;
 import it.polimi.ingsw.gc31.view.client.SocketClient;
 

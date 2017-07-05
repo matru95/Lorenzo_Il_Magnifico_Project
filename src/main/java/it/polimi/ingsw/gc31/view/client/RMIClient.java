@@ -2,7 +2,7 @@ package it.polimi.ingsw.gc31.view.client;
 
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
-import it.polimi.ingsw.gc31.server.rmiserver.GameServer;
+import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.view.GameView;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
