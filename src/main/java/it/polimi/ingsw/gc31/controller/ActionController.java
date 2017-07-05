@@ -42,6 +42,7 @@ public class ActionController extends Controller implements Runnable {
 //      this.movementReceived is true at this point
 
         GameInstance game = super.getModel();
+        Client client = getClientFromPlayerID(playerID);
         Player player = game.getPlayerFromId(UUID.fromString(playerID));
         String familyMemberColor = movementData.get("diceColor");
         String positionID = movementData.get("positionID");
@@ -54,6 +55,13 @@ public class ActionController extends Controller implements Runnable {
 
         try {
             ServerMessage message = familyMember.moveToPosition(position, servantsToPay);
+
+            if(message != null) {
+                synchronized (this) {
+                    sendMessage(message, client);
+                }
+            }
+
             this.movementReceived = false;
 
             synchronized (gameController) {
@@ -62,7 +70,6 @@ public class ActionController extends Controller implements Runnable {
 
         } catch (MovementInvalidException e) {
             ServerMessage request = new ServerMessage();
-            Client client = getClientFromPlayerID(playerID);
 
             this.endTime = System.currentTimeMillis();
             this.waitingTime = waitingTime - (endTime - startTime);
@@ -183,5 +190,9 @@ public class ActionController extends Controller implements Runnable {
 
     protected void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void parchmentAction(String playerID, Map<String, String> payload) {
+
     }
 }

@@ -185,12 +185,14 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     public void send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException {
         ClientMessageEnum requestType = request.getClientMessageType();
         Map<String, String> payload;
+        String playerID;
+        String gameID;
 
         switch (requestType) {
             case MOVE:
                 payload = request.getPayload();
-                String gameID = request.getGameID();
-                String playerID = request.getPlayerID();
+                gameID = request.getGameID();
+                playerID = request.getPlayerID();
 
                 processMovementAction(gameID, playerID, payload);
                 break;
@@ -202,6 +204,25 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
                 register(client, playerName);
                 break;
+
+            case PARCHMENTCHOICE:
+                payload = request.getPayload();
+                playerID = request.getPlayerID();
+                gameID = request.getGameID();
+
+        }
+
+    }
+
+    private void processParchmentChoice(String gameID, String playerID, Map<String, String> payload) {
+        UUID gameInstanceID = UUID.fromString(gameID);
+
+        GameController gameController = games.get(gameInstanceID);
+        ActionController actionController = (ActionController) gameController.getActionController();
+
+        synchronized (actionController) {
+            actionController.parchmentAction(playerID, payload);
+            actionController.notify();
         }
 
     }

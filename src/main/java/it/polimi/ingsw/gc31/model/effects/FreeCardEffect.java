@@ -18,6 +18,7 @@ import java.util.Map;
 public class FreeCardEffect extends Effect  {
     private Card card;
     private List<Tower> towers;
+
     FreeCardEffect(Card card, List<Tower> towers){
         this.card=card;
         this.towers=towers;
@@ -35,7 +36,8 @@ public class FreeCardEffect extends Effect  {
                     int j=0;
                     for(int i=0;i<3;i++) {
                         j=i+1;
-                        if(tower.getTowerSpaces().get(i).getDiceBond()<=diceActionValue) payload.put("ID"+j,String.valueOf(tower.getTowerSpace().get(i).getCard().getCardID()));
+                        if(tower.getTowerSpaces().get(i).getDiceBond()<=diceActionValue)
+                            payload.put("ID"+j,String.valueOf(tower.getTowerSpace().get(i).getCard().getCardID()));
                     }
             }
         }

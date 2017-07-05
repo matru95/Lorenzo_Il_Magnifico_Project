@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.model;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
+import it.polimi.ingsw.gc31.model.parser.ParchmentParser;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
 
@@ -26,11 +28,12 @@ public class GameInstance implements Serializable, Runnable {
 	private UUID instanceID;
 
 	private State state;
+	private List<Parchment> parchments;
 
 	private transient Logger logger = Logger.getLogger(GameInstance.class.getName());
 
 
-	public GameInstance(UUID instanceID) {
+	public GameInstance(UUID instanceID) throws IOException {
 
 		this.instanceID = instanceID;
 		this.players = new ArrayList<>();
@@ -41,6 +44,10 @@ public class GameInstance implements Serializable, Runnable {
 
 		this.state = null;
 		this.availableColors = PlayerColor.toList();
+
+        ParchmentParser parchmentParser = new ParchmentParser("src/config/Settings.json");
+        parchmentParser.parse();
+        this.parchments = parchmentParser.getParchments();
 	}
 
     /**
@@ -174,4 +181,15 @@ public class GameInstance implements Serializable, Runnable {
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
+
+	public Parchment getParchmentByID(String parchmentID) {
+	    for(Parchment parchment: parchments) {
+	        if(parchment.getParchmentID() == Integer.valueOf(parchmentID)) {
+
+	            return parchment;
+            }
+        }
+
+        return null;
+    }
 }

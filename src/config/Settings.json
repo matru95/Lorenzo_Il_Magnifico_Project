@@ -1,5 +1,38 @@
 {
   "waitTime": 20,
+  "parchments": [
+    {
+      "id": 0,
+      "resources": [
+        {"wood": 1},
+        {"stone": 1}
+      ]
+    },
+    {
+      "id": 1,
+      "resources": [
+        {"servants": 2}
+      ]
+    },
+    {
+      "id": 2,
+      "resources": [
+        {"gold": 2}
+      ]
+    },
+    {
+      "id": 3,
+      "resources": [
+        {"warPoints": 2}
+      ]
+    },
+    {
+      "id": 4,
+      "resources": [
+        {"faithPoints": 1}
+      ]
+    }
+  ],
   "gameBoard": {
     "towers": {
       "green": [
