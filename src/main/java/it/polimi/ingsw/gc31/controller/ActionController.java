@@ -57,6 +57,7 @@ public class ActionController extends Controller implements Runnable {
         try {
             ServerMessage message = familyMember.moveToPosition(position, servantsToPay);
             Card nullCard = new Card(null, null, 0, super.getModel().getAge());
+//            TODO
             ((TowerSpaceWrapper) position).setCard(nullCard);
 
             if(message != null) {
