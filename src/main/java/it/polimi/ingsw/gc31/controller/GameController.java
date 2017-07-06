@@ -15,10 +15,12 @@ import java.util.*;
 
 public class GameController extends Controller implements Runnable{
     private ActionController actionController;
+    private boolean isFirstUpdate;
 
     public GameController(GameInstance model, List<Client> views, GameServer server) {
         super(model, views, server);
         this.actionController = new ActionController(model, views, this, server);
+        this.isFirstUpdate = true;
     }
 
     @Override
@@ -81,7 +83,10 @@ public class GameController extends Controller implements Runnable{
 
         try {
             turnState.doAction(gameInstance);
-            updateClients();
+            if(isFirstUpdate) {
+                updateClients();
+                isFirstUpdate = false;
+            }
         } catch (NoResourceMatch noResourceMatch) {
             noResourceMatch.printStackTrace();
         }

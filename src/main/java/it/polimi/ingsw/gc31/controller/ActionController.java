@@ -13,6 +13,7 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Parchment;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
+import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.server.GameServer;
@@ -57,6 +58,8 @@ public class ActionController extends Controller implements Runnable {
 
         try {
             ServerMessage message = familyMember.moveToPosition(position, servantsToPay);
+            Card nullCard = new Card(null, null, 0, super.getModel().getAge());
+            ((TowerSpaceWrapper) position).setCard(nullCard);
 
             if(message != null) {
                 synchronized (this) {
