@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.FaithTile;
+import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.parser.FaithTileParser;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Dice;
@@ -19,7 +20,6 @@ import it.polimi.ingsw.gc31.model.parser.CardParser;
 import it.polimi.ingsw.gc31.model.parser.GameBoardParser;
 
 public class GameBoard implements Serializable {
-
     private Map<CardColor,Tower> towers;
     private Map<DiceColor, Dice> dices;
     private Map<Integer, SpaceWrapper> boardSpaces;
@@ -30,7 +30,6 @@ public class GameBoard implements Serializable {
     private FaithTileParser faithTileParser;
 
     public GameBoard(GameInstance gameInstance) {
-
         this.gameInstance = gameInstance;
         this.dices = new HashMap<>();
         this.boardSpaces = new HashMap<>();
@@ -219,5 +218,20 @@ public class GameBoard implements Serializable {
 
     public Tower getTowerByColor(CardColor color) {
         return towers.get(color);
+    }
+
+    public List<Card> getCards() {
+        List<Card> result = new ArrayList<>();
+
+        for(Map.Entry<CardColor, Tower> singleTowerEntry: towers.entrySet()) {
+            Tower tower = singleTowerEntry.getValue();
+
+            for(SpaceWrapper towerSpaceWrapper: tower.getTowerSpaces()) {
+                Card card = ((TowerSpaceWrapper) towerSpaceWrapper).getCard();
+                result.add(card);
+            }
+        }
+
+        return result;
     }
 }

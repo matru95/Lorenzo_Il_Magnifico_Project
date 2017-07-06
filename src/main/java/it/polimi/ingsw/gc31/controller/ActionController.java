@@ -238,4 +238,19 @@ public class ActionController extends Controller implements Runnable {
             playerResources.get(singleResourceName).subNumOf(amount);
         }
     }
+
+    public void freeCardChoiceAction(String playerID, Map<String, String> payload) {
+        String cardID = payload.get("cardID");
+        List<Card> cards = super.getModel().getGameBoard().getCards();
+
+        for(Card card: cards) {
+            if(card.getCardID() == Integer.valueOf(cardID)) {
+                try {
+                    card.execInstantEffect(player);
+                } catch (NoResourceMatch noResourceMatch) {
+                }
+                player.addCard(card);
+            }
+        }
+    }
 }

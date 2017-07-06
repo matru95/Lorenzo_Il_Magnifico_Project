@@ -222,9 +222,30 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 gameID = request.getGameID();
 
                 processCostChoice(gameID, playerID, payload);
+                break;
+
+            case FREECARDCHOICE:
+                payload = request.getPayload();
+                playerID = request.getPlayerID();
+                gameID = request.getGameID();
+
+                processFreeCardChoice(gameID, playerID, payload);
+                break;
 
         }
 
+    }
+
+    private void processFreeCardChoice(String gameID, String playerID, Map<String, String> payload) {
+        UUID gameInstanceID = UUID.fromString(gameID);
+
+        GameController gameController = games.get(gameInstanceID);
+        ActionController actionController = (ActionController) gameController.getActionController();
+
+        synchronized (actionController) {
+            actionController.freeCardChoiceAction(playerID, payload);
+            actionController.notify();
+        }
     }
 
     private void processCostChoice(String gameID, String playerID, Map<String, String> payload) {
