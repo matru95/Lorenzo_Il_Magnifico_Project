@@ -4,11 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FaithTile {
+	private Malus malus;
 	private int age;
 	private int id;
 	private FaithEffect faithEffect;
@@ -34,8 +36,7 @@ public class FaithTile {
 	}
 
 	public void execute(Player player) {
-		//TODO ???
-		return;
+		player.addMalus(this.malus);
 	}
 	public void createFaithEffect(){
 		//TODO inserire i relativi valori nella class
@@ -110,6 +111,10 @@ public class FaithTile {
 		this.loseForEveryResource = loseForEveryResource;
 	}
 
+	public void setMalus(Malus malus) {
+		this.malus = malus;
+	}
+
 	public ObjectNode toJson() {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -120,8 +125,8 @@ public class FaithTile {
 		ObjectNode effect=mapper.createObjectNode();
 
 		//TODO TOJSON CON LA SCRITTA DEL DETERMINATO EFFETTO GIA FORMATA
-		/*
-		if(!(this.gainFewerStack.isEmpty())){
+
+		if(this.gainFewerStack!=null){
 
 			ObjectNode gainFewer= mapper.createObjectNode();
 
@@ -132,7 +137,7 @@ public class FaithTile {
 			effect.set("gainFewer",gainFewer);
 			effect.put("description",description);
 			faithObjectNode.set("faithEffect",effect);
-		}*/
+		}
 
 		if(this.harvestFewer!=0){
 
@@ -140,7 +145,7 @@ public class FaithTile {
 			effect.put("harvestFewer",this.harvestFewer);
 			faithObjectNode.set("faithEffect",effect);
 
-			description+="Harvest's dice value now will be decrease by "+this.harvestFewer+" points.\n";
+			description+="Harvest's dice value now will be decrease by "+this.harvestFewer+" points";
             faithObjectNode.put("description"," " + description);
 		}
 

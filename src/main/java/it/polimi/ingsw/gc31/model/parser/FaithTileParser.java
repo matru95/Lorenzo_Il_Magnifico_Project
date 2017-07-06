@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.FaithTile;
+import it.polimi.ingsw.gc31.model.effects.permanent.*;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.io.File;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//TODO RANDOMIZZARE I FAITHTILE PARSER PER METTERLI SULLA BOARD IN MODO CASUALE. (CONTROLLARE SE CI SONO DELLE REGOLE)
+
 public class FaithTileParser {
     private JsonNode rootNode;
     private transient Logger logger = Logger.getLogger(this.getClass().getName());
@@ -49,6 +50,8 @@ public class FaithTileParser {
                 JsonNode gainFewer=faithTile.path("gainFewer");
                 gainFewerStack=parseResources(gainFewer);
 
+                //SETTO MALUS NELLA FAITHTILE
+                faithTile1.setMalus(new ResourceMalus(MalusEnum.RESOURCEMALUS,gainFewerStack));
 
                 faithTile1.setGainFewerStack(gainFewerStack);
             }else {
@@ -58,15 +61,21 @@ public class FaithTileParser {
 
             int harvestFewer=faithTile.path("harvestFewer").asInt();
             faithTile1.setHarvestFewer(harvestFewer);
+            //SETTO MALUS NELLA FAITHTILE
+            if(harvestFewer!=0)faithTile1.setMalus(new HarvestMalus(MalusEnum.HARVESTMALUS,harvestFewer));
+
 
 
             int productionFewer=faithTile.path("productionFewer").asInt();
             faithTile1.setProductionFewer(productionFewer);
+            //SETTO MALUS NELLA FAITHTILE
+            if(productionFewer!=0)faithTile1.setMalus(new HarvestMalus(MalusEnum.PRODUCTIONMALUS,productionFewer));
 
             int diceFewer=0;
             diceFewer=faithTile.path("diceFewer").asInt();
             faithTile1.setDiceFewer(diceFewer);
-
+            //SETTO MALUS NELLA FAITHTILE
+            if(diceFewer!=0)faithTile1.setMalus(new HarvestMalus(MalusEnum.FAMILYMEMBERMALUS,diceFewer));
 
             if(faithTile.has("fewerDiceCard")){
                 JsonNode fewerDiceCard= faithTile.path("fewerDiceCard");
@@ -77,16 +86,24 @@ public class FaithTileParser {
 
                 int diceValue=fewerDiceCard.path("diceValue").asInt();
                 faithTile1.setFewerDiceCardValue(diceValue);
+                //SETTO MALUS NELLA FAITHTILE
+                faithTile1.setMalus(new CardDiceMalus(MalusEnum.CARDDICEMALUS,cardColor,diceValue));
             }
 
             boolean noMarket=faithTile.path("noMarket").asBoolean();
             faithTile1.setNoMarket(noMarket);
+            //SETTO MALUS NELLA FAITHTILE
+            if(noMarket){faithTile1.setMalus(new MarketMalus(MalusEnum.MARKETMALUS,noMarket));}
 
             boolean doubleServants=faithTile.path("doubleServants").asBoolean();
             faithTile1.setDoubleServants(doubleServants);
+            //SETTO MALUS NELLA FAITHTILE
+            if(doubleServants){faithTile1.setMalus(new ServantsMalus(MalusEnum.SERVANTSMALUS,doubleServants));}
 
             boolean skipFirstRound=faithTile.path("skipFirstRound").asBoolean();
             faithTile1.setSkipFirstRound(skipFirstRound);
+            //SETTO MALUS NELLA FAITHTILE
+            if(skipFirstRound){faithTile1.setMalus(new FirstActionMalus(MalusEnum.FIRSTACTIONMALUS,skipFirstRound));}
 
             if(faithTile.has("noEndGamePoints")){
                 JsonNode noEndGamePoints=faithTile.path("noEndGamePoints");
@@ -94,6 +111,8 @@ public class FaithTileParser {
                 CardColor cardColor=CardColor.valueOf(cardColorString);
 
                 faithTile1.setNoEndGamePointsCardColor(cardColor);
+                //SETTO MALUS NELLA FAITHTILE
+                faithTile1.setMalus(new CardPointsMalus(MalusEnum.CARDPOINTSMALUS,cardColor));
             }
             List <Resource> forEveryRes;
             List <Resource> loseRes;
@@ -107,6 +126,8 @@ public class FaithTileParser {
 
                 loseRes=parseResources(lose);
                 faithTile1.setLoseRes(loseRes);
+                //SETTO MALUS NELLA FAITHTILE
+                faithTile1.setMalus(new VictoryPointsMalus(MalusEnum.VICTORYPOINTSMALUS,forEveryRes,loseRes));
             }
             if(faithTile.has("loseForEveryCost")){
                 JsonNode loseForEveryCost=faithTile.path("loseForEveryCost");
@@ -117,11 +138,16 @@ public class FaithTileParser {
                 CardColor cardColor=CardColor.valueOf(cardColorString);
                 faithTile1.setLoseForEveryCostCardColor(cardColor);
                 faithTile1.setLoseForEveryCost(cardTypeCost);
+                //SETTO MALUS NELLA FAITHTILE
+                faithTile1.setMalus( new YellowCardsCostMalus(MalusEnum.YELLOWCARDSCOSTMALUS,cardColor,cardTypeCost));
+
             }
             boolean loseForEveryResource=faithTile.path("loseForEveryResource").asBoolean();
-
+            if(loseForEveryResource){faithTile1.setMalus(new PlayerResourceMalus(MalusEnum.PLAYERRESOURCEMALUS,loseForEveryResource));}
 
             faithTile1.setLoseForEveryResource(loseForEveryResource);
+            //SETTO MALUS NELLA FAITHTILE
+
             this.faithTiles.add(faithTile1);
         }
     }
