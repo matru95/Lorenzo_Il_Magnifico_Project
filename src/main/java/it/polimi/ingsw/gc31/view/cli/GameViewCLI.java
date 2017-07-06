@@ -10,13 +10,10 @@ import it.polimi.ingsw.gc31.client.RMIClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
-import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
 
 import java.io.*;
 import java.rmi.NotBoundException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.*;
 
 public class GameViewCLI implements GameViewCtrl, Serializable {
@@ -29,7 +26,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private final Client client;
     private final String myPlayerName;
     private String myPlayerID;
-    private final String serverIP;
     private final ObjectMapper mapper;
     private StringBuilder sb;
     private JsonNode rootInstance;
@@ -39,16 +35,11 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
         this.mapper = new ObjectMapper();
         this.myPlayerName = myPlayerName;
-        this.serverIP = serverIP;
-        Registry registry = LocateRegistry.getRegistry(serverIP, 8080);
-        GameServer gameServer = (GameServer) registry.lookup("game_server");
-        client = new RMIClient();
+        this.client = new RMIClient(serverIP, myPlayerName, this);
         this.sb = new StringBuilder();
         printLogo();
         printStringBuilder();
 
-
-        client.joinServer(gameServer, "Matteo");
     }
 
     /**
@@ -600,7 +591,13 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     public static void main(String[] args) throws IOException, InterruptedException, NoResourceMatch, ClassNotFoundException, NotBoundException {
 
-         GameViewCtrl ctrl = new GameViewCLI("MATRU", "127.0.0.1");
+        System.out.println("Hello, pls enter your name:");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String myPlayerName = br.readLine();
+        System.out.println("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
+        br = new BufferedReader(new InputStreamReader(System.in));
+        String serverIP = br.readLine();
+        GameViewCtrl ctrl = new GameViewCLI(myPlayerName, serverIP);
 
     }
 }
