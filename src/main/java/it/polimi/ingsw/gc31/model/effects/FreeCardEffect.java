@@ -23,20 +23,19 @@ public class FreeCardEffect extends Effect  {
     private CardColor freeCardColor;
     private int diceActionValue;
     private List<Resource> resources;
-    private Map<CardColor,Tower> towers;
 
-    FreeCardEffect(CardColor freeCardColor,int diceActionValue,List<Resource> resources,Map<CardColor,Tower> towers){
-        this.freeCardColor=freeCardColor;
-        this.diceActionValue=diceActionValue;
-        this.resources=resources;
-        this.towers=towers;
+    public FreeCardEffect(CardColor freeCardColor, int diceActionValue, List<Resource> resources){
+        this.freeCardColor = freeCardColor;
+        this.diceActionValue = diceActionValue;
+        this.resources = resources;
     }
 
     @Override
     public ServerMessage exec(Player player) throws NoResourceMatch {
-        Map<String,String> payload= new HashMap<>();
-        List<Card> towerCards= new ArrayList<>();
-        List<Card> towerCardsFiltered=new ArrayList<>();
+        Map<CardColor, Tower> towers = player.getBoard().getTowers();
+        Map<String,String> payload = new HashMap<>();
+        List<Card> towerCards = new ArrayList<>();
+        List<Card> towerCardsFiltered = new ArrayList<>();
 
         if(freeCardColor!=null){
             Tower tower= towers.get(this.freeCardColor);
@@ -55,7 +54,7 @@ public class FreeCardEffect extends Effect  {
             }
 
             return new ServerMessage(ServerMessageEnum.FREECARDREQUEST,payload);
-        }else {
+        } else {
             Map<Integer,TowerSpaceWrapper> towerSpaceWrapper= new HashMap<>();
             for(Map.Entry<CardColor,Tower> tower: towers.entrySet()){
                 towerSpaceWrapper=tower.getValue().getTowerSpace();

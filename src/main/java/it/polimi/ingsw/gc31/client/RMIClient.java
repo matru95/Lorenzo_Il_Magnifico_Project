@@ -22,19 +22,22 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     private transient GameServer server;
     private transient GameView view;
     private UUID gameID;
+    private String playerName;
+    private String serverIP;
 
-    protected RMIClient() throws RemoteException {
-    }
 
     public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException, ClassNotFoundException {
 
-        String serverIP = "127.0.0.1";
+    }
+
+    public RMIClient(String serverIP, String playerName, GameView view) throws IOException, NotBoundException, InterruptedException, NoResourceMatch {
+        this.serverIP = serverIP;
+        this.playerName = playerName;
+        this.view = view;
+
         Registry registry = LocateRegistry.getRegistry(serverIP, 8080);
         GameServer gameServer = (GameServer) registry.lookup("game_server");
-
-        Client client = new RMIClient();
-
-        client.joinServer(gameServer, "Matteo");
+        joinServer(gameServer, playerName);
     }
 
     @Override
@@ -51,7 +54,6 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     private void openView(Map<String, String> payload) {
         this.playerID = UUID.fromString(payload.get("playerID"));
         this.gameID = UUID.fromString(payload.get("gameID"));
-
         this.view = new GameViewCLI(playerID);
     }
 

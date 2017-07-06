@@ -212,26 +212,28 @@ public class CardParser {
     }
 
     private void parseFreeCardChoice(JsonNode freeCardChoiceNode, Card card) {
+        CardColor cardColor = null;
+        int diceValue;
+        List<Resource> resources = new ArrayList<>();
         FreeCardChoice freeCardChoice = new FreeCardChoice();
 
         String colorName = freeCardChoiceNode.path("cardColor").asText();
-        int points = freeCardChoiceNode.path("points").asInt();
+        diceValue = freeCardChoiceNode.path("points").asInt();
 
         if(colorName != "") {
-            freeCardChoice.setCardColor(CardColor.valueOf(colorName.toUpperCase()));
+            cardColor = CardColor.valueOf(colorName);
         }
 
-        freeCardChoice.setPoints(points);
 
 //          Parse resources
         if(freeCardChoiceNode.has("resources")) {
             JsonNode resourcesNode = freeCardChoiceNode.path("resources");
 
-            List<Resource> resources = parseResources(resourcesNode);
-            freeCardChoice.setResources(resources);
+            resources = parseResources(resourcesNode);
         }
 
-        card.setFreeCardChoice(freeCardChoice);
+        FreeCardEffect freeCardEffect = new FreeCardEffect(cardColor, diceValue, resources);
+        card.addInstantEffect(freeCardEffect);
     }
 
     private void parsePermanentEffect(JsonNode permanentEffectNode, Card card) {

@@ -230,7 +230,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     private void processCostChoice(String gameID, String playerID, Map<String, String> payload) {
         UUID gameInstanceID = UUID.fromString(gameID);
 
-        GameController gameController = games.get(gameID);
+        GameController gameController = games.get(gameInstanceID);
         ActionController actionController = (ActionController) gameController.getActionController();
 
         synchronized (actionController) {

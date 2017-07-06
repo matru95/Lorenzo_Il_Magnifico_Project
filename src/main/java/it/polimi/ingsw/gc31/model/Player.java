@@ -384,4 +384,19 @@ public class Player implements Serializable {
 	public void setPlayerColor(PlayerColor playerColor) {
 		this.playerColor = playerColor;
 	}
+
+	public Card getCardByID(int cardID) {
+	    for(Map.Entry<CardColor, List<Card>> singleCardColorEntry: cards.entrySet()) {
+	        List<Card> cardList = singleCardColorEntry.getValue();
+
+	        for(Card card: cardList) {
+
+	            if(card.getCardID() == cardID) {
+	                return card;
+                }
+            }
+        }
+
+        return null;
+    }
 }

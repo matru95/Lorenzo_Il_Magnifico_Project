@@ -56,7 +56,6 @@ public class SocketClient implements Client, Serializable{
         objOut.writeObject(request);
         objOut.flush();
 
-        System.out.println("joined");
         getResponses();
         socket.close();
     }
@@ -67,7 +66,6 @@ public class SocketClient implements Client, Serializable{
         while (condition) {
             try {
                 ServerMessage response = (ServerMessage) objIn.readObject();
-                System.out.println("receiving: "+response);
                 send(response);
             } catch (IOException e) {
                 e.printStackTrace();

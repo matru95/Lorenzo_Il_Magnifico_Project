@@ -1,6 +1,8 @@
 package it.polimi.ingsw.gc31.controller;
 
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
@@ -11,6 +13,8 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Parchment;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
+import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.client.Client;
 
@@ -219,6 +223,16 @@ public class ActionController extends Controller implements Runnable {
     }
 
     public void costChoiceAction(String playerID, Map<String, String> payload) {
-        return;
+        String cardID = payload.get("cardID");
+        int cardCostChoice = Integer.valueOf(payload.get("cardCostChoice"));
+        Card myCard = player.getCardByID(Integer.valueOf(cardID));
+        Map<ResourceName, Resource> costToPay = myCard.getCost().get(cardCostChoice - 1);
+        Map<ResourceName, Resource> playerResources = player.getRes();
+
+        for(Map.Entry<ResourceName, Resource> singleResourceEntry: costToPay.entrySet()) {
+            ResourceName singleResourceName = singleResourceEntry.getKey();
+            int amount = singleResourceEntry.getValue().getNumOf();
+            playerResources.get(singleResourceName).subNumOf(amount);
+        }
     }
 }

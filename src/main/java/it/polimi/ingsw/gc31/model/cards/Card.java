@@ -27,10 +27,8 @@ public class Card {
     private Boolean isOnDeck;
     private List<Map<ResourceName, Resource>> cost;
     private int activationValue;
-    private int numOfInstantParchment;
-    private int numOfNormalParchment;
+
     private List<Exchange> exchanges;
-    private FreeCardChoice freeCardChoice;
     private Resource costBond;
 
     public Card(CardColor cardColor, String cardName, int cardID, int cardAge) {
@@ -41,10 +39,7 @@ public class Card {
         this.cardAge = cardAge;
         this.isOnDeck = true;
         this.activationValue = 0;
-        this.numOfNormalParchment = 0;
-        this.numOfInstantParchment = 0;
         this.exchanges = new ArrayList<>();
-        this.freeCardChoice = new FreeCardChoice();
         this.costBond = null;
 
         normalEffects = new ArrayList<>();
@@ -138,29 +133,12 @@ public class Card {
         return this.cost;
     }
 
-    public void setNumOfInstantParchment(int numOfInstantParchment) {
-        this.numOfInstantParchment = numOfInstantParchment;
-    }
-
-    public void setNumOfNormalParchment(int numOfNormalParchment) {
-        this.numOfNormalParchment = numOfNormalParchment;
-    }
-
-    public int getNumOfInstantParchment() {
-        return this.numOfInstantParchment;
-    }
-
     public void insertExchange(Exchange exchange) {
         this.exchanges.add(exchange);
     }
 
     public List<Exchange> getExchanges() {
         return exchanges;
-    }
-
-
-    public void setFreeCardChoice(FreeCardChoice freeCardChoice) {
-        this.freeCardChoice = freeCardChoice;
     }
 
     public int getActivationValue() {
@@ -187,7 +165,4 @@ public class Card {
         return instantEffects;
     }
 
-    public FreeCardChoice getFreeCardChoice() {
-        return freeCardChoice;
-    }
 }
