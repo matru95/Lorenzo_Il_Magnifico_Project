@@ -3,12 +3,16 @@ package it.polimi.ingsw.gc31.view.jfx;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.NotBoundException;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.polimi.ingsw.gc31.client.Client;
+import it.polimi.ingsw.gc31.client.RMIClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -17,13 +21,16 @@ import javafx.scene.input.MouseEvent;
 
 public class GameViewFXCtrl implements GameViewCtrl {
 
-    public GameViewFXCtrl() {
-        this.mapper = new ObjectMapper();
-    }
-
+    private final Client client;
     private final ObjectMapper mapper;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
+
+    public GameViewFXCtrl() throws InterruptedException, NotBoundException, NoResourceMatch, IOException {
+
+        this.mapper = new ObjectMapper();
+        this.client = new RMIClient("127.0.0.1", "LORENZO", this);
+    }
 
     @FXML
     private ResourceBundle resources;

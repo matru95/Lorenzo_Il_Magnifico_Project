@@ -6,12 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-
 public class GameViewFX extends Application {
-
-    private static GameViewFXCtrl controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,13 +20,4 @@ public class GameViewFX extends Application {
 
     }
 
-    public static GameViewFXCtrl getFXController() {
-        return controller;
-    }
-
-    public static void main(String[] args) throws IOException {
-
-        Application.launch(GameViewFX.class, args);
-//        getFXController().update(gameState);
-    }
 }
