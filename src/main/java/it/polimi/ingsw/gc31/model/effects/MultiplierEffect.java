@@ -23,12 +23,14 @@ public class MultiplierEffect extends Effect{
         if(multiplier.get("for").getClass() == CardColor.class) {
             CardColor colorFor = (CardColor) multiplier.get("for");
             int numOfCards = player.getNumOfCards(colorFor);
-
+            multiply(resourceToReceive, numOfCards, player);
         } else {
 //          Resource
             ResourceName resourceFor = (ResourceName) multiplier.get("for");
             int numOfResource = player.getRes().get(resourceFor).getNumOf();
+            multiply(resourceToReceive, numOfResource, player);
         }
+
         return null;
 
     }

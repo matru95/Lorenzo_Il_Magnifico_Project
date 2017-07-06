@@ -148,6 +148,10 @@ public class Card {
         this.costBond = costBond;
     }
 
+    public Resource getCostBond() {
+        return costBond;
+    }
+
     public void addNormalEffect(Effect effect) {
         this.normalEffects.add(effect);
     }

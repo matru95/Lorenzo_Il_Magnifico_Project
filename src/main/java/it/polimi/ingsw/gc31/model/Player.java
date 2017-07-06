@@ -47,9 +47,9 @@ public class Player implements Serializable {
 	private Map<CardColor, List<Card>> cards;
 	private FamilyMember[] familyMembers;
 
-	//FatihTiles
-	private List<FaithTile> excommunications;
-	private List<Bonus> bonuses;
+	//FaithTiles
+	private transient List<FaithTile> excommunications;
+	private transient List<Bonus> bonuses;
 	
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
@@ -157,6 +157,28 @@ public class Player implements Serializable {
 
 		return cardsNode;
 	}
+
+	public boolean canPayCardCost(Map<ResourceName, Resource> cardCost, Card card) {
+        Resource cardCostBond = card.getCostBond();
+
+        for(Map.Entry<ResourceName, Resource> costResourceEntry: cardCost.entrySet()) {
+            Resource costResource = costResourceEntry.getValue();
+            Resource playerResource = res.get(costResource.getResourceName());
+            int costAmount = costResource.getNumOf();
+            int playerResourceAmount = playerResource.getNumOf();
+
+            if(cardCostBond != null && cardCostBond.getResourceName() == costResource.getResourceName()) {
+                costAmount += cardCostBond.getNumOf();
+            }
+
+
+            if(playerResourceAmount < costAmount) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 	/**
 	 * Setter for attribute "gameBoard" and init "familyMembers"

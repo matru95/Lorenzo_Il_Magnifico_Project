@@ -164,21 +164,6 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
     }
 
-    private boolean canPayCardCost(Player player, Map<ResourceName, Resource> cardCost) {
-        Map<ResourceName, Resource> playerResources = player.getRes();
-
-        for(Map.Entry<ResourceName, Resource> costResourceEntry: cardCost.entrySet()) {
-            Resource costResource = costResourceEntry.getValue();
-            Resource playerResource = playerResources.get(costResource.getResourceName());
-
-            if(playerResource.getNumOf() < costResource.getNumOf()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     public CardColor getColor() {
         return color;
     }
@@ -218,7 +203,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         } else if(numOfCostsCanPay(player, card) == 1) {
 
             for(Map<ResourceName, Resource> singleCardCost: card.getCost()) {
-                if(canPayCardCost(player, singleCardCost)) {
+                if(player.canPayCardCost(singleCardCost, card)) {
                     paySingleCost(singleCardCost, player);
                 }
             }
@@ -247,7 +232,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         int numOfCosts = 0;
 
         for(Map<ResourceName, Resource> cardCost: card.getCost()) {
-            if(canPayCardCost(player, cardCost)) {
+            if(player.canPayCardCost(cardCost, card)) {
                 numOfCosts++;
             }
         }
