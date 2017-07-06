@@ -3,7 +3,8 @@ package it.polimi.ingsw.gc31.client;
 import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.GameServer;
-import it.polimi.ingsw.gc31.view.GameView;
+import it.polimi.ingsw.gc31.view.GameViewCtrl;
+import it.polimi.ingsw.gc31.view.GameViewCtrl;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 import java.io.IOException;
@@ -20,10 +21,10 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
 
     private transient UUID playerID;
     private transient GameServer server;
-    private transient GameView view;
+    private transient GameViewCtrl view;
     private UUID gameID;
 
-    protected RMIClient() throws RemoteException {
+    public RMIClient() throws RemoteException {
     }
 
     public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException, ClassNotFoundException {

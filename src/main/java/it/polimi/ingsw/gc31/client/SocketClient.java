@@ -6,7 +6,7 @@ import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.server.GameServer;
-import it.polimi.ingsw.gc31.view.GameView;
+import it.polimi.ingsw.gc31.view.GameViewCtrl;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class SocketClient implements Client, Serializable{
     private transient ObjectOutputStream objOut;
     private String playerID;
     private transient String gameID;
-    private transient GameView view;
+    private transient GameViewCtrl view;
     private String socketClientID;
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
