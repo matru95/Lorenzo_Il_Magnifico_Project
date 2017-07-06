@@ -399,4 +399,10 @@ public class Player implements Serializable {
 
         return null;
     }
+
+	public List<Card> getCardsByColor(CardColor cardColor){
+		List<Card> cardsFilteredByColor= new ArrayList<>();
+		cardsFilteredByColor=this.getCards().get(cardColor);
+		return cardsFilteredByColor;
+	}
 }
