@@ -23,7 +23,7 @@ public class MartWrapper extends SpaceWrapper {
     }
 
     @Override
-    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
+    public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
         setOccupied(true);
         Map<ResourceName, Resource> playerResources = familyMember.getPlayer().getRes();
         for(Resource myResource : res) {

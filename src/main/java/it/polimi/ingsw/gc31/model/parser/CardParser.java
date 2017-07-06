@@ -399,12 +399,10 @@ public class CardParser {
     private List<Resource> initEffectResources(JsonNode effectResourceNode) {
         List<Resource> effectResources = new ArrayList<>();
 
-        while (effectResourceNode.fields().hasNext()) {
-            Resource effectResource = parseSingleResource(effectResourceNode);
-
+        effectResourceNode.fields().forEachRemaining(singleField -> {
+            Resource effectResource = new Resource(ResourceName.valueOf(singleField.getKey().toUpperCase()), singleField.getValue().asInt());
             effectResources.add(effectResource);
-            effectResourceNode = effectResourceNode.fields().next().getValue();
-        }
+        });
 
         return effectResources;
     }

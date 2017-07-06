@@ -1,5 +1,7 @@
 package it.polimi.ingsw.gc31.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -91,7 +93,7 @@ public class FamilyMember {
     }
 
 
-    public ServerMessage moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws MovementInvalidException {
+    public List<ServerMessage> moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws MovementInvalidException {
 
 	    if(!isMovementPossible(position)) {
 	        throw new MovementInvalidException();
@@ -109,8 +111,9 @@ public class FamilyMember {
 		this.currentPosition = position;
 		position.setFamilyMember(this);
 		this.isMovedThisTurn = true;
-		ServerMessage request =  position.execWrapper(this, numOfServantsPaid);
-        return request;
+
+		List<ServerMessage> requests =  position.execWrapper(this, numOfServantsPaid);
+		return requests;
     }
 
 	private boolean isMovementPossible(SpaceWrapper position) {

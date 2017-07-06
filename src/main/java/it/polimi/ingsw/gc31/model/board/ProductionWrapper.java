@@ -30,7 +30,7 @@ public class ProductionWrapper extends SpaceWrapper {
     }
 
     @Override
-    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
+    public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
         int value = familyMember.getValue() + amountOfServants - malus;
         ProductionEffect productionEffect = new ProductionEffect();
         productionEffect.exec(familyMember.getPlayer(), malus);

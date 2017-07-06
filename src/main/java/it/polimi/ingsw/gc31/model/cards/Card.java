@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -93,15 +94,26 @@ public class Card {
     }
 
 
-    public void execInstantEffect(Player player) {
+    public List<ServerMessage> execInstantEffect(Player player) {
+        List<ServerMessage> result = new ArrayList<>();
+
         for(Effect effect: instantEffects) {
-            effect.exec(player);
+            ServerMessage message = effect.exec(player);
+            result.add(message);
         }
+
+        return result;
     }
-    public void execNormalEffect(Player player) {
+
+    public List<ServerMessage> execNormalEffect(Player player) {
+        List<ServerMessage> messages = new ArrayList<>();
+
         for(Effect effect: normalEffects) {
-            effect.exec(player);
+            ServerMessage message = effect.exec(player);
+            messages.add(message);
         }
+
+        return messages;
     }
 
     public CardColor getCardColor() {

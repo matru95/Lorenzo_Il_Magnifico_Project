@@ -7,6 +7,7 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
+import java.util.List;
 import java.util.Map;
 
 public class NullWrapper extends SpaceWrapper {
@@ -18,7 +19,7 @@ public class NullWrapper extends SpaceWrapper {
     }
 
     @Override
-    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
+    public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
 
         return null;
     }

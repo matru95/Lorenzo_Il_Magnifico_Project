@@ -59,19 +59,26 @@ public class ActionController extends Controller implements Runnable {
         }
 
         try {
-            ServerMessage message = familyMember.moveToPosition(position, servantsToPay);
+            List<ServerMessage> messages = familyMember.moveToPosition(position, servantsToPay);
             Card nullCard = new Card(null, null, 0, super.getModel().getAge());
+
+            System.out.println(messages);
 
             if(position.getClass() == TowerSpaceWrapper.class) {
 
                 ((TowerSpaceWrapper) position).setCard(nullCard);
             }
 
-            if(message != null) {
-                synchronized (this) {
-                    sendMessage(message, client);
+            for(ServerMessage message: messages) {
+
+                if(message != null) {
+
+                    synchronized (this) {
+                        sendMessage(message, client);
+                    }
                 }
             }
+
 
             this.movementReceived = false;
 

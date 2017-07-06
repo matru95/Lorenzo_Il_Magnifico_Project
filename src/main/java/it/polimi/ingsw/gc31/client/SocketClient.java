@@ -36,9 +36,22 @@ public class SocketClient implements Client, Serializable{
         this.socketClientID = UUID.randomUUID().toString();
         this.serverIP = serverIP;
         this.playerName = playerName;
+        this.view = view;
 
         socket = new Socket(serverIP, 29999);
-        this.joinServer(null, playerName);
+
+        new Thread(() -> {
+
+            try {
+                joinServer(null, playerName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
 
@@ -62,6 +75,7 @@ public class SocketClient implements Client, Serializable{
     }
 
     private void getResponses() throws ClassNotFoundException, InterruptedException, IOException {
+        System.out.println("Getting responses");
         objIn = new ObjectInputStream(socket.getInputStream());
         boolean condition = true;
         while (condition) {

@@ -7,6 +7,7 @@ import de.vandermeer.asciitable.CWC_FixedWidth;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.RMIClient;
+import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
@@ -34,7 +35,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
         this.mapper = new ObjectMapper();
         this.myPlayerName = myPlayerName;
-        this.client = new RMIClient(serverIP, myPlayerName, this);
+        this.client = new SocketClient(serverIP, myPlayerName, this);
         this.sb = new StringBuilder();
         printLogo();
         printStringBuilder();

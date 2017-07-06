@@ -9,6 +9,7 @@ import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 public abstract class SpaceWrapper implements Serializable{
@@ -25,7 +26,7 @@ public abstract class SpaceWrapper implements Serializable{
         isOccupied = false;
     }
 
-    public abstract ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants);
+    public abstract List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants);
 
     public abstract ObjectNode toJson();
 

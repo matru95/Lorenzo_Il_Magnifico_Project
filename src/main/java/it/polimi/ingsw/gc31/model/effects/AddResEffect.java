@@ -22,6 +22,7 @@ public class AddResEffect extends Effect{
         Map<ResourceName, Resource> playerResources = player.getRes();
 
         for(Resource resourceToAdd: resourcesToAdd) {
+            System.out.println("Adding resource:" + resourceToAdd.getResourceName());
             ResourceName resourceName = resourceToAdd.getResourceName();
             int value = resourceToAdd.getNumOf();
 

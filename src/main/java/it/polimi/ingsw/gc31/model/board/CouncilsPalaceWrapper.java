@@ -103,7 +103,9 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
+    public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
+        List<ServerMessage> result = new ArrayList<>();
+
         ParchmentEffect parchmentEffect = new ParchmentEffect(numOfParchments);
         List<Resource> resources = new ArrayList<>();
         resources.add(this.res);
@@ -112,7 +114,10 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
         addResEffect.exec(familyMember.getPlayer());
 
 
-        return parchmentEffect.exec(familyMember.getPlayer());
+        ServerMessage message = parchmentEffect.exec(familyMember.getPlayer());
+        result.add(message);
+
+        return result;
     }
 
     @Override

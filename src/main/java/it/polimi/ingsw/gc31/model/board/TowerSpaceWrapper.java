@@ -35,7 +35,8 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
+    public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
+        List<ServerMessage> result = new ArrayList<>();
 
         if(tower.isOccupied()) {
             familyMember.getPlayer().getRes().get(ResourceName.GOLD).subNumOf(3);
@@ -43,11 +44,15 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
         execTowerBonus(familyMember.getPlayer());
 
-            card.execInstantEffect(familyMember.getPlayer());
+        card.execInstantEffect(familyMember.getPlayer());
 
         setOccupied(true);
         tower.setOccupied(true);
-        return payCost(familyMember.getPlayer(), this.card);
+
+        ServerMessage message = payCost(familyMember.getPlayer(), this.card);
+
+        result.add(message);
+        return result;
     }
 
     @Override

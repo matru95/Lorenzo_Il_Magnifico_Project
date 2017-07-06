@@ -12,7 +12,8 @@
       "normalEffect": {
         "bonus": {
           "gold": 1
-        }
+        },
+        "parchment": 1
       }
     },
     {
@@ -30,7 +31,8 @@
       "normalEffect": {
         "bonus": {
           "wood": 1
-        }
+        },
+        "parchment": 1
       }
     },
     {
@@ -48,7 +50,8 @@
         "bonus": {
           "gold": 1,
           "servants": 1
-        }
+        },
+        "parchment": 1
       }
     },
     {
@@ -67,7 +70,8 @@
         "bonus": {
           "stone": 2
         }
-      }
+      },
+      "parchment": 1
     },
     {
       "id": 5,
@@ -315,7 +319,7 @@
     },
     {
       "id": 18,
-      "cardAge": 1,
+      "cardAge": 3,
       "title": "Farm",
       "cardColor": "green",
       "activationValue": 3,
