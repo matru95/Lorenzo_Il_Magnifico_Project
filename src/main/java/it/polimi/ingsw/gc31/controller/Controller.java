@@ -3,7 +3,6 @@ package it.polimi.ingsw.gc31.controller;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.GameInstance;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.server.GameServerImpl;
 import it.polimi.ingsw.gc31.server.SocketThread;
@@ -40,7 +39,7 @@ public abstract class Controller {
         return model;
     }
 
-    protected void updateClient(Client client) throws NoResourceMatch, IOException, InterruptedException {
+    protected void updateClient(Client client) throws IOException, InterruptedException {
         Map<String, String> payload = getGameState();
         ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
 
@@ -59,7 +58,7 @@ public abstract class Controller {
         return views;
     }
 
-    protected abstract void updateClients() throws NoResourceMatch, IOException, InterruptedException;
+    protected abstract void updateClients() throws IOException, InterruptedException;
 
     public GameServer getServer() {
         return server;

@@ -7,7 +7,6 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.effects.boardeffects.HarvestEffect;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -29,7 +28,7 @@ public class HarvestWrapper extends SpaceWrapper {
     }
 
     @Override
-    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
         int value = familyMember.getValue() + amountOfServants - malus;
         HarvestEffect harvestEffect = new HarvestEffect();
         harvestEffect.exec(familyMember.getPlayer(), value);

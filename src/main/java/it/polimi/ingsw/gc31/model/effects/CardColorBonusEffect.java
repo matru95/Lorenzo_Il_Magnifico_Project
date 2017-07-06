@@ -3,7 +3,6 @@ package it.polimi.ingsw.gc31.model.effects;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import jdk.nashorn.internal.ir.ObjectNode;
 
 
@@ -15,7 +14,7 @@ public class CardColorBonusEffect extends Effect{
     }
 
     @Override
-    public ServerMessage exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) {
         player.addBonus(bonus);
         return null;
     }

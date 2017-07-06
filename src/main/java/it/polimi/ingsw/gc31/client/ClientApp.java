@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.client;
 
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 import it.polimi.ingsw.gc31.view.jfx.GameViewFX;
 import javafx.application.Application;
@@ -12,7 +11,7 @@ import java.rmi.NotBoundException;
 
 public class ClientApp {
 
-    public static void main(String[] args) throws IOException, InterruptedException, NoResourceMatch, ClassNotFoundException, NotBoundException {
+    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, NotBoundException {
 
         BufferedReader br;
         System.out.println("Choose between using \"CLI\" or \"JAVAFX\":");

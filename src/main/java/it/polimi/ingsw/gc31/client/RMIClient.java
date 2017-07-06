@@ -1,11 +1,8 @@
 package it.polimi.ingsw.gc31.client;
 
 import it.polimi.ingsw.gc31.messages.*;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
-import it.polimi.ingsw.gc31.view.GameViewCtrl;
-import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -26,14 +23,11 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     private String playerName;
     private String serverIP;
 
-    public RMIClient() throws RemoteException {
-    }
-
-    public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, NotBoundException, InterruptedException, ClassNotFoundException {
 
     }
 
-    public RMIClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, NotBoundException, InterruptedException, NoResourceMatch {
+    public RMIClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, NotBoundException, InterruptedException {
         this.serverIP = serverIP;
         this.playerName = playerName;
         this.view = view;
@@ -44,7 +38,7 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     }
 
     @Override
-    public void joinServer(GameServer s, String playerName) throws IOException, NoResourceMatch, InterruptedException {
+    public void joinServer(GameServer s, String playerName) throws IOException, InterruptedException {
         s.register(this, playerName);
         this.server = s;
     }
@@ -61,7 +55,7 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     }
 
     @Override
-    public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
+    public void send(ServerMessage request) throws IOException, InterruptedException {
 
         ServerMessageEnum requestType = request.getMessageType();
         Map<String, String> payload = request.getPayload();

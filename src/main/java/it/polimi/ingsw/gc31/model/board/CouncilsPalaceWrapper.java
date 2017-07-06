@@ -3,7 +3,6 @@ package it.polimi.ingsw.gc31.model.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -104,7 +103,7 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     @Override
-    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) throws NoResourceMatch {
+    public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
         ParchmentEffect parchmentEffect = new ParchmentEffect(numOfParchments);
         List<Resource> resources = new ArrayList<>();
         resources.add(this.res);
@@ -113,11 +112,7 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
         addResEffect.exec(familyMember.getPlayer());
 
 
-        try {
-            return parchmentEffect.exec(familyMember.getPlayer());
-        } catch (NoResourceMatch noResourceMatch) {
-            return null;
-        }
+        return parchmentEffect.exec(familyMember.getPlayer());
     }
 
     @Override

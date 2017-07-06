@@ -3,7 +3,6 @@ package it.polimi.ingsw.gc31;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -33,7 +32,7 @@ public class PlayerTest extends TestCase {
     }
 
     @Test
-    public void testPlayerShouldHaveOrder() throws NoResourceMatch {
+    public void testPlayerShouldHaveOrder() {
         this.player.setPlayerOrder(1);
         assertEquals(this.player.getPlayerOrder(), 1);
     }

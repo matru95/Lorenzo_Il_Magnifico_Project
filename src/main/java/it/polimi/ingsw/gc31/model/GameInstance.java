@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.parser.ParchmentParser;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
@@ -96,11 +95,7 @@ public class GameInstance implements Serializable, Runnable {
 //	    Game preparation state
 		this.state = new GamePrepState();
 
-		try {
-			this.state.doAction(this);
-		} catch (NoResourceMatch noResourceMatch) {
-			noResourceMatch.printStackTrace();
-		}
+		this.state.doAction(this);
 
 	}
 

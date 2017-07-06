@@ -4,7 +4,6 @@ import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import jdk.nashorn.internal.ir.ObjectNode;
 
@@ -18,7 +17,7 @@ public class MultiplierEffect extends Effect{
     }
 
     @Override
-    public ServerMessage exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) {
         Resource resourceToReceive = (Resource) multiplier.get("receive");
 
         if(multiplier.get("for").getClass() == CardColor.class) {

@@ -1,13 +1,11 @@
 package it.polimi.ingsw.gc31.client;
 
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ClientMessage;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
-import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -30,11 +28,11 @@ public class SocketClient implements Client, Serializable{
     private String playerName;
     private String serverIP;
 
-    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
+    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
 
     }
 
-    public SocketClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
+    public SocketClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, InterruptedException, ClassNotFoundException {
         this.socketClientID = UUID.randomUUID().toString();
         this.serverIP = serverIP;
         this.playerName = playerName;
@@ -45,7 +43,7 @@ public class SocketClient implements Client, Serializable{
 
 
     @Override
-    public void joinServer(GameServer s, String playerName) throws IOException, NoResourceMatch, InterruptedException, ClassNotFoundException {
+    public void joinServer(GameServer s, String playerName) throws IOException, InterruptedException, ClassNotFoundException {
         objOut = new ObjectOutputStream(socket.getOutputStream());
 
         Map<String, String> payload = new HashMap<>();
@@ -63,7 +61,7 @@ public class SocketClient implements Client, Serializable{
         socket.close();
     }
 
-    private void getResponses() throws ClassNotFoundException, NoResourceMatch, InterruptedException, IOException {
+    private void getResponses() throws ClassNotFoundException, InterruptedException, IOException {
         objIn = new ObjectInputStream(socket.getInputStream());
         boolean condition = true;
         while (condition) {
@@ -95,7 +93,7 @@ public class SocketClient implements Client, Serializable{
     }
 
     @Override
-    public void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException {
+    public void send(ServerMessage request) throws IOException, InterruptedException {
         ServerMessageEnum requestType = request.getMessageType();
         Map<String, String> payload = request.getPayload();
 

@@ -1,10 +1,8 @@
 package it.polimi.ingsw.gc31.model.effects;
 
-import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import jdk.nashorn.internal.ir.ObjectNode;
 
@@ -20,7 +18,7 @@ public class CostEffect extends Effect {
     }
 
     @Override
-    public ServerMessage exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) {
         Map<String, String> payload = new HashMap<>();
         String cardID = String.valueOf(card.getCardID());
 

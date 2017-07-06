@@ -11,7 +11,6 @@ import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -92,7 +91,7 @@ public class FamilyMember {
     }
 
 
-    public ServerMessage moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws NoResourceMatch, MovementInvalidException {
+    public ServerMessage moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws MovementInvalidException {
 
 	    if(!isMovementPossible(position)) {
 	        throw new MovementInvalidException();

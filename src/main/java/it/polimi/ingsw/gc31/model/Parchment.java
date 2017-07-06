@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.model;
 
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
@@ -23,7 +22,7 @@ public class Parchment {
         return resources;
     }
 
-    public void execParchment(Player player) throws NoResourceMatch {
+    public void execParchment(Player player) {
         AddResEffect addResEffect = new AddResEffect(resources);
         addResEffect.exec(player);
     }

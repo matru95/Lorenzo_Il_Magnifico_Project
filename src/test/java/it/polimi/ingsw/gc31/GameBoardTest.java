@@ -6,7 +6,6 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.parser.CardParser;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class GameBoardTest {
     public static List<Card> cards;
 
     @Test
-    public void ShouldInitSpacesCorrectly() throws NoResourceMatch, IOException {
+    public void ShouldInitSpacesCorrectly() throws IOException {
         Player p1 = new Player(UUID.randomUUID(), "MATRU");
         Player p2 = new Player(UUID.randomUUID(), "LEO");
         Player p3 = new Player(UUID.randomUUID(), "ENDI");

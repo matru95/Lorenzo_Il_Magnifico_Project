@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.server;
 
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ClientMessage;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
@@ -88,8 +87,6 @@ public class SocketThread implements Runnable{
                 gameServer.send(request);
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (NoResourceMatch noResourceMatch) {
-                noResourceMatch.printStackTrace();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

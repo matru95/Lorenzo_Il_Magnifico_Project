@@ -9,7 +9,6 @@ import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.parser.CardParser;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
 import junit.framework.TestCase;
@@ -58,7 +57,7 @@ public class FamilyMemberTest extends TestCase{
     }
 
     @Test
-    public void testFamilyMemberShouldMoveToTowerSpacePositionAndGetCard() throws NoResourceMatch, MovementInvalidException {
+    public void testFamilyMemberShouldMoveToTowerSpacePositionAndGetCard() throws MovementInvalidException {
         FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
 
         SpaceWrapper chosenPosition = gameBoard.getSpaceById(1);
@@ -82,7 +81,7 @@ public class FamilyMemberTest extends TestCase{
     }
 
     @Test
-    public void testFamilyMemberShouldMoveToPositionAndOccupyIt() throws NoResourceMatch, MovementInvalidException {
+    public void testFamilyMemberShouldMoveToPositionAndOccupyIt() throws MovementInvalidException {
         FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
         Dice dice = this.gameBoard.getDiceByColor(DiceColor.BLACK);
         dice.throwDice();
@@ -110,8 +109,6 @@ public class FamilyMemberTest extends TestCase{
             familyMember.moveToPosition(gameBoard.getSpaceById(1), 0);
             System.out.println("moving");
             check = false;
-        } catch (NoResourceMatch noResourceMatch) {
-            noResourceMatch.printStackTrace();
         } catch (MovementInvalidException e) {
             check = true;
         }

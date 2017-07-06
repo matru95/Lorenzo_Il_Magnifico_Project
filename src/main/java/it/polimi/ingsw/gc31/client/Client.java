@@ -1,7 +1,6 @@
 package it.polimi.ingsw.gc31.client;
 
 import it.polimi.ingsw.gc31.messages.ServerMessage;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.server.GameServer;
 
 import java.io.IOException;
@@ -15,10 +14,9 @@ public interface Client extends Remote {
      * @param s the game server this client is connected to.
      * @param playerName the player name
      * @throws IOException
-     * @throws NoResourceMatch
      * @throws InterruptedException
      */
-    void joinServer(GameServer s, String playerName) throws IOException, NoResourceMatch, InterruptedException, ClassNotFoundException;
+    void joinServer(GameServer s, String playerName) throws IOException, InterruptedException, ClassNotFoundException;
 
     /**
      * Method to ping.
@@ -31,7 +29,7 @@ public interface Client extends Remote {
      * Method used by the controller and RMI server to send a response to the client
      * @param request The Message request
      */
-    void send(ServerMessage request) throws NoResourceMatch, IOException, InterruptedException;
+    void send(ServerMessage request) throws IOException, InterruptedException;
 
     /**
      * Getter for "gameID" attribute.

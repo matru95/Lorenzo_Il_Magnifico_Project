@@ -1,10 +1,8 @@
 package it.polimi.ingsw.gc31.controller;
 
-import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
@@ -41,7 +39,7 @@ public class ActionController extends Controller implements Runnable {
         this.gameController = gameController;
     }
 
-    public void movementAction(String playerID, Map<String, String> movementData) throws NoResourceMatch, IOException, InterruptedException {
+    public void movementAction(String playerID, Map<String, String> movementData) throws IOException, InterruptedException {
 //      this.movementReceived is true at this point
 
         GameInstance game = super.getModel();
@@ -98,9 +96,7 @@ public class ActionController extends Controller implements Runnable {
             try {
                 System.out.println("Sending message: " + request.getMessageType());
                 super.getServer().sendMessageToClient(client, request);
-            } catch (NoResourceMatch noResourceMatch) {
-                noResourceMatch.printStackTrace();
-            } catch (IOException e) {
+            }  catch (IOException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -118,7 +114,7 @@ public class ActionController extends Controller implements Runnable {
     }
 
     @Override
-    protected void updateClients() throws NoResourceMatch, IOException, InterruptedException {
+    protected void updateClients() throws IOException, InterruptedException {
         List<Client> clients = super.getViews();
 
         for(Client client: clients) {
@@ -166,15 +162,13 @@ public class ActionController extends Controller implements Runnable {
             waitForMove(playerID, client);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (NoResourceMatch noResourceMatch) {
-            noResourceMatch.printStackTrace();
-        } catch (IOException e) {
+        }  catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    private void waitForMove(UUID playerID, Client client) throws InterruptedException, NoResourceMatch, IOException {
+    private void waitForMove(UUID playerID, Client client) throws InterruptedException, IOException {
         Map<String, String> payload = new HashMap<>();
 
         synchronized (this) {
@@ -216,10 +210,7 @@ public class ActionController extends Controller implements Runnable {
         }
 
         for(Parchment parchment: parchmentsToExecute) {
-            try {
-                parchment.execParchment(player);
-            } catch (NoResourceMatch noResourceMatch) {
-            }
+            parchment.execParchment(player);
         }
 
 
@@ -245,10 +236,7 @@ public class ActionController extends Controller implements Runnable {
 
         for(Card card: cards) {
             if(card.getCardID() == Integer.valueOf(cardID)) {
-                try {
-                    card.execInstantEffect(player);
-                } catch (NoResourceMatch noResourceMatch) {
-                }
+                card.execInstantEffect(player);
                 player.addCard(card);
             }
         }

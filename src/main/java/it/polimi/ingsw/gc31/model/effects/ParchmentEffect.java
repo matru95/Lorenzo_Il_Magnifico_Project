@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.model.effects;
 
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.Player;
@@ -19,7 +18,7 @@ public class ParchmentEffect extends Effect{
     }
 
     @Override
-    public ServerMessage exec(Player player) throws NoResourceMatch {
+    public ServerMessage exec(Player player) {
         System.out.println("Number of parchments: "+ numOfParchments);
         Map<String,String> payload= new HashMap<>();
         payload.put("parchments", String.valueOf(numOfParchments));

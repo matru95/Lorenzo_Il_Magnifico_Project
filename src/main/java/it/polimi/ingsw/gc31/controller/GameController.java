@@ -2,7 +2,6 @@ package it.polimi.ingsw.gc31.controller;
 
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnEndState;
 import it.polimi.ingsw.gc31.model.states.TurnState;
@@ -44,8 +43,6 @@ public class GameController extends Controller implements Runnable{
 
                     doTurn();
                     turn += 1;
-                } catch (NoResourceMatch noResourceMatch) {
-                    noResourceMatch.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -54,10 +51,7 @@ public class GameController extends Controller implements Runnable{
 
                 System.out.println("Turn ended");
 
-                try {
-                    endTurn();
-                } catch (NoResourceMatch noResourceMatch) {
-                }
+                endTurn();
             }
             turn = 1;
         }
@@ -65,7 +59,7 @@ public class GameController extends Controller implements Runnable{
 
     }
 
-    private void endTurn() throws NoResourceMatch {
+    private void endTurn() {
         GameInstance gameInstance = super.getModel();
 
         State turnEndState = new TurnEndState();
@@ -74,21 +68,17 @@ public class GameController extends Controller implements Runnable{
         turnEndState.doAction(gameInstance);
     }
 
-    private void doTurn() throws NoResourceMatch, IOException, InterruptedException {
+    private void doTurn() throws IOException, InterruptedException {
         State turnState = new TurnState();
         GameInstance gameInstance = super.getModel();
         int index;
 
         gameInstance.setState(turnState);
 
-        try {
-            turnState.doAction(gameInstance);
-            if(isFirstUpdate) {
-                updateClients();
-                isFirstUpdate = false;
-            }
-        } catch (NoResourceMatch noResourceMatch) {
-            noResourceMatch.printStackTrace();
+        turnState.doAction(gameInstance);
+        if(isFirstUpdate) {
+            updateClients();
+            isFirstUpdate = false;
         }
 
         Player[] orderedPlayers = ((TurnState) turnState).getOrderedPlayers();
@@ -121,7 +111,7 @@ public class GameController extends Controller implements Runnable{
     }
 
     @Override
-    protected void updateClients() throws NoResourceMatch, IOException, InterruptedException {
+    protected void updateClients() throws IOException, InterruptedException {
         List<Client> clients = super.getViews();
 
         for(Client client: clients) {
@@ -132,11 +122,7 @@ public class GameController extends Controller implements Runnable{
     private void executeState(State state) {
         GameInstance context = super.getModel();
 
-        try {
-            state.doAction(context);
-        } catch (NoResourceMatch noResourceMatch) {
-            noResourceMatch.printStackTrace();
-        }
+        state.doAction(context);
     }
 
     public Controller getActionController() {

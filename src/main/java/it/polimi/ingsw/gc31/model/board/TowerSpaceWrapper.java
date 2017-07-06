@@ -3,7 +3,6 @@ package it.polimi.ingsw.gc31.model.board;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.Player;
@@ -44,11 +43,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
         execTowerBonus(familyMember.getPlayer());
 
-        try {
             card.execInstantEffect(familyMember.getPlayer());
-        } catch (NoResourceMatch noResourceMatch) {
-            noResourceMatch.printStackTrace();
-        }
 
         setOccupied(true);
         tower.setOccupied(true);
@@ -89,10 +84,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         resources.add(res);
         AddResEffect addResEffect = new AddResEffect(resources);
 
-        try {
-            addResEffect.exec(player);
-        } catch (NoResourceMatch noResourceMatch) {
-        }
+        addResEffect.exec(player);
     }
 
     public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
@@ -236,12 +228,8 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         } else {
             CostEffect costEffect = new CostEffect(card);
 
-            try {
-                ServerMessage request = costEffect.exec(player);
-                return request;
-            } catch (NoResourceMatch noResourceMatch) {
-                return null;
-            }
+            ServerMessage request = costEffect.exec(player);
+            return request;
 
         }
     }

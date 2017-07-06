@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31;
 
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.resources.ResourceFactory;
 import org.junit.Test;
@@ -9,14 +8,14 @@ import static junit.framework.TestCase.assertEquals;
 
 public class FaithPointsTest {
     @Test
-    public void faithPointsShouldHaveInitialNumOf() throws NoResourceMatch {
+    public void faithPointsShouldHaveInitialNumOf() {
         Resource faithPointsTester = null;
         faithPointsTester = ResourceFactory.getResource("FaithPoints", 5);
         assertEquals("FaithPoints should be 5", faithPointsTester.getNumOf(), 5);
     }
 
     @Test
-    public void faithPointsShouldBeAdded() throws NoResourceMatch {
+    public void faithPointsShouldBeAdded() {
         Resource faithPointsTester = null;
         faithPointsTester = ResourceFactory.getResource("FaithPoints", 5);
         faithPointsTester.addNumOf(2);
@@ -24,7 +23,7 @@ public class FaithPointsTest {
     }
 
     @Test
-    public void faithPointsShouldBeSubstracted() throws NoResourceMatch {
+    public void faithPointsShouldBeSubstracted() {
         Resource faithPointsTester = null;
         faithPointsTester = ResourceFactory.getResource("FaithPoints", 5);
         faithPointsTester.subNumOf(2);

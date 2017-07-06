@@ -9,7 +9,6 @@ import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.RMIClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
 
 import java.io.*;
@@ -31,7 +30,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private JsonNode rootInstance;
     private JsonNode rootBoard;
 
-    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException, NoResourceMatch, ClassNotFoundException {
+    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException, ClassNotFoundException {
 
         this.mapper = new ObjectMapper();
         this.myPlayerName = myPlayerName;

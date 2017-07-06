@@ -7,7 +7,6 @@ import it.polimi.ingsw.gc31.messages.*;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.SocketClient;
 
@@ -94,7 +93,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void join(UUID playerID, String playerName, Client client) throws IOException, NoResourceMatch, InterruptedException {
+    public void join(UUID playerID, String playerName, Client client) throws IOException, InterruptedException {
         Player player = new Player(playerID, playerName);
 
         if(this.openGameID != null) {
@@ -105,8 +104,6 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                     public void run() {
                     try {
                         startGame();
-                    } catch (NoResourceMatch noResourceMatch) {
-                        noResourceMatch.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -144,7 +141,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         clients.put(openGameID, game.getViews());
     }
 
-    private void joinExistingGame(Player player, Client client) throws NoResourceMatch, IOException, InterruptedException {
+    private void joinExistingGame(Player player, Client client) throws IOException, InterruptedException {
         GameController openGame = games.get(openGameID);
         openGame.addPlayer(player, client);
 
@@ -156,7 +153,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         }
     }
 
-    private void startGame() throws NoResourceMatch, IOException, InterruptedException {
+    private void startGame() throws IOException, InterruptedException {
         GameController openGame = games.get(openGameID);
         openGameID = null;
         timer.cancel();
@@ -165,7 +162,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void register(Client client, String playerName) throws IOException, NoResourceMatch, InterruptedException {
+    public void register(Client client, String playerName) throws IOException, InterruptedException {
         Map<String, String> payload = new HashMap<>();
         UUID playerID = UUID.randomUUID();
 
@@ -185,7 +182,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void send(ClientMessage request) throws IOException, NoResourceMatch, InterruptedException {
+    public void send(ClientMessage request) throws IOException, InterruptedException {
         ClientMessageEnum requestType = request.getClientMessageType();
         Map<String, String> payload;
         String playerID;
@@ -274,7 +271,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
 
-    private void processMovementAction(String gameID, String playerID, Map<String, String> payload) throws NoResourceMatch, IOException, InterruptedException {
+    private void processMovementAction(String gameID, String playerID, Map<String, String> payload) throws IOException, InterruptedException {
         UUID gameInstanceID = UUID.fromString(gameID);
 
         GameController game = games.get(gameInstanceID);
@@ -294,7 +291,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     }
 
     @Override
-    public void sendMessageToClient(Client client, ServerMessage request) throws InterruptedException, IOException, NoResourceMatch {
+    public void sendMessageToClient(Client client, ServerMessage request) throws InterruptedException, IOException {
 
         if(client.getClass() == SocketClient.class) {
 

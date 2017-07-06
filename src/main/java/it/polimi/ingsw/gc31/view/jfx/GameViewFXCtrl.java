@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.RMIClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -26,7 +25,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private JsonNode rootInstance;
     private JsonNode rootBoard;
 
-    public GameViewFXCtrl() throws InterruptedException, NotBoundException, NoResourceMatch, IOException {
+    public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException {
 
         this.mapper = new ObjectMapper();
         this.client = new RMIClient("127.0.0.1", "LORENZO", this);

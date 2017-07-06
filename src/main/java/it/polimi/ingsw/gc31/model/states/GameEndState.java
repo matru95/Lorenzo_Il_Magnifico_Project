@@ -6,7 +6,6 @@ import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.effects.Effect;
-import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class GameEndState implements State {
     private static final ResourceName WP = ResourceName.WARPOINTS;
 
     @Override
-    public void doAction(GameInstance context) throws NoResourceMatch {
+    public void doAction(GameInstance context) {
 
         for(Player p: context.getPlayers()) {
 
@@ -103,7 +102,7 @@ public class GameEndState implements State {
      * taken as parameter, due to Normal Effects of PurpleCards in his possession.
      * @param player (Player)
      */
-    private void applyPurpleCardsPoints(Player player) throws NoResourceMatch {
+    private void applyPurpleCardsPoints(Player player) {
         List<Card> purpleCards = player.getCards().get(CardColor.PURPLE);
         for(Card purpleCard: purpleCards) {
             for(Effect effect: purpleCard.getNormalEffects()) {
