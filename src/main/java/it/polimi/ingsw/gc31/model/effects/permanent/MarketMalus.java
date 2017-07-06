@@ -2,6 +2,13 @@ package it.polimi.ingsw.gc31.model.effects.permanent;
 
 public class MarketMalus implements Malus{
     private MalusEnum type;
+    private boolean noMarket=false;
+
+    public MarketMalus(MalusEnum type, boolean noMarket) {
+        this.type = type;
+        this.noMarket = noMarket;
+    }
+
     @Override
     public void setMalusType(MalusEnum type) {
         this.type=type;
@@ -10,5 +17,9 @@ public class MarketMalus implements Malus{
     @Override
     public MalusEnum getMalusType() {
         return this.type;
+    }
+
+    public boolean isNoMarket() {
+        return noMarket;
     }
 }
