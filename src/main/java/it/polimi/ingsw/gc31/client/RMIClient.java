@@ -33,7 +33,7 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
 
     }
 
-    public RMIClient(String serverIP, String playerName, GameView view) throws IOException, NotBoundException, InterruptedException, NoResourceMatch {
+    public RMIClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, NotBoundException, InterruptedException, NoResourceMatch {
         this.serverIP = serverIP;
         this.playerName = playerName;
         this.view = view;
@@ -57,7 +57,7 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     private void openView(Map<String, String> payload) {
         this.playerID = UUID.fromString(payload.get("playerID"));
         this.gameID = UUID.fromString(payload.get("gameID"));
-        this.view = new GameViewCLI(playerID);
+        this.view.setPlayerID(this.playerID.toString());
     }
 
     @Override

@@ -27,17 +27,20 @@ public class SocketClient implements Client, Serializable{
     private transient String gameID;
     private transient GameViewCtrl view;
     private String socketClientID;
+    private String playerName;
+    private String serverIP;
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
 
-        String serverIP = "127.0.0.1";
-        socket = new Socket(serverIP, 29999);
-        SocketClient socketClient = new SocketClient();
     }
 
-    public SocketClient() throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
+    public SocketClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, InterruptedException, ClassNotFoundException, NoResourceMatch {
         this.socketClientID = UUID.randomUUID().toString();
-        this.joinServer(null, "Endi");
+        this.serverIP = serverIP;
+        this.playerName = playerName;
+
+        socket = new Socket(serverIP, 29999);
+        this.joinServer(null, playerName);
     }
 
 
@@ -83,7 +86,7 @@ public class SocketClient implements Client, Serializable{
     private void createView(Map<String, String> payload) throws IOException {
         this.playerID = payload.get("playerID");
         this.gameID = payload.get("gameID");
-        this.view = new GameViewCLI(UUID.fromString(playerID));
+        this.view.setPlayerID(playerID);
 
 //      Register was a success, tell the server
         ClientMessage successMessage = new ClientMessage(ClientMessageEnum.REGISTERSUCCESS, null, playerID, gameID);

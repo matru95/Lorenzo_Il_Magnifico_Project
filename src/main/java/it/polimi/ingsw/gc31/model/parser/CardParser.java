@@ -221,7 +221,7 @@ public class CardParser {
         diceValue = freeCardChoiceNode.path("points").asInt();
 
         if(colorName != "") {
-            cardColor = CardColor.valueOf(colorName);
+            cardColor = CardColor.valueOf(colorName.toUpperCase());
         }
 
 
