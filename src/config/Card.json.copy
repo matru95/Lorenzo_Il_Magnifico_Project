@@ -1,0 +1,2505 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "cardAge": 1,
+      "title": "Commercial Hub",
+      "cardColor": "green",
+      "activationValue": 2,
+      "cost": [],
+      "instantEffect": {
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      }
+    },
+    {
+      "id": 2,
+      "cardAge": 1,
+      "title": "Woods",
+      "cardColor": "green",
+      "activationValue": 2,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "wood": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "wood": 1
+        }
+      }
+    },
+    {
+      "id": 3,
+      "cardAge": 1,
+      "title": "Village",
+      "cardColor": "green",
+      "activationValue": 3,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 1,
+          "servants": 1
+        }
+      }
+    },
+    {
+      "id": 4,
+      "cardAge": 1,
+      "title": "Gravel Pit",
+      "cardColor": "green",
+      "activationValue": 4,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "stone": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "stone": 2
+        }
+      }
+    },
+    {
+      "id": 5,
+      "cardAge": 1,
+      "title": "Forest",
+      "cardColor": "green",
+      "activationValue": 5,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "wood": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "wood": 3
+        }
+      }
+    },
+    {
+      "id": 6,
+      "cardAge": 1,
+      "title": "Monastery",
+      "cardColor": "green",
+      "activationValue": 6,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "servants": 1,
+          "warpoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "faithpoints": 1,
+          "stone": 1
+        }
+      }
+    },
+    {
+      "id": 7,
+      "cardAge": 1,
+      "title": "Citadel",
+      "cardColor": "green",
+      "activationValue": 5,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 2,
+          "stone": 1
+        }
+      }
+    },
+    {
+      "id": 8,
+      "cardAge": 1,
+      "title": "City",
+      "cardColor": "green",
+      "activationValue": 6,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "parchment": 1
+      }
+    },
+    {
+      "id": 9,
+      "cardAge": 2,
+      "title": "Gold Mine",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 2
+        }
+      }
+    },
+    {
+      "id": 10,
+      "cardAge": 2,
+      "title": "Mountain Town",
+      "cardColor": "green",
+      "activationValue": 3,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "servants": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "warpoints": 1,
+          "wood": 2
+        }
+      }
+    },
+    {
+      "id": 11,
+      "cardAge": 2,
+      "title": "Mining Town",
+      "cardColor": "green",
+      "activationValue": 4,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "servants": 2,
+          "stone": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "servants": 1,
+          "stone": 2
+        }
+      }
+    },
+    {
+      "id": 12,
+      "cardAge": 2,
+      "title": "Rock Pit",
+      "cardColor": "green",
+      "activationValue": 3,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "wood": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "stone": 3
+        }
+      }
+    },
+    {
+      "id": 13,
+      "cardAge": 2,
+      "title": "Estate",
+      "cardColor": "green",
+      "activationValue": 4,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "servants": 2,
+          "wood": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 1,
+          "wood": 2
+        }
+      }
+    },
+{
+      "id": 14,
+      "cardAge": 2,
+      "title": "Hermitage",
+      "cardColor": "green",
+      "activationValue": 2,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "faithPoints": 1
+        }
+      }
+    },
+    {
+      "id": 15,
+      "cardAge": 2,
+      "title": "Manor House",
+      "cardColor": "green",
+      "activationValue": 5,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "warPoints": 2,
+          "servants": 2
+        }
+      }
+    },
+    {
+      "id": 16,
+      "cardAge": 2,
+      "title": "Dukedom",
+      "cardColor": "green",
+      "activationValue": 4,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 1,
+          "wood": 2,
+          "stone": 1
+        }
+      }
+    },
+    {
+      "id": 17,
+      "cardAge": 3,
+      "title": "Trading Town",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "gold": 1,
+          "servants": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 3
+        }
+      }
+    },
+    {
+      "id": 18,
+      "cardAge": 1,
+      "title": "Farm",
+      "cardColor": "green",
+      "activationValue": 3,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 1,
+          "wood": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 2,
+          "wood": 2
+        }
+      }
+    },
+    {
+      "id": 19,
+      "cardAge": 3,
+      "title": "Colony",
+      "cardColor": "green",
+      "activationValue": 5,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4,
+          "wood": 1
+        }
+      }
+    },
+    {
+      "id": 20,
+      "cardAge": 3,
+      "title": "Marble Pit",
+      "cardColor": "green",
+      "activationValue": 2,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 1,
+          "stone": 2
+        }
+      }
+    },
+    {
+      "id": 21,
+      "cardAge": 3,
+      "title": "Province",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "stone": 1
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4,
+          "stone": 1
+        }
+      }
+    },
+    {
+      "id": 22,
+      "cardAge": 3,
+      "title": "Sanctuary",
+      "cardColor": "green",
+      "activationValue": 1,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 1,
+          "faithPoints": 1
+        }
+      }
+    },
+    {
+      "id": 23,
+      "cardAge": 3,
+      "title": "Castle",
+      "cardColor": "green",
+      "activationValue": 4,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 2,
+          "gold": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "warPoints": 3,
+          "servants": 1
+        }
+      }
+    },
+    {
+      "id": 24,
+      "cardAge": 3,
+      "title": "Fortified Town",
+      "cardColor": "green",
+      "activationValue": 2,
+      "cost": [],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 2,
+          "servants": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "warPoints": 1,
+          "servants": 2
+        }
+      }
+    },
+    {
+      "id": 25,
+      "cardAge": 1,
+      "title": "Mint",
+      "cardColor": "yellow",
+      "activationValue": 5,
+      "cost": [
+        {
+          "wood": 1,
+          "stone": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "gold": 1
+          },
+          "for": {
+            "color": "yellow"
+          }
+        }
+      }
+    },
+    {
+      "id": 26,
+      "cardAge": 1,
+      "title": "Tax Office",
+      "cardColor": "yellow",
+      "activationValue": 5,
+      "cost": [
+        {
+          "wood": 3,
+          "stone": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "gold": 1
+          },
+          "for": {
+            "color": "green"
+          }
+        }
+      }
+    },
+    {
+      "id": 27,
+      "cardAge": 1,
+      "title": "Triumphal Arch",
+      "cardColor": "yellow",
+      "activationValue": 6,
+      "cost": [
+        {
+          "gold": 2,
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 1
+          },
+          "for": {
+            "color": "purple"
+          }
+        }
+      }
+    },
+    {
+      "id": 28,
+      "cardAge": 1,
+      "title": "Theater",
+      "cardColor": "yellow",
+      "activationValue": 6,
+      "cost": [
+        {
+          "gold": 2,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 1
+          },
+          "for": {
+            "color": "blue"
+          }
+        }
+      }
+    },
+    {
+      "id": 29,
+      "cardAge": 1,
+      "title": "Carpenter's Shop",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "gold": 1,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "gold": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "wood": 2
+            },
+            "receive": {
+              "gold": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "cardAge": 1,
+      "title": "Carpenter's Shop",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "gold": 1,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "gold": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "wood": 2
+            },
+            "receive": {
+              "gold": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "cardAge": 1,
+      "title": "Stonemason's Shop",
+      "cardColor": "yellow",
+      "activationValue": 3,
+      "cost": [
+        {
+          "gold": 1,
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "stone": 1
+            },
+            "receive": {
+              "resources": {
+                "gold": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "stone": 2
+            },
+            "receive": {
+              "gold": 5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 31,
+      "cardAge": 1,
+      "title": "Chapel",
+      "cardColor": "yellow",
+      "activationValue": 2,
+      "cost": [
+        {
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {
+                "faithPoints": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "cardAge": 1,
+      "title": "Residence",
+      "cardColor": "yellow",
+      "activationValue": 1,
+      "cost": [
+        {
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {},
+              "parchment": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 33,
+      "cardAge": 2,
+      "title": "Marketplace",
+      "cardColor": "yellow",
+      "activationValue": 3,
+      "cost": [
+        {
+          "stone": 1,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 3
+            },
+            "receive": {
+              "resources": {
+                "wood": 2
+              }
+            }
+          },
+          {
+            "give": {
+              "gold": 3
+            },
+            "receive": {
+              "resources": {
+                "stone": 2
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "cardAge": 2,
+      "title": "Treasury",
+      "cardColor": "yellow",
+      "activationValue": 3,
+      "cost": [
+        {
+          "wood": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "gold": 2
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 5
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 35,
+      "cardAge": 2,
+      "title": "Painter's guild",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "wood": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "wood": 3
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 7
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 36,
+      "cardAge": 2,
+      "title": "Sculptor's guild",
+      "cardColor": "yellow",
+      "activationValue": 5,
+      "cost": [
+        {
+          "stone": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "stone": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "stone": 3
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 7
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 37,
+      "cardAge": 2,
+      "title": "Stonemason's guild",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "stone": 2,
+          "wood": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "stone": 1,
+              "servants": 1,
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 6
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "cardAge": 2,
+      "title": "Baptistery",
+      "cardColor": "yellow",
+      "activationValue": 2,
+      "cost": [
+        {
+          "wood": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 2,
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "faithPoints": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 2,
+                "gold": 2
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 39,
+      "cardAge": 2,
+      "title": "Barracks",
+      "cardColor": "yellow",
+      "activationValue": 1,
+      "cost": [
+        {
+          "wood": 1,
+          "stone": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "servants": 1
+            },
+            "receive": {
+              "resources": {
+                "warPoints": 3
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 40,
+      "cardAge": 2,
+      "title": "Stronghold",
+      "cardColor": "yellow",
+      "activationValue": 6,
+      "cost": [
+        {
+          "wood": 2,
+          "stone": 2,
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 8
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "warPoints": 2,
+          "victoryPoints": 2
+        }
+      }
+    },
+    {
+      "id": 41,
+      "cardAge": 3,
+      "title": "Bank",
+      "cardColor": "yellow",
+      "activationValue": 2,
+      "cost": [
+        {
+          "wood": 1,
+          "stone": 3,
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 7
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "gold": 5
+        }
+      }
+    },
+    {
+      "id": 42,
+      "cardAge": 3,
+      "title": "Fair",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "wood": 3,
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 8
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 4
+            },
+            "receive": {
+              "resources": {
+                "wood": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "gold": 4
+            },
+            "receive": {
+              "resources": {
+                "stone": 3
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 43,
+      "cardAge": 3,
+      "title": "Garden",
+      "cardColor": "yellow",
+      "activationValue": 1,
+      "cost": [
+        {
+          "wood": 4,
+          "stone": 2,
+          "servants": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 10
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      }
+    },
+    {
+      "id": 44,
+      "cardAge": 3,
+      "title": "Fortress",
+      "cardColor": "yellow",
+      "activationValue": 5,
+      "cost": [
+        {
+          "wood": 2,
+          "stone": 4,
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 9
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 2
+        },
+        "parchment": 1
+      }
+    },
+    {
+      "id": 45,
+      "cardAge": 3,
+      "title": "Palace",
+      "cardColor": "yellow",
+      "activationValue": 6,
+      "cost": [
+        {
+          "wood": 3,
+          "stone": 1,
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 9
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {
+                "servants": 2
+              }
+            }
+          },
+          {
+            "give": {
+              "gold": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 4
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 46,
+      "cardAge": 3,
+      "title": "Church",
+      "cardColor": "yellow",
+      "activationValue": 1,
+      "cost": [
+        {
+          "wood": 1,
+          "stone": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 5,
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+            {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "faithPoints": 2
+              }
+            }
+          },
+          {
+            "give": {
+              "stone": 1
+            },
+            "receive": {
+              "resources": {
+                "faithPoints": 2
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 47,
+      "cardAge": 3,
+      "title": "Military Academy",
+      "cardColor": "yellow",
+      "activationValue": 3,
+      "cost": [
+        {
+          "wood": 2,
+          "stone": 2,
+          "servants": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 7
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "servants": 1
+            },
+            "receive": {
+              "resources": {
+                "warPoints": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "servants": 1
+            },
+            "receive": {
+              "resources": {
+                "victoryPoints": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 48,
+      "cardAge": 3,
+      "title": "Cathedral",
+      "cardColor": "yellow",
+      "activationValue": 2,
+      "cost": [
+        {
+          "wood": 4,
+          "stone": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 7,
+          "faithPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 1
+        }
+      }
+    },
+    {
+      "id": 49,
+      "cardAge": 1,
+      "title": "Warlord",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "cardColorBonus": {
+            "points": 2,
+            "cardColor": "green"
+          }
+        }
+      }
+    },
+    {
+      "id": 50,
+      "cardAge": 1,
+      "title": "Stonemason",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "cardColorBonus": {
+            "points": 2,
+            "cardColor": "yellow",
+            "resource": {
+              "wood": 1,
+              "stone": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": 51,
+      "cardAge": 1,
+      "title": "Dame",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "cardColorBonus": {
+            "points": 2,
+            "cardColor": "blue",
+            "resource": {"gold": 1}
+          }
+        }
+      }
+    },
+    {
+      "id": 52,
+      "cardAge": 1,
+      "title": "Knight",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "cardColorBonus": {
+            "points": 2,
+            "cardColor": "purple"
+          }
+        }
+      }
+    },
+    {
+      "id": 53,
+      "cardAge": 1,
+      "title": "Farmer",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "productionOrHarvestBonus": {
+            "harvest": 2
+          }
+        }
+      }
+    },
+    {
+      "id": 54,
+      "cardAge": 1,
+      "title": "Artisan",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "productionOrHarvestBonus": {
+            "production": 2
+          }
+        }
+      }
+    },
+    {
+      "id": 55,
+      "cardAge": 1,
+      "title": "Preacher",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "blockTowerBonus": true
+        }
+      }
+    },
+    {
+      "id": 56,
+      "cardAge": 1,
+      "title": "Abbess",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        },
+        "freeCardChoice": {
+          "points": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 57,
+      "cardAge": 2,
+      "title": "Captain",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 2
+        },
+        "freeCardChoice": {
+          "cardColor": "green",
+          "points": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 58,
+      "cardAge": 2,
+      "title": "Architect",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "freeCardChoice": {
+          "cardColor": "yellow",
+          "points": 6,
+          "resources": {
+            "wood": 1,
+            "stone": 1
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 59,
+      "cardAge": 2,
+      "title": "Patron",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "freeCardChoice": {
+          "cardColor": "blue",
+          "points": 6,
+          "resources": {
+            "gold": 1
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 60,
+      "cardAge": 2,
+      "title": "Hero",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 1,
+        "freeCardChoice": {
+          "cardColor": "purple",
+          "points": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 61,
+      "cardAge": 2,
+      "title": "Peasant",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "productionOrHarvestBonus": {
+            "harvest": 3
+          }
+        }
+      }
+    },
+    {
+      "id": 62,
+      "cardAge": 2,
+      "title": "Scholar",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "permanent": {
+          "productionOrHarvestBonus": {
+            "production": 3
+          }
+        }
+      }
+    },
+    {
+      "id": 63,
+      "cardAge": 2,
+      "title": "Papal Messenger",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 5
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 64,
+      "cardAge": 2,
+      "title": "Royal Messenger",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 5
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 3
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 65,
+      "cardAge": 3,
+      "title": "Noble",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 2
+          },
+          "for": {
+            "color": "green"
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 66,
+      "cardAge": 3,
+      "title": "Governor",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 2
+          },
+          "for": {
+            "color": "yellow"
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 67,
+      "cardAge": 3,
+      "title": "Paramour",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 7
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 2
+          },
+          "for": {
+            "color": "blue"
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 68,
+      "cardAge": 3,
+      "title": "Herald",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 2
+          },
+          "for": {
+            "color": "purple"
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 69,
+      "cardAge": 3,
+      "title": "Cardinal",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 2
+        },
+        "activate": {
+          "harvest": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 70,
+      "cardAge": 3,
+      "title": "Bishop",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 5
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        },
+        "activate": {
+          "production": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 71,
+      "cardAge": 3,
+      "title": "General",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 5
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "multiplier": {
+          "receive": {
+            "victoryPoints": 1
+          },
+          "for": {
+            "warPoints": 2
+          }
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 72,
+      "cardAge": 3,
+      "title": "Ambassador",
+      "cardColor": "blue",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 1,
+        "freeCardChoice": {
+          "points": 7
+       }
+      },
+      "normalEffect": {
+        "bonus": {
+        }
+      }
+    },
+    {
+      "id": 73,
+      "cardAge": 1,
+      "title": "Hiring Recruits",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 74,
+      "cardAge": 1,
+      "title": "Repairing the Church",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 1,
+          "wood": 1,
+          "stone": 1
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 75,
+      "cardAge": 1,
+      "title": "Building the Walls",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "stone": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 2
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      }
+    },
+    {
+      "id": 76,
+      "cardAge": 1,
+      "title": "Raising a statue",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "wood": 2,
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "parchment": 2
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 77,
+      "cardAge": 1,
+      "title": "Military Campaign",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 3
+        }
+      ],
+      "costBond": {
+        "warPoints": 3
+      },
+      "instantEffect": {
+        "bonus": {
+          "gold": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 78,
+      "cardAge": 1,
+      "title": "Hosting Panhandlers",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "wood": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "servants": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 79,
+      "cardAge": 1,
+      "title": "Fighting Heresies",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 3
+        }
+      ],
+      "costBond": {
+        "warPoints": 5
+      },
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 80,
+      "cardAge": 1,
+      "title": "Support to the Bishop",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 2,
+          "wood": 1,
+          "stone": 1
+        },
+        {
+          "warPoints": 2
+        }
+      ],
+      "costBond": {
+        "warPoints": 4
+      },
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 1
+        }
+      }
+    },
+    {
+      "id": 81,
+      "cardAge": 2,
+      "title": "Hiring Soldiers",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 6
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 82,
+      "cardAge": 2,
+      "title": "Repairing the Abbey",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 2,
+          "wood": 2,
+          "stone": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      }
+    },
+    {
+      "id": 83,
+      "cardAge": 2,
+      "title": "Building the Bastions",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "stone": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 3
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 2
+        }
+      }
+    },
+    {
+      "id": 84,
+      "cardAge": 2,
+      "title": "Support to the King",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 3
+        }
+      ],
+      "costBond": {
+        "warPoints": 6
+      },
+      "instantEffect": {
+        "bonus": {
+          "gold": 5
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      }
+    },
+    {
+      "id": 85,
+      "cardAge": 2,
+      "title": "Improving the Canals",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 3,
+          "servants": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "productionOrHarvestAction": {
+          "harvest": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 86,
+      "cardAge": 2,
+      "title": "Hosting Foreigners",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "wood": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "servants": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 87,
+      "cardAge": 2,
+      "title": "Crusade",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 4
+        }
+      ],
+      "costBond": {
+        "warPoints": 8
+      },
+      "instantEffect": {
+        "bonus": {
+          "gold": 5,
+          "faithPoints": 1
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 88,
+      "cardAge": 2,
+      "title": "Support to the Cardinal",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 3,
+          "wood": 2,
+          "stone": 2
+        },
+        {
+          "warPoints": 4
+        }
+      ],
+      "costBond": {
+        "warPoints": 7
+      },
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 89,
+      "cardAge": 3,
+      "title": "Hiring Mercenaries",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 8
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 7
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 6
+        }
+      }
+    },
+    {
+      "id": 90,
+      "cardAge": 3,
+      "title": "Repairing the Cathedral",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "gold": 3,
+          "wood": 3,
+          "stone": 3
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 1
+        },
+        "freeCardChoice": {
+          "points": 7
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 91,
+      "cardAge": 3,
+      "title": "Building the Towers",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "stone": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 4
+        },
+        "parchment": 1
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 92,
+      "cardAge": 3,
+      "title": "Promoting Sacred Art",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "wood": 6
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      }
+    },
+    {
+      "id": 93,
+      "cardAge": 3,
+      "title": "Military Conquest",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 6
+        }
+      ],
+      "costBond": {
+        "warPoints": 12
+      },
+      "instantEffect": {
+        "bonus": {
+          "warPoints": 5
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 4
+        }
+      }
+    },
+    {
+      "id": 94,
+      "cardAge": 3,
+      "title": "Improving the Roads",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "servants": 3,
+          "gold": 4
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+        },
+        "productionOrHarvestAction": {
+          "production": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 5
+        }
+      }
+    },
+    {
+      "id": 95,
+      "cardAge": 3,
+      "title": "Sacred War",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 8
+        }
+      ],
+      "costBond": {
+        "warPoints": 15
+      },
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 4
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 8
+        }
+      }
+    },
+    {
+      "id": 96,
+      "cardAge": 3,
+      "title": "Support to the Pope",
+      "cardColor": "purple",
+      "cost": [
+        {
+          "warPoints": 5
+        },
+        {
+          "wood": 3,
+          "stone": 3,
+          "gold": 4
+        }
+      ],
+      "costBond": {
+        "warPoints": 5
+      },
+      "instantEffect": {
+        "bonus": {
+          "faithPoints": 2
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+          "victoryPoints": 10
+        }
+      }
+    }
+  ]
+}
