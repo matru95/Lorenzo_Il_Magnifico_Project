@@ -589,17 +589,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
                 .replace("currentPositionID:0", "[HASN'T_MOVED_YET]");
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException, NoResourceMatch, ClassNotFoundException, NotBoundException {
-
-        System.out.println("Hello, pls enter your name:");
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String myPlayerName = br.readLine();
-        System.out.println("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
-        br = new BufferedReader(new InputStreamReader(System.in));
-        String serverIP = br.readLine();
-        GameViewCtrl ctrl = new GameViewCLI(myPlayerName, serverIP);
-
-    }
 }
 
 
