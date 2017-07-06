@@ -54,11 +54,18 @@ public class ActionController extends Controller implements Runnable {
         SpaceWrapper position = game.getGameBoard().getSpaceById(Integer.valueOf(positionID));
         Integer servantsToPay = Integer.valueOf(movementData.get("servantsToPay"));
 
+        if(servantsToPay < player.getRes().get(ResourceName.SERVANTS).getNumOf()) {
+            servantsToPay = player.getRes().get(ResourceName.SERVANTS).getNumOf();
+        }
+
         try {
             ServerMessage message = familyMember.moveToPosition(position, servantsToPay);
             Card nullCard = new Card(null, null, 0, super.getModel().getAge());
-//            TODO
-            ((TowerSpaceWrapper) position).setCard(nullCard);
+
+            if(position.getClass() == TowerSpaceWrapper.class) {
+
+                ((TowerSpaceWrapper) position).setCard(nullCard);
+            }
 
             if(message != null) {
                 synchronized (this) {

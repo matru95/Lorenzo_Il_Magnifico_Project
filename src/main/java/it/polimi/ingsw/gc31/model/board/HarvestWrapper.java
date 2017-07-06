@@ -30,9 +30,14 @@ public class HarvestWrapper extends SpaceWrapper {
     @Override
     public ServerMessage execWrapper(FamilyMember familyMember, int amountOfServants) {
         int value = familyMember.getValue() + amountOfServants - malus;
+
         HarvestEffect harvestEffect = new HarvestEffect();
         harvestEffect.exec(familyMember.getPlayer(), value);
+
         if (!isMultiple) setOccupied(true);
+
+        familyMember.getPlayer().getRes().get(ResourceName.SERVANTS).subNumOf(amountOfServants);
+
         return null;
     }
 

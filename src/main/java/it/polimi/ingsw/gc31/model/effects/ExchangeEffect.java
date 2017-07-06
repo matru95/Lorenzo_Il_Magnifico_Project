@@ -19,7 +19,7 @@ import java.util.Map;
 public class ExchangeEffect extends Effect{
     private List<Exchange> exchanges;
 
-    public ExchangeEffect(List<Exchange> exchange){
+    public ExchangeEffect(List<Exchange> exchanges){
         this.exchanges = exchanges;
     }
 
@@ -32,7 +32,7 @@ public class ExchangeEffect extends Effect{
         for(Exchange exchange: exchanges) {
 
             List<Resource> resourcesToGive = exchange.getResourcesToGive();
-            int numOfDifferentResource=exchange.getResourcesToGive().size();
+            int numOfDifferentResource = exchange.getResourcesToGive().size();
             int checkNumOf=0;
 
             for(Resource resource: resourcesToGive) {
@@ -42,7 +42,7 @@ public class ExchangeEffect extends Effect{
                     checkNumOf++;
                 }
 
-                if(playerResources.get(resourceName).getNumOf() > resource.getNumOf() && checkNumOf==numOfDifferentResource){
+                if(playerResources.get(resourceName).getNumOf() > resource.getNumOf() && checkNumOf == numOfDifferentResource){
                     return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST,payload);
                 }
             }

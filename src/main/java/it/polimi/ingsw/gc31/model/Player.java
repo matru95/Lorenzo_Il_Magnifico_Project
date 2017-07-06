@@ -15,6 +15,7 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
+import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
 import it.polimi.ingsw.gc31.model.parser.PlayerTileParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
@@ -49,7 +50,9 @@ public class Player implements Serializable {
 
 	//FaithTiles
 	private transient List<FaithTile> excommunications;
+
 	private transient List<Bonus> bonuses;
+	private transient List<Malus> maluses;
 	
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
@@ -427,4 +430,12 @@ public class Player implements Serializable {
 		cardsFilteredByColor=this.getCards().get(cardColor);
 		return cardsFilteredByColor;
 	}
+
+	public void addMalus(Malus malus) {
+	    maluses.add(malus);
+    }
+
+    public List<Malus> getMaluses() {
+	    return maluses;
+    }
 }
