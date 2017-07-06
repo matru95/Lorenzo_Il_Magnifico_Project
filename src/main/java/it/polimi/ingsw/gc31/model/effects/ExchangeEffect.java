@@ -26,15 +26,18 @@ public class ExchangeEffect extends Effect{
     @Override
     public ServerMessage exec(Player player){
         Map<ResourceName, Resource> playerResources = player.getRes();
-
+        Map <String,String> payload=new HashMap<>();
         for(Exchange exchange: exchanges) {
             List<Resource> resourcesToGive = exchange.getResourcesToGive();
-
+            int numOfDifferentResource=exchange.getResourcesToGive().size();
+            int checkNumOf=0;
             for(Resource resource: resourcesToGive) {
                 ResourceName resourceName = resource.getResourceName();
-
                 if(playerResources.get(resourceName).getNumOf() > resource.getNumOf()) {
-
+                    checkNumOf++;
+                }
+                if(playerResources.get(resourceName).getNumOf() > resource.getNumOf() && checkNumOf==numOfDifferentResource){
+                    return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST,payload);
                 }
             }
         }
