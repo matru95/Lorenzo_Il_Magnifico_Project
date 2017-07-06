@@ -25,46 +25,28 @@ public class ExchangeEffect extends Effect{
 
     @Override
     public ServerMessage exec(Player player){
+
         Map<ResourceName, Resource> playerResources = player.getRes();
         Map <String,String> payload=new HashMap<>();
+
         for(Exchange exchange: exchanges) {
+
             List<Resource> resourcesToGive = exchange.getResourcesToGive();
             int numOfDifferentResource=exchange.getResourcesToGive().size();
             int checkNumOf=0;
+
             for(Resource resource: resourcesToGive) {
                 ResourceName resourceName = resource.getResourceName();
+
                 if(playerResources.get(resourceName).getNumOf() > resource.getNumOf()) {
                     checkNumOf++;
                 }
+
                 if(playerResources.get(resourceName).getNumOf() > resource.getNumOf() && checkNumOf==numOfDifferentResource){
                     return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST,payload);
                 }
             }
         }
-
-        //SINGOLO E DOPPIO EXCHANGE
-//        int numOfExchnge= resourcesToGive.size();
-//        Map <String,String> payload=new HashMap<>();
-//
-//        for(int i=(numOfExchnge-1); i>0 ; i--){
-//
-//            Resource resourceGive= resourcesToGive.get(i);
-//            if(resourceGive.getNumOf()<player.getRes().get(resourceGive.getResourceName()).getNumOf()){
-//                return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST,payload);
-//            }
-//        }
-        /*
-        if(resourcesToGive.size()<2){
-            Resource resourceGive=resourcesToGive.get(0);
-            Map<ResourceName,Resource> playerRes= player.getRes();
-            Resource resource = playerRes.get(resourceGive.getResourceName());
-            if(resourceGive.getNumOf()<resource.getNumOf()){
-                return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST,payload);
-            }
-        }
-        if(resourcesToGive.size()==2){
-            //itero lo stesso ragionamento per il singolo exchange 2 volte
-        }*/
         return null;
     }
 
