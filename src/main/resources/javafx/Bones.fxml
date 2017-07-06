@@ -4,32 +4,107 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc31.view.jfx.GameViewFXController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc31.view.jfx.GameViewFXCtrl">
    <children>
-      <ImageView preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="towers" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@towers.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="ap_1" layoutX="164.0" layoutY="844.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_2" layoutX="164.0" layoutY="594.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_3" layoutX="164.0" layoutY="344.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_4" layoutX="164.0" layoutY="94.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_5" layoutX="433.0" layoutY="844.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_6" layoutX="433.0" layoutY="594.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_7" layoutX="433.0" layoutY="344.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_8" layoutX="433.0" layoutY="94.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_9" layoutX="701.0" layoutY="844.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_10" layoutX="701.0" layoutY="594.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_11" layoutX="701.0" layoutY="344.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_12" layoutX="701.0" layoutY="94.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_13" layoutX="970.0" layoutY="844.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_14" layoutX="970.0" layoutY="594.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_15" layoutX="970.0" layoutY="344.0" prefHeight="100.0" prefWidth="100.0" />
-      <AnchorPane fx:id="ap_16" layoutX="970.0" layoutY="94.0" prefHeight="100.0" prefWidth="100.0" />
+      <ImageView fx:id="space_1" fitHeight="100.0" fitWidth="100.0" layoutX="164.0" layoutY="844.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_2" fitHeight="100.0" fitWidth="100.0" layoutX="164.0" layoutY="594.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_3" fitHeight="100.0" fitWidth="100.0" layoutX="164.0" layoutY="344.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_4" fitHeight="100.0" fitWidth="100.0" layoutX="164.0" layoutY="94.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_5" fitHeight="100.0" fitWidth="100.0" layoutX="433.0" layoutY="844.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_6" fitHeight="100.0" fitWidth="100.0" layoutX="433.0" layoutY="594.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_7" fitHeight="100.0" fitWidth="100.0" layoutX="433.0" layoutY="344.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_8" fitHeight="100.0" fitWidth="100.0" layoutX="433.0" layoutY="94.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_9" fitHeight="100.0" fitWidth="100.0" layoutX="701.0" layoutY="844.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_10" fitHeight="100.0" fitWidth="100.0" layoutX="701.0" layoutY="594.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_11" fitHeight="100.0" fitWidth="100.0" layoutX="701.0" layoutY="344.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_12" fitHeight="100.0" fitWidth="100.0" layoutX="701.0" layoutY="94.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_13" fitHeight="100.0" fitWidth="100.0" layoutX="970.0" layoutY="844.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_14" fitHeight="100.0" fitWidth="100.0" layoutX="970.0" layoutY="594.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_15" fitHeight="100.0" fitWidth="100.0" layoutX="970.0" layoutY="344.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="space_16" fitHeight="100.0" fitWidth="100.0" layoutX="970.0" layoutY="94.0" onMouseClicked="#onSpaceClick" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="green_0" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="788.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@card.png" />
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="green_1" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="538.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="green_2" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="288.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="green_3" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="37.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="blue_0" fitHeight="219.0" fitWidth="143.0" layoutX="281.0" layoutY="788.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="blue_1" fitHeight="219.0" fitWidth="143.0" layoutX="281.0" layoutY="538.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="blue_2" fitHeight="219.0" fitWidth="143.0" layoutX="281.0" layoutY="288.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="blue_3" fitHeight="219.0" fitWidth="143.0" layoutX="281.0" layoutY="37.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="yellow_0" fitHeight="219.0" fitWidth="143.0" layoutX="550.0" layoutY="788.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="yellow_1" fitHeight="219.0" fitWidth="143.0" layoutX="550.0" layoutY="538.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="yellow_2" fitHeight="219.0" fitWidth="143.0" layoutX="550.0" layoutY="288.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="yellow_3" fitHeight="219.0" fitWidth="143.0" layoutX="550.0" layoutY="37.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="purple_0" fitHeight="219.0" fitWidth="143.0" layoutX="817.0" layoutY="788.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="purple_1" fitHeight="219.0" fitWidth="143.0" layoutX="817.0" layoutY="538.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="purple_2" fitHeight="219.0" fitWidth="143.0" layoutX="817.0" layoutY="288.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="purple_3" fitHeight="219.0" fitWidth="143.0" layoutX="817.0" layoutY="37.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@cards/cardID0.png" />
          </image>
       </ImageView>
    </children>

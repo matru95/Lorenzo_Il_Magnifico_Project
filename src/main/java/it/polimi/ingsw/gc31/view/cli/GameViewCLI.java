@@ -5,49 +5,57 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_FixedWidth;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
+import it.polimi.ingsw.gc31.client.Client;
+import it.polimi.ingsw.gc31.client.RMIClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
-import it.polimi.ingsw.gc31.model.GameInstance;
-import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.model.board.GameBoard;
-import it.polimi.ingsw.gc31.model.cards.Card;
-import it.polimi.ingsw.gc31.model.parser.CardParser;
-import it.polimi.ingsw.gc31.view.GameView;
+import it.polimi.ingsw.gc31.exceptions.NoResourceMatch;
+import it.polimi.ingsw.gc31.server.GameServer;
+import it.polimi.ingsw.gc31.view.GameViewCtrl;
 
 import java.io.*;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.*;
 
-public class GameViewCLI implements GameView, Serializable {
+public class GameViewCLI implements GameViewCtrl, Serializable {
 
     private static final String PN = "playerName";
     private static final String PL = "players";
     private static final String CARDS = "cards";
     private static final String CARDID = "cardID";
 
-    private final UUID myPlayerID;
+    private final Client client;
+    private final String myPlayerName;
+    private String myPlayerID;
+    private final String serverIP;
     private final ObjectMapper mapper;
-    private String myPlayerName;
     private StringBuilder sb;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
-    private boolean isWaitingForInput;
 
-    public GameViewCLI(UUID playerID) {
-        this.myPlayerID = playerID;
+    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException, NoResourceMatch, ClassNotFoundException {
+
         this.mapper = new ObjectMapper();
-        this.myPlayerName = "";
-        this.isWaitingForInput = true;
+        this.myPlayerName = myPlayerName;
+        this.serverIP = serverIP;
+        Registry registry = LocateRegistry.getRegistry(serverIP, 8080);
+        GameServer gameServer = (GameServer) registry.lookup("game_server");
+        client = new RMIClient();
         this.sb = new StringBuilder();
         printLogo();
         printStringBuilder();
+
+
+        client.joinServer(gameServer, "Matteo");
     }
 
     /**
-     * Method to print on Console the current GameView of Client's Player.
+     * Method to print on Console the current GameViewCtrl of Client's Player.
      */
     private void printView() {
 
-        initPlayerName();
         printDivider();
         printHeader();
         printTowers();
@@ -523,6 +531,11 @@ public class GameViewCLI implements GameView, Serializable {
         return result;
     }
 
+    @Override
+    public void setPlayerID(String playerID) {
+        this.myPlayerID = playerID;
+    }
+
     /**
      * Method to read a String from Input.
      * @return String
@@ -572,24 +585,6 @@ public class GameViewCLI implements GameView, Serializable {
     }
 
     /**
-     * Method to init myPlayerName from GameView's JSON
-     */
-    private void initPlayerName() {
-        if (myPlayerName.equals(""))
-            for (JsonNode singleplayer: rootInstance.path(PL))
-                if (beauty(singleplayer.path("playerID")).equals(myPlayerID.toString()))
-                    myPlayerName = beauty(singleplayer.path("playerName"));
-    }
-
-    /**
-     * Setter for isWaitingForInput attribute.
-     * @param bool: Boolean
-     */
-    public void setWaitingForInput(boolean bool) {
-        this.isWaitingForInput = bool;
-    }
-
-    /**
      * This method take a JsonNode as input, converting it into a String,
      * removing Double Quotes and Braces and adding a space after a Comma.
      * @param node: JsonNode for a JSON Parser.
@@ -603,7 +598,15 @@ public class GameViewCLI implements GameView, Serializable {
                 .replace("currentPositionID:0", "[HASN'T_MOVED_YET]");
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException, NoResourceMatch, ClassNotFoundException, NotBoundException {
+
+         GameViewCtrl ctrl = new GameViewCLI("MATRU", "127.0.0.1");
+
+    }
+}
+
+
+/*
         List<Card> cards;
         Player p1 = new Player(UUID.randomUUID(), "MATRU");
         Player p2 = new Player(UUID.randomUUID(), "ENDI");
@@ -657,5 +660,3 @@ public class GameViewCLI implements GameView, Serializable {
         freeCards.put("cardID3", "42");
         freeCards.put("cardID4", "22");
         view.freeCardQuery(freeCards);*/
-    }
-}

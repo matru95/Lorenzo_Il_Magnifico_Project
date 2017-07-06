@@ -26,8 +26,11 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     private String playerName;
     private String serverIP;
 
+<<<<<<< HEAD
+=======
     public RMIClient() throws RemoteException {
     }
+>>>>>>> dc717fbdff191d774ef27dfe51c9104ef30d2d2a
 
     public static void main(String[] args) throws IOException, NotBoundException, NoResourceMatch, InterruptedException, ClassNotFoundException {
 

@@ -3,10 +3,10 @@ package it.polimi.ingsw.gc31.view;
 import java.io.IOException;
 import java.util.Map;
 
-public interface GameView {
+public interface GameViewCtrl {
 
     /**
-     * Method for updating the Client's GameView, taking as input a Map
+     * Method for updating the Client's GameViewCtrl, taking as input a Map
      * which contains JSONs of GameBoard and GameInstance
      * @param gameState: a Map with a String as Key and a String (JSON) as Value
      */
@@ -73,4 +73,6 @@ public interface GameView {
      * @throws IOException: Error during input reading.
      */
     Map<String, String> freeCardQuery(Map<String, String> map) throws IOException;
+
+    void setPlayerID(String playerID);
 }
