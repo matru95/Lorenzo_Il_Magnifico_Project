@@ -75,4 +75,5 @@ public interface GameViewCtrl {
     Map<String, String> freeCardQuery(Map<String, String> map) throws IOException;
 
     void setPlayerID(String playerID);
+
 }

@@ -23,7 +23,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private static final String CARDS = "cards";
     private static final String CARDID = "cardID";
 
-    private final Client client;
+    private final transient Client client;
     private final String myPlayerName;
     private String myPlayerID;
     private final ObjectMapper mapper;
@@ -424,7 +424,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
                 printStringBuilder();
             }
         } while (true);
-        result.put("cardID", map.get("cardID"));
+        result.put(CARDID, map.get(CARDID));
         result.put("cardCostChoice", choice.toString());
 
         return result;
@@ -570,7 +570,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
      */
     private Integer getMyServants(){
         for (JsonNode singlePlayer: rootInstance.path(PL))
-            if (beauty(singlePlayer.path("playerID")).equals(myPlayerID.toString()))
+            if (beauty(singlePlayer.path("playerID")).equals(myPlayerID))
                 return singlePlayer.path("res").path("SERVANTS").asInt();
         return 0;
     }
