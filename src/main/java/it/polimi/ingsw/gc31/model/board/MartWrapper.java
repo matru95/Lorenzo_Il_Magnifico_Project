@@ -39,7 +39,7 @@ public class MartWrapper extends SpaceWrapper {
     @Override
     public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
-        ObjectNode martWrapperNode = mapper.createObjectNode();
+        ObjectNode martWrapperNode = super.toObjectNode();
 
         martWrapperNode.set("bonus", generateBonusJSON(mapper));
 
