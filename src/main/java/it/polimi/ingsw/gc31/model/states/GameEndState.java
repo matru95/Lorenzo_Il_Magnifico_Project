@@ -6,30 +6,100 @@ import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.effects.permanent.CardPointsMalus;
+import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
+import it.polimi.ingsw.gc31.model.effects.permanent.MalusEnum;
+import it.polimi.ingsw.gc31.model.effects.permanent.PointsMalus;
+import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GameEndState implements State {
 
     private static final ResourceName WP = ResourceName.WARPOINTS;
-
+    //TODO DOCUMENTAZIONE/TEST
     @Override
-    public void doAction(GameInstance context) {
+        public void doAction(GameInstance context) {
 
-        for(Player p: context.getPlayers()) {
+            boolean malusGreenCard=true,malusBlueCard=true,malusPurpleCard=true,playerResMalus=true;
+            int numOfTotalStoneAndWoodInYellowCard=0;
+            for(Player p: context.getPlayers()) {
+                List<Malus> maluses=p.getMaluses();
+                //Controllo i Malus dei player
 
-            int num = 0;
+                for(Malus malus: maluses){
+                     if(malus.getMalusType()== MalusEnum.CARDPOINTSMALUS){
+                         CardColor cardColor=((CardPointsMalus) malus).getNoEndGamePointsCardColor();
+                         switch (cardColor){
+                             case BLUE:
+                                 malusBlueCard=false;
+                                 break;
+                             case GREEN:
+                                 malusGreenCard=false;
+                                 break;
+                             case PURPLE:
+                                 malusPurpleCard=false;
+                                 break;
+                         }
+                    }
 
-            num += applyGreenCardsPoints(p);
-            num += applyBlueCardsPoints(p);
-            num += applyResourcesPoints(p);
-            applyPurpleCardsPoints(p);
+                    if(malus.getMalusType()==MalusEnum.POINTSMALUS){
+                        //Setto i valori su cui devo lavorare per il POINTSMALUS
+                        //forType= nome della risorsa del POINTSMALUS
+                        //numFor= numero della risorsa del POINTSMALUS
 
-            p.getRes().get(ResourceName.VICTORYPOINTS).addNumOf(num);
+                        List<Resource> forEveryRes= ((PointsMalus) malus).getForEveryRes();
+                        ResourceName forType= forEveryRes.get(0).getResourceName();
+                        int numFor= forEveryRes.get(0).getNumOf();
+
+                        int playerResTypeMalus=p.getRes().get(forType).getNumOf();
+                        List<Resource> loseEveryRes= ((PointsMalus) malus).getLoseRes();
+
+                        ResourceName loseResType= loseEveryRes.get(0).getResourceName();
+
+                        //PER OGNI 5 VICTORY POINTS --> 1 VICTORY POINT IN MENO
+                        if(forType==ResourceName.VICTORYPOINTS){
+                            int moduleOp=playerResTypeMalus/numFor;
+                            p.getRes().get(loseResType).subNumOf(moduleOp);
+                        }
+
+                        //PER OGNI WAR POINTS --> 1 VICTORY POINT IN MENO
+                        if(forType==ResourceName.WARPOINTS){
+                            p.getRes().get(loseResType).subNumOf(numFor);
+                        }
+                    }
+
+                    if(malus.getMalusType()==MalusEnum.PLAYERRESOURCEMALUS) playerResMalus=false;
+
+                    if(malus.getMalusType()==MalusEnum.YELLOWCARDSCOSTMALUS){
+                        numOfTotalStoneAndWoodInYellowCard=totalOfStoneAndWoodCardCost(p.getCardsByColor(CardColor.YELLOW));
+                        p.getRes().get(ResourceName.VICTORYPOINTS).subNumOf( numOfTotalStoneAndWoodInYellowCard);
+                    }
+                }
+
+                int num = 0;
+                if(malusGreenCard){
+                    num += applyGreenCardsPoints(p);
+                }
+                if(malusBlueCard){
+                    num += applyBlueCardsPoints(p);
+                }
+                if(malusPurpleCard){
+                    applyPurpleCardsPoints(p);
+                }
+
+                if(playerResMalus) {
+                    num += applyResourcesPoints(p);
+                }else{
+                    num -= applyResourcesPoints(p);
+                }
+
+                p.getRes().get(ResourceName.VICTORYPOINTS).addNumOf(num);
+            }
+            applyMilitaryZonePoints(context);
         }
-        applyMilitaryZonePoints(context);
-    }
 
     /** Method that calculate Victory Points of a player
      * taken as parameter, due to the number of GreenCards in his possession.
@@ -154,4 +224,22 @@ public class GameEndState implements State {
             players.get(2).getRes().get(WP).addNumOf(2);
     }
 
+    /** Return a int that rappresent the total number of Stone and Wood in a List of cards */
+
+    private int totalOfStoneAndWoodCardCost(List<Card> cards){
+        int numOfTotalStoneAndWood=0;
+        for(Card card : cards){
+            List<Map<ResourceName, Resource>> cardCost=card.getCost();
+            for(Map<ResourceName,Resource> cost:cardCost){
+
+                if(cost.containsKey(ResourceName.STONE)) {
+                    numOfTotalStoneAndWood += cost.get(ResourceName.STONE).getNumOf();
+                }
+                if(cost.containsKey(ResourceName.WOOD)){
+                    numOfTotalStoneAndWood += cost.get(ResourceName.WOOD).getNumOf();
+                }
+            }
+        }
+        return numOfTotalStoneAndWood;
+    }
 }

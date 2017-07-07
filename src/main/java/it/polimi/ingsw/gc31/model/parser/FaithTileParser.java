@@ -127,7 +127,7 @@ public class FaithTileParser {
                 loseRes=parseResources(lose);
                 faithTile1.setLoseRes(loseRes);
                 //SETTO MALUS NELLA FAITHTILE
-                faithTile1.setMalus(new VictoryPointsMalus(MalusEnum.VICTORYPOINTSMALUS,forEveryRes,loseRes));
+                faithTile1.setMalus(new PointsMalus(MalusEnum.POINTSMALUS,forEveryRes,loseRes));
             }
             if(faithTile.has("loseForEveryCost")){
                 JsonNode loseForEveryCost=faithTile.path("loseForEveryCost");
