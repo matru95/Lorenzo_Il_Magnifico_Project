@@ -1,14 +1,16 @@
 package it.polimi.ingsw.gc31.model.effects.permanent;
 
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.List;
+import java.util.Map;
 
 public class CardColorBonus implements Bonus{
     private int points;
     private CardColor cardColor;
-    private List<Resource> resources;
+    private Map<ResourceName, Resource> resources;
 
     public CardColorBonus() {
     }
@@ -29,11 +31,11 @@ public class CardColorBonus implements Bonus{
         return cardColor;
     }
 
-    public List<Resource> getResources() {
+    public Map<ResourceName, Resource> getResources() {
         return resources;
     }
 
-    public void setResources(List<Resource> resources) {
+    public void setResources(Map<ResourceName, Resource> resources) {
         this.resources = resources;
     }
 

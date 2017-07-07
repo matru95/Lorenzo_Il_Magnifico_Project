@@ -15,6 +15,7 @@ import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
+import it.polimi.ingsw.gc31.model.effects.permanent.CardColorBonus;
 import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
 import it.polimi.ingsw.gc31.model.parser.PlayerTileParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -440,5 +441,22 @@ public class Player implements Serializable {
 
     public List<Malus> getMaluses() {
 	    return maluses;
+    }
+
+	public List<Bonus> getBonuses() {
+		return bonuses;
+	}
+
+	public CardColorBonus getBonusByCardColor(CardColor cardColor) {
+	    for(Bonus bonus: bonuses) {
+            if(bonus.getClass() == CardColorBonus.class) {
+
+                if(((CardColorBonus) bonus).getCardColor().equals(cardColor)) {
+                    return (CardColorBonus) bonus;
+                }
+            }
+        }
+
+        return null;
     }
 }

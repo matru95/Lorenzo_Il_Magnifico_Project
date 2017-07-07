@@ -80,7 +80,6 @@ public class HarvestWrapper extends SpaceWrapper {
 
     @Override
     public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
-
         if(!isMultiple && familyMembers.size() == 1) {
             return false;
         }

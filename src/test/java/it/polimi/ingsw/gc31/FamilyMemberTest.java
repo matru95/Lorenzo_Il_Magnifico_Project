@@ -75,7 +75,6 @@ public class FamilyMemberTest extends TestCase{
         Dice dice = this.gameBoard.getDiceByColor(DiceColor.WHITE);
 
         int diceValue = dice.getValue();
-        familyMember.setValueFromDice();
 
         assertEquals(diceValue, familyMember.getValue());
     }

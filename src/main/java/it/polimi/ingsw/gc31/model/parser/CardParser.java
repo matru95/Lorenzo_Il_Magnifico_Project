@@ -283,12 +283,17 @@ public class CardParser {
         JsonNode resourceNode = cardColorBonusNode.path("resource");
 
         List<Resource> resources = parseResources(resourceNode);
+        Map<ResourceName, Resource> finalResources = new HashMap<>();
+
+        for(Resource resource: resources) {
+            finalResources.put(resource.getResourceName(), resource);
+        }
 
 
         CardColorBonus cardColorBonus = new CardColorBonus();
         cardColorBonus.setCardColor(cardColor);
         cardColorBonus.setPoints(points);
-        cardColorBonus.setResources(resources);
+        cardColorBonus.setResources(finalResources);
 
         CardColorBonusEffect cardColorBonusEffect = new CardColorBonusEffect(cardColorBonus);
 

@@ -74,7 +74,7 @@ public class GameEndState implements State {
                     if(malus.getMalusType()==MalusEnum.PLAYERRESOURCEMALUS) playerResMalus=false;
 
                     if(malus.getMalusType()==MalusEnum.YELLOWCARDSCOSTMALUS){
-                        numOfTotalStoneAndWoodInYellowCard=totalOfStoneAndWoodCardCost(p.getCardsByColor(CardColor.YELLOW));
+                        numOfTotalStoneAndWoodInYellowCard=totalOfStoneAndWoodCardCost(p.getCards().get(CardColor.YELLOW));
                         p.getRes().get(ResourceName.VICTORYPOINTS).subNumOf( numOfTotalStoneAndWoodInYellowCard);
                     }
                 }

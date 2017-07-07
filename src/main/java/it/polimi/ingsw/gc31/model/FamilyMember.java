@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -112,8 +112,7 @@ public class FamilyMember {
 		position.setFamilyMember(this);
 		this.isMovedThisTurn = true;
 
-		List<ServerMessage> requests =  position.execWrapper(this, numOfServantsPaid);
-		return requests;
+		return position.execWrapper(this, numOfServantsPaid);
     }
 
 	private boolean isMovementPossible(SpaceWrapper position) {
@@ -130,7 +129,6 @@ public class FamilyMember {
 
         return position.isAffordable(this, playerResources, playerColor);
     }
-
 
 	private void checkAndPayServants(int positionDiceBond) {
         if(positionDiceBond > this.value) {
@@ -153,6 +151,21 @@ public class FamilyMember {
     }
 
     public boolean isCardLimitReached(CardColor cardColor){
+//      Check bond on green cards
+        if(cardColor.equals(CardColor.GREEN)) {
+            int numOfGreenCards = player.getNumOfCards(cardColor);
+            int warPoints = player.getRes().get(ResourceName.WARPOINTS).getNumOf();
+
+            if(numOfGreenCards == 2 && warPoints < 3) {
+                return false;
+            } else if(numOfGreenCards == 3 && warPoints < 7) {
+                return false;
+            } else if(numOfGreenCards == 4 && warPoints < 12) {
+                return false;
+            } else if(numOfGreenCards == 5 && warPoints < 18) {
+                return false;
+            }
+        }
 
         return this.player.getCards().get(cardColor).size() == 6;
     }
