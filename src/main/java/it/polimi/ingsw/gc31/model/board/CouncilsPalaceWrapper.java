@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.board;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
@@ -126,6 +127,16 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
         ObjectNode councilsPalaceWrapperNode = super.toObjectNode();
 
         councilsPalaceWrapperNode.set("bonus", res.toJson());
+
+        if(familyMembers.size() >= 1) {
+            ArrayNode arrayNode = mapper.createArrayNode();
+
+            for(FamilyMember familyMember: familyMembers) {
+                arrayNode.add(familyMember.toJson());
+            }
+
+            councilsPalaceWrapperNode.set("familyMembers", arrayNode);
+        }
 
         return councilsPalaceWrapperNode;
     }

@@ -59,6 +59,10 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     public ObjectNode toJson() {
         ObjectNode towerSpaceWrapperNode = super.toObjectNode();
 
+        if(this.familyMember != null) {
+            towerSpaceWrapperNode.set("familyMember", familyMember.toJson());
+        }
+
         if(this.card != null) {
             towerSpaceWrapperNode.set("card", card.toJson());
         }

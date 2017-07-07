@@ -40,24 +40,17 @@ public class SocketClient implements Client, Serializable{
 
         socket = new Socket(serverIP, 29999);
 
-        new Thread(() -> {
-
-            try {
-                joinServer(null, playerName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        new Thread(() -> joinServer(null, playerName)).start();
     }
 
 
     @Override
-    public void joinServer(GameServer s, String playerName) throws IOException, InterruptedException, ClassNotFoundException {
-        objOut = new ObjectOutputStream(socket.getOutputStream());
+    public void joinServer(GameServer s, String playerName)  {
+        try {
+            objOut = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Map<String, String> payload = new HashMap<>();
         payload.put("playerName", playerName);
@@ -67,11 +60,24 @@ public class SocketClient implements Client, Serializable{
         request.setClientMessageType(ClientMessageEnum.REGISTER);
         request.setPayLoad(payload);
 
-        objOut.writeObject(request);
-        objOut.flush();
 
-        getResponses();
-        socket.close();
+        try {
+            objOut.writeObject(request);
+            objOut.flush();
+            getResponses();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void getResponses() throws ClassNotFoundException, InterruptedException, IOException {

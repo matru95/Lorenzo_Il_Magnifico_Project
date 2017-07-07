@@ -48,6 +48,7 @@ public class FamilyMember {
         ObjectNode familyMemberNode = mapper.createObjectNode();
 
         familyMemberNode.put("color", dice.getColor().toString());
+        familyMemberNode.put("playerColor", player.getPlayerColor().toString());
         familyMemberNode.put("value", dice.getValue());
         familyMemberNode.put("currentPositionID", currentPosition.getPositionID());
 

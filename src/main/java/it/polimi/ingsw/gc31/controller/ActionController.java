@@ -62,8 +62,6 @@ public class ActionController extends Controller implements Runnable {
             List<ServerMessage> messages = familyMember.moveToPosition(position, servantsToPay);
             Card nullCard = new Card(null, null, 0, super.getModel().getAge());
 
-            System.out.println(messages);
-
             if(position.getClass() == TowerSpaceWrapper.class) {
 
                 ((TowerSpaceWrapper) position).setCard(nullCard);

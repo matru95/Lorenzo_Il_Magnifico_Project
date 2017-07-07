@@ -40,6 +40,10 @@ public class MartWrapper extends SpaceWrapper {
 
         martWrapperNode.set("bonus", generateBonusJSON(mapper));
 
+        if(familyMember != null) {
+            martWrapperNode.set("familyMember", familyMember.toJson());
+        }
+
         return martWrapperNode;
     }
 

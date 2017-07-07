@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.board;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
@@ -44,6 +45,16 @@ public class ProductionWrapper extends SpaceWrapper {
         ObjectNode productionWrapperNode = super.toObjectNode();
 
         productionWrapperNode.put("malus", malus);
+
+        if(familyMembers.size() != 0) {
+            ArrayNode familyMembersNode = mapper.createArrayNode();
+
+            for(FamilyMember familyMember: familyMembers) {
+                familyMembersNode.add(familyMember.toJson());
+            }
+
+            productionWrapperNode.set("familyMembers", familyMembersNode);
+        }
 
         return productionWrapperNode;
     }
