@@ -178,4 +178,6 @@ public class SocketClient implements Client, Serializable{
     public void setPlayerID(String playerID) {
         this.playerID = playerID;
     }
+
+
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +15,8 @@ import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.RMIClient;
 import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
-import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +24,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
 public class GameViewFXCtrl implements GameViewCtrl {
@@ -33,12 +32,19 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private static final String TOWERSPACES = "towerSpaces";
     private static final String CARDID = "cardID";
 
+    private StringBuilder sb;
+    private String myPlayerID;
+    private static final String PL = "players";
+    private static final String CARDS = "cards";
+
     private final Client client;
     private final ObjectMapper mapper;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
 
     public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException, ClassNotFoundException {
+
+        this.sb = new StringBuilder();
 
         this.mapper = new ObjectMapper();
         BufferedReader br;
@@ -247,8 +253,23 @@ public class GameViewFXCtrl implements GameViewCtrl {
         circle.setVisible(true);
     }
 
-    private void spaceColorSetter(Shape spaceShape) {
-        spaceShape.setVisible(true);
+    private void spaceSetter(Circle spaceShape, JsonNode node) {
+        if (node.path("isOccupied").toString().equals("true")) {
+            spaceShape.setRadius(30);
+            spaceShape.setStrokeWidth(15);
+            spaceShape.setFill(Paint.valueOf(node.path("familyMember").path("color").toString().replace("\"", "")));
+            spaceShape.setStroke(Paint.valueOf(node.path("familyMember").path("playerColor").toString().replace("\"", "")));
+            spaceShape.setVisible(true);
+        } else
+            spaceShape.setVisible(false);
+    }
+
+    private void spaceSetter(Rectangle spaceShape, JsonNode node) {
+        if (node.path("isOccupied").toString().equals("true")) {
+            spaceShape.setStroke(Paint.valueOf(node.path("familyMember").path("playerColor").toString().replace("\"", "")));
+            spaceShape.setVisible(true);
+        } else
+            spaceShape.setVisible(false);
     }
 
     @Override
@@ -290,73 +311,349 @@ public class GameViewFXCtrl implements GameViewCtrl {
         playerOrderColorSetter(order3, orderedPlayers.get(3));
         playerOrderColorSetter(order4, orderedPlayers.get(4));
 
-        spaceColorSetter(space1);
-        spaceColorSetter(space2);
-        spaceColorSetter(space3);
-        spaceColorSetter(space4);
-        spaceColorSetter(space5);
-        spaceColorSetter(space6);
-        spaceColorSetter(space7);
-        spaceColorSetter(space8);
-        spaceColorSetter(space9);
-        spaceColorSetter(space10);
-        spaceColorSetter(space11);
-        spaceColorSetter(space12);
-        spaceColorSetter(space13);
-        spaceColorSetter(space14);
-        spaceColorSetter(space15);
-        spaceColorSetter(space16);
-        spaceColorSetter(space17);
-        spaceColorSetter(space18);
-        spaceColorSetter(space19);
-        spaceColorSetter(space20);
-        spaceColorSetter(space21);
-        spaceColorSetter(space22);
-        spaceColorSetter(space23);
+        spaceSetter(space1, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("0"));
+        spaceSetter(space2, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("1"));
+        spaceSetter(space3, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("2"));
+        spaceSetter(space4, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("3"));
+        spaceSetter(space5, rootBoard.path(TOWERS).path(CardColor.BLUE.toString()).path(TOWERSPACES).path("0"));
+        spaceSetter(space6, rootBoard.path(TOWERS).path(CardColor.BLUE.toString()).path(TOWERSPACES).path("1"));
+        spaceSetter(space7, rootBoard.path(TOWERS).path(CardColor.BLUE.toString()).path(TOWERSPACES).path("2"));
+        spaceSetter(space8, rootBoard.path(TOWERS).path(CardColor.BLUE.toString()).path(TOWERSPACES).path("3"));
+        spaceSetter(space9, rootBoard.path(TOWERS).path(CardColor.YELLOW.toString()).path(TOWERSPACES).path("0"));
+        spaceSetter(space10, rootBoard.path(TOWERS).path(CardColor.YELLOW.toString()).path(TOWERSPACES).path("1"));
+        spaceSetter(space11, rootBoard.path(TOWERS).path(CardColor.YELLOW.toString()).path(TOWERSPACES).path("2"));
+        spaceSetter(space12, rootBoard.path(TOWERS).path(CardColor.YELLOW.toString()).path(TOWERSPACES).path("3"));
+        spaceSetter(space13, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("0"));
+        spaceSetter(space14, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("1"));
+        spaceSetter(space15, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("2"));
+        spaceSetter(space16, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("3"));
+        spaceSetter(space17, rootBoard.path("boardSpaces").path("17"));
+        spaceSetter(space18, rootBoard.path("boardSpaces").path("18"));
+        spaceSetter(space19, rootBoard.path("boardSpaces").path("19"));
+        spaceSetter(space20, rootBoard.path("boardSpaces").path("20"));
+        spaceSetter(space21, rootBoard.path("boardSpaces").path("21"));
+        spaceSetter(space22, rootBoard.path("boardSpaces").path("22"));
+        spaceSetter(space23, rootBoard.path("boardSpaces").path("23"));
 
     }
 
     @Override
-    public void movementFail(Map<String, String> gameState) {
-
+    public void movementFail(Map<String, String> map) {
+        sb.append("Movement is NOT Valid, try again: \n");
+        printStringBuilder();
     }
 
     @Override
     public Map<String, String> movementQuery() throws IOException {
-        return null;
+
+        HashMap<String, String> result = new HashMap<>();
+        DiceColor color;
+        Integer id;
+        Integer servants;
+
+        sb.append("\nIt's your turn, move a Family Member into a Space:\n")
+                .append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL");
+        printStringBuilder();
+
+        do {
+            try {
+                color = readDiceColor();
+                break;
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid color among these: BLACK, WHITE, ORANGE, NEUTRAL");
+                printStringBuilder();
+            }
+        } while (true);
+        result.put("diceColor", color.toString());
+
+        sb.append("\nEnter the ID of the Space:");
+        printStringBuilder();
+        do {
+            try {
+                id = readInteger();
+                if (id > 0 && id <= 23) break;
+                sb.append("You must insert a valid number between 1 and 23:");
+                printStringBuilder();
+            } catch (NumberFormatException e) {
+                sb.append("You must insert a valid number between 1 and 23:");
+                printStringBuilder();
+            }
+        } while (true);
+        result.put("positionID", id.toString());
+
+        Integer max = getMyServants();
+
+        sb.append("\nEnter the number of servants you'd like to add (if you won't enter 0):");
+        printStringBuilder();
+        do {
+            try {
+                servants = readInteger();
+                if (servants >= 0 && servants <= max) break;
+                sb.append("You must insert a valid number between 1 and ").append(max).append(":");
+                printStringBuilder();
+            } catch (NumberFormatException e) {
+                sb.append("You must insert a valid number between 1 and ").append(max).append(":");
+                printStringBuilder();
+            }
+        } while (true);
+        result.put("servantsToPay", servants.toString());
+
+        return result;
     }
 
     @Override
     public Map<String, String> parchmentQuery(Map<String, String> map) throws IOException {
-        return null;
+
+        HashMap<String, String> result = new HashMap<>();
+        int numOfParchments = Integer.parseInt(map.get("parchments"));
+        ArrayList<Integer> lastChoices = new ArrayList<>();
+        if (numOfParchments > 1)
+            sb.append("Now you'll have to choose ").append(numOfParchments).append(" different parchments.\n");
+
+        for (int i = 1; i <= numOfParchments; i++) {
+            sb.append("Choose a parchment's bonus between this: \n" +
+                    "Type 0 for: 1 Wood && 1 Stone \n" +
+                    "Type 1 for: 2 Servants \n" +
+                    "Type 2 for: 2 Golds \n" +
+                    "Type 3 for: 2 Military Points \n" +
+                    "Type 4 for: 1 Faith Points ");
+            printStringBuilder();
+
+            Integer choice;
+            do {
+                try {
+                    choice = readInteger();
+                    if (choice >= 0 && choice <= 4 && !lastChoices.contains(choice)) break;
+                    sb.append("You must insert a valid number between 0 and 4 and different from previous choices:");
+                    printStringBuilder();
+                } catch (IllegalArgumentException e) {
+                    sb.append("You must insert a valid number between 0 and 4 and different from previous choices:");
+                    printStringBuilder();
+                }
+            } while (true);
+            result.put(String.valueOf(i), choice.toString());
+            lastChoices.add(choice);
+        }
+
+        return result;
     }
 
     @Override
     public Map<String, String> faithQuery() throws IOException {
-        return null;
+
+        HashMap<String, String> result = new HashMap<>();
+        String choice;
+
+        for (JsonNode singleFaithTile: rootBoard.path("faithTiles"))
+            if (beauty(singleFaithTile.path("age")).equals(beauty(rootInstance.path("age")))) {
+                sb.append("\nChoose if you wanna take this excommunication (YES/NO):\n")
+                        .append(beauty(singleFaithTile.path("effect"))).append("\n");
+                printStringBuilder();
+            }
+
+        do {
+            try {
+                choice = readString().toUpperCase();
+                if (choice.equals("YES") || choice.equals("NO")) break;
+                sb.append("You must insert a valid choice among these: (YES, NO)\n");
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid choice among these: (YES, NO)\n");
+                printStringBuilder();
+            }
+        } while (true);
+        result.put("applyExcommunication", choice);
+
+        return result;
     }
 
     @Override
     public Map<String, String> costQuery(Map<String, String> map) throws IOException {
-        return null;
+
+        HashMap<String, String> result = new HashMap<>();
+        Integer choice;
+
+        for (JsonNode singlePurpleCard: rootBoard.path(CARDS).path("PURPLE"))
+            if (beauty(singlePurpleCard.path(CARDID)).equals(map.get(CARDID)))
+                sb.append("\n{(")
+                        .append(beauty(singlePurpleCard.path("cost").path(0))).append(") OR (")
+                        .append(beauty(singlePurpleCard.path("cost").path(1))).append(")}");
+        printStringBuilder();
+
+        do {
+            try {
+                choice = readInteger();
+                if (choice.equals(1) || choice.equals(2)) break;
+                sb.append("You must insert a valid number among these: (1, 2).\n");
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid number among these: (1, 2).\n");
+                printStringBuilder();
+            }
+        } while (true);
+        result.put(CARDID, map.get(CARDID));
+        result.put("cardCostChoice", choice.toString());
+
+        return result;
     }
 
     @Override
     public Map<String, String> exchangeQuery(Map<String, String> map) throws IOException {
-        return null;
+
+        HashMap<String, String> result = new HashMap<>();
+        Integer choice;
+        String str;
+
+        for (JsonNode singleYellowCard: rootBoard.path(CARDS).path("YELLOW"))
+            for (int i = 1; i <= 6; i++) {
+                if (beauty(singleYellowCard.path(CARDID)).equals(map.get(CARDID + i))) {
+                    Integer exchangesNumber = singleYellowCard.path("normalEffect").path("exchange").size();
+                    /*Integer exchangesNumber = 0;
+                    for (JsonNode singleExchange: singleYellowCard.path("normalEffect").path("exchange")) {
+                        exchangesNumber++;
+                    }*/
+
+                    switch (exchangesNumber) {
+                        case 2:
+                            sb.append("You've to choose whether or not activate the following exchange effects for the card #")
+                                    .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
+                                    .append("Type 0 to avoid activation of the exchanges;\n")
+                                    .append("Type 1 to activate the first exchange effect;\n")
+                                    .append("Type 2 to activate the second exchange effect.");
+                            printStringBuilder();
+                            str = "(0, 1, 2)";
+                            break;
+                        case 1:
+                        default:
+                            sb.append("You've to choose whether or not activate the following exchange effect for the card #")
+                                    .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
+                                    .append("Type 0 to avoid activation of the exchange;\n")
+                                    .append("Type 1 to activate the exchange effect.");
+                            printStringBuilder();
+                            str = "(0, 1)";
+                    }
+
+                    do {
+                        try {
+                            choice = readInteger();
+
+                            if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
+                                    || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
+                            sb.append("You must insert a valid number among these: ").append(str);
+                            printStringBuilder();
+                        } catch (IllegalArgumentException e) {
+                            sb.append("You must insert a valid number among these: ").append(str);
+                            printStringBuilder();
+                        }
+                    } while (true);
+                    result.put(CARDID, choice.toString());
+                }
+            }
+
+        return result;
     }
 
     @Override
     public Map<String, String> freeCardQuery(Map<String, String> map) throws IOException {
-        return null;
+
+        HashMap<String, String> result = new HashMap<>();
+        StringBuilder str = new StringBuilder();
+        Integer choice;
+
+        Boolean isFirstLoop = true;
+        for (Map.Entry<String, String> entry: map.entrySet()) {
+            if (isFirstLoop) str.append(entry.getValue());
+            else str.append(", ").append(entry.getValue());
+            isFirstLoop = false;
+
+        }
+
+        sb.append("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n")
+                .append("Here there's a list of possible cards you can pick: ").append(str);
+        printStringBuilder();
+
+        do {
+            try {
+                choice = readInteger();
+                if (map.containsValue(choice.toString())) break;
+                sb.append("You must insert a valid number between these: ").append(str);
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid number between these: ").append(str);
+                printStringBuilder();
+            }
+        } while (true);
+
+        result.put(CARDID, choice.toString());
+
+        return result;
     }
 
     @Override
     public void setPlayerID(String playerID) {
-
+        this.myPlayerID = playerID;
     }
+
+    /**
+     * Method to read a String from Input.
+     * @return String
+     * @throws IOException: Error during input reading.
+     */
+    private String readString() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return br.readLine();
+    }
+
+    /**
+     * Method to read an Integer from Input.
+     * @return Integer
+     * @throws IOException: Error during input reading.
+     */
+    private int readInteger() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return Integer.valueOf(br.readLine());
+    }
+
+    /**
+     * Method to read a DiceColor from Input.
+     * @return DiceColor (enum element)
+     * @throws IOException: Error during input reading.
+     */
+    private DiceColor readDiceColor() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return DiceColor.valueOf(br.readLine().toUpperCase());
+    }
+
+    /**
+     * Print the actual String Builder and then reinitialize it, throwing off the old one
+     */
+    private void printStringBuilder() {
+        System.out.println(this.sb);
+        this.sb = new StringBuilder();
+    }
+
+    /**
+     * Method to get my number of servants.
+     */
+    private Integer getMyServants(){
+        for (JsonNode singlePlayer: rootInstance.path(PL))
+            if (beauty(singlePlayer.path("playerName")).equals(myPlayerID))
+                return singlePlayer.path("res").path("SERVANTS").asInt();
+        return 0;
+    }
+
+    /**
+     * This method take a JsonNode as input, converting it into a String,
+     * removing Double Quotes and Braces and adding a space after a Comma.
+     * @param node: JsonNode for a JSON Parser.
+     * @return String
+     */
+    private static String beauty(JsonNode node) {
+        return node.toString().replace("\"", "")
+                .replace("{","")
+                .replace("}","")
+                .replace(",", ", ")
+                .replace("currentPositionID:0", "[HASN'T_MOVED_YET]");
+    }
+
 }
-
-
-
-
