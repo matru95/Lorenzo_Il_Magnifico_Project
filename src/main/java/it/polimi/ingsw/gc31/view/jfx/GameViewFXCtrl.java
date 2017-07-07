@@ -1,7 +1,9 @@
 package it.polimi.ingsw.gc31.view.jfx;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +12,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.RMIClient;
+import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
+import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,10 +38,36 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private JsonNode rootInstance;
     private JsonNode rootBoard;
 
-    public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException {
+    public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException, ClassNotFoundException {
 
         this.mapper = new ObjectMapper();
-        this.client = new RMIClient("127.0.0.1", "LORENZO", this);
+        BufferedReader br;
+        System.out.println("Choose between using \"SOCKET\" or \"RMI\":");
+        String choice;
+
+        do {
+
+            br = new BufferedReader(new InputStreamReader(System.in));
+            choice = br.readLine();
+
+            /*System.out.println("Hello, pls enter your name:");
+            br = new BufferedReader(new InputStreamReader(System.in));
+            String myPlayerName = br.readLine();
+            System.out.println("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
+            br = new BufferedReader(new InputStreamReader(System.in));
+            String serverIP = br.readLine();*/
+
+            if (choice.equalsIgnoreCase("SOCKET")) {
+                this.client = new SocketClient("127.0.0.1", "SOCKETFX", this);
+                break;
+            }
+
+            if (choice.equalsIgnoreCase("RMI")) {
+                this.client = new RMIClient("127.0.0.1", "RMIFX", this);
+                break;
+            }
+        } while (true);
+
     }
 
     @FXML

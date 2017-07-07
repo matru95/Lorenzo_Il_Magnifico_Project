@@ -28,10 +28,6 @@ public class SocketClient implements Client, Serializable{
     private String playerName;
     private String serverIP;
 
-    public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
-
-    }
-
     public SocketClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, InterruptedException, ClassNotFoundException {
         this.socketClientID = UUID.randomUUID().toString();
         this.serverIP = serverIP;
