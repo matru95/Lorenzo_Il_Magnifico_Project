@@ -141,6 +141,7 @@ public class CardParser {
         }
 
         JsonNode normalEffectNode = cardJSON.path("normalEffect");
+
 //      Permanent effect
         if (normalEffectNode.has("permanent")) {
             JsonNode permanentEffectNode = normalEffectNode.path("permanent");

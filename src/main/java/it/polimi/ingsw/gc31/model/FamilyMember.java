@@ -95,8 +95,7 @@ public class FamilyMember {
 
 
     public List<ServerMessage> moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws MovementInvalidException {
-
-	    if(!isMovementPossible(position)) {
+	    if(position == null || !isMovementPossible(position)) {
 	        throw new MovementInvalidException();
         }
 

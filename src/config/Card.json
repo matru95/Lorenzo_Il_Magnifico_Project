@@ -462,7 +462,8 @@
       "activationValue": 5,
       "cost": [
         {
-          "wood": 1
+          "wood": 1,
+          "stone": 3
         }
       ],
       "instantEffect": {
@@ -491,6 +492,7 @@
       "activationValue": 5,
       "cost": [
         {
+          "wood": 3,
           "stone": 1
         }
       ],
@@ -507,7 +509,7 @@
             "gold": 1
           },
           "for": {
-            "color": "yellow"
+            "color": "green"
           }
         }
       }
@@ -520,6 +522,7 @@
       "activationValue": 6,
       "cost": [
         {
+          "gold": 2,
           "stone": 2
         }
       ],
@@ -536,7 +539,7 @@
             "victoryPoints": 1
           },
           "for": {
-            "color": "yellow"
+            "color": "purple"
           }
         }
       }
@@ -566,9 +569,51 @@
             "victoryPoints": 1
           },
           "for": {
-            "color": "yellow"
+            "color": "blue"
           }
         }
+      }
+    },
+    {
+      "id": 29,
+      "cardAge": 1,
+      "title": "Carpenter's Shop",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "gold": 1,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "gold": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "wood": 2
+            },
+            "receive": {
+              "gold": 5
+            }
+          }
+        ]
       }
     },
     {
