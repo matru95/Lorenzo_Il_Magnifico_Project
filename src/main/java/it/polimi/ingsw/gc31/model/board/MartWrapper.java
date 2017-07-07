@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
+import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,12 +27,13 @@ public class MartWrapper extends SpaceWrapper {
     @Override
     public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
         setOccupied(true);
-        Map<ResourceName, Resource> playerResources = familyMember.getPlayer().getRes();
-        for(Resource myResource : res) {
-            int amount = myResource.getNumOf();
-            playerResources.get(myResource.getResourceName()).addNumOf(amount);
-        }
-        return null;
+        AddResEffect addResEffect = new AddResEffect(res);
+        List<ServerMessage> messages = new ArrayList<>();
+
+        ServerMessage message = addResEffect.exec(familyMember.getPlayer());
+        messages.add(message);
+
+        return messages;
     }
 
     @Override
