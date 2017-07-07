@@ -425,10 +425,17 @@ public class Player implements Serializable {
         return null;
     }
 
-	public List<Card> getCardsByColor(CardColor cardColor){
-		List<Card> cardsFilteredByColor= new ArrayList<>();
-		cardsFilteredByColor=this.getCards().get(cardColor);
-		return cardsFilteredByColor;
+    public List<Card> getAllCardsAsList() {
+		List<Card> result = new ArrayList<>();
+
+		for(Map.Entry<CardColor, List<Card>> cardColorCardEntry: cards.entrySet()) {
+
+			for(Card card: cardColorCardEntry.getValue()) {
+				result.add(card);
+			}
+		}
+
+		return result;
 	}
 
 	public void addMalus(Malus malus) {

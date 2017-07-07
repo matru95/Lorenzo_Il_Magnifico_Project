@@ -80,6 +80,7 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
                 server.send(new ClientMessage(ClientMessageEnum.COSTCHOICE, view.costQuery(payload), playerID.toString(), gameID.toString()));
                 break;
             case EXCHANGEREQUEST:
+                System.out.println("Received exchange request");
                 server.send(new ClientMessage(ClientMessageEnum.EXCHANGECHOICES, view.exchangeQuery(payload), playerID.toString(), gameID.toString()));
                 break;
             case FREECARDREQUEST:

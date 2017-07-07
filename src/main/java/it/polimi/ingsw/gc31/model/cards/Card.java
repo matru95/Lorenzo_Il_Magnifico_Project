@@ -28,7 +28,6 @@ public class Card {
     private List<Map<ResourceName, Resource>> cost;
     private int activationValue;
 
-    private List<Exchange> exchanges;
     private Resource costBond;
 
     public Card(CardColor cardColor, String cardName, int cardID, int cardAge) {
@@ -39,7 +38,6 @@ public class Card {
         this.cardAge = cardAge;
         this.isOnDeck = true;
         this.activationValue = 0;
-        this.exchanges = new ArrayList<>();
         this.costBond = null;
 
         normalEffects = new ArrayList<>();
@@ -142,14 +140,6 @@ public class Card {
 
     public List<Map<ResourceName,Resource>> getCost() {
         return this.cost;
-    }
-
-    public void insertExchange(Exchange exchange) {
-        this.exchanges.add(exchange);
-    }
-
-    public List<Exchange> getExchanges() {
-        return exchanges;
     }
 
     public int getActivationValue() {

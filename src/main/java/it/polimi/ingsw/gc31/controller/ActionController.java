@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.controller;
 
+import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
@@ -13,6 +14,10 @@ import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
+import it.polimi.ingsw.gc31.model.cards.Exchange;
+import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.effects.ExchangeEffect;
+import it.polimi.ingsw.gc31.model.parser.SettingsParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.client.Client;
@@ -34,7 +39,9 @@ public class ActionController extends Controller implements Runnable {
 
     public ActionController(GameInstance model, List<Client> clients, GameController gameController, GameServer server) {
         super(model, clients, server);
-        this.waitingTime = 60000;
+        SettingsParser parser = new SettingsParser("src/config/Settings.json");
+
+        this.waitingTime = parser.getPlayerWaitTime();
         this.movementReceived = false;
         this.gameController = gameController;
     }
@@ -118,7 +125,7 @@ public class ActionController extends Controller implements Runnable {
 
         messageThread.start();
 
-        if(request.getMessageType() != ServerMessageEnum.MOVEREQUEST && request.getMessageType() != ServerMessageEnum.MOVEMENTFAIL) {
+        if(request.getMessageType() != ServerMessageEnum.MOVEREQUEST && request.getMessageType() != ServerMessageEnum.MOVEMENTFAIL && request.getMessageType() != ServerMessageEnum.TIMEOUT) {
             synchronized (this) {
                 this.wait();
             }
@@ -194,11 +201,10 @@ public class ActionController extends Controller implements Runnable {
 
             payload.put("playerID", playerID.toString());
             ServerMessage timeOutRequest = new ServerMessage(ServerMessageEnum.TIMEOUT, payload);
-            messageThread.interrupt();
-            client.send(timeOutRequest);
+            sendMessage(timeOutRequest, client);
 
             synchronized (gameController) {
-                System.out.println("notifying game controller");
+                System.out.println("Notifying game controller");
                 gameController.notify();
             }
         }
@@ -254,4 +260,43 @@ public class ActionController extends Controller implements Runnable {
             }
         }
     }
+
+    public void exchangeChoiceAction(String playerID, Map<String, String> payload) {
+        List<Card> cards = player.getAllCardsAsList();
+
+        for(Map.Entry<String, String> singleChoiceEntry: payload.entrySet()) {
+            int cardID = Integer.valueOf(singleChoiceEntry.getKey());
+            int choice = Integer.valueOf(singleChoiceEntry.getValue());
+
+            for(Card card: cards) {
+                if(card.getCardID() == cardID) {
+                    List<Effect> normalEffects = card.getNormalEffects();
+
+                    for(Effect effect: normalEffects) {
+                        if(effect.getClass() == ExchangeEffect.class) {
+
+                            ServerMessage message = processExchange(((ExchangeEffect) effect).getExchanges(), choice);
+
+                            try {
+                                sendMessage(message, getClientFromPlayerID(playerID));
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private ServerMessage processExchange(List<Exchange> exchanges, int choice) {
+        Exchange exchange = exchanges.get(choice+1);
+
+        ServerMessage message = exchange.exec(player);
+
+        return message;
+    }
+
 }

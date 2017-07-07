@@ -1,5 +1,8 @@
 {
-  "waitTime": 20,
+  "gameSettings": {
+    "serverWait": 30,
+    "playerWait": 60
+  },
   "parchments": [
     {
       "id": 0,

@@ -18,9 +18,11 @@ import java.util.Map;
 
 public class ExchangeEffect extends Effect{
     private List<Exchange> exchanges;
+    private Card card;
 
-    public ExchangeEffect(List<Exchange> exchanges){
+    public ExchangeEffect(List<Exchange> exchanges, Card card){
         this.exchanges = exchanges;
+        this.card = card;
     }
 
     @Override
@@ -32,8 +34,7 @@ public class ExchangeEffect extends Effect{
         for(Exchange exchange: exchanges) {
 
             List<Resource> resourcesToGive = exchange.getResourcesToGive();
-            int numOfDifferentResource = exchange.getResourcesToGive().size();
-            int checkNumOf=0;
+            int checkNumOf = 0;
 
             for(Resource resource: resourcesToGive) {
                 ResourceName resourceName = resource.getResourceName();
@@ -42,8 +43,9 @@ public class ExchangeEffect extends Effect{
                     checkNumOf++;
                 }
 
-                if(playerResources.get(resourceName).getNumOf() > resource.getNumOf() && checkNumOf == numOfDifferentResource){
-                    return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST,payload);
+                if(playerResources.get(resourceName).getNumOf() > resource.getNumOf() && checkNumOf > 0){
+                    payload.put("cardID", String.valueOf(card.getCardID()));
+                    return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST, payload);
                 }
             }
         }
@@ -53,5 +55,9 @@ public class ExchangeEffect extends Effect{
     @Override
     public ObjectNode toJson() {
         return null;
+    }
+
+    public List<Exchange> getExchanges() {
+        return exchanges;
     }
 }

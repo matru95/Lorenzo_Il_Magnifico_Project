@@ -23,6 +23,8 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private static final String CARDS = "cards";
     private static final String CARDID = "cardID";
 
+
+
     private final transient Client client;
     private final String myPlayerName;
     private String myPlayerID;
@@ -35,7 +37,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
         this.mapper = new ObjectMapper();
         this.myPlayerName = myPlayerName;
-        this.client = new SocketClient(serverIP, myPlayerName, this);
+        this.client = new RMIClient(serverIP, myPlayerName, this);
         this.sb = new StringBuilder();
         printLogo();
         printStringBuilder();

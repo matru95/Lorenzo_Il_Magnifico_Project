@@ -96,7 +96,7 @@ public class GameController extends Controller implements Runnable{
                     this.wait();
                 }
 
-                actionThread.interrupt();
+//                actionThread.interrupt();
                 updateClients();
             }
         }
@@ -115,6 +115,7 @@ public class GameController extends Controller implements Runnable{
         List<Client> clients = super.getViews();
 
         for(Client client: clients) {
+            System.out.println("Updating: "+client.getPlayerID());
             super.updateClient(client);
         }
     }

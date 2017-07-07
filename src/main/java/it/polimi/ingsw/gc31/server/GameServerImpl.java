@@ -9,6 +9,7 @@ import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.SocketClient;
+import it.polimi.ingsw.gc31.model.parser.SettingsParser;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -17,6 +18,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.StringCharacterIterator;
 import java.util.*;
 
 public class GameServerImpl extends UnicastRemoteObject implements GameServer{
@@ -25,6 +27,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     private Map<UUID, List<Client>> clients;
     private List<SocketThread> socketThreads;
     private transient Timer timer;
+    private int waitTime;
     ObjectMapper mapper;
 
     public static void main(String[] args) throws IOException {
@@ -43,6 +46,9 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         this.timer = null;
         this.mapper = new ObjectMapper();
         this.socketThreads = new ArrayList<>();
+
+        SettingsParser parser = new SettingsParser("src/config/Settings.json");
+        this.waitTime = parser.getServerWaitTime();
     }
 
     private void startSocket() throws IOException {
@@ -112,7 +118,7 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 }
                 };
 
-            timer.schedule(timerTask, 10000);
+            timer.schedule(timerTask, 5000);
         } else {
             System.out.println("Creating new game");
             createNewGame(player, client);
@@ -223,8 +229,28 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 processFreeCardChoice(gameID, playerID, payload);
                 break;
 
+            case EXCHANGECHOICES:
+                payload = request.getPayload();
+                playerID = request.getPlayerID();
+                gameID = request.getGameID();
+
+                processExchangeChoices(gameID, playerID, payload);
+                break;
         }
 
+    }
+
+    private void processExchangeChoices(String gameID, String playerID, Map<String, String> payload) {
+        System.out.println("Received exchange choices");
+        UUID gameInstanceID = UUID.fromString(gameID);
+
+        GameController gameController = games.get(gameInstanceID);
+        ActionController actionController = (ActionController) gameController.getActionController();
+
+        synchronized (actionController) {
+            actionController.exchangeChoiceAction(playerID, payload);
+            actionController.notify();
+        }
     }
 
     private void processFreeCardChoice(String gameID, String playerID, Map<String, String> payload) {

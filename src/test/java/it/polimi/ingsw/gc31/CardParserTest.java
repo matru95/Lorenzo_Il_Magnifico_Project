@@ -70,13 +70,6 @@ public class CardParserTest extends TestCase{
     }
 
     @Test
-    public void testCardParserShouldInsertExchange() {
-        Card testCard = cards.get(28);
-
-        assertEquals(2, testCard.getExchanges().size());
-    }
-
-    @Test
     public void testCardParserShouldHaveInstantMultiplier() {
         Card testCard = cards.get(65);
 

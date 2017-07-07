@@ -6,6 +6,7 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
+import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,9 +14,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class SocketClient implements Client, Serializable{
     private static Socket socket;
@@ -27,6 +26,7 @@ public class SocketClient implements Client, Serializable{
     private String socketClientID;
     private String playerName;
     private String serverIP;
+    private Thread inputThread;
 
     public SocketClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, InterruptedException, ClassNotFoundException {
         this.socketClientID = UUID.randomUUID().toString();
@@ -83,6 +83,8 @@ public class SocketClient implements Client, Serializable{
         while (condition) {
             try {
                 ServerMessage response = (ServerMessage) objIn.readObject();
+                System.out.println("Received:"+ response.getMessageType());
+
                 send(response);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -108,12 +110,19 @@ public class SocketClient implements Client, Serializable{
         objOut.flush();
     }
 
+    private void threadCloser() {
+        inputThread = null;
+    }
+
     @Override
     public void send(ServerMessage request) throws IOException, InterruptedException {
         ServerMessageEnum requestType = request.getMessageType();
         Map<String, String> payload = request.getPayload();
 
         switch (requestType) {
+            case TIMEOUT:
+                threadCloser();
+                break;
             case REGISTERSUCCESS:
                 createView(payload);
                 break;
@@ -121,26 +130,74 @@ public class SocketClient implements Client, Serializable{
                 view.update(payload);
                 break;
             case MOVEREQUEST:
-                sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
+                inputThread = new Thread(() -> {
+                    try {
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                inputThread.start();
                 break;
             case MOVEMENTFAIL:
                 view.movementFail(payload);
-                sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
+                inputThread = new Thread(() -> {
+                    try {
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                inputThread.start();
                 break;
             case PARCHMENTREQUEST:
-                sendMessageToServer(new ClientMessage(ClientMessageEnum.PARCHMENTCHOICE, view.parchmentQuery(payload), playerID, gameID));
+                inputThread = new Thread(() -> {
+                    try {
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.PARCHMENTCHOICE, view.parchmentQuery(payload), playerID, gameID));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                inputThread.start();
                 break;
             case EXCOMMUNICATIONREQUEST:
-                sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID, gameID));
+                inputThread = new Thread(() -> {
+                    try {
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID, gameID));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                inputThread.start();
                 break;
             case COSTREQUEST:
-                sendMessageToServer(new ClientMessage(ClientMessageEnum.COSTCHOICE, view.costQuery(payload), playerID, gameID));
+                inputThread = new Thread(() -> {
+                    try {
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.COSTCHOICE, view.costQuery(payload), playerID, gameID));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                inputThread.start();
                 break;
             case EXCHANGEREQUEST:
-                sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCHANGECHOICES, view.exchangeQuery(payload), playerID, gameID));
+                inputThread = new Thread(() -> {
+                    try {
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCHANGECHOICES, view.exchangeQuery(payload), playerID, gameID));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
                 break;
             case FREECARDREQUEST:
-                sendMessageToServer(new ClientMessage(ClientMessageEnum.FREECARDCHOICE, view.freeCardQuery(payload), playerID, gameID));
+                inputThread = new Thread(() -> {
+                    try {
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.FREECARDCHOICE, view.freeCardQuery(payload), playerID, gameID));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
                 break;
             default:
                 break;

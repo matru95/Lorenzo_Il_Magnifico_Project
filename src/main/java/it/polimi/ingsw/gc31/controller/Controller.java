@@ -63,4 +63,5 @@ public abstract class Controller {
     public GameServer getServer() {
         return server;
     }
+
 }

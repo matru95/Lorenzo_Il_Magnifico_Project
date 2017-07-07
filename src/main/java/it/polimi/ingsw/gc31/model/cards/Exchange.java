@@ -1,5 +1,10 @@
 package it.polimi.ingsw.gc31.model.cards;
 
+import com.sun.org.apache.regexp.internal.RE;
+import it.polimi.ingsw.gc31.messages.Message;
+import it.polimi.ingsw.gc31.messages.ServerMessage;
+import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.effects.ParchmentEffect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.ArrayList;
@@ -20,6 +25,10 @@ public class Exchange {
 
     public void setNumOfParchmentsToReceive(int numOfParchmentsToReceive) {
         this.numOfParchmentsToReceive = numOfParchmentsToReceive;
+    }
+
+    public int getNumOfParchmentsToReceive() {
+        return numOfParchmentsToReceive;
     }
 
     public void addResourceToGive(Resource resourceToGive) {
@@ -46,4 +55,23 @@ public class Exchange {
         this.resourcesToReceive = resourcesToReceive;
     }
 
+    public ServerMessage exec(Player player) {
+        ServerMessage message = null;
+//      Take resources
+        for(Resource resourceToGive: resourcesToGive) {
+            player.getRes().get(resourceToGive.getResourceName()).subNumOf(resourceToGive.getNumOf());
+        }
+
+        for(Resource resourceToReceive: resourcesToReceive) {
+            player.getRes().get(resourceToReceive.getResourceName()).addNumOf(resourceToReceive.getNumOf());
+        }
+
+        if(numOfParchmentsToReceive > 0) {
+            ParchmentEffect parchmentEffect = new ParchmentEffect(numOfParchmentsToReceive);
+            Message messages = parchmentEffect.exec(player);
+        }
+
+        return message;
+
+    }
 }

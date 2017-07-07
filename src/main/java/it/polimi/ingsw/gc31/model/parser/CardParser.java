@@ -100,6 +100,7 @@ public class CardParser {
 //      Normal effect with exchange
         if (normalEffectNode.has("exchange")) {
             JsonNode exchangeNodes = normalEffectNode.path("exchange");
+            List<Exchange> exchanges = new ArrayList<>();
 
             for(JsonNode singleExchangeNode: exchangeNodes) {
                 Exchange myExchange = new Exchange();
@@ -117,8 +118,12 @@ public class CardParser {
                 myExchange.setNumOfParchmentsToReceive(numOfParchments);
                 myExchange.setResourcesToReceive(parseResources(receiveNode.path("resources")));
 
-                card.insertExchange(myExchange);
+                exchanges.add(myExchange);
             }
+
+            ExchangeEffect exchangeEffect = new ExchangeEffect(exchanges, card);
+            card.addNormalEffect(exchangeEffect);
+
         }
 
     }
