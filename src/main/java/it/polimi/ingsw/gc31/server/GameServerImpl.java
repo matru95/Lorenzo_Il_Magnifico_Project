@@ -133,9 +133,6 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
         game = new GameController(openGame, new ArrayList<>(), this);
         game.addPlayer(player, client);
 
-        GameBoard gameBoard = new GameBoard(openGame);
-        openGame.setGameBoard(gameBoard);
-        player.setGameBoard(gameBoard);
 
         games.put(openGameID, game);
         clients.put(openGameID, game.getViews());
@@ -144,9 +141,6 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
     private void joinExistingGame(Player player, Client client) throws IOException, InterruptedException {
         GameController openGame = games.get(openGameID);
         openGame.addPlayer(player, client);
-
-        GameBoard gameBoard = openGame.getModel().getGameBoard();
-        player.setGameBoard(gameBoard);
 
         if(openGame.getModel().getNumOfPlayers() == 4) {
             startGame();

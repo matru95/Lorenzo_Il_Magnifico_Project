@@ -90,6 +90,14 @@ public class GameInstance implements Serializable, Runnable {
 
 	@Override
 	public void run() {
+		GameBoard gameBoard = new GameBoard(this);
+		this.setGameBoard(gameBoard);
+
+		for(Player player: players) {
+
+			player.setGameBoard(gameBoard);
+		}
+
 	    this.generatePlayerOrders();
 
 //	    Game preparation state

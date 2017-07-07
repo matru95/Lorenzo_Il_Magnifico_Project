@@ -20,6 +20,7 @@ public class HarvestWrapper extends SpaceWrapper {
     private boolean isFirstPlayer;
     private boolean isMultiple;
     private int malus;
+    private int multipleMalus;
 
     public HarvestWrapper(int positionID, int diceBond, boolean isMultiple, GameBoard gameBoard) {
         super(positionID, diceBond, gameBoard);
@@ -37,6 +38,8 @@ public class HarvestWrapper extends SpaceWrapper {
 
         if (!isMultiple) setOccupied(true);
 
+        this.malus = multipleMalus;
+
         familyMember.getPlayer().getRes().get(ResourceName.SERVANTS).subNumOf(amountOfServants);
 
         return messages;
@@ -47,7 +50,7 @@ public class HarvestWrapper extends SpaceWrapper {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode harvestWrapperNode = super.toObjectNode();
 
-        harvestWrapperNode.put("malus", 0);
+        harvestWrapperNode.put("malus", malus);
 
         if(familyMembers.size() > 0) {
             ArrayNode arrayNode = mapper.createArrayNode();
@@ -119,5 +122,9 @@ public class HarvestWrapper extends SpaceWrapper {
 
     public void setMultiple(boolean multiple) {
         isMultiple = multiple;
+    }
+
+    public void setMultipleMalus(int multipleMalus) {
+        this.multipleMalus = multipleMalus;
     }
 }

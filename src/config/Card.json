@@ -462,8 +462,7 @@
       "activationValue": 5,
       "cost": [
         {
-          "wood": 1,
-          "stone": 3
+          "wood": 1
         }
       ],
       "instantEffect": {
@@ -479,7 +478,7 @@
             "gold": 1
           },
           "for": {
-            "color": "yellow"
+            "color": "purple"
           }
         }
       }
@@ -492,7 +491,6 @@
       "activationValue": 5,
       "cost": [
         {
-          "wood": 3,
           "stone": 1
         }
       ],
@@ -509,7 +507,7 @@
             "gold": 1
           },
           "for": {
-            "color": "green"
+            "color": "purple"
           }
         }
       }
@@ -522,7 +520,6 @@
       "activationValue": 6,
       "cost": [
         {
-          "gold": 2,
           "stone": 2
         }
       ],
@@ -569,7 +566,7 @@
             "victoryPoints": 1
           },
           "for": {
-            "color": "blue"
+            "color": "purple"
           }
         }
       }

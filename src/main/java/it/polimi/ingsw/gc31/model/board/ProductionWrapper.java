@@ -21,12 +21,14 @@ public class ProductionWrapper extends SpaceWrapper {
     private boolean isMultiple;
     private List<FamilyMember> familyMembers;
     private int malus;
+    private int multipleMalus;
 
     public ProductionWrapper(int positionID, int diceBond, boolean isMultiple, GameBoard gameBoard) {
         super(positionID, diceBond, gameBoard);
         this.isMultiple = isMultiple;
         familyMembers = new ArrayList<>();
         this.malus = 0;
+        this.multipleMalus = 0;
 
     }
 
@@ -34,9 +36,11 @@ public class ProductionWrapper extends SpaceWrapper {
     public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
         int value = familyMember.getValue() + amountOfServants - malus;
         ProductionEffect productionEffect = new ProductionEffect();
-        productionEffect.exec(familyMember.getPlayer(), malus);
+
+        List<ServerMessage> messages = productionEffect.exec(familyMember.getPlayer(), value);
+
         if (!isMultiple) setOccupied(true);
-        return null;
+        return messages;
     }
 
     @Override
@@ -126,5 +130,9 @@ public class ProductionWrapper extends SpaceWrapper {
 
     public void setMultiple(boolean multiple) {
         isMultiple = multiple;
+    }
+
+    public void setMultipleMalus(int multipleMalus) {
+        this.multipleMalus = multipleMalus;
     }
 }

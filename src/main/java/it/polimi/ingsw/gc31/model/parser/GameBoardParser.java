@@ -68,7 +68,7 @@ public class GameBoardParser {
             int malus = multipleProductionZoneJson.path("malus").asInt();
 
             ProductionWrapper multipleProductionWrapper = new ProductionWrapper(positionID, diceBond, isMultiple, this.gameBoard);
-            multipleProductionWrapper.setMalus(malus);
+            multipleProductionWrapper.setMultipleMalus(malus);
 
             return multipleProductionWrapper;
         }
@@ -80,7 +80,7 @@ public class GameBoardParser {
         JsonNode singleHarvestZone = harvestZoneJson.path("single");
         JsonNode multipleHarvestZone = harvestZoneJson.path("multiple");
 
-        if(!isMultiple) {
+        if(isMultiple == false) {
             int positionID = singleHarvestZone.path("positionID").asInt();
             int diceBond = singleHarvestZone.path("diceBond").asInt();
 
@@ -91,7 +91,7 @@ public class GameBoardParser {
             int malus = multipleHarvestZone.path("malus").asInt();
 
             HarvestWrapper multipleHarvestWrapper = new HarvestWrapper(positionID, diceBond, isMultiple, this.gameBoard);
-            multipleHarvestWrapper.setMalus(malus);
+            multipleHarvestWrapper.setMultipleMalus(malus);
 
             return multipleHarvestWrapper;
         }
