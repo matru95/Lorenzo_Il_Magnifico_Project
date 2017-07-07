@@ -49,7 +49,6 @@ public class Player implements Serializable {
 	private FamilyMember[] familyMembers;
 
 	//FaithTiles
-	private transient List<FaithTile> excommunications;
 
 	private transient List<Bonus> bonuses;
 	private transient List<Malus> maluses;
@@ -334,9 +333,6 @@ public class Player implements Serializable {
         return isMovedThisTurn;
     }
 
-	public List<FaithTile> getExcommunications() {
-		return excommunications;
-	}
 
 	/**
 	 * Getter for attribute "board"
