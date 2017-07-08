@@ -18,10 +18,19 @@ import java.util.Map;
 public class AddResEffect extends Effect{
     private List<Resource> resourcesToAdd;
 
+    /**
+     * Constructor of AddResEffect
+     * @param resourcesToAdd A list of resources that need to be added to the player
+     */
     public AddResEffect(List<Resource> resourcesToAdd){
         this.resourcesToAdd = resourcesToAdd;
     }
 
+    /**
+     * Performs the AddResEffect effect.
+     * @param player The player that casts the effect.
+     * @return ServerMessage
+     */
     @Override
     public ServerMessage exec(Player player) {
         Map<ResourceName, Resource> playerResources = player.getRes();
@@ -29,13 +38,15 @@ public class AddResEffect extends Effect{
         List<Malus> maluses= player.getMaluses();
         List<Resource> gainFewerStack = null;
         Map<ResourceName,Resource> resDebuff= new HashMap<>();
-        for(Malus malus: maluses) {
-            if(malus.getMalusType()== MalusEnum.RESOURCEMALUS){
-                gainFewerStack = ((ResourceMalus) malus).getGainFewerStack();
+        if(maluses!=null){
+            for(Malus malus: maluses) {
+                if(malus.getMalusType()== MalusEnum.RESOURCEMALUS){
+                    gainFewerStack = ((ResourceMalus) malus).getGainFewerStack();
 
-                //MAP NEEDED FOR NEXT OPERATION
-                for(Resource resource : gainFewerStack){
-                    resDebuff.put(resource.getResourceName(),resource);
+                    //MAP NEEDED FOR NEXT OPERATION
+                    for(Resource resource : gainFewerStack){
+                        resDebuff.put(resource.getResourceName(),resource);
+                    }
                 }
             }
         }
@@ -56,6 +67,10 @@ public class AddResEffect extends Effect{
         return null;
     }
 
+    /**
+     * Null method
+     * @return ObjectNode
+     */
     @Override
     public ObjectNode toJson() {
         return null;

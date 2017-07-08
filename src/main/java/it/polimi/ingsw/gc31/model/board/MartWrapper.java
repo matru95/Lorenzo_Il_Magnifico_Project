@@ -18,14 +18,25 @@ import java.util.Map;
 public class MartWrapper extends SpaceWrapper {
     private FamilyMember familyMember;
     private List<Resource> res;
-
+    /**
+     * Costructor of MartWrapper
+     * @param positionID
+     * @param diceBond
+     * @param gameBoard
+     * @param res List of resource of the single market space wrapper
+     * */
     public MartWrapper(int positionID, int diceBond, GameBoard gameBoard, List<Resource> res) {
         super(positionID, diceBond, gameBoard);
         this.res = res;
     }
-
+        /**
+         *
+         * @param familyMember
+         * @param amountOfServants
+         * @return messages*/
     @Override
     public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
+        //TODO CON ENDI SE HA IL MALUS INVIARE MESSAGGIO DI MOSSA NON VALIDA PER VIA DEL MALUS
         setOccupied(true);
         AddResEffect addResEffect = new AddResEffect(res);
         List<ServerMessage> messages = new ArrayList<>();

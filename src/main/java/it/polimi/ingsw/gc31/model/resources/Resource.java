@@ -48,6 +48,12 @@ public class Resource implements Serializable{
     }
 
     public int getNumOf() {
+        //TODO FARSI RESTITUIRE IL VALORE DIMEZZATO (IN MODULO) SOLO DEI SERVANTS
+        //TODO SE IL VALORE È CONTENUTO NEL PLAYER SU CUI È RICHIESTO DI RESTITURIRE I SERVANTS LIVELLO TROPPO BASSO? FORSE SI PUÒ FARE PIÙ SEMPLICEMENTE A LIVELLO PIÙ ALTO
+
+        if(this.getResourceName()==ResourceName.SERVANTS && true){
+
+        }
         return numOf;
     }
 

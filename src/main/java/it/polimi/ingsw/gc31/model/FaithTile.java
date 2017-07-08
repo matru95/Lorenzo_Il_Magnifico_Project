@@ -129,7 +129,6 @@ public class FaithTile {
 		String description= new String();
 		ObjectNode effect=mapper.createObjectNode();
 
-		//TODO TOJSON CON LA SCRITTA DEL DETERMINATO EFFETTO GIA FORMATA
 
 		if(this.gainFewerStack!=null){
 

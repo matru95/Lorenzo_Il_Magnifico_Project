@@ -15,9 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HarvestEffect implements BoardEffect{
-
+    /**
+     * Constructor of HarvestEffect.
+     */
     public HarvestEffect() {};
 
+    /**
+     * Performs the Harvest effect.
+     * @param player The player that casts the HarvestEffect.
+     * @param value The ActionValue of the player's action.
+     * @return List<ServerMessage>
+     */
     @Override
     public List<ServerMessage> exec(Player player, int value) {
         List<ServerMessage> messages = new ArrayList<>();

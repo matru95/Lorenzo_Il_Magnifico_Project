@@ -27,7 +27,13 @@ public class FamilyMember {
 	private SpaceWrapper currentPosition;
 	private GameBoard board;
 	private boolean isMovedThisTurn;
-
+    //TODO DOCUMENTATION
+    /**
+     *
+     * @param color
+     * @param player
+     * @param board
+     */
 	public FamilyMember(DiceColor color, Player player, GameBoard board) {
 
 		this.playerColor = player.getPlayerColor();
@@ -44,6 +50,10 @@ public class FamilyMember {
 
 	}
 
+    /**
+     *
+     * @return
+     */
 	public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode familyMemberNode = mapper.createObjectNode();
@@ -56,6 +66,10 @@ public class FamilyMember {
         return familyMemberNode;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
@@ -89,12 +103,22 @@ public class FamilyMember {
 		this.dice = this.board.getDiceByColor(color);
     }
 
+    /**
+     *
+     * @param position
+     */
     public void moveToTower(TowerSpaceWrapper position) {
         checkAndPayExtraGold(position);
         player.addCard(position.getCard());
     }
 
-
+    /**
+     *
+     * @param position
+     * @param numOfServantsPaid
+     * @return
+     * @throws MovementInvalidException
+     */
     public List<ServerMessage> moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws MovementInvalidException {
 	    int bonusAmount = 0;
 
@@ -120,6 +144,11 @@ public class FamilyMember {
 		return position.execWrapper(this, numOfServantsPaid);
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
 	private boolean isMovementPossible(SpaceWrapper position) {
         Map<ResourceName, Resource> playerResources = this.player.getRes();
         boolean cardLimitReached = false;
@@ -135,6 +164,11 @@ public class FamilyMember {
         return position.isAffordable(this, playerResources, playerColor);
     }
 
+    /**
+     *
+     * @param positionDiceBond
+     * @param bonusPoints
+     */
 	private void checkAndPayServants(int positionDiceBond, int bonusPoints) {
         if(positionDiceBond > this.value + bonusPoints) {
             Map<ResourceName, Resource> playerResources = player.getRes();
@@ -145,6 +179,10 @@ public class FamilyMember {
         }
     }
 
+    /**
+     *
+     * @param position
+     */
     private void checkAndPayExtraGold(TowerSpaceWrapper position) {
         Tower tower = position.getTower();
         if(tower.isOccupied()) {
@@ -155,6 +193,11 @@ public class FamilyMember {
 
     }
 
+    /**
+     *
+     * @param cardColor
+     * @return
+     */
     public boolean isCardLimitReached(CardColor cardColor){
 //      Check bond on green cards
         if(cardColor.equals(CardColor.GREEN)) {
