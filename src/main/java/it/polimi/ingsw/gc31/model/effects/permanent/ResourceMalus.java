@@ -7,6 +7,12 @@ import java.util.List;
 public class ResourceMalus implements Malus {
     private MalusEnum type;
     private List<Resource> gainFewerStack;
+
+    /**
+     * Constructor of ResourceMalus
+     * @param type  Type of the Malus ( in MalusEnum.RESOURCEMALUS ).
+     * @param  gainFewerStack The list of resources on which the effect debuff value (contained in the Resource) must be applied
+     */
     public ResourceMalus(MalusEnum type, List<Resource> gainFewerStack){
         this.type=type;
         this.gainFewerStack=gainFewerStack;
