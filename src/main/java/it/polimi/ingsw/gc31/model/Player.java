@@ -250,10 +250,6 @@ public class Player implements Serializable {
         }
     }
 
-	public void doPlayerActions() {
-		logger.fine("Doing player Actions!");
-	}
-
 	/**
 	 * Getter for attribute "numOfCards"
 	 * @return int

@@ -6,9 +6,11 @@ import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.ProductionWrapper;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
+import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.parser.CardParser;
+import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnState;
 import junit.framework.TestCase;
@@ -27,7 +29,6 @@ public class FamilyMemberTest extends TestCase{
 
     @Override
     public void setUp() throws Exception{
-
         this.firstPlayer = new Player(UUID.randomUUID(), "FirstPlayer");
         this.secondPlayer = new Player(UUID.randomUUID(), "SecondPlayer");
 
@@ -39,6 +40,7 @@ public class FamilyMemberTest extends TestCase{
         this.gameInstance.setGameBoard(gameBoard);
 
         this.gameInstance.run();
+
 
         State turnState = new TurnState();
         gameInstance.setState(turnState);
@@ -53,16 +55,35 @@ public class FamilyMemberTest extends TestCase{
     }
 
     @Test
-    public void testFamilyMemberShouldMoveToTowerSpacePositionAndGetCard() throws MovementInvalidException {
-        FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
+    public void testFamilyMemberShouldMoveToPosition() {
+        FamilyMember testFamilyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
+        SpaceWrapper position = gameInstance.getGameBoard().getSpaceById(23);
+        try {
+            testFamilyMember.moveToPosition(position, 0);
+        } catch (MovementInvalidException e) {
+        }
 
-        SpaceWrapper chosenPosition = gameBoard.getSpaceById(1);
+        assertEquals(position, testFamilyMember.getCurrentPosition());
+    }
 
-        familyMember.moveToPosition(chosenPosition, 0);
+    @Test
+    public void testFamilyMemberShouldNotMoveTwice() {
+        boolean condition = false;
+        FamilyMember testFamilyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
+        SpaceWrapper position = gameInstance.getGameBoard().getSpaceById(23);
 
-        assertFalse(playerWithTurn.getCards().get(CardColor.GREEN).isEmpty());
+        try {
+            testFamilyMember.moveToPosition(position, 23);
+        } catch (MovementInvalidException e) {
+            condition = !condition;
+        }
+        try {
+            testFamilyMember.moveToPosition(position, 23);
+        } catch (MovementInvalidException e) {
+            condition = !condition;
+        }
 
-
+        assertTrue(condition);
     }
 
     @Test

@@ -16,12 +16,13 @@ public class GameAgeState implements State {
 
     private Map<Integer, Integer> map;
     private Map<String, ServerMessage> serverMessages;
+    private FaithTile ageFaithTile;
 
     @Override
     public void doAction(GameInstance context) {
         serverMessages = new HashMap<>();
         int age = context.getAge();
-        FaithTile ageFaithTile = context.getGameBoard().getFaithTiles().get(age);
+        ageFaithTile = context.getGameBoard().getFaithTiles().get(age);
         int minimalFaithPoints = age+2;
         map = (new FaithPointParser("/src/config/FaithPoints.json")).parse();
 
@@ -43,7 +44,7 @@ public class GameAgeState implements State {
         return serverMessages;
     }
 
-    private void payFaithPointsForVictoryPoints(Player player) {
+    public void payFaithPointsForVictoryPoints(Player player) {
 
         Integer myFaithPoints = player.getRes().get(ResourceName.FAITHPOINTS).getNumOf();
 
@@ -54,5 +55,9 @@ public class GameAgeState implements State {
 
         player.getRes().get(ResourceName.FAITHPOINTS).setNumOf(0);
 
+    }
+
+    public FaithTile getAgeFaithTile() {
+        return ageFaithTile;
     }
 }

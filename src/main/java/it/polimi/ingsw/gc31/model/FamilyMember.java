@@ -108,7 +108,7 @@ public class FamilyMember {
      *
      * @param position
      */
-    public void moveToTower(TowerSpaceWrapper position) {
+    private void moveToTower(TowerSpaceWrapper position) {
         checkAndPayExtraGold(position);
         player.addCard(position.getCard());
     }

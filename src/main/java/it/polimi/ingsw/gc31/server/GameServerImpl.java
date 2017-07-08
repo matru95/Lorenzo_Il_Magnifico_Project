@@ -237,12 +237,26 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
 
                 processExchangeChoices(gameID, playerID, payload);
                 break;
+
+            case EXCOMMUNICATIONCHOICE:
+                payload = request.getPayload();
+                playerID = request.getPlayerID();
+                gameID = request.getGameID();
+                break;
         }
 
     }
 
+    private void processExcommunicationChoice(String gameID, String playerID, Map<String, String> payload) {
+        UUID gameInstanceID = UUID.fromString(gameID);
+
+        GameController gameController = games.get(gameInstanceID);
+        ActionController actionController = (ActionController) gameController.getActionController();
+
+        actionController.excommunicationChoiceAction(playerID, payload);
+    }
+
     private void processExchangeChoices(String gameID, String playerID, Map<String, String> payload) {
-        System.out.println("Received exchange choices");
         UUID gameInstanceID = UUID.fromString(gameID);
 
         GameController gameController = games.get(gameInstanceID);

@@ -7,10 +7,7 @@ import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
-import it.polimi.ingsw.gc31.model.FamilyMember;
-import it.polimi.ingsw.gc31.model.GameInstance;
-import it.polimi.ingsw.gc31.model.Parchment;
-import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.*;
 import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
@@ -21,6 +18,7 @@ import it.polimi.ingsw.gc31.model.effects.ExchangeEffect;
 import it.polimi.ingsw.gc31.model.effects.ParchmentEffect;
 import it.polimi.ingsw.gc31.model.parser.SettingsParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
+import it.polimi.ingsw.gc31.model.states.GameAgeState;
 import it.polimi.ingsw.gc31.server.GameServer;
 import it.polimi.ingsw.gc31.client.Client;
 
@@ -131,7 +129,6 @@ public class ActionController extends Controller implements Runnable {
             synchronized (this) {
                 this.wait();
             }
-            System.out.println("Releasing thread");
         }
     }
 
@@ -144,7 +141,7 @@ public class ActionController extends Controller implements Runnable {
         }
     }
 
-    private Client getClientFromPlayerID(String playerID) throws RemoteException {
+    protected Client getClientFromPlayerID(String playerID) throws RemoteException {
 
         for(Client client: super.getViews()) {
             String clientID = client.getPlayerID();
@@ -318,4 +315,23 @@ public class ActionController extends Controller implements Runnable {
         return message;
     }
 
+    public void excommunicationChoiceAction(String playerID, Map<String, String> payload) {
+        String choice = payload.get("applyExcommunication");
+        Player player = getModel().getPlayerFromId(UUID.fromString(playerID));
+        GameAgeState gameAgeState = (GameAgeState)  getModel().getState();
+        FaithTile ageFaithTile = gameAgeState.getAgeFaithTile();
+
+        if(choice.equals("YES")) {
+            ageFaithTile.execute(player);
+        } else {
+            gameAgeState.payFaithPointsForVictoryPoints(player);
+        }
+
+        synchronized (gameController) {
+            gameController.notify();
+        }
+
+        return;
+
+    }
 }

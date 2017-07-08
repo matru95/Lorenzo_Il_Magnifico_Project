@@ -34,9 +34,6 @@ public class TurnState implements State {
 
         throwDice(context);
 
-        for(int i=0; i<this.orderedPlayers.length; i++) {
-            this.orderedPlayers[i].doPlayerActions();
-        }
     }
 
     public Player[] getOrderedPlayers() {
@@ -64,18 +61,17 @@ public class TurnState implements State {
 
                 List<Malus> maluses = currentPlayer.getMaluses();
                 currentPlayer.getSpecificFamilyMember(color).setValueFromDice();
-                int currentValue=0;
 
                 for(Malus malus: maluses){
                     if( malus.getMalusType()== MalusEnum.FAMILYMEMBERMALUS && color != DiceColor.NEUTRAL){
 
                         int malusValue= ((FamilyMemberMalus) malus).getDiceFewer();
-                        currentValue= currentPlayer.getSpecificFamilyMember(color).getValue()-malusValue;
+                        int currentValue= currentPlayer.getSpecificFamilyMember(color).getValue()-malusValue;
+
                         //family member set value
                         currentPlayer.getSpecificFamilyMember(color).setValue(currentValue);
                     }
                 }
-                currentPlayer.getSpecificFamilyMember(color).setValue(currentValue);
             }
         }
     }

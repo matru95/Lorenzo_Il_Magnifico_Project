@@ -1,7 +1,9 @@
 package it.polimi.ingsw.gc31.controller;
 
+import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.states.GameAgeState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnEndState;
 import it.polimi.ingsw.gc31.model.states.TurnState;
@@ -15,6 +17,7 @@ import java.util.*;
 public class GameController extends Controller implements Runnable{
     private ActionController actionController;
     private boolean isFirstUpdate;
+    private Thread messageThread;
 
     public GameController(GameInstance model, List<Client> views, GameServer server) {
         super(model, views, server);
@@ -52,13 +55,43 @@ public class GameController extends Controller implements Runnable{
 
                 endTurn();
             }
+            age++;
+            endAge();
             turn = 1;
         }
 
 
     }
 
-//  TODO finish method for age state
+
+    private void endAge() {
+        GameInstance gameInstance = super.getModel();
+
+        State gameAgeState = new GameAgeState();
+        gameInstance.setState(gameAgeState);
+
+        gameAgeState.doAction(gameInstance);
+
+        Map<String, ServerMessage> messages = ((GameAgeState) gameAgeState).getServerMessages();
+
+        for(Map.Entry<String, ServerMessage> messageEntry: messages.entrySet()) {
+
+            try {
+                Client client = actionController.getClientFromPlayerID(messageEntry.getKey());
+                actionController.sendMessage(messageEntry.getValue(), client);
+            } catch (RemoteException e) {
+            } catch (InterruptedException e) {
+            }
+
+            synchronized (this) {
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                }
+            }
+
+        }
+    }
 
     private void endTurn() {
         GameInstance gameInstance = super.getModel();
@@ -77,6 +110,7 @@ public class GameController extends Controller implements Runnable{
         gameInstance.setState(turnState);
 
         turnState.doAction(gameInstance);
+
         if(isFirstUpdate) {
             updateClients();
             isFirstUpdate = false;
