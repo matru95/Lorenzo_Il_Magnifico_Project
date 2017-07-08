@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
+import it.polimi.ingsw.gc31.model.FamilyMember;
+import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.resources.Resource;
@@ -137,5 +139,28 @@ public class Tower implements Serializable{
         }
 
         return spacesToReturn;
+    }
+
+    public boolean hasFamilyMemberWithColor(PlayerColor color) {
+        List<FamilyMember> familyMembers = new ArrayList<>();
+
+        List<SpaceWrapper> spaceWrappers = getTowerSpaces();
+
+//      Insert all family members to the list
+        for(SpaceWrapper position: spaceWrappers) {
+
+            if(position.isOccupied()) {
+                familyMembers.add(((TowerSpaceWrapper) position).getFamilyMember());
+            }
+        }
+
+        for(FamilyMember familyMember: familyMembers) {
+            if(familyMember.getPlayerColor() == color) {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

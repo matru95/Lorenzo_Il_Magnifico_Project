@@ -85,15 +85,8 @@ public class ProductionWrapper extends SpaceWrapper {
         }
 
 //      Check if there's already a FM with the same color
-        for(FamilyMember myFamilyMember: familyMembers) {
-            if(myFamilyMember.getPlayerColor() == playerColor) {
-                return false;
-            }
-        }
-        for(FamilyMember myFamilyMember: familyMembers) {
-            if(myFamilyMember.getPlayerColor() == playerColor) {
-                return false;
-            }
+        if(hasFamilyMemberSameColor(playerColor, familyMembers)) {
+            return false;
         }
 
         return true;

@@ -28,18 +28,14 @@ public class FamilyMemberTest extends TestCase{
     @Override
     public void setUp() throws Exception{
 
-        this.firstPlayer = new Player(UUID.randomUUID(), "Pippo");
-        this.secondPlayer = new Player(UUID.randomUUID(), "Endi");
+        this.firstPlayer = new Player(UUID.randomUUID(), "FirstPlayer");
+        this.secondPlayer = new Player(UUID.randomUUID(), "SecondPlayer");
 
         this.gameInstance = new GameInstance(UUID.randomUUID());
         this.gameInstance.addPlayer(this.firstPlayer);
         this.gameInstance.addPlayer(this.secondPlayer);
 
         this.gameBoard = new GameBoard(gameInstance);
-
-        this.firstPlayer.setGameBoard(gameBoard);
-        this.secondPlayer.setGameBoard(gameBoard);
-
         this.gameInstance.setGameBoard(gameBoard);
 
         this.gameInstance.run();

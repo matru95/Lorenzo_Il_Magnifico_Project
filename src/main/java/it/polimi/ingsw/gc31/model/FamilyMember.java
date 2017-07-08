@@ -28,6 +28,7 @@ public class FamilyMember {
 	private GameBoard board;
 	private boolean isMovedThisTurn;
     //TODO DOCUMENTATION
+
     /**
      *
      * @param color
@@ -152,12 +153,15 @@ public class FamilyMember {
 	private boolean isMovementPossible(SpaceWrapper position) {
         Map<ResourceName, Resource> playerResources = this.player.getRes();
         boolean cardLimitReached = false;
+        boolean towerHasFamilyMemberSameColor = false;
 
         if(position.getClass() == TowerSpaceWrapper.class) {
             cardLimitReached = isCardLimitReached(((TowerSpaceWrapper) position).getColor());
+            Tower tower = ((TowerSpaceWrapper) position).getTower();
+            towerHasFamilyMemberSameColor = tower.hasFamilyMemberSameColor(this.playerColor);
         }
 
-        if(position.isOccupied() || cardLimitReached || this.isMovedThisTurn) {
+        if(position.isOccupied() || cardLimitReached || this.isMovedThisTurn || towerHasFamilyMemberSameColor) {
             return false;
         }
 

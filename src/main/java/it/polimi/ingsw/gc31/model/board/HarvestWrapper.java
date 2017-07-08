@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -85,13 +86,13 @@ public class HarvestWrapper extends SpaceWrapper {
         }
 
 //      Check if there's already a FM with the same color
-        for(FamilyMember myFamilyMember: familyMembers) {
-            if(myFamilyMember.getPlayerColor() == playerColor) {
-                return false;
-            }
+        if(hasFamilyMemberSameColor(playerColor, familyMembers)) {
+            return false;
         }
+
         return true;
      }
+
 
     @Override
     public void setFamilyMember(FamilyMember familyMember) {

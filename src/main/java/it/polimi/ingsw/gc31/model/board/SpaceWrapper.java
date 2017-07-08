@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.board;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
@@ -75,6 +76,20 @@ public abstract class SpaceWrapper implements Serializable{
         spaceWrapperNode.put("isOccupied", isOccupied);
 
         return spaceWrapperNode;
+    }
+
+
+    protected boolean hasFamilyMemberSameColor(PlayerColor playerColor, List<FamilyMember> familyMembers) {
+        for(FamilyMember familyMember: familyMembers) {
+            PlayerColor familyMemberColor = familyMember.getPlayerColor();
+
+            if(familyMember.getColor() != DiceColor.NEUTRAL && familyMemberColor == playerColor) {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
