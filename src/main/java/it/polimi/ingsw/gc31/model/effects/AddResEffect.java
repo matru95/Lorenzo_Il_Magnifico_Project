@@ -2,10 +2,15 @@ package it.polimi.ingsw.gc31.model.effects;
 
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
+import it.polimi.ingsw.gc31.model.effects.permanent.MalusEnum;
+import it.polimi.ingsw.gc31.model.effects.permanent.PlayerResourceMalus;
+import it.polimi.ingsw.gc31.model.effects.permanent.ResourceMalus;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import jdk.nashorn.internal.ir.ObjectNode;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,10 +26,30 @@ public class AddResEffect extends Effect{
     public ServerMessage exec(Player player) {
         Map<ResourceName, Resource> playerResources = player.getRes();
 
+        List<Malus> maluses= player.getMaluses();
+        List<Resource> gainFewerStack = null;
+        Map<ResourceName,Resource> resDebuff= new HashMap<>();
+        for(Malus malus: maluses) {
+            if(malus.getMalusType()== MalusEnum.RESOURCEMALUS){
+                gainFewerStack = ((ResourceMalus) malus).getGainFewerStack();
+
+                //MAP NEEDED FOR NEXT OPERATION
+                for(Resource resource : gainFewerStack){
+                    resDebuff.put(resource.getResourceName(),resource);
+                }
+            }
+        }
         for(Resource resourceToAdd: resourcesToAdd) {
-            System.out.println("Adding resource:" + resourceToAdd.getResourceName());
             ResourceName resourceName = resourceToAdd.getResourceName();
-            int value = resourceToAdd.getNumOf();
+            int value=0;
+
+            //DOUBLE IF ADDED FOR AVOIDING NULLPOINTEREXCEPTION
+            if(resDebuff.get(resourceName)!=null) {
+                value = resourceToAdd.getNumOf()-resDebuff.get(resourceName).getNumOf();
+            }
+            if (resDebuff.get(resourceName)==null){
+                value= resourceToAdd.getNumOf();
+            }
 
             playerResources.get(resourceName).addNumOf(value);
         }

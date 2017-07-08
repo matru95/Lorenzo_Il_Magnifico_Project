@@ -7,6 +7,10 @@ import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.effects.Effect;
+import it.polimi.ingsw.gc31.model.effects.permanent.HarvestMalus;
+import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
+import it.polimi.ingsw.gc31.model.effects.permanent.MalusEnum;
+import it.polimi.ingsw.gc31.model.effects.permanent.ProductionMalus;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.util.ArrayList;
@@ -25,9 +29,17 @@ public class ProductionEffect implements BoardEffect {
 
         harvestTile.exec(player);
 
+        int diceValue=0;
+        List<Malus> maluses=player.getMaluses();
+        for(Malus malus:maluses){
+            if(malus.getMalusType()== MalusEnum.PRODUCTIONMALUS){
+                diceValue = ((ProductionMalus) malus).getProductionFewer();
+            }
+        }
+        int finalValue= value-diceValue;
 
         for (Card singleCard : yellowCards) {
-            if (singleCard.getActivationValue() <= value) {
+            if (singleCard.getActivationValue() <= finalValue) {
                 List<ServerMessage> cardMessages = singleCard.execNormalEffect(player);
 
                 for(ServerMessage cardMessage: cardMessages)
