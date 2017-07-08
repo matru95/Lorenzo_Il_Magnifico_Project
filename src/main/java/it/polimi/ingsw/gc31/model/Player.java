@@ -516,4 +516,16 @@ public class Player implements Serializable {
 			res.get(resource.getResourceName()).subNumOf(amountToPay);
 		}
 	}
+
+	public boolean hasMalus(MalusEnum malusType) {
+
+	    for(Malus malus: maluses) {
+
+	        if(malus.getMalusType() == malusType) {
+	            return true;
+            }
+        }
+
+        return false;
+    }
 }

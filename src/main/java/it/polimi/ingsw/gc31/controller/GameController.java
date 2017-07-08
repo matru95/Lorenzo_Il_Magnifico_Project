@@ -3,6 +3,8 @@ package it.polimi.ingsw.gc31.controller;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
+import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
+import it.polimi.ingsw.gc31.model.effects.permanent.MalusEnum;
 import it.polimi.ingsw.gc31.model.states.GameAgeState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnEndState;
@@ -117,21 +119,37 @@ public class GameController extends Controller implements Runnable{
         }
 
         Player[] orderedPlayers = ((TurnState) turnState).getOrderedPlayers();
+        Set<Player> playersWithMalus = new LinkedHashSet<>();
 
 //      Do player actions here
         for(index=0; index<=3; index++) {
 
             for(Player player: orderedPlayers) {
 
-                actionController.setPlayer(player);
-                Thread actionThread = new Thread(actionController);
-                actionThread.start();
+                if(player.hasMalus(MalusEnum.FIRSTACTIONMALUS) && !playersWithMalus.contains(player)) {
+                    playersWithMalus.add(player);
+                } else {
 
-                synchronized (this) {
-                    this.wait();
+                    actionController.setPlayer(player);
+                    Thread actionThread = new Thread(actionController);
+                    actionThread.start();
+
+                    synchronized (this) {
+                        this.wait();
+                    }
                 }
 
                 updateClients();
+            }
+        }
+
+        for(Player player: playersWithMalus) {
+            actionController.setPlayer(player);
+            Thread actionThread = new Thread(actionController);
+            actionThread.start();
+
+            synchronized (this) {
+                this.wait();
             }
         }
 
