@@ -611,8 +611,8 @@
             },
             "receive": {
               "resources": {
-                "gold": 5
-              }
+              },
+              "parchment": 1
             }
           }
         ]
@@ -645,8 +645,8 @@
             },
             "receive": {
               "resources": {
-                "gold": 3
-              }
+              },
+              "parchment": 1
             }
           },
           {
@@ -654,8 +654,10 @@
               "stone": 2
             },
             "receive": {
-              "gold": 5
-            }
+              "resources": {
+              }
+            },
+            "parchment": 1
           }
         ]
       }

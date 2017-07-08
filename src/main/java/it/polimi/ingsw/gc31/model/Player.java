@@ -14,9 +14,7 @@ import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
-import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
-import it.polimi.ingsw.gc31.model.effects.permanent.CardColorBonus;
-import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
+import it.polimi.ingsw.gc31.model.effects.permanent.*;
 import it.polimi.ingsw.gc31.model.parser.PlayerTileParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
@@ -446,6 +444,40 @@ public class Player implements Serializable {
 	public List<Bonus> getBonuses() {
 		return bonuses;
 	}
+
+	public int getHarvestBonusValue() {
+	    HarvestBonus harvestBonus = null;
+	    int amount = 0;
+
+	    for(Bonus bonus: bonuses) {
+	        if(bonus.getClass() == HarvestBonus.class) {
+	            harvestBonus = (HarvestBonus) bonus;
+            }
+        }
+
+        if(harvestBonus != null) {
+	        amount += harvestBonus.getAmount();
+        }
+
+        return amount;
+    }
+
+    public int getProductionBonusValue() {
+        ProductionBonus productionBonus = null;
+        int amount = 0;
+
+        for(Bonus bonus: bonuses) {
+            if(bonus.getClass() == ProductionBonus.class) {
+                productionBonus = (ProductionBonus) bonus;
+            }
+        }
+
+        if(productionBonus != null) {
+            amount += productionBonus.getAmount();
+        }
+
+        return amount;
+    }
 
 	public int getCardColorBonusResourceValue(CardColor color, ResourceName resourceName) {
         CardColorBonus bonus = getBonusByCardColor(color);

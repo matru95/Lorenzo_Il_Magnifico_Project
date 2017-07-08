@@ -32,16 +32,24 @@ public class HarvestEffect implements BoardEffect{
         List<Card> greenCards = player.getCards().get(CardColor.GREEN);
         List<Resource> harvestTileResources = player.getPlayerTile().getHarvestBonus();
         Effect harvestTile = new AddResEffect(harvestTileResources);
+        int bonusValue = player.getHarvestBonusValue();
 
         harvestTile.exec(player);
-        int diceValue=0;
-        List<Malus> maluses=player.getMaluses();
-        for(Malus malus:maluses){
-            if(malus.getMalusType()== MalusEnum.HARVESTMALUS){
-                diceValue = ((HarvestMalus) malus).getHarvestFewer();
+        int malusValue=0;
+
+        List<Malus> maluses = player.getMaluses();
+        for(Malus malus: maluses){
+            if(malus.getMalusType() == MalusEnum.HARVESTMALUS){
+                malusValue = ((HarvestMalus) malus).getHarvestFewer();
             }
         }
-        int finalValue= value-diceValue;
+
+        int finalValue= value-malusValue+bonusValue;
+
+        if(finalValue < 0) {
+            finalValue = 0;
+        }
+
         for (Card singleCard : greenCards) {
             if (singleCard.getActivationValue() <= finalValue) {
                 List<ServerMessage> cardMessages = singleCard.execNormalEffect(player);

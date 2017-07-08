@@ -34,17 +34,18 @@ public class ProductionEffect implements BoardEffect {
         List<Card> yellowCards = player.getCards().get(CardColor.YELLOW);
         List<Resource> productionTileResources = player.getPlayerTile().getProductionBonus();
         Effect harvestTile = new AddResEffect(productionTileResources);
+        int bonus = player.getProductionBonusValue();
 
         harvestTile.exec(player);
 
-        int diceValue=0;
+        int malusValue = 0;
         List<Malus> maluses = player.getMaluses();
         for(Malus malus:maluses){
             if(malus.getMalusType()== MalusEnum.PRODUCTIONMALUS){
-                diceValue = ((ProductionMalus) malus).getProductionFewer();
+                malusValue = ((ProductionMalus) malus).getProductionFewer();
             }
         }
-        int finalValue= value-diceValue;
+        int finalValue= value-malusValue+bonus;
 
         for (Card singleCard : yellowCards) {
             if (singleCard.getActivationValue() <= finalValue) {
