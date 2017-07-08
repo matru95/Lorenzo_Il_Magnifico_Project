@@ -297,4 +297,8 @@ public class FamilyMember {
     public void setMovedThisTurn(boolean movedThisTurn) {
         isMovedThisTurn = movedThisTurn;
     }
+
+    public void setValue(int value){
+        this.value=value;
+    }
 }
