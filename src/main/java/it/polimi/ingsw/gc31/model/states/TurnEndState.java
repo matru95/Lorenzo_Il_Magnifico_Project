@@ -10,7 +10,6 @@ public class TurnEndState implements State{
 
     @Override
     public void doAction(GameInstance context) {
-        System.out.println("here");
         CouncilsPalaceWrapper councilsPalaceWrapper = (CouncilsPalaceWrapper) context.getGameBoard().getSpaceById(23);
         Player[] orderedPlayers = councilsPalaceWrapper.getNewPlayerOrder();
         orderPlayers(orderedPlayers);

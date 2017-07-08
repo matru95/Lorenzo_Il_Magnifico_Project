@@ -22,6 +22,19 @@ public class Exchange {
         this.numOfParchmentsToReceive = 0;
     }
 
+    @Override
+    public String toString() {
+        String result = "Pay: " + resourcesToGive.toString();
+
+        if(resourcesToReceive.size() > 0) {
+            result += " to receive: " + resourcesToReceive.toString();
+        } else {
+            result += " to receive: " + numOfParchmentsToReceive + " parchment(s)";
+        }
+
+        return result;
+    }
+
 
     public void setNumOfParchmentsToReceive(int numOfParchmentsToReceive) {
         this.numOfParchmentsToReceive = numOfParchmentsToReceive;

@@ -61,14 +61,12 @@ public class GameController extends Controller implements Runnable{
     }
 
     private void endTurn() {
-        System.out.println("EndTurnStateStarted");
         GameInstance gameInstance = super.getModel();
 
         State turnEndState = new TurnEndState();
         gameInstance.setState(turnEndState);
 
         turnEndState.doAction(gameInstance);
-        System.out.println("EndTurnStateEnded");
     }
 
     private void doTurn() throws IOException, InterruptedException {
@@ -99,7 +97,6 @@ public class GameController extends Controller implements Runnable{
                     this.wait();
                 }
 
-//                actionThread.interrupt();
                 updateClients();
             }
         }

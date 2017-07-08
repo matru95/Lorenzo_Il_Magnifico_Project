@@ -30,26 +30,43 @@ public class ExchangeEffect extends Effect{
 
         Map<ResourceName, Resource> playerResources = player.getRes();
         Map <String,String> payload=new HashMap<>();
+        int checkNumOf = 0;
+        int index = 1;
 
         for(Exchange exchange: exchanges) {
 
             List<Resource> resourcesToGive = exchange.getResourcesToGive();
-            int checkNumOf = 0;
-
-            for(Resource resource: resourcesToGive) {
-                ResourceName resourceName = resource.getResourceName();
-
-                if(playerResources.get(resourceName).getNumOf() > resource.getNumOf()) {
-                    checkNumOf++;
-                }
-
-                if(playerResources.get(resourceName).getNumOf() > resource.getNumOf() && checkNumOf > 0){
-                    payload.put("cardID", String.valueOf(card.getCardID()));
-                    return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST, payload);
-                }
+            if(canPayResources(resourcesToGive, player)) {
+                checkNumOf++;
             }
+
+        }
+
+        if(checkNumOf > 0) {
+            payload.put("cardID", String.valueOf(card.getCardID()));
+            payload.put("cardName", card.getCardName());
+
+            for(Exchange exchange: exchanges) {
+                payload.put(String.valueOf(index), exchange.toString());
+                index++;
+            }
+
+            return new ServerMessage(ServerMessageEnum.EXCHANGEREQUEST, payload);
         }
         return null;
+    }
+
+    private boolean canPayResources(List<Resource> resources, Player player) {
+        for(Resource resource: resources) {
+            int amountOfResource = resource.getNumOf();
+            int amountOfPlayerResource = player.getRes().get(resource.getResourceName()).getNumOf();
+
+            if(amountOfPlayerResource< amountOfResource) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
