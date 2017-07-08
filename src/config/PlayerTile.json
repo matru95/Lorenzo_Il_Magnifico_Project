@@ -3,7 +3,7 @@
     {
       "id":0,
       "production" : {
-        "servants" : 1,
+        "warpoints" : 1,
         "gold" : 2
       },
       "harvest" : {

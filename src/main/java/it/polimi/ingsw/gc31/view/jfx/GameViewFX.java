@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -25,6 +26,7 @@ public class GameViewFX extends Application {
         ScrollPane mainPane = loader.load();
         primaryStage.setScene(new Scene(mainPane));
         primaryStage.setTitle("LORENZO IL MAGNIFICO");
+        primaryStage.getIcons().add(new Image(new File("src/main/resources/javafx/icon.png").toURI().toString()));
         primaryStage.setMaximized(true);
         primaryStage.show();
 
