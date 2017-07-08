@@ -18,13 +18,11 @@ import java.util.*;
 
 public class GameController extends Controller implements Runnable{
     private ActionController actionController;
-    private boolean isFirstUpdate;
     private Thread messageThread;
 
     public GameController(GameInstance model, List<Client> views, GameServer server) {
         super(model, views, server);
         this.actionController = new ActionController(model, views, this, server);
-        this.isFirstUpdate = true;
     }
 
     @Override
@@ -113,16 +111,14 @@ public class GameController extends Controller implements Runnable{
 
         turnState.doAction(gameInstance);
 
-        if(isFirstUpdate) {
-            updateClients();
-            isFirstUpdate = false;
-        }
+        updateClients();
 
         Player[] orderedPlayers = ((TurnState) turnState).getOrderedPlayers();
         Set<Player> playersWithMalus = new LinkedHashSet<>();
 
 //      Do player actions here
         for(index=0; index<=3; index++) {
+            System.out.println("Starting mini-turn: "+index);
 
             for(Player player: orderedPlayers) {
 

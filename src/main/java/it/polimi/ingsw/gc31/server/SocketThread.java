@@ -47,10 +47,8 @@ public class SocketThread implements Runnable{
 
         while (condition){
             try{
-                System.out.println("Starting receiving");
 //              Receive message from client
                 ClientMessage request = (ClientMessage) objectInputStream.readObject();
-                System.out.println("Received: "+ request.getClientMessageType());
 
                 if(request.getClientMessageType() == ClientMessageEnum.REGISTERSUCCESS) {
                     this.playerID = request.getPlayerID();
@@ -61,7 +59,6 @@ public class SocketThread implements Runnable{
                 } else {
 //                  Send to GameServer for processing
                     sendToServer(request);
-                    System.out.println("sent to server");
                 }
 
                 condition = (request.getClientMessageType() != ClientMessageEnum.ENDCONNECTION);

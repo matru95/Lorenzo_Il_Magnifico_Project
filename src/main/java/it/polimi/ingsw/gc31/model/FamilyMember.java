@@ -24,7 +24,9 @@ public class FamilyMember {
 	private Boolean isNeutral;
 	private Boolean isPlaced;
     private int value;
-	private SpaceWrapper currentPosition;
+
+
+    private SpaceWrapper currentPosition;
 	private GameBoard board;
 	private boolean isMovedThisTurn;
     //TODO DOCUMENTATION
@@ -300,5 +302,9 @@ public class FamilyMember {
 
     public void setValue(int value){
         this.value=value;
+    }
+
+    public void setCurrentPosition(SpaceWrapper currentPosition) {
+        this.currentPosition = currentPosition;
     }
 }

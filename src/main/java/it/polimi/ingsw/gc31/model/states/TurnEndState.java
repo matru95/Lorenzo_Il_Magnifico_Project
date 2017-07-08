@@ -5,6 +5,7 @@ import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.CouncilsPalaceWrapper;
+import it.polimi.ingsw.gc31.model.board.NullWrapper;
 
 public class TurnEndState implements State{
 
@@ -17,6 +18,7 @@ public class TurnEndState implements State{
         for(Player player: orderedPlayers) {
             for(FamilyMember familyMember: player.getFamilyMembers()) {
                 familyMember.setMovedThisTurn(false);
+                familyMember.setCurrentPosition(new NullWrapper());
             }
         }
     }

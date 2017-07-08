@@ -7,6 +7,7 @@ import de.vandermeer.asciitable.CWC_FixedWidth;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.RMIClient;
+import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
@@ -22,7 +23,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private static final String CARDS = "cards";
     private static final String CARDID = "cardID";
 
-    private final transient Client client;
+    private transient Client client;
     private final String myPlayerName;
     private String myPlayerID;
     private final ObjectMapper mapper;
@@ -31,10 +32,14 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private transient JsonNode rootBoard;
 
     public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException {
-
+        this.client = null;
         this.mapper = new ObjectMapper();
         this.myPlayerName = myPlayerName;
-        this.client = new RMIClient(serverIP, myPlayerName, this);
+        try {
+            this.client = new SocketClient(serverIP, myPlayerName, this);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         this.sb = new StringBuilder();
         printLogo();
         printStringBuilder();
