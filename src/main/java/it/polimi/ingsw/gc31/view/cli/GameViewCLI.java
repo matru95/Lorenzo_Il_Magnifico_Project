@@ -7,7 +7,6 @@ import de.vandermeer.asciitable.CWC_FixedWidth;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.RMIClient;
-import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
@@ -23,8 +22,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private static final String CARDS = "cards";
     private static final String CARDID = "cardID";
 
-
-
     private final transient Client client;
     private final String myPlayerName;
     private String myPlayerID;
@@ -32,6 +29,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private StringBuilder sb;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
+    private Thread bufferThread;
 
     public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException, ClassNotFoundException {
 
@@ -274,6 +272,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     @Override
     public void movementFail(Map<String, String> map) {
+        bufferThread.interrupt();
         sb.append("Movement is NOT Valid, try again: \n");
         printStringBuilder();
     }
@@ -436,54 +435,49 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     public Map<String, String> exchangeQuery(Map<String, String> map) throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
+        Integer exchangesNumber = map.size() - 2;
         Integer choice;
         String str;
 
-        for (JsonNode singleYellowCard: rootBoard.path(CARDS).path("YELLOW"))
-            for (int i = 1; i <= 6; i++) {
-                if (beauty(singleYellowCard.path(CARDID)).equals(map.get(CARDID + i))) {
-                    Integer exchangesNumber = singleYellowCard.path("normalEffect").path("exchange").size();
-                    /*Integer exchangesNumber = 0;
-                    for (JsonNode singleExchange: singleYellowCard.path("normalEffect").path("exchange")) {
-                        exchangesNumber++;
-                    }*/
+        switch (exchangesNumber) {
+            case 2:
+                sb.append("You've to choose whether or not activate the following exchange effects for the card #")
+                        .append(map.get("cardID")).append(" \"").append("cardName").append("\":\n")
+                        .append("1st Exchange Effect: ").append(map.get("1")).append("\n")
+                        .append("2nd Exchange Effect: ").append(map.get("2")).append("\n")
+                        .append("Type 0 to avoid activation of the exchanges;\n")
+                        .append("Type 1 to activate the first exchange effect;\n")
+                        .append("Type 2 to activate the second exchange effect.");
+                printStringBuilder();
+                str = "(0, 1, 2)";
+                break;
+            case 1:
+            default:
+                sb.append("You've to choose whether or not activate the following exchange effect for the card #")
+                    .append(map.get("cardID")).append(" \"").append("cardName").append("\":\n")
+                    .append("Exchange Effect: ").append(map.get("1")).append("\n")
+                    .append("Type 0 to avoid activation of the exchange;\n")
+                    .append("Type 1 to activate the exchange effect.");
+                printStringBuilder();
+                str = "(0, 1)";
+        }
 
-                    switch (exchangesNumber) {
-                        case 2:
-                            sb.append("You've to choose whether or not activate the following exchange effects for the card #")
-                                    .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
-                                    .append("Type 0 to avoid activation of the exchanges;\n")
-                                    .append("Type 1 to activate the first exchange effect;\n")
-                                    .append("Type 2 to activate the second exchange effect.");
-                            printStringBuilder();
-                            str = "(0, 1, 2)";
-                            break;
-                        case 1:
-                        default:
-                            sb.append("You've to choose whether or not activate the following exchange effect for the card #")
-                                .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
-                                .append("Type 0 to avoid activation of the exchange;\n")
-                                .append("Type 1 to activate the exchange effect.");
-                            printStringBuilder();
-                            str = "(0, 1)";
-                    }
+        do {
+            try {
+                choice = readInteger();
 
-                    do {
-                        try {
-                            choice = readInteger();
-
-                            if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
-                                    || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
-                            sb.append("You must insert a valid number among these: ").append(str);
-                            printStringBuilder();
-                        } catch (IllegalArgumentException e) {
-                            sb.append("You must insert a valid number among these: ").append(str);
-                            printStringBuilder();
-                        }
-                    } while (true);
-                    result.put(CARDID, choice.toString());
-                }
+                if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
+                        || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
+                sb.append("You must insert a valid number among these: ").append(str);
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid number among these: ").append(str);
+                printStringBuilder();
             }
+        } while (true);
+
+        result.put(CARDID, map.get("cardID"));
+        result.put("choice", choice.toString());
 
         return result;
     }
@@ -536,6 +530,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
      */
     private String readString() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        br.reset();
         return br.readLine();
     }
 

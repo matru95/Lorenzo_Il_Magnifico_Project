@@ -18,6 +18,8 @@ import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,14 +35,16 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private static final String CARDID = "cardID";
 
     private StringBuilder sb;
-    private String myPlayerID;
     private static final String PL = "players";
     private static final String CARDS = "cards";
 
+    private String myPlayerID;
+    private String myPlayerName;
     private final Client client;
     private final ObjectMapper mapper;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
+    private JsonNode rootMe;
 
     public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException, ClassNotFoundException {
 
@@ -58,18 +62,20 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
             /*System.out.println("Hello, pls enter your name:");
             br = new BufferedReader(new InputStreamReader(System.in));
-            String myPlayerName = br.readLine();
+            this.myPlayerName = br.readLine();
             System.out.println("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
             br = new BufferedReader(new InputStreamReader(System.in));
             String serverIP = br.readLine();*/
 
             if (choice.equalsIgnoreCase("SOCKET")) {
-                this.client = new SocketClient("127.0.0.1", "SOCKETFX", this);
+                this.myPlayerName = "SOCKETFX";
+                this.client = new SocketClient("127.0.0.1", myPlayerName, this);
                 break;
             }
 
             if (choice.equalsIgnoreCase("RMI")) {
-                this.client = new RMIClient("127.0.0.1", "RMIFX", this);
+                this.myPlayerName = "RMIFX";
+                this.client = new RMIClient("127.0.0.1", myPlayerName, this);
                 break;
             }
         } while (true);
@@ -146,18 +152,6 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private ImageView faithTile3;
 
     @FXML
-    private Circle order1;
-
-    @FXML
-    private Circle order2;
-
-    @FXML
-    private Circle order3;
-
-    @FXML
-    private Circle order4;
-
-    @FXML
     private Circle space1;
 
     @FXML
@@ -227,9 +221,254 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private Rectangle space23;
 
     @FXML
+    private Circle order1;
+
+    @FXML
+    private Circle order2;
+
+    @FXML
+    private Circle order3;
+
+    @FXML
+    private Circle order4;
+
+    @FXML
+    private Circle myOrange;
+
+    @FXML
+    private Circle myBlack;
+
+    @FXML
+    private Circle myNeutral;
+
+    @FXML
+    private Circle myWhite;
+
+    @FXML
+    private TextArea textQuery;
+
+    @FXML
+    private Text header;
+
+    @FXML
+    private Tab blueTab;
+
+    @FXML
+    private ImageView redGreen11;
+
+    @FXML
+    private ImageView redGreen21;
+
+    @FXML
+    private ImageView redGreen31;
+
+    @FXML
+    private ImageView redGreen41;
+
+    @FXML
+    private ImageView redGreen51;
+
+    @FXML
+    private ImageView redGreen61;
+
+    @FXML
+    private ImageView redYellow11;
+
+    @FXML
+    private ImageView redYellow21;
+
+    @FXML
+    private ImageView redYellow31;
+
+    @FXML
+    private ImageView redYellow41;
+
+    @FXML
+    private ImageView redYellow51;
+
+    @FXML
+    private ImageView redYellow61;
+
+    @FXML
+    private ImageView redGreen111;
+
+    @FXML
+    private ImageView redGreen211;
+
+    @FXML
+    private ImageView redGreen311;
+
+    @FXML
+    private ImageView redGreen411;
+
+    @FXML
+    private ImageView redGreen511;
+
+    @FXML
+    private ImageView redGreen611;
+
+    @FXML
+    private ImageView redYellow111;
+
+    @FXML
+    private ImageView redYellow211;
+
+    @FXML
+    private ImageView redYellow311;
+
+    @FXML
+    private ImageView redYellow411;
+
+    @FXML
+    private ImageView redYellow511;
+
+    @FXML
+    private ImageView redYellow611;
+
+    @FXML
+    private TextArea blueText;
+
+    @FXML
+    private Tab greenTab;
+
+    @FXML
+    private ImageView redGreen112;
+
+    @FXML
+    private ImageView redGreen212;
+
+    @FXML
+    private ImageView redGreen312;
+
+    @FXML
+    private ImageView redGreen412;
+
+    @FXML
+    private ImageView redGreen512;
+
+    @FXML
+    private ImageView redGreen612;
+
+    @FXML
+    private ImageView redYellow112;
+
+    @FXML
+    private ImageView redYellow212;
+
+    @FXML
+    private ImageView redYellow312;
+
+    @FXML
+    private ImageView redYellow412;
+
+    @FXML
+    private ImageView redYellow512;
+
+    @FXML
+    private ImageView redYellow612;
+
+    @FXML
+    private TextArea greenText;
+
+    @FXML
+    private Tab redTab;
+
+    @FXML
+    private ImageView redGreen1;
+
+    @FXML
+    private ImageView redGreen2;
+
+    @FXML
+    private ImageView redGreen3;
+
+    @FXML
+    private ImageView redGreen4;
+
+    @FXML
+    private ImageView redGreen5;
+
+    @FXML
+    private ImageView redGreen6;
+
+    @FXML
+    private ImageView redYellow1;
+
+    @FXML
+    private ImageView redYellow2;
+
+    @FXML
+    private ImageView redYellow3;
+
+    @FXML
+    private ImageView redYellow4;
+
+    @FXML
+    private ImageView redYellow5;
+
+    @FXML
+    private ImageView redYellow6;
+
+    @FXML
+    private TextArea redText;
+
+    @FXML
+    private Tab yellowTab;
+
+    @FXML
+    private ImageView redGreen1111;
+
+    @FXML
+    private ImageView redGreen2111;
+
+    @FXML
+    private ImageView redGreen3111;
+
+    @FXML
+    private ImageView redGreen4111;
+
+    @FXML
+    private ImageView redGreen5111;
+
+    @FXML
+    private ImageView redGreen6111;
+
+    @FXML
+    private ImageView redYellow1111;
+
+    @FXML
+    private ImageView redYellow2111;
+
+    @FXML
+    private ImageView redYellow3111;
+
+    @FXML
+    private ImageView redYellow4111;
+
+    @FXML
+    private ImageView redYellow5111;
+
+    @FXML
+    private ImageView redYellow6111;
+
+    @FXML
+    private TextArea yellowText;
+
+    @FXML
     void onClick(MouseEvent event) {
 
     }
+
+    @FXML
+    void onMemberSelected(MouseEvent event) {
+        event.getPickResult();
+    }
+
+    @FXML
+    void onSpaceSelected(MouseEvent event) {
+
+    }
+
 
     @FXML
     void initialize() {
@@ -257,8 +496,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         if (node.path("isOccupied").toString().equals("true")) {
             spaceShape.setRadius(30);
             spaceShape.setStrokeWidth(15);
-            spaceShape.setFill(Paint.valueOf(node.path("familyMember").path("color").toString().replace("\"", "")));
-            spaceShape.setStroke(Paint.valueOf(node.path("familyMember").path("playerColor").toString().replace("\"", "")));
+            spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMember").path("color"))));
+            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path("playerColor"))));
             spaceShape.setVisible(true);
         } else
             spaceShape.setVisible(false);
@@ -266,7 +505,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     private void spaceSetter(Rectangle spaceShape, JsonNode node) {
         if (node.path("isOccupied").toString().equals("true")) {
-            spaceShape.setStroke(Paint.valueOf(node.path("familyMember").path("playerColor").toString().replace("\"", "")));
+            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path("playerColor"))));
             spaceShape.setVisible(true);
         } else
             spaceShape.setVisible(false);
@@ -276,6 +515,41 @@ public class GameViewFXCtrl implements GameViewCtrl {
     public void update(Map<String, String> gameState) throws IOException {
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
+
+        Map<Integer, String> orderedPlayers = new HashMap<>();
+        Integer numOfPlayers = 0;
+        for (JsonNode singlePlayer: rootInstance.path("players")) {
+            if (beauty(singlePlayer.path("playerID")).equals(myPlayerID))
+                this.rootMe = singlePlayer;
+            orderedPlayers.put(singlePlayer.path("playerOrder").asInt(), beauty(singlePlayer.path("playerColor")));
+            numOfPlayers++;
+        }
+
+        if (numOfPlayers.equals(2)) {
+            board.setImage(new Image(new File("src/main/resources/javafx/boards/board_2.png").toURI().toString()));
+            space21.setDisable(true);
+            space22.setDisable(true);
+        } else if (numOfPlayers.equals(3)) {
+            board.setImage(new Image(new File("src/main/resources/javafx/boards/board_3.png").toURI().toString()));
+            space21.setDisable(true);
+            space22.setDisable(true);
+        }
+
+        header.setText("GameInstanceID:[" + beauty(rootInstance.path("instanceID")) + "]   Age:[" + beauty(rootInstance.path("age")) + "]   Turn:[" + beauty(rootInstance.path("turn")) + "]");
+
+        playerOrderColorSetter(order1, orderedPlayers.get(1));
+        playerOrderColorSetter(order2, orderedPlayers.get(2));
+        playerOrderColorSetter(order3, orderedPlayers.get(3));
+        playerOrderColorSetter(order4, orderedPlayers.get(4));
+
+        myBlack.setStroke(Paint.valueOf(beauty(rootMe.path("playerColor"))));
+        myWhite.setStroke(Paint.valueOf(beauty(rootMe.path("playerColor"))));
+        myOrange.setStroke(Paint.valueOf(beauty(rootMe.path("playerColor"))));
+        myNeutral.setFill(Paint.valueOf(beauty(rootMe.path("playerColor"))));
+        myBlack.setVisible(true);
+        myWhite.setVisible(true);
+        myOrange.setVisible(true);
+        myNeutral.setVisible(true);
 
         cardSetter(green0, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("0").path("card").path(CARDID).asInt());
         cardSetter(green1, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("1").path("card").path(CARDID).asInt());
@@ -301,15 +575,6 @@ public class GameViewFXCtrl implements GameViewCtrl {
         faithTileSetter(faithTile1, rootBoard.path("faithTiles").path("1").path("id").asInt());
         faithTileSetter(faithTile2, rootBoard.path("faithTiles").path("2").path("id").asInt());
         faithTileSetter(faithTile3, rootBoard.path("faithTiles").path("3").path("id").asInt());
-
-        Map<Integer, String> orderedPlayers = new HashMap<>();
-        for (JsonNode singlePlayer: rootInstance.path("players"))
-            orderedPlayers.put(singlePlayer.path("playerOrder").asInt(), singlePlayer.path("playerColor").toString().replace("\"",""));
-
-        playerOrderColorSetter(order1, orderedPlayers.get(1));
-        playerOrderColorSetter(order2, orderedPlayers.get(2));
-        playerOrderColorSetter(order3, orderedPlayers.get(3));
-        playerOrderColorSetter(order4, orderedPlayers.get(4));
 
         spaceSetter(space1, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("0"));
         spaceSetter(space2, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("1"));
@@ -501,54 +766,49 @@ public class GameViewFXCtrl implements GameViewCtrl {
     public Map<String, String> exchangeQuery(Map<String, String> map) throws IOException {
 
         HashMap<String, String> result = new HashMap<>();
+        Integer exchangesNumber = map.size() - 2;
         Integer choice;
         String str;
 
-        for (JsonNode singleYellowCard: rootBoard.path(CARDS).path("YELLOW"))
-            for (int i = 1; i <= 6; i++) {
-                if (beauty(singleYellowCard.path(CARDID)).equals(map.get(CARDID + i))) {
-                    Integer exchangesNumber = singleYellowCard.path("normalEffect").path("exchange").size();
-                    /*Integer exchangesNumber = 0;
-                    for (JsonNode singleExchange: singleYellowCard.path("normalEffect").path("exchange")) {
-                        exchangesNumber++;
-                    }*/
+        switch (exchangesNumber) {
+            case 2:
+                sb.append("You've to choose whether or not activate the following exchange effects for the card #")
+                        .append(map.get("cardID")).append(" \"").append("cardName").append("\":\n")
+                        .append("1st Exchange Effect: ").append(map.get("1")).append("\n")
+                        .append("2nd Exchange Effect: ").append(map.get("2")).append("\n")
+                        .append("Type 0 to avoid activation of the exchanges;\n")
+                        .append("Type 1 to activate the first exchange effect;\n")
+                        .append("Type 2 to activate the second exchange effect.");
+                printStringBuilder();
+                str = "(0, 1, 2)";
+                break;
+            case 1:
+            default:
+                sb.append("You've to choose whether or not activate the following exchange effect for the card #")
+                        .append(map.get("cardID")).append(" \"").append("cardName").append("\":\n")
+                        .append("Exchange Effect: ").append(map.get("1")).append("\n")
+                        .append("Type 0 to avoid activation of the exchange;\n")
+                        .append("Type 1 to activate the exchange effect.");
+                printStringBuilder();
+                str = "(0, 1)";
+        }
 
-                    switch (exchangesNumber) {
-                        case 2:
-                            sb.append("You've to choose whether or not activate the following exchange effects for the card #")
-                                    .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
-                                    .append("Type 0 to avoid activation of the exchanges;\n")
-                                    .append("Type 1 to activate the first exchange effect;\n")
-                                    .append("Type 2 to activate the second exchange effect.");
-                            printStringBuilder();
-                            str = "(0, 1, 2)";
-                            break;
-                        case 1:
-                        default:
-                            sb.append("You've to choose whether or not activate the following exchange effect for the card #")
-                                    .append(beauty(singleYellowCard.path(CARDID))).append(":\n")
-                                    .append("Type 0 to avoid activation of the exchange;\n")
-                                    .append("Type 1 to activate the exchange effect.");
-                            printStringBuilder();
-                            str = "(0, 1)";
-                    }
+        do {
+            try {
+                choice = readInteger();
 
-                    do {
-                        try {
-                            choice = readInteger();
-
-                            if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
-                                    || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
-                            sb.append("You must insert a valid number among these: ").append(str);
-                            printStringBuilder();
-                        } catch (IllegalArgumentException e) {
-                            sb.append("You must insert a valid number among these: ").append(str);
-                            printStringBuilder();
-                        }
-                    } while (true);
-                    result.put(CARDID, choice.toString());
-                }
+                if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
+                        || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
+                sb.append("You must insert a valid number among these: ").append(str);
+                printStringBuilder();
+            } catch (IllegalArgumentException e) {
+                sb.append("You must insert a valid number among these: ").append(str);
+                printStringBuilder();
             }
+        } while (true);
+
+        result.put(CARDID, map.get("cardID"));
+        result.put("choice", choice.toString());
 
         return result;
     }
@@ -652,8 +912,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         return node.toString().replace("\"", "")
                 .replace("{","")
                 .replace("}","")
-                .replace(",", ", ")
-                .replace("currentPositionID:0", "[HASN'T_MOVED_YET]");
+                .replace(",", ", ");
     }
 
 }

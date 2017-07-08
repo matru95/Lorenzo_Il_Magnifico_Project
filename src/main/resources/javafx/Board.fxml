@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc31.view.jfx.GameViewFXCtrl">
+  <content>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab closable="false" text="BOARD">
+               <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0">
+                  <children>
+                    <ImageView fx:id="board" preserveRatio="true" smooth="false">
+                      <image>
+                        <Image url="@boards/board.png" />
+                      </image>
+                      <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                      </cursor>
+                    </ImageView>
+                    <ImageView fx:id="green0" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="787.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="green1" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="539.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="green2" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="289.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="green3" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="41.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="blue0" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="787.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="blue1" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="539.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="blue2" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="289.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="blue3" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="41.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="yellow0" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="787.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="yellow1" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="539.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="yellow2" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="289.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="yellow3" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="41.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="purple0" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="787.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="purple1" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="539.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="purple2" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="289.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="purple3" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="41.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@cards/cardID0.png" />
+                      </image>
+                    </ImageView>
+                    <Text fx:id="diceBlack" fill="WHITE" layoutX="1704.0" layoutY="963.0" strokeType="OUTSIDE" strokeWidth="0.0" text="?" textAlignment="CENTER" wrappingWidth="100.0">
+                      <font>
+                        <Font name="System Bold" size="40.0" />
+                      </font>
+                    </Text>
+                    <Text fx:id="diceWhite" layoutX="1828.0" layoutY="963.0" strokeType="OUTSIDE" strokeWidth="0.0" text="?" textAlignment="CENTER" wrappingWidth="100.0">
+                      <font>
+                        <Font name="System Bold" size="40.0" />
+                      </font>
+                    </Text>
+                    <Text fx:id="diceOrange" layoutX="1950.0" layoutY="963.0" strokeType="OUTSIDE" strokeWidth="0.0" text="?" textAlignment="CENTER" wrappingWidth="100.0">
+                      <font>
+                        <Font name="System Bold" size="40.0" />
+                      </font>
+                    </Text>
+                    <ImageView fx:id="faithTile1" fitHeight="400.0" fitWidth="90.0" layoutX="1275.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@faithTiles/excomm_back_1.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="faithTile2" fitHeight="168.0" fitWidth="100.0" layoutX="1376.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@faithTiles/excomm_back_2.png" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="faithTile3" fitHeight="400.0" fitWidth="90.0" layoutX="1477.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@faithTiles/excomm_back_3.png" />
+                      </image>
+                    </ImageView>
+                    <Circle fx:id="space1" fill="#ffffff00" layoutX="214.0" layoutY="893.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space2" fill="#ffffff00" layoutX="214.0" layoutY="645.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space3" fill="#ffffff00" layoutX="214.0" layoutY="395.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space4" fill="#ffffff00" layoutX="214.0" layoutY="147.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space5" fill="#ffffff00" layoutX="483.0" layoutY="893.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space6" fill="#ffffff00" layoutX="483.0" layoutY="645.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space7" fill="#ffffff00" layoutX="483.0" layoutY="395.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space8" fill="#ffffff00" layoutX="483.0" layoutY="147.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space9" fill="#ffffff00" layoutX="752.0" layoutY="893.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space10" fill="#ffffff00" layoutX="752.0" layoutY="645.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space11" fill="#ffffff00" layoutX="752.0" layoutY="395.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space12" fill="#ffffff00" layoutX="752.0" layoutY="147.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space13" fill="#ffffff00" layoutX="1020.0" layoutY="893.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space14" fill="#ffffff00" layoutX="1020.0" layoutY="645.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space15" fill="#ffffff00" layoutX="1020.0" layoutY="395.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space16" fill="#ffffff00" layoutX="1020.0" layoutY="147.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space17" fill="#ffffff00" layoutX="1153.0" layoutY="772.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space18" fill="#ffffff00" layoutX="1153.0" layoutY="930.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space19" fill="#ffffff00" layoutX="1780.0" layoutY="744.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space20" fill="#ffffff00" layoutX="1900.0" layoutY="744.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space21" fill="#ffffff00" layoutX="2012.0" layoutY="776.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space22" fill="#ffffff00" layoutX="2099.0" layoutY="864.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Rectangle fx:id="space23" arcHeight="30.0" arcWidth="30.0" fill="#ffffff00" height="120.0" layoutX="1643.0" layoutY="243.0" onMouseClicked="#onSpaceSelected" stroke="#00ff007e" strokeType="INSIDE" strokeWidth="5.0" width="326.0" />
+                    <Circle fx:id="order1" fill="#ffffff00" layoutX="2078.0" layoutY="226.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                    <Circle fx:id="order2" fill="#ffffff00" layoutX="2078.0" layoutY="296.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                    <Circle fx:id="order3" fill="#ffffff00" layoutX="2078.0" layoutY="364.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                    <Circle fx:id="order4" fill="#ffffff00" layoutX="2078.0" layoutY="431.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                        <Circle fx:id="myOrange" fill="#ff9e3d" layoutX="2024.0" layoutY="136.0" onMouseClicked="#onMemberSelected" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" visible="false" />
+                        <Circle fx:id="myBlack" layoutX="2024.0" layoutY="54.0" onMouseClicked="#onMemberSelected" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" visible="false" />
+                        <Circle fx:id="myNeutral" fill="#7f7f7f" layoutX="2108.0" layoutY="136.0" onMouseClicked="#onMemberSelected" radius="30.0" stroke="#eddcc6" strokeType="INSIDE" strokeWidth="15.0" visible="false" />
+                        <Circle fx:id="myWhite" fill="WHITE" layoutX="2108.0" layoutY="54.0" onMouseClicked="#onMemberSelected" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" visible="false" />
+                        <TextArea fx:id="textQuery" editable="false" layoutX="1132.0" layoutY="66.0" prefHeight="100.0" prefWidth="800.0" promptText="Waiting player movements ..." />
+                        <Text fx:id="header" layoutX="1132.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game is about to start..." textAlignment="CENTER" wrappingWidth="800.0">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
+                  </children>
+                </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="blueTab" closable="false" text="BLUE PLAYER">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: BLUE;">
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@boards/punchboard.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen11" fitHeight="219.0" fitWidth="143.0" layoutX="78.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen21" fitHeight="219.0" fitWidth="143.0" layoutX="241.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen31" fitHeight="219.0" fitWidth="143.0" layoutX="405.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen41" fitHeight="219.0" fitWidth="143.0" layoutX="570.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen51" fitHeight="219.0" fitWidth="143.0" layoutX="734.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen61" fitHeight="219.0" fitWidth="143.0" layoutX="899.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow11" fitHeight="219.0" fitWidth="143.0" layoutX="78.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow21" fitHeight="219.0" fitWidth="143.0" layoutX="241.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow31" fitHeight="219.0" fitWidth="143.0" layoutX="405.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow41" fitHeight="219.0" fitWidth="143.0" layoutX="570.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow51" fitHeight="219.0" fitWidth="143.0" layoutX="734.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow61" fitHeight="219.0" fitWidth="143.0" layoutX="899.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen111" fitHeight="219.0" fitWidth="143.0" layoutX="1060.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen211" fitHeight="219.0" fitWidth="143.0" layoutX="1234.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen311" fitHeight="219.0" fitWidth="143.0" layoutX="1387.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen411" fitHeight="219.0" fitWidth="143.0" layoutX="1552.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen511" fitHeight="219.0" fitWidth="143.0" layoutX="1804.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen611" fitHeight="219.0" fitWidth="143.0" layoutX="1936.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow111" fitHeight="219.0" fitWidth="143.0" layoutX="1060.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow211" fitHeight="219.0" fitWidth="143.0" layoutX="1234.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow311" fitHeight="219.0" fitWidth="143.0" layoutX="1409.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow411" fitHeight="219.0" fitWidth="143.0" layoutX="1586.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow511" fitHeight="219.0" fitWidth="143.0" layoutX="1763.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow611" fitHeight="219.0" fitWidth="143.0" layoutX="1936.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <TextArea fx:id="blueText" editable="false" layoutX="67.0" layoutY="581.0" prefHeight="427.0" prefWidth="1219.0" promptText="Waiting for update ...">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </TextArea>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="greenTab" closable="false" text="GREEN PLAYER">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: GREEN;">
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@boards/punchboard.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen11" fitHeight="219.0" fitWidth="143.0" layoutX="78.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen21" fitHeight="219.0" fitWidth="143.0" layoutX="241.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen31" fitHeight="219.0" fitWidth="143.0" layoutX="405.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen41" fitHeight="219.0" fitWidth="143.0" layoutX="570.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen51" fitHeight="219.0" fitWidth="143.0" layoutX="734.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen61" fitHeight="219.0" fitWidth="143.0" layoutX="899.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow11" fitHeight="219.0" fitWidth="143.0" layoutX="78.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow21" fitHeight="219.0" fitWidth="143.0" layoutX="241.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow31" fitHeight="219.0" fitWidth="143.0" layoutX="405.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow41" fitHeight="219.0" fitWidth="143.0" layoutX="570.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow51" fitHeight="219.0" fitWidth="143.0" layoutX="734.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow61" fitHeight="219.0" fitWidth="143.0" layoutX="899.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen112" fitHeight="219.0" fitWidth="143.0" layoutX="1060.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen212" fitHeight="219.0" fitWidth="143.0" layoutX="1234.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen312" fitHeight="219.0" fitWidth="143.0" layoutX="1387.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen412" fitHeight="219.0" fitWidth="143.0" layoutX="1552.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen512" fitHeight="219.0" fitWidth="143.0" layoutX="1804.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen612" fitHeight="219.0" fitWidth="143.0" layoutX="1936.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow112" fitHeight="219.0" fitWidth="143.0" layoutX="1060.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow212" fitHeight="219.0" fitWidth="143.0" layoutX="1234.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow312" fitHeight="219.0" fitWidth="143.0" layoutX="1409.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow412" fitHeight="219.0" fitWidth="143.0" layoutX="1586.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow512" fitHeight="219.0" fitWidth="143.0" layoutX="1763.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow612" fitHeight="219.0" fitWidth="143.0" layoutX="1936.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <TextArea fx:id="greenText" editable="false" layoutX="67.0" layoutY="581.0" prefHeight="427.0" prefWidth="1219.0" promptText="Waiting for update ...">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </TextArea>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="redTab" closable="false" text="RED PLAYER">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: RED;">
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@boards/punchboard.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen1" fitHeight="219.0" fitWidth="143.0" layoutX="78.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen2" fitHeight="219.0" fitWidth="143.0" layoutX="241.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen3" fitHeight="219.0" fitWidth="143.0" layoutX="405.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen4" fitHeight="219.0" fitWidth="143.0" layoutX="570.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen5" fitHeight="219.0" fitWidth="143.0" layoutX="734.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen6" fitHeight="219.0" fitWidth="143.0" layoutX="899.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow1" fitHeight="219.0" fitWidth="143.0" layoutX="78.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow2" fitHeight="219.0" fitWidth="143.0" layoutX="241.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow3" fitHeight="219.0" fitWidth="143.0" layoutX="405.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow4" fitHeight="219.0" fitWidth="143.0" layoutX="570.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow5" fitHeight="219.0" fitWidth="143.0" layoutX="734.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow6" fitHeight="219.0" fitWidth="143.0" layoutX="899.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen11" fitHeight="219.0" fitWidth="143.0" layoutX="1060.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen21" fitHeight="219.0" fitWidth="143.0" layoutX="1234.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen31" fitHeight="219.0" fitWidth="143.0" layoutX="1387.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen41" fitHeight="219.0" fitWidth="143.0" layoutX="1552.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen51" fitHeight="219.0" fitWidth="143.0" layoutX="1804.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen61" fitHeight="219.0" fitWidth="143.0" layoutX="1936.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow11" fitHeight="219.0" fitWidth="143.0" layoutX="1060.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow21" fitHeight="219.0" fitWidth="143.0" layoutX="1234.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow31" fitHeight="219.0" fitWidth="143.0" layoutX="1409.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow41" fitHeight="219.0" fitWidth="143.0" layoutX="1586.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow51" fitHeight="219.0" fitWidth="143.0" layoutX="1763.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow61" fitHeight="219.0" fitWidth="143.0" layoutX="1936.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <TextArea fx:id="redText" editable="false" layoutX="67.0" layoutY="581.0" prefHeight="427.0" prefWidth="1219.0" promptText="Waiting for update ...">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </TextArea>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="yellowTab" closable="false" text="YELLOW PLAYER">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: YELLOW;">
+                     <children>
+                        <ImageView>
+                           <image>
+                              <Image url="@boards/punchboard.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen111" fitHeight="219.0" fitWidth="143.0" layoutX="78.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen211" fitHeight="219.0" fitWidth="143.0" layoutX="241.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen311" fitHeight="219.0" fitWidth="143.0" layoutX="405.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen411" fitHeight="219.0" fitWidth="143.0" layoutX="570.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen511" fitHeight="219.0" fitWidth="143.0" layoutX="734.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen611" fitHeight="219.0" fitWidth="143.0" layoutX="899.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow111" fitHeight="219.0" fitWidth="143.0" layoutX="78.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow211" fitHeight="219.0" fitWidth="143.0" layoutX="241.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow311" fitHeight="219.0" fitWidth="143.0" layoutX="405.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow411" fitHeight="219.0" fitWidth="143.0" layoutX="570.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow511" fitHeight="219.0" fitWidth="143.0" layoutX="734.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow611" fitHeight="219.0" fitWidth="143.0" layoutX="899.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen1111" fitHeight="219.0" fitWidth="143.0" layoutX="1060.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen2111" fitHeight="219.0" fitWidth="143.0" layoutX="1234.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen3111" fitHeight="219.0" fitWidth="143.0" layoutX="1387.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen4111" fitHeight="219.0" fitWidth="143.0" layoutX="1552.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen5111" fitHeight="219.0" fitWidth="143.0" layoutX="1804.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redGreen6111" fitHeight="219.0" fitWidth="143.0" layoutX="1936.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow1111" fitHeight="219.0" fitWidth="143.0" layoutX="1060.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow2111" fitHeight="219.0" fitWidth="143.0" layoutX="1234.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow3111" fitHeight="219.0" fitWidth="143.0" layoutX="1409.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow4111" fitHeight="219.0" fitWidth="143.0" layoutX="1586.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow5111" fitHeight="219.0" fitWidth="143.0" layoutX="1763.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="redYellow6111" fitHeight="219.0" fitWidth="143.0" layoutX="1936.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@cards/cardID0.png" />
+                           </image>
+                        </ImageView>
+                        <TextArea fx:id="yellowText" editable="false" layoutX="67.0" layoutY="581.0" prefHeight="427.0" prefWidth="1219.0" promptText="Waiting for update ...">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </TextArea>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+  </content>
+</ScrollPane>
