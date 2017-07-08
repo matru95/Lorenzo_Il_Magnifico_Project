@@ -177,6 +177,8 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
                 atp.addRule();
             }
 
+            atp.addRow("PLAYER TILE:", null, null, null, null, null, beauty(singlePlayer.path("playerTile")));
+            atp.addRule();
             atp.setTextAlignment(TextAlignment.CENTER);
             atp.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20).add(20).add(20).add(20));
             render.append(atp.render()).append("\n");
