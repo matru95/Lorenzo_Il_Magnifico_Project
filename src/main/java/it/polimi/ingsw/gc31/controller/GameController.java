@@ -38,6 +38,7 @@ public class GameController extends Controller implements Runnable{
         while(age <= 3) {
 
             while (turn <= 2) {
+                System.out.println("Starting turn");
                 try {
                     gameInstance.setTurn(turn);
 
@@ -49,9 +50,9 @@ public class GameController extends Controller implements Runnable{
                     e.printStackTrace();
                 }
 
-                System.out.println("Turn ended");
 
                 endTurn();
+                System.out.println("Turn ended");
             }
             turn = 1;
         }
@@ -60,12 +61,14 @@ public class GameController extends Controller implements Runnable{
     }
 
     private void endTurn() {
+        System.out.println("EndTurnStateStarted");
         GameInstance gameInstance = super.getModel();
 
         State turnEndState = new TurnEndState();
         gameInstance.setState(turnEndState);
 
         turnEndState.doAction(gameInstance);
+        System.out.println("EndTurnStateEnded");
     }
 
     private void doTurn() throws IOException, InterruptedException {

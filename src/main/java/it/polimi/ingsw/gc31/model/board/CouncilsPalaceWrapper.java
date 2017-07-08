@@ -31,7 +31,7 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     }
 
     public Player[] getNewPlayerOrder() {
-        Player[] orderedPlayers = new Player[players.size()];
+        Player[] orderedPlayers = new Player[getGameBoard().getGameInstance().getNumOfPlayers()];
         Set<PlayerColor> uniqueColors = getUniqueColors();
         int index = 0;
 
@@ -57,21 +57,20 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
                 * Current player order
                 * */
                 int playerOrder = player.getPlayerOrder();
+                boolean condition = true;
 
                 /*
                 *  Only the current last player won't change order
                 * */
-                while (playerOrder < 4) {
+                while (playerOrder <= getGameBoard().getGameInstance().getNumOfPlayers() && condition) {
 
-                    /**
-                     * If there's a player that has a new order that equals playerOrder, increase playerOrder by one.
-                     * **/
-                    if(orderedPlayers[playerOrder] != null) {
+                    if(orderedPlayers[playerOrder-1] == null) {
+                        orderedPlayers[playerOrder-1] = player;
+                        condition = false;
+                    } else {
                         playerOrder++;
                     }
                 }
-
-                orderedPlayers[playerOrder] = player;
             }
         }
 

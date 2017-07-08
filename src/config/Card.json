@@ -1309,7 +1309,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 2
+          "gold": 1
         }
       ],
       "instantEffect": {
@@ -1335,7 +1335,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 4
+          "gold": 1
         }
       ],
       "instantEffect": {
@@ -1364,7 +1364,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 4
+          "gold": 1
         }
       ],
       "instantEffect": {
@@ -1390,7 +1390,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 2
+          "gold": 1
         }
       ],
       "instantEffect": {
@@ -1416,7 +1416,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 3
+          "gold": 1
         }
       ],
       "instantEffect": {
@@ -1440,7 +1440,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 3
+          "gold": 1
         }
       ],
       "instantEffect": {
@@ -1464,7 +1464,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 2
+          "gold": 1
         }
       ],
       "instantEffect": {
@@ -1487,7 +1487,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 3
+          "gold": 1
         }
       ],
       "instantEffect": {
@@ -1510,7 +1510,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 4
+          "gold": 1
         }
       ],
       "instantEffect": {

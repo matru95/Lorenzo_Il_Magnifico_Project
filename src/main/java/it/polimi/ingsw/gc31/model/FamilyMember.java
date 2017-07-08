@@ -13,6 +13,7 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
+import it.polimi.ingsw.gc31.model.effects.permanent.CardColorBonus;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -95,18 +96,22 @@ public class FamilyMember {
 
 
     public List<ServerMessage> moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws MovementInvalidException {
-	    if(position == null || !isMovementPossible(position)) {
+	    int bonusAmount = 0;
+
+        if(position == null || !isMovementPossible(position)) {
 	        throw new MovementInvalidException();
         }
 
+
         if(position.getClass() == TowerSpaceWrapper.class) {
             moveToTower((TowerSpaceWrapper) position);
+            bonusAmount += player.getCardColorBonusValue(((TowerSpaceWrapper) position).getColor());
         }
 
 	    int positionDiceBond = position.getDiceBond();
 
 //	    Check if I should pay servants and pay them
-	    checkAndPayServants(positionDiceBond);
+	    checkAndPayServants(positionDiceBond, bonusAmount);
 
 		this.currentPosition = position;
 		position.setFamilyMember(this);
@@ -130,11 +135,11 @@ public class FamilyMember {
         return position.isAffordable(this, playerResources, playerColor);
     }
 
-	private void checkAndPayServants(int positionDiceBond) {
-        if(positionDiceBond > this.value) {
+	private void checkAndPayServants(int positionDiceBond, int bonusPoints) {
+        if(positionDiceBond > this.value + bonusPoints) {
             Map<ResourceName, Resource> playerResources = player.getRes();
             int currentServants = playerResources.get(ResourceName.SERVANTS).getNumOf();
-            int costToPay = positionDiceBond - this.value;
+            int costToPay = positionDiceBond - this.value - bonusPoints;
 
             playerResources.get(ResourceName.SERVANTS).setNumOf(currentServants - costToPay);
         }

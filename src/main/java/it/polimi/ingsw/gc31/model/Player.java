@@ -447,6 +447,26 @@ public class Player implements Serializable {
 		return bonuses;
 	}
 
+	public int getCardColorBonusResourceValue(CardColor color, ResourceName resourceName) {
+        CardColorBonus bonus = getBonusByCardColor(color);
+
+        if(bonus == null) {
+            return 0;
+        }
+
+        return bonus.getResources().get(resourceName).getNumOf();
+    }
+
+	public int getCardColorBonusValue(CardColor color) {
+	    CardColorBonus bonus = getBonusByCardColor(color);
+
+	    if(bonus == null) {
+	        return 0;
+        }
+
+        return bonus.getPoints();
+    }
+
 	public CardColorBonus getBonusByCardColor(CardColor cardColor) {
 	    for(Bonus bonus: bonuses) {
             if(bonus.getClass() == CardColorBonus.class) {
