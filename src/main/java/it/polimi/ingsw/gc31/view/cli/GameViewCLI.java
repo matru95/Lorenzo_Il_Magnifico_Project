@@ -27,11 +27,10 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private String myPlayerID;
     private final ObjectMapper mapper;
     private StringBuilder sb;
-    private JsonNode rootInstance;
-    private JsonNode rootBoard;
-    private Thread bufferThread;
+    private transient JsonNode rootInstance;
+    private transient JsonNode rootBoard;
 
-    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException, ClassNotFoundException {
+    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException {
 
         this.mapper = new ObjectMapper();
         this.myPlayerName = myPlayerName;
@@ -94,7 +93,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         att.addRow("[TOWER COLOR]", "FLOOR:[0]", "FLOOR:[1]", "FLOOR:[2]", "FLOOR:[3]");
         att.addRule();
 
-        for (CardColor cardColor: CardColor.values()) {
+        for (CardColor cardColor : CardColor.values()) {
             String color = cardColor.toString();
             JsonNode node = rootBoard.path("towers").path(color).path("towerSpaces");
             att.addRow(color + " TOWER", beauty(node.path("0")), beauty(node.path("1")), beauty(node.path("2")), beauty(node.path("3")));
@@ -105,7 +104,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         att.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
 
         sb.append(at.render()).append("\n")
-          .append(att.render()).append("\n");
+                .append(att.render()).append("\n");
 
     }
 
@@ -154,18 +153,18 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         Map<Integer, String> orderedPlayers = new HashMap<>();
         StringBuilder render = new StringBuilder();
 
-        for (JsonNode singlePlayer: players) {
+        for (JsonNode singlePlayer : players) {
 
             AsciiTable atp = new AsciiTable();
             atp.addRule();
 
             atp.addRow("[" + beauty(singlePlayer.path("playerColor")) + "]: " + beauty(singlePlayer.path(PN)),
                     null, null, null, null, null,
-                    "RESOURCES: [ " + beauty(singlePlayer.path("res")).replace(","," | ") + " ]"
+                    "RESOURCES: [ " + beauty(singlePlayer.path("res")).replace(",", " | ") + " ]"
             );
             atp.addRule();
 
-            for (CardColor cardColor: CardColor.values()) {
+            for (CardColor cardColor : CardColor.values()) {
                 String color = cardColor.toString();
                 atp.addRow(color + " CARDS:",
                         beauty(singlePlayer.path(CARDS).path(color).path(0)),
@@ -194,13 +193,13 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
         AsciiTable at = new AsciiTable();
         at.addRule();
-        at.addRow("~ PLAYERS ~", order.toString().replace("\"",""));
+        at.addRow("~ PLAYERS ~", order.toString().replace("\"", ""));
         at.addRule();
         at.setTextAlignment(TextAlignment.CENTER);
         at.getRenderer().setCWC(new CWC_FixedWidth().add(20).add((125)));
 
         sb.append(at.render()).append("\n")
-          .append(render).append("\n");
+                .append(render).append("\n");
     }
 
     /**
@@ -219,7 +218,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
         AsciiTable atfm = new AsciiTable();
         atfm.addRule();
-        for (JsonNode singlePlayer: players) {
+        for (JsonNode singlePlayer : players) {
             JsonNode familyMembers = singlePlayer.path("familyMembers");
             atfm.addRow(beauty(singlePlayer.path(PN)),
                     beauty(familyMembers.path(0)),
@@ -233,7 +232,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         atfm.getRenderer().setCWC(new CWC_FixedWidth().add(30).add(28).add(28).add(28).add(28));
 
         sb.append(at.render()).append("\n")
-        .append(atfm.render()).append("\n");
+                .append(atfm.render()).append("\n");
     }
 
     /**
@@ -249,18 +248,18 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
      * Method to print a game logo for the CLI View.
      */
     private void printLogo() {
-        sb.append("\n") .append("                                  ██╗      ██████╗ ██████╗ ███████╗███╗   ██╗███████╗ ██████╗          ██╗██╗     \n")
-                        .append("                                  ██║     ██╔═══██╗██╔══██╗██╔════╝████╗  ██║╚══███╔╝██╔═══██╗         ██║██║     \n")
-                        .append("                                  ██║     ██║   ██║██████╔╝█████╗  ██╔██╗ ██║  ███╔╝ ██║   ██║         ██║██║     \n")
-                        .append("                                  ██║     ██║   ██║██╔══██╗██╔══╝  ██║╚██╗██║ ███╔╝  ██║   ██║         ██║██║     \n")
-                        .append("                                  ███████╗╚██████╔╝██║  ██║███████╗██║ ╚████║███████╗╚██████╔╝         ██║███████╗\n")
-                        .append("                                  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝          ╚═╝╚══════╝\n\n")
-                        .append("                                       ███╗   ███╗ █████╗  ██████╗ ███╗   ██╗██╗███████╗██╗ ██████╗ ██████╗       \n")
-                        .append("                                       ████╗ ████║██╔══██╗██╔════╝ ████╗  ██║██║██╔════╝██║██╔════╝██╔═══██╗      \n")
-                        .append("                                       ██╔████╔██║███████║██║  ███╗██╔██╗ ██║██║█████╗  ██║██║     ██║   ██║      \n")
-                        .append("                                       ██║╚██╔╝██║██╔══██║██║   ██║██║╚██╗██║██║██╔══╝  ██║██║     ██║   ██║      \n")
-                        .append("                                       ██║ ╚═╝ ██║██║  ██║╚██████╔╝██║ ╚████║██║██║     ██║╚██████╗╚██████╔╝      \n")
-                        .append("                                       ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝       \n\n");
+        sb.append("\n").append("                                  ██╗      ██████╗ ██████╗ ███████╗███╗   ██╗███████╗ ██████╗          ██╗██╗     \n")
+                .append("                                  ██║     ██╔═══██╗██╔══██╗██╔════╝████╗  ██║╚══███╔╝██╔═══██╗         ██║██║     \n")
+                .append("                                  ██║     ██║   ██║██████╔╝█████╗  ██╔██╗ ██║  ███╔╝ ██║   ██║         ██║██║     \n")
+                .append("                                  ██║     ██║   ██║██╔══██╗██╔══╝  ██║╚██╗██║ ███╔╝  ██║   ██║         ██║██║     \n")
+                .append("                                  ███████╗╚██████╔╝██║  ██║███████╗██║ ╚████║███████╗╚██████╔╝         ██║███████╗\n")
+                .append("                                  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝          ╚═╝╚══════╝\n\n")
+                .append("                                       ███╗   ███╗ █████╗  ██████╗ ███╗   ██╗██╗███████╗██╗ ██████╗ ██████╗       \n")
+                .append("                                       ████╗ ████║██╔══██╗██╔════╝ ████╗  ██║██║██╔════╝██║██╔════╝██╔═══██╗      \n")
+                .append("                                       ██╔████╔██║███████║██║  ███╗██╔██╗ ██║██║█████╗  ██║██║     ██║   ██║      \n")
+                .append("                                       ██║╚██╔╝██║██╔══██║██║   ██║██║╚██╗██║██║██╔══╝  ██║██║     ██║   ██║      \n")
+                .append("                                       ██║ ╚═╝ ██║██║  ██║╚██████╔╝██║ ╚████║██║██║     ██║╚██████╗╚██████╔╝      \n")
+                .append("                                       ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═════╝       \n\n");
     }
 
     @Override
@@ -272,7 +271,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     @Override
     public void movementFail(Map<String, String> map) {
-        bufferThread.interrupt();
         sb.append("Movement is NOT Valid, try again: \n");
         printStringBuilder();
     }
@@ -323,10 +321,10 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
             try {
                 servants = readInteger();
                 if (servants >= 0 && servants <= max) break;
-                sb.append("You must insert a valid number between 1 and ").append(max).append(":");
+                sb.append("You must insert a valid number between 0 and ").append(max).append(":");
                 printStringBuilder();
             } catch (NumberFormatException e) {
-                sb.append("You must insert a valid number between 1 and ").append(max).append(":");
+                sb.append("You must insert a valid number between 0 and ").append(max).append(":");
                 printStringBuilder();
             }
         } while (true);
@@ -378,7 +376,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         HashMap<String, String> result = new HashMap<>();
         String choice;
 
-        for (JsonNode singleFaithTile: rootBoard.path("faithTiles"))
+        for (JsonNode singleFaithTile : rootBoard.path("faithTiles"))
             if (beauty(singleFaithTile.path("age")).equals(beauty(rootInstance.path("age")))) {
                 sb.append("\nChoose if you wanna take this excommunication (YES/NO):\n")
                         .append(beauty(singleFaithTile.path("effect"))).append("\n");
@@ -407,7 +405,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         HashMap<String, String> result = new HashMap<>();
         Integer choice;
 
-        for (JsonNode singlePurpleCard: rootBoard.path(CARDS).path("PURPLE"))
+        for (JsonNode singlePurpleCard : rootBoard.path(CARDS).path("PURPLE"))
             if (beauty(singlePurpleCard.path(CARDID)).equals(map.get(CARDID)))
                 sb.append("\n{(")
                         .append(beauty(singlePurpleCard.path("cost").path(0))).append(") OR (")
@@ -442,9 +440,9 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         switch (exchangesNumber) {
             case 2:
                 sb.append("You've to choose whether or not activate the following exchange effects for the card #")
-                        .append(map.get("cardID")).append(" \"").append("cardName").append("\":\n")
-                        .append("1st Exchange Effect: ").append(map.get("1")).append("\n")
-                        .append("2nd Exchange Effect: ").append(map.get("2")).append("\n")
+                        .append(map.get(CARDID)).append(" \"").append("cardName").append("\":\n")
+                        .append("1st Exchange Effect: ").append(map.get("1").replace("\n"," ")).append("\n")
+                        .append("2nd Exchange Effect: ").append(map.get("2").replace("\n"," ")).append("\n")
                         .append("Type 0 to avoid activation of the exchanges;\n")
                         .append("Type 1 to activate the first exchange effect;\n")
                         .append("Type 2 to activate the second exchange effect.");
@@ -454,10 +452,10 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
             case 1:
             default:
                 sb.append("You've to choose whether or not activate the following exchange effect for the card #")
-                    .append(map.get("cardID")).append(" \"").append("cardName").append("\":\n")
-                    .append("Exchange Effect: ").append(map.get("1")).append("\n")
-                    .append("Type 0 to avoid activation of the exchange;\n")
-                    .append("Type 1 to activate the exchange effect.");
+                        .append(map.get(CARDID)).append(" \"").append(map.get("cardName")).append("\":\n")
+                        .append("Exchange Effect: ").append(map.get("1").replace("\n"," ")).append("\n")
+                        .append("Type 0 to avoid activation of the exchange;\n")
+                        .append("Type 1 to activate the exchange effect.");
                 printStringBuilder();
                 str = "(0, 1)";
         }
@@ -467,7 +465,8 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
                 choice = readInteger();
 
                 if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
-                        || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
+                        || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2))))
+                    break;
                 sb.append("You must insert a valid number among these: ").append(str);
                 printStringBuilder();
             } catch (IllegalArgumentException e) {
@@ -476,7 +475,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
             }
         } while (true);
 
-        result.put(CARDID, map.get("cardID"));
+        result.put(CARDID, map.get(CARDID));
         result.put("choice", choice.toString());
 
         return result;
@@ -490,7 +489,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         Integer choice;
 
         Boolean isFirstLoop = true;
-        for (Map.Entry<String, String> entry: map.entrySet()) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             if (isFirstLoop) str.append(entry.getValue());
             else str.append(", ").append(entry.getValue());
             isFirstLoop = false;
@@ -500,7 +499,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         sb.append("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n")
                 .append("Here there's a list of possible cards you can pick: ").append(str);
         printStringBuilder();
-        
+
         do {
             try {
                 choice = readInteger();
@@ -525,6 +524,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     /**
      * Method to read a String from Input.
+     *
      * @return String
      * @throws IOException: Error during input reading.
      */
@@ -536,6 +536,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     /**
      * Method to read an Integer from Input.
+     *
      * @return Integer
      * @throws IOException: Error during input reading.
      */
@@ -546,6 +547,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     /**
      * Method to read a DiceColor from Input.
+     *
      * @return DiceColor (enum element)
      * @throws IOException: Error during input reading.
      */
@@ -565,8 +567,8 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     /**
      * Method to get my number of servants.
      */
-    private Integer getMyServants(){
-        for (JsonNode singlePlayer: rootInstance.path(PL))
+    private Integer getMyServants() {
+        for (JsonNode singlePlayer : rootInstance.path(PL))
             if (beauty(singlePlayer.path("playerID")).equals(myPlayerID))
                 return singlePlayer.path("res").path("SERVANTS").asInt();
         return 0;
@@ -575,71 +577,16 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     /**
      * This method take a JsonNode as input, converting it into a String,
      * removing Double Quotes and Braces and adding a space after a Comma.
+     *
      * @param node: JsonNode for a JSON Parser.
      * @return String
      */
     private static String beauty(JsonNode node) {
         return node.toString().replace("\"", "")
-                .replace("{","")
-                .replace("}","")
+                .replace("{", "")
+                .replace("}", "")
                 .replace(",", ", ")
                 .replace("currentPositionID:0", "[HASN'T_MOVED_YET]");
     }
 
 }
-
-
-/*
-        List<Card> cards;
-        Player p1 = new Player(UUID.randomUUID(), "MATRU");
-        Player p2 = new Player(UUID.randomUUID(), "ENDI");
-        Player p3 = new Player(UUID.randomUUID(), "PLUX");
-        Player p4 = new Player(UUID.randomUUID(), "VALE");
-        GameInstance gameInstance = new GameInstance(UUID.randomUUID());
-        gameInstance.addPlayer(p1);
-        gameInstance.addPlayer(p2);
-        gameInstance.addPlayer(p3);
-        gameInstance.addPlayer(p4);
-        GameBoard gameBoard = new GameBoard(gameInstance);
-        gameInstance.setGameBoard(gameBoard);
-        p1.setGameBoard(gameBoard);
-        p2.setGameBoard(gameBoard);
-        p3.setGameBoard(gameBoard);
-        p4.setGameBoard(gameBoard);
-
-        CardParser cardParser = new CardParser("src/config/Card.json");
-        cardParser.parse();
-        cards = cardParser.getCards();
-        p1.getCards().get(CardColor.YELLOW).add(cards.get(50));
-        p1.getCards().get(CardColor.YELLOW).add(cards.get(51));
-        p1.getCards().get(CardColor.YELLOW).add(cards.get(52));
-        p1.getCards().get(CardColor.GREEN).add(cards.get(1));
-        p1.getCards().get(CardColor.BLUE).add(cards.get(25));
-        p1.getCards().get(CardColor.PURPLE).add(cards.get(74));
-        (new Thread(gameInstance)).start();
-        gameInstance.run();
-        Map<String, String> gameState = new HashMap<>();
-        gameState.put("GameInstance", gameInstance.toString());
-        gameState.put("GameBoard", gameInstance.getGameBoard().toString());
-        GameViewCLI view = new GameViewCLI(p1.getPlayerID());
-//        System.out.print(gameBoard);
-        view.update(gameState);
-
-
-/*        Map<String, String> parchment = new HashMap<>();
-        parchment.put("parchments", "3");
-        //view.printParchmentQuery(parchment);
-
-        //view.printFaithQuery();
-        //view.printMovementQuery();
-
-        Map<String, String> cardID = new HashMap<>();
-        cardID.put("cardID", "72");
-        //view.printCostQuery(cardID);
-
-        Map<String, String> freeCards = new HashMap<>();
-        freeCards.put("cardID1", "72");
-        freeCards.put("cardID2", "8");
-        freeCards.put("cardID3", "42");
-        freeCards.put("cardID4", "22");
-        view.freeCardQuery(freeCards);*/

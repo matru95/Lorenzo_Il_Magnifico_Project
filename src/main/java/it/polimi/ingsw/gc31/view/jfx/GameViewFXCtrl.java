@@ -461,7 +461,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     @FXML
     void onMemberSelected(MouseEvent event) {
-        event.getPickResult();
+
     }
 
     @FXML
@@ -493,11 +493,38 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     private void spaceSetter(Circle spaceShape, JsonNode node) {
+
+        if (node.path("isOccupied").toString().equals("true")) {
+
+            if (beauty(node.path("familyMember").path("color")).equals("NEUTRAL")) {
+                spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMember").path("playerColor"))));
+                spaceShape.setStroke(Paint.valueOf("#eddcc6"));
+            } else {
+                spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMember").path("color"))));
+                spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path("playerColor"))));
+            }
+            spaceShape.setRadius(30);
+            spaceShape.setStrokeWidth(15);
+            spaceShape.setVisible(true);
+        } else
+            spaceShape.setVisible(false);
+    }
+
+    private void actionSpaceSetter(Circle spaceShape, JsonNode node) {
+
         if (node.path("isOccupied").toString().equals("true")) {
             spaceShape.setRadius(30);
             spaceShape.setStrokeWidth(15);
-            spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMember").path("color"))));
-            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path("playerColor"))));
+
+            if (beauty(node.path("familyMembers").path(0).path("color")).equals("NEUTRAL")) {
+                spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("playerColor"))));
+                spaceShape.setStroke(Paint.valueOf("#eddcc6"));
+            } else {
+                spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("color"))));
+                spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("playerColor"))));
+            }
+            spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("color"))));
+            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("playerColor"))));
             spaceShape.setVisible(true);
         } else
             spaceShape.setVisible(false);
@@ -535,7 +562,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             space22.setDisable(true);
         }
 
-        header.setText("GameInstanceID:[" + beauty(rootInstance.path("instanceID")) + "]   Age:[" + beauty(rootInstance.path("age")) + "]   Turn:[" + beauty(rootInstance.path("turn")) + "]");
+        header.setText("[" + beauty(rootMe.path("playerColor")) + "] " + beauty(rootMe.path("playerName")) + "   AGE:[" + beauty(rootInstance.path("age")) + "]   TURN:[" + beauty(rootInstance.path("turn")) + "]");
 
         playerOrderColorSetter(order1, orderedPlayers.get(1));
         playerOrderColorSetter(order2, orderedPlayers.get(2));
@@ -592,8 +619,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space14, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("1"));
         spaceSetter(space15, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("2"));
         spaceSetter(space16, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("3"));
-        spaceSetter(space17, rootBoard.path("boardSpaces").path("17"));
-        spaceSetter(space18, rootBoard.path("boardSpaces").path("18"));
+        actionSpaceSetter(space17, rootBoard.path("boardSpaces").path("17"));
+        actionSpaceSetter(space18, rootBoard.path("boardSpaces").path("18"));
         spaceSetter(space19, rootBoard.path("boardSpaces").path("19"));
         spaceSetter(space20, rootBoard.path("boardSpaces").path("20"));
         spaceSetter(space21, rootBoard.path("boardSpaces").path("21"));
@@ -654,10 +681,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
             try {
                 servants = readInteger();
                 if (servants >= 0 && servants <= max) break;
-                sb.append("You must insert a valid number between 1 and ").append(max).append(":");
+                sb.append("You must insert a valid number between 0 and ").append(max).append(":");
                 printStringBuilder();
             } catch (NumberFormatException e) {
-                sb.append("You must insert a valid number between 1 and ").append(max).append(":");
+                sb.append("You must insert a valid number between 0 and ").append(max).append(":");
                 printStringBuilder();
             }
         } while (true);
@@ -773,9 +800,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         switch (exchangesNumber) {
             case 2:
                 sb.append("You've to choose whether or not activate the following exchange effects for the card #")
-                        .append(map.get("cardID")).append(" \"").append("cardName").append("\":\n")
-                        .append("1st Exchange Effect: ").append(map.get("1")).append("\n")
-                        .append("2nd Exchange Effect: ").append(map.get("2")).append("\n")
+                        .append(map.get(CARDID)).append(" \"").append("cardName").append("\":\n")
+                        .append("1st Exchange Effect: ").append(map.get("1").replace("\n"," ")).append("\n")
+                        .append("2nd Exchange Effect: ").append(map.get("2").replace("\n"," ")).append("\n")
                         .append("Type 0 to avoid activation of the exchanges;\n")
                         .append("Type 1 to activate the first exchange effect;\n")
                         .append("Type 2 to activate the second exchange effect.");
@@ -785,8 +812,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
             case 1:
             default:
                 sb.append("You've to choose whether or not activate the following exchange effect for the card #")
-                        .append(map.get("cardID")).append(" \"").append("cardName").append("\":\n")
-                        .append("Exchange Effect: ").append(map.get("1")).append("\n")
+                        .append(map.get(CARDID)).append(" \"").append(map.get("cardName")).append("\":\n")
+                        .append("Exchange Effect: ").append(map.get("1").replace("\n"," ")).append("\n")
                         .append("Type 0 to avoid activation of the exchange;\n")
                         .append("Type 1 to activate the exchange effect.");
                 printStringBuilder();
@@ -798,7 +825,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 choice = readInteger();
 
                 if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
-                        || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2)))) break;
+                        || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2))))
+                    break;
                 sb.append("You must insert a valid number among these: ").append(str);
                 printStringBuilder();
             } catch (IllegalArgumentException e) {
@@ -807,7 +835,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             }
         } while (true);
 
-        result.put(CARDID, map.get("cardID"));
+        result.put(CARDID, map.get(CARDID));
         result.put("choice", choice.toString());
 
         return result;
@@ -897,7 +925,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
      */
     private Integer getMyServants(){
         for (JsonNode singlePlayer: rootInstance.path(PL))
-            if (beauty(singlePlayer.path("playerName")).equals(myPlayerID))
+            if (beauty(singlePlayer.path("playerID")).equals(myPlayerID))
                 return singlePlayer.path("res").path("SERVANTS").asInt();
         return 0;
     }

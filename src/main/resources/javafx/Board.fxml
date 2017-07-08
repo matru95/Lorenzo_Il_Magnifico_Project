@@ -124,17 +124,17 @@
                         <Font name="System Bold" size="40.0" />
                       </font>
                     </Text>
-                    <ImageView fx:id="faithTile1" fitHeight="400.0" fitWidth="90.0" layoutX="1275.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="faithTile1" fitHeight="400.0" fitWidth="90.0" layoutX="1274.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@faithTiles/excomm_back_1.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="faithTile2" fitHeight="168.0" fitWidth="100.0" layoutX="1376.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="faithTile2" fitHeight="168.0" fitWidth="100.0" layoutX="1372.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@faithTiles/excomm_back_2.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="faithTile3" fitHeight="400.0" fitWidth="90.0" layoutX="1477.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="faithTile3" fitHeight="400.0" fitWidth="90.0" layoutX="1474.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@faithTiles/excomm_back_3.png" />
                       </image>
