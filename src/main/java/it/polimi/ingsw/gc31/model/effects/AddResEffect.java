@@ -48,6 +48,15 @@ public class AddResEffect extends Effect{
                         resDebuff.put(resource.getResourceName(),resource);
                     }
                 }
+                if(malus.getMalusType()== MalusEnum.SERVANTSMALUS){
+                    for(Resource resource : gainFewerStack){
+                        if(resource.getResourceName()== ResourceName.SERVANTS){
+                            int currentResource= resource.getNumOf();
+                            int resultant=currentResource/2;
+                            resource.setNumOf(resultant);
+                        }
+                    }
+                }
             }
         }
         for(Resource resourceToAdd: resourcesToAdd) {

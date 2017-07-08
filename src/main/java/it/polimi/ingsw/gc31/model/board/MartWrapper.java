@@ -8,6 +8,8 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.effects.AddResEffect;
+import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
+import it.polimi.ingsw.gc31.model.effects.permanent.MalusEnum;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -92,6 +94,15 @@ public class MartWrapper extends SpaceWrapper {
 
     @Override
     public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
+        if(familyMember.getPlayer().getMaluses()!=null) {
+            List<Malus> maluses=familyMember.getPlayer().getMaluses();
+            for(Malus malus: maluses){
+                if (malus.getMalusType()== MalusEnum.MARKETMALUS){
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
