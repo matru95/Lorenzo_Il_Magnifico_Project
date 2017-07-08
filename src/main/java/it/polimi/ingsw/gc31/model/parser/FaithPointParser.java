@@ -30,6 +30,7 @@ public class FaithPointParser {
     }
     public Map<Integer, Integer> parse() {
         JsonNode faithPointsJSON= rootNode.path("faithPoints");
+
         for(JsonNode faithPoint: faithPointsJSON){
             JsonNode id=faithPoint.path("id");
             JsonNode victoryPoints=faithPoint.path("victoryPoints");

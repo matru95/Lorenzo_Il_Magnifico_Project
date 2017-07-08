@@ -24,7 +24,7 @@ public class GameAgeState implements State {
         int age = context.getAge();
         ageFaithTile = context.getGameBoard().getFaithTiles().get(age);
         int minimalFaithPoints = age+2;
-        map = (new FaithPointParser("/src/config/FaithPoints.json")).parse();
+        map = (new FaithPointParser("src/config/FaithPoints.json")).parse();
 
 
         for(Player p: context.getPlayers()) {

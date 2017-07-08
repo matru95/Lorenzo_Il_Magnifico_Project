@@ -242,6 +242,8 @@ public class GameServerImpl extends UnicastRemoteObject implements GameServer{
                 payload = request.getPayload();
                 playerID = request.getPlayerID();
                 gameID = request.getGameID();
+
+                processExcommunicationChoice(gameID, playerID, payload);
                 break;
         }
 
