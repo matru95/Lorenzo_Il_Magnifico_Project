@@ -44,7 +44,10 @@ public class TowerSpaceWrapper extends SpaceWrapper {
             familyMember.getPlayer().getRes().get(ResourceName.GOLD).subNumOf(3);
         }
 
-        execTowerBonus(familyMember.getPlayer());
+        if(!familyMember.getPlayer().hasBlockTowerBonus()) {
+
+            execTowerBonus(familyMember.getPlayer());
+        }
 
         card.execInstantEffect(familyMember.getPlayer());
 

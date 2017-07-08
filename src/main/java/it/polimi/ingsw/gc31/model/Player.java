@@ -528,4 +528,14 @@ public class Player implements Serializable {
 
         return false;
     }
+
+    public boolean hasBlockTowerBonus() {
+	    for(Bonus bonus: bonuses) {
+	        if(bonus.getClass() == BlockTowerBonus.class) {
+	            return true;
+            }
+        }
+
+        return false;
+    }
 }
