@@ -15,8 +15,10 @@ import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
 import it.polimi.ingsw.gc31.model.board.TowerSpaceWrapper;
 import it.polimi.ingsw.gc31.model.cards.Card;
 import it.polimi.ingsw.gc31.model.cards.Exchange;
+import it.polimi.ingsw.gc31.model.effects.AddResEffect;
 import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.effects.ExchangeEffect;
+import it.polimi.ingsw.gc31.model.effects.ParchmentEffect;
 import it.polimi.ingsw.gc31.model.parser.SettingsParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.server.GameServer;
@@ -263,26 +265,43 @@ public class ActionController extends Controller implements Runnable {
 
     public void exchangeChoiceAction(String playerID, Map<String, String> payload) {
         List<Card> cards = player.getAllCardsAsList();
+        int cardID = Integer.valueOf(payload.get("cardID"));
+        int choice = Integer.valueOf(payload.get("choice"));
 
-        for(Map.Entry<String, String> singleChoiceEntry: payload.entrySet()) {
-            int cardID = Integer.valueOf(singleChoiceEntry.getKey());
-            int choice = Integer.valueOf(singleChoiceEntry.getValue());
+        if(choice == 0) {
+            return;
+        } else {
 
             for(Card card: cards) {
+
                 if(card.getCardID() == cardID) {
-                    List<Effect> normalEffects = card.getNormalEffects();
 
-                    for(Effect effect: normalEffects) {
+                    for(Effect effect: card.getNormalEffects()) {
+
                         if(effect.getClass() == ExchangeEffect.class) {
+                            Exchange exchange = ((ExchangeEffect) effect).getExchanges().get(choice-1);
+                            List<Resource> resourcesToPay = exchange.getResourcesToGive();
+                            List<Resource> resourcesToReceive = exchange.getResourcesToReceive();
+                            int numOfParchments = exchange.getNumOfParchmentsToReceive();
 
-                            ServerMessage message = processExchange(((ExchangeEffect) effect).getExchanges(), choice);
+                            player.payResources(resourcesToPay);
 
-                            try {
-                                sendMessage(message, getClientFromPlayerID(playerID));
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
+                            if(resourcesToReceive.size() > 0) {
+                                AddResEffect addResEffect = new AddResEffect(resourcesToReceive);
+                                addResEffect.exec(player);
+                            }
+
+                            if(numOfParchments > 0) {
+                                ParchmentEffect parchmentEffect = new ParchmentEffect(numOfParchments);
+                                ServerMessage message = parchmentEffect.exec(player);
+
+                                try {
+                                    sendMessage(message, getClientFromPlayerID(playerID));
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (RemoteException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }

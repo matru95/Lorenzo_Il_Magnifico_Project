@@ -479,4 +479,12 @@ public class Player implements Serializable {
 
         return null;
     }
+
+	public void payResources(List<Resource> resourcesToPay) {
+
+		for(Resource resource: resourcesToPay) {
+			int amountToPay = resource.getNumOf();
+			res.get(resource.getResourceName()).subNumOf(amountToPay);
+		}
+	}
 }
