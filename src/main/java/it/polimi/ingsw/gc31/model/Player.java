@@ -74,7 +74,7 @@ public class Player implements Serializable {
 		this.familyMembers = new FamilyMember[4];
 
 		this.bonuses = new ArrayList<>();
-
+        this.maluses = new ArrayList<>();
 
 		initCards();
 		initResources();

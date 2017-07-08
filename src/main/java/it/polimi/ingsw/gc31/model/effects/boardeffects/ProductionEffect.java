@@ -38,7 +38,7 @@ public class ProductionEffect implements BoardEffect {
         harvestTile.exec(player);
 
         int diceValue=0;
-        List<Malus> maluses=player.getMaluses();
+        List<Malus> maluses = player.getMaluses();
         for(Malus malus:maluses){
             if(malus.getMalusType()== MalusEnum.PRODUCTIONMALUS){
                 diceValue = ((ProductionMalus) malus).getProductionFewer();
