@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc31.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
 import java.io.Serializable;
@@ -14,6 +17,29 @@ public class PlayerTile implements Serializable {
         this.harvestBonus = harvestBonus;
         this.productionBonus = productionBonus;
         this.id=id;
+    }
+
+    public ObjectNode toJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode playerTileNode = mapper.createObjectNode();
+        ArrayNode harvestBonusNode = mapper.createArrayNode();
+        ArrayNode productionBonusNode = mapper.createArrayNode();
+
+        for(Resource resource: harvestBonus) {
+
+            harvestBonusNode.add(resource.toJson());
+        }
+
+        for(Resource resource: productionBonus) {
+
+            productionBonusNode.add(resource.toJson());
+        }
+
+        playerTileNode.set("harvestBonus", harvestBonusNode);
+        playerTileNode.set("productionBonus", productionBonusNode);
+        playerTileNode.put("id", String.valueOf(id));
+
+        return playerTileNode;
     }
 
     public List<Resource> getHarvestBonus() {

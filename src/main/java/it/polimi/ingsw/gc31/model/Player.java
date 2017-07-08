@@ -92,6 +92,7 @@ public class Player implements Serializable {
         playerNode.set("res", createResourceJson(mapper));
         playerNode.set("familyMembers", createFamilyMembersJson(mapper));
         playerNode.set("cards", createCardsJson(mapper));
+        playerNode.set("playerTile", playerTile.toJson());
 
         return playerNode;
     }
