@@ -33,11 +33,17 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private static final String TOWERS = "towers";
     private static final String TOWERSPACES = "towerSpaces";
     private static final String CARDID = "cardID";
-
-    private StringBuilder sb;
+    private static final String DICES = "dices";
+    private static final String ISOCCUPIED = "isOccupied";
+    private static final String PLCOL = "playerColor";
     private static final String PL = "players";
     private static final String CARDS = "cards";
+    private static final String BLUE = "BLUE";
+    private static final String GREEN = "GREEN";
+    private static final String PURPLE = "PURPLE";
+    private static final String YELLOW = "YELLOW";
 
+    private StringBuilder sb;
     private String myPlayerID;
     private String myPlayerName;
     private final Client client;
@@ -86,163 +92,37 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private ImageView board;
 
     @FXML
-    private ImageView green0;
+    private ImageView green0, green1, green2, green3;
 
     @FXML
-    private ImageView green1;
+    private ImageView blue0, blue1, blue2, blue3;
 
     @FXML
-    private ImageView green2;
+    private ImageView yellow0, yellow1, yellow2, yellow3;
 
     @FXML
-    private ImageView green3;
+    private ImageView purple0, purple1, purple2, purple3;
 
     @FXML
-    private ImageView blue0;
+    private Text diceBlack, diceWhite, diceOrange;
 
     @FXML
-    private ImageView blue1;
+    private ImageView faithTile1, faithTile2, faithTile3;
 
     @FXML
-    private ImageView blue2;
+    private Circle space1, space2, space3, space4, space5, space6, space7, space8, space9, space10, space11;
 
     @FXML
-    private ImageView blue3;
-
-    @FXML
-    private ImageView yellow0;
-
-    @FXML
-    private ImageView yellow1;
-
-    @FXML
-    private ImageView yellow2;
-
-    @FXML
-    private ImageView yellow3;
-
-    @FXML
-    private ImageView purple0;
-
-    @FXML
-    private ImageView purple1;
-
-    @FXML
-    private ImageView purple2;
-
-    @FXML
-    private ImageView purple3;
-
-    @FXML
-    private Text diceBlack;
-
-    @FXML
-    private Text diceWhite;
-
-    @FXML
-    private Text diceOrange;
-
-    @FXML
-    private ImageView faithTile1;
-
-    @FXML
-    private ImageView faithTile2;
-
-    @FXML
-    private ImageView faithTile3;
-
-    @FXML
-    private Circle space1;
-
-    @FXML
-    private Circle space2;
-
-    @FXML
-    private Circle space3;
-
-    @FXML
-    private Circle space4;
-
-    @FXML
-    private Circle space5;
-
-    @FXML
-    private Circle space6;
-
-    @FXML
-    private Circle space7;
-
-    @FXML
-    private Circle space8;
-
-    @FXML
-    private Circle space9;
-
-    @FXML
-    private Circle space10;
-
-    @FXML
-    private Circle space11;
-
-    @FXML
-    private Circle space12;
-
-    @FXML
-    private Circle space13;
-
-    @FXML
-    private Circle space14;
-
-    @FXML
-    private Circle space15;
-
-    @FXML
-    private Circle space16;
-
-    @FXML
-    private Circle space17;
-
-    @FXML
-    private Circle space18;
-
-    @FXML
-    private Circle space19;
-
-    @FXML
-    private Circle space20;
-
-    @FXML
-    private Circle space21;
-
-    @FXML
-    private Circle space22;
+    private Circle space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22;
 
     @FXML
     private Rectangle space23;
 
     @FXML
-    private Circle order1;
+    private Circle order1, order2, order3, order4;
 
     @FXML
-    private Circle order2;
-
-    @FXML
-    private Circle order3;
-
-    @FXML
-    private Circle order4;
-
-    @FXML
-    private Circle myOrange;
-
-    @FXML
-    private Circle myBlack;
-
-    @FXML
-    private Circle myNeutral;
-
-    @FXML
-    private Circle myWhite;
+    private Circle myOrange, myBlack, myNeutral, myWhite;
 
     @FXML
     private TextArea textQuery;
@@ -251,208 +131,61 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private Text header;
 
     @FXML
-    private Tab blueTab;
+    private Tab blueTab, greenTab, redTab, yellowTab;
 
     @FXML
-    private ImageView redGreen11;
+    private ImageView blueTile, greenTile, redTile, yellowTile;
 
     @FXML
-    private ImageView redGreen21;
+    private TextArea blueText, greenText, redText, yellowText;
 
     @FXML
-    private ImageView redGreen31;
+    private ImageView blueGreen1, blueGreen2, blueGreen3, blueGreen4, blueGreen5, blueGreen6;
 
     @FXML
-    private ImageView redGreen41;
+    private ImageView blueYellow1, blueYellow2, blueYellow3, blueYellow4, blueYellow5, blueYellow6;
 
     @FXML
-    private ImageView redGreen51;
+    private ImageView blueBlue1, blueBlue2, blueBlue3, blueBlue4, blueBlue5, blueBlue6;
 
     @FXML
-    private ImageView redGreen61;
+    private ImageView bluePurple1, bluePurple2, bluePurple3, bluePurple4, bluePurple5, bluePurple6;
 
     @FXML
-    private ImageView redYellow11;
+    private ImageView greenGreen1, greenGreen2, greenGreen3, greenGreen4, greenGreen5, greenGreen6;
 
     @FXML
-    private ImageView redYellow21;
+    private ImageView greenYellow1, greenYellow2, greenYellow3, greenYellow4, greenYellow5, greenYellow6;
 
     @FXML
-    private ImageView redYellow31;
+    private ImageView greenBlue1, greenBlue2, greenBlue3, greenBlue4, greenBlue5, greenBlue6;
 
     @FXML
-    private ImageView redYellow41;
+    private ImageView greenPurple1, greenPurple2, greenPurple3, greenPurple4, greenPurple5, greenPurple6;
 
     @FXML
-    private ImageView redYellow51;
+    private ImageView redGreen1, redGreen2, redGreen3, redGreen4, redGreen5, redGreen6;
 
     @FXML
-    private ImageView redYellow61;
+    private ImageView redYellow1, redYellow2, redYellow3, redYellow4, redYellow5, redYellow6;
 
     @FXML
-    private ImageView redGreen111;
+    private ImageView redBlue1, redBlue2, redBlue3, redBlue4, redBlue5, redBlue6;
 
     @FXML
-    private ImageView redGreen211;
+    private ImageView redPurple1, redPurple2, redPurple3, redPurple4, redPurple5, redPurple6;
 
     @FXML
-    private ImageView redGreen311;
+    private ImageView yellowGreen1, yellowGreen2, yellowGreen3, yellowGreen4, yellowGreen5, yellowGreen6;
 
     @FXML
-    private ImageView redGreen411;
+    private ImageView yellowYellow1, yellowYellow2, yellowYellow3, yellowYellow4, yellowYellow5, yellowYellow6;
 
     @FXML
-    private ImageView redGreen511;
+    private ImageView yellowBlue1, yellowBlue2, yellowBlue3, yellowBlue4, yellowBlue5, yellowBlue6;
 
     @FXML
-    private ImageView redGreen611;
-
-    @FXML
-    private ImageView redYellow111;
-
-    @FXML
-    private ImageView redYellow211;
-
-    @FXML
-    private ImageView redYellow311;
-
-    @FXML
-    private ImageView redYellow411;
-
-    @FXML
-    private ImageView redYellow511;
-
-    @FXML
-    private ImageView redYellow611;
-
-    @FXML
-    private TextArea blueText;
-
-    @FXML
-    private Tab greenTab;
-
-    @FXML
-    private ImageView redGreen112;
-
-    @FXML
-    private ImageView redGreen212;
-
-    @FXML
-    private ImageView redGreen312;
-
-    @FXML
-    private ImageView redGreen412;
-
-    @FXML
-    private ImageView redGreen512;
-
-    @FXML
-    private ImageView redGreen612;
-
-    @FXML
-    private ImageView redYellow112;
-
-    @FXML
-    private ImageView redYellow212;
-
-    @FXML
-    private ImageView redYellow312;
-
-    @FXML
-    private ImageView redYellow412;
-
-    @FXML
-    private ImageView redYellow512;
-
-    @FXML
-    private ImageView redYellow612;
-
-    @FXML
-    private TextArea greenText;
-
-    @FXML
-    private Tab redTab;
-
-    @FXML
-    private ImageView redGreen1;
-
-    @FXML
-    private ImageView redGreen2;
-
-    @FXML
-    private ImageView redGreen3;
-
-    @FXML
-    private ImageView redGreen4;
-
-    @FXML
-    private ImageView redGreen5;
-
-    @FXML
-    private ImageView redGreen6;
-
-    @FXML
-    private ImageView redYellow1;
-
-    @FXML
-    private ImageView redYellow2;
-
-    @FXML
-    private ImageView redYellow3;
-
-    @FXML
-    private ImageView redYellow4;
-
-    @FXML
-    private ImageView redYellow5;
-
-    @FXML
-    private ImageView redYellow6;
-
-    @FXML
-    private TextArea redText;
-
-    @FXML
-    private Tab yellowTab;
-
-    @FXML
-    private ImageView redGreen1111;
-
-    @FXML
-    private ImageView redGreen2111;
-
-    @FXML
-    private ImageView redGreen3111;
-
-    @FXML
-    private ImageView redGreen4111;
-
-    @FXML
-    private ImageView redGreen5111;
-
-    @FXML
-    private ImageView redGreen6111;
-
-    @FXML
-    private ImageView redYellow1111;
-
-    @FXML
-    private ImageView redYellow2111;
-
-    @FXML
-    private ImageView redYellow3111;
-
-    @FXML
-    private ImageView redYellow4111;
-
-    @FXML
-    private ImageView redYellow5111;
-
-    @FXML
-    private ImageView redYellow6111;
-
-    @FXML
-    private TextArea yellowText;
+    private ImageView yellowPurple1, yellowPurple2, yellowPurple3, yellowPurple4, yellowPurple5, yellowPurple6;
 
     @FXML
     void onClick(MouseEvent event) {
@@ -487,21 +220,21 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     private void playerOrderColorSetter(Circle circle, String playerColor) {
-        if (!(playerColor == null))
+        if (playerColor != null)
             circle.setFill(Paint.valueOf(playerColor));
         circle.setVisible(true);
     }
 
     private void spaceSetter(Circle spaceShape, JsonNode node) {
 
-        if (node.path("isOccupied").toString().equals("true")) {
+        if (node.path(ISOCCUPIED).toString().equals("true")) {
 
             if (beauty(node.path("familyMember").path("color")).equals("NEUTRAL")) {
-                spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMember").path("playerColor"))));
+                spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMember").path(PLCOL))));
                 spaceShape.setStroke(Paint.valueOf("#eddcc6"));
             } else {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMember").path("color"))));
-                spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path("playerColor"))));
+                spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path(PLCOL))));
             }
             spaceShape.setRadius(30);
             spaceShape.setStrokeWidth(15);
@@ -512,30 +245,201 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     private void actionSpaceSetter(Circle spaceShape, JsonNode node) {
 
-        if (node.path("isOccupied").toString().equals("true")) {
+        if (node.path(ISOCCUPIED).toString().equals("true")) {
             spaceShape.setRadius(30);
             spaceShape.setStrokeWidth(15);
 
             if (beauty(node.path("familyMembers").path(0).path("color")).equals("NEUTRAL")) {
-                spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("playerColor"))));
+                spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path(PLCOL))));
                 spaceShape.setStroke(Paint.valueOf("#eddcc6"));
             } else {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("color"))));
-                spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("playerColor"))));
+                spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path(PLCOL))));
             }
             spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("color"))));
-            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("playerColor"))));
+            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path(PLCOL))));
             spaceShape.setVisible(true);
         } else
             spaceShape.setVisible(false);
     }
 
     private void spaceSetter(Rectangle spaceShape, JsonNode node) {
-        if (node.path("isOccupied").toString().equals("true")) {
-            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path("playerColor"))));
+        if (node.path(ISOCCUPIED).toString().equals("true")) {
+            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path(PLCOL))));
             spaceShape.setVisible(true);
         } else
             spaceShape.setVisible(false);
+    }
+
+    private void bluePlayerSetter() {
+
+        JsonNode bluePlayer = null;
+        for (JsonNode singlePlayer: rootInstance.path(PL))
+            if (beauty(singlePlayer.path(PLCOL)).equals("BLUE"))
+                bluePlayer = singlePlayer;
+
+        blueTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(bluePlayer.path("playerTile").path("id")) + ".png").toURI().toString()));
+        blueText.setText("[" + beauty(bluePlayer.path(PLCOL)) + "] " + beauty(bluePlayer.path("playerName")) + ": " + beauty(bluePlayer.path("res")));
+        JsonNode bluePlayerCards = bluePlayer.path(CARDS);
+
+        cardSetter(blueBlue1, bluePlayerCards.path(BLUE).path(0).path(CARDID).asInt());
+        cardSetter(blueBlue2, bluePlayerCards.path(BLUE).path(1).path(CARDID).asInt());
+        cardSetter(blueBlue3, bluePlayerCards.path(BLUE).path(2).path(CARDID).asInt());
+        cardSetter(blueBlue4, bluePlayerCards.path(BLUE).path(3).path(CARDID).asInt());
+        cardSetter(blueBlue5, bluePlayerCards.path(BLUE).path(4).path(CARDID).asInt());
+        cardSetter(blueBlue6, bluePlayerCards.path(BLUE).path(5).path(CARDID).asInt());
+
+        cardSetter(blueGreen1, bluePlayerCards.path(GREEN).path(0).path(CARDID).asInt());
+        cardSetter(blueGreen2, bluePlayerCards.path(GREEN).path(1).path(CARDID).asInt());
+        cardSetter(blueGreen3, bluePlayerCards.path(GREEN).path(2).path(CARDID).asInt());
+        cardSetter(blueGreen4, bluePlayerCards.path(GREEN).path(3).path(CARDID).asInt());
+        cardSetter(blueGreen5, bluePlayerCards.path(GREEN).path(4).path(CARDID).asInt());
+        cardSetter(blueGreen6, bluePlayerCards.path(GREEN).path(5).path(CARDID).asInt());
+
+        cardSetter(bluePurple1, bluePlayerCards.path(PURPLE).path(0).path(CARDID).asInt());
+        cardSetter(bluePurple2, bluePlayerCards.path(PURPLE).path(1).path(CARDID).asInt());
+        cardSetter(bluePurple3, bluePlayerCards.path(PURPLE).path(2).path(CARDID).asInt());
+        cardSetter(bluePurple4, bluePlayerCards.path(PURPLE).path(3).path(CARDID).asInt());
+        cardSetter(bluePurple5, bluePlayerCards.path(PURPLE).path(4).path(CARDID).asInt());
+        cardSetter(bluePurple6, bluePlayerCards.path(PURPLE).path(5).path(CARDID).asInt());
+
+        cardSetter(blueYellow1, bluePlayerCards.path(YELLOW).path(0).path(CARDID).asInt());
+        cardSetter(blueYellow2, bluePlayerCards.path(YELLOW).path(1).path(CARDID).asInt());
+        cardSetter(blueYellow3, bluePlayerCards.path(YELLOW).path(2).path(CARDID).asInt());
+        cardSetter(blueYellow4, bluePlayerCards.path(YELLOW).path(3).path(CARDID).asInt());
+        cardSetter(blueYellow5, bluePlayerCards.path(YELLOW).path(4).path(CARDID).asInt());
+        cardSetter(blueYellow6, bluePlayerCards.path(YELLOW).path(5).path(CARDID).asInt());
+
+        blueTab.setDisable(false);
+
+    }
+
+    private void greenPlayerSetter() {
+
+        JsonNode greenPlayer = null;
+        for (JsonNode singlePlayer: rootInstance.path(PL))
+            if (beauty(singlePlayer.path(PLCOL)).equals(GREEN))
+                greenPlayer = singlePlayer;
+
+        greenTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(greenPlayer.path("playerTile").path("id")) + ".png").toURI().toString()));
+        greenText.setText("[" + beauty(greenPlayer.path(PLCOL)) + "] " + beauty(greenPlayer.path("playerName")) + ": " + beauty(greenPlayer.path("res")));
+        JsonNode greenPlayerCards = greenPlayer.path(CARDS);
+
+        cardSetter(greenBlue1, greenPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
+        cardSetter(greenBlue2, greenPlayerCards.path(BLUE).path(1).path(CARDID).asInt());
+        cardSetter(greenBlue3, greenPlayerCards.path(BLUE).path(2).path(CARDID).asInt());
+        cardSetter(greenBlue4, greenPlayerCards.path(BLUE).path(3).path(CARDID).asInt());
+        cardSetter(greenBlue5, greenPlayerCards.path(BLUE).path(4).path(CARDID).asInt());
+        cardSetter(greenBlue6, greenPlayerCards.path(BLUE).path(5).path(CARDID).asInt());
+
+        cardSetter(greenGreen1, greenPlayerCards.path(GREEN).path(0).path(CARDID).asInt());
+        cardSetter(greenGreen2, greenPlayerCards.path(GREEN).path(1).path(CARDID).asInt());
+        cardSetter(greenGreen3, greenPlayerCards.path(GREEN).path(2).path(CARDID).asInt());
+        cardSetter(greenGreen4, greenPlayerCards.path(GREEN).path(3).path(CARDID).asInt());
+        cardSetter(greenGreen5, greenPlayerCards.path(GREEN).path(4).path(CARDID).asInt());
+        cardSetter(greenGreen6, greenPlayerCards.path(GREEN).path(5).path(CARDID).asInt());
+
+        cardSetter(greenPurple1, greenPlayerCards.path(PURPLE).path(0).path(CARDID).asInt());
+        cardSetter(greenPurple2, greenPlayerCards.path(PURPLE).path(1).path(CARDID).asInt());
+        cardSetter(greenPurple3, greenPlayerCards.path(PURPLE).path(2).path(CARDID).asInt());
+        cardSetter(greenPurple4, greenPlayerCards.path(PURPLE).path(3).path(CARDID).asInt());
+        cardSetter(greenPurple5, greenPlayerCards.path(PURPLE).path(4).path(CARDID).asInt());
+        cardSetter(greenPurple6, greenPlayerCards.path(PURPLE).path(5).path(CARDID).asInt());
+
+        cardSetter(greenYellow1, greenPlayerCards.path(YELLOW).path(0).path(CARDID).asInt());
+        cardSetter(greenYellow2, greenPlayerCards.path(YELLOW).path(1).path(CARDID).asInt());
+        cardSetter(greenYellow3, greenPlayerCards.path(YELLOW).path(2).path(CARDID).asInt());
+        cardSetter(greenYellow4, greenPlayerCards.path(YELLOW).path(3).path(CARDID).asInt());
+        cardSetter(greenYellow5, greenPlayerCards.path(YELLOW).path(4).path(CARDID).asInt());
+        cardSetter(greenYellow6, greenPlayerCards.path(YELLOW).path(5).path(CARDID).asInt());
+
+        greenTab.setDisable(false);
+
+    }
+
+    private void redPlayerSetter() {
+        JsonNode redPlayer = null;
+        for (JsonNode singlePlayer: rootInstance.path(PL))
+            if (beauty(singlePlayer.path(PLCOL)).equals("RED"))
+                redPlayer = singlePlayer;
+
+        redTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(redPlayer.path("playerTile").path("id")) + ".png").toURI().toString()));
+        redText.setText("[" + beauty(redPlayer.path(PLCOL)) + "] " + beauty(redPlayer.path("playerName")) + ": " + beauty(redPlayer.path("res")));
+        JsonNode redPlayerCards = redPlayer.path(CARDS);
+
+        cardSetter(redBlue1, redPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
+        cardSetter(redBlue2, redPlayerCards.path(BLUE).path(1).path(CARDID).asInt());
+        cardSetter(redBlue3, redPlayerCards.path(BLUE).path(2).path(CARDID).asInt());
+        cardSetter(redBlue4, redPlayerCards.path(BLUE).path(3).path(CARDID).asInt());
+        cardSetter(redBlue5, redPlayerCards.path(BLUE).path(4).path(CARDID).asInt());
+        cardSetter(redBlue6, redPlayerCards.path(BLUE).path(5).path(CARDID).asInt());
+
+        cardSetter(redGreen1, redPlayerCards.path(GREEN).path(0).path(CARDID).asInt());
+        cardSetter(redGreen2, redPlayerCards.path(GREEN).path(1).path(CARDID).asInt());
+        cardSetter(redGreen3, redPlayerCards.path(GREEN).path(2).path(CARDID).asInt());
+        cardSetter(redGreen4, redPlayerCards.path(GREEN).path(3).path(CARDID).asInt());
+        cardSetter(redGreen5, redPlayerCards.path(GREEN).path(4).path(CARDID).asInt());
+        cardSetter(redGreen6, redPlayerCards.path(GREEN).path(5).path(CARDID).asInt());
+
+        cardSetter(redPurple1, redPlayerCards.path(PURPLE).path(0).path(CARDID).asInt());
+        cardSetter(redPurple2, redPlayerCards.path(PURPLE).path(1).path(CARDID).asInt());
+        cardSetter(redPurple3, redPlayerCards.path(PURPLE).path(2).path(CARDID).asInt());
+        cardSetter(redPurple4, redPlayerCards.path(PURPLE).path(3).path(CARDID).asInt());
+        cardSetter(redPurple5, redPlayerCards.path(PURPLE).path(4).path(CARDID).asInt());
+        cardSetter(redPurple6, redPlayerCards.path(PURPLE).path(5).path(CARDID).asInt());
+
+        cardSetter(redYellow1, redPlayerCards.path(YELLOW).path(0).path(CARDID).asInt());
+        cardSetter(redYellow2, redPlayerCards.path(YELLOW).path(1).path(CARDID).asInt());
+        cardSetter(redYellow3, redPlayerCards.path(YELLOW).path(2).path(CARDID).asInt());
+        cardSetter(redYellow4, redPlayerCards.path(YELLOW).path(3).path(CARDID).asInt());
+        cardSetter(redYellow5, redPlayerCards.path(YELLOW).path(4).path(CARDID).asInt());
+        cardSetter(redYellow6, redPlayerCards.path(YELLOW).path(5).path(CARDID).asInt());
+
+        redTab.setDisable(false);
+
+    }
+
+    private void yellowPlayerSetter() {
+
+        JsonNode yellowPlayer = null;
+        for (JsonNode singlePlayer: rootInstance.path(PL))
+            if (beauty(singlePlayer.path(PLCOL)).equals("YELLOW"))
+                yellowPlayer = singlePlayer;
+
+        yellowTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(yellowPlayer.path("playerTile").path("id")) + ".png").toURI().toString()));
+        yellowText.setText("[" + beauty(yellowPlayer.path(PLCOL)) + "] " + beauty(yellowPlayer.path("playerName")) + ": " + beauty(yellowPlayer.path("res")));
+        JsonNode yellowPlayerCards = yellowPlayer.path(CARDS);
+
+        cardSetter(yellowBlue1, yellowPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
+        cardSetter(yellowBlue2, yellowPlayerCards.path(BLUE).path(1).path(CARDID).asInt());
+        cardSetter(yellowBlue3, yellowPlayerCards.path(BLUE).path(2).path(CARDID).asInt());
+        cardSetter(yellowBlue4, yellowPlayerCards.path(BLUE).path(3).path(CARDID).asInt());
+        cardSetter(yellowBlue5, yellowPlayerCards.path(BLUE).path(4).path(CARDID).asInt());
+        cardSetter(yellowBlue6, yellowPlayerCards.path(BLUE).path(5).path(CARDID).asInt());
+
+        cardSetter(yellowGreen1, yellowPlayerCards.path(GREEN).path(0).path(CARDID).asInt());
+        cardSetter(yellowGreen2, yellowPlayerCards.path(GREEN).path(1).path(CARDID).asInt());
+        cardSetter(yellowGreen3, yellowPlayerCards.path(GREEN).path(2).path(CARDID).asInt());
+        cardSetter(yellowGreen4, yellowPlayerCards.path(GREEN).path(3).path(CARDID).asInt());
+        cardSetter(yellowGreen5, yellowPlayerCards.path(GREEN).path(4).path(CARDID).asInt());
+        cardSetter(yellowGreen6, yellowPlayerCards.path(GREEN).path(5).path(CARDID).asInt());
+
+        cardSetter(yellowPurple1, yellowPlayerCards.path(PURPLE).path(0).path(CARDID).asInt());
+        cardSetter(yellowPurple2, yellowPlayerCards.path(PURPLE).path(1).path(CARDID).asInt());
+        cardSetter(yellowPurple3, yellowPlayerCards.path(PURPLE).path(2).path(CARDID).asInt());
+        cardSetter(yellowPurple4, yellowPlayerCards.path(PURPLE).path(3).path(CARDID).asInt());
+        cardSetter(yellowPurple5, yellowPlayerCards.path(PURPLE).path(4).path(CARDID).asInt());
+        cardSetter(yellowPurple6, yellowPlayerCards.path(PURPLE).path(5).path(CARDID).asInt());
+
+        cardSetter(yellowYellow1, yellowPlayerCards.path(YELLOW).path(0).path(CARDID).asInt());
+        cardSetter(yellowYellow2, yellowPlayerCards.path(YELLOW).path(1).path(CARDID).asInt());
+        cardSetter(yellowYellow3, yellowPlayerCards.path(YELLOW).path(2).path(CARDID).asInt());
+        cardSetter(yellowYellow4, yellowPlayerCards.path(YELLOW).path(3).path(CARDID).asInt());
+        cardSetter(yellowYellow5, yellowPlayerCards.path(YELLOW).path(4).path(CARDID).asInt());
+        cardSetter(yellowYellow6, yellowPlayerCards.path(YELLOW).path(5).path(CARDID).asInt());
+
+        yellowTab.setDisable(false);
+
     }
 
     @Override
@@ -545,11 +449,22 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         Map<Integer, String> orderedPlayers = new HashMap<>();
         Integer numOfPlayers = 0;
-        for (JsonNode singlePlayer: rootInstance.path("players")) {
+
+        for (JsonNode singlePlayer: rootInstance.path(PL)) {
             if (beauty(singlePlayer.path("playerID")).equals(myPlayerID))
                 this.rootMe = singlePlayer;
-            orderedPlayers.put(singlePlayer.path("playerOrder").asInt(), beauty(singlePlayer.path("playerColor")));
+            orderedPlayers.put(singlePlayer.path("playerOrder").asInt(), beauty(singlePlayer.path(PLCOL)));
             numOfPlayers++;
+            System.out.println(singlePlayer);
+
+            if (beauty(singlePlayer.path(PLCOL)).equals(BLUE))
+                bluePlayerSetter();
+            if (beauty(singlePlayer.path(PLCOL)).equals(GREEN))
+                greenPlayerSetter();
+            if (beauty(singlePlayer.path(PLCOL)).equals("RED"))
+                redPlayerSetter();
+            if (beauty(singlePlayer.path(PLCOL)).equals(YELLOW))
+                yellowPlayerSetter();
         }
 
         if (numOfPlayers.equals(2)) {
@@ -562,17 +477,17 @@ public class GameViewFXCtrl implements GameViewCtrl {
             space22.setDisable(true);
         }
 
-        header.setText("[" + beauty(rootMe.path("playerColor")) + "] " + beauty(rootMe.path("playerName")) + "   AGE:[" + beauty(rootInstance.path("age")) + "]   TURN:[" + beauty(rootInstance.path("turn")) + "]");
+        header.setText("[" + beauty(rootMe.path(PLCOL)) + "] " + beauty(rootMe.path("playerName")) + "   AGE:[" + beauty(rootInstance.path("age")) + "]   TURN:[" + beauty(rootInstance.path("turn")) + "]");
 
         playerOrderColorSetter(order1, orderedPlayers.get(1));
         playerOrderColorSetter(order2, orderedPlayers.get(2));
         playerOrderColorSetter(order3, orderedPlayers.get(3));
         playerOrderColorSetter(order4, orderedPlayers.get(4));
 
-        myBlack.setStroke(Paint.valueOf(beauty(rootMe.path("playerColor"))));
-        myWhite.setStroke(Paint.valueOf(beauty(rootMe.path("playerColor"))));
-        myOrange.setStroke(Paint.valueOf(beauty(rootMe.path("playerColor"))));
-        myNeutral.setFill(Paint.valueOf(beauty(rootMe.path("playerColor"))));
+        myBlack.setStroke(Paint.valueOf(beauty(rootMe.path(PLCOL))));
+        myWhite.setStroke(Paint.valueOf(beauty(rootMe.path(PLCOL))));
+        myOrange.setStroke(Paint.valueOf(beauty(rootMe.path(PLCOL))));
+        myNeutral.setFill(Paint.valueOf(beauty(rootMe.path(PLCOL))));
         myBlack.setVisible(true);
         myWhite.setVisible(true);
         myOrange.setVisible(true);
@@ -595,9 +510,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         cardSetter(purple2, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("2").path("card").path(CARDID).asInt());
         cardSetter(purple3, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("3").path("card").path(CARDID).asInt());
 
-        diceSetter(diceBlack, rootBoard.path("dices").path("BLACK").asInt());
-        diceSetter(diceWhite, rootBoard.path("dices").path("WHITE").asInt());
-        diceSetter(diceOrange, rootBoard.path("dices").path("ORANGE").asInt());
+        diceSetter(diceBlack, rootBoard.path(DICES).path("BLACK").asInt());
+        diceSetter(diceWhite, rootBoard.path(DICES).path("WHITE").asInt());
+        diceSetter(diceOrange, rootBoard.path(DICES).path("ORANGE").asInt());
 
         faithTileSetter(faithTile1, rootBoard.path("faithTiles").path("1").path("id").asInt());
         faithTileSetter(faithTile2, rootBoard.path("faithTiles").path("2").path("id").asInt());
