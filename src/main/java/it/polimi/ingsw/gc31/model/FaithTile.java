@@ -13,7 +13,6 @@ public class FaithTile {
 	private Malus malus;
 	private int age;
 	private int id;
-	private FaithEffect faithEffect;
 	private List<Resource> gainFewerStack;
 	private int harvestFewer=0;
 	private int productionFewer=0;
@@ -29,18 +28,24 @@ public class FaithTile {
 	private CardColor loseForEveryCostCardColor;
 	private List <Resource> loseForEveryCost;
 	private boolean loseForEveryResource;
+	/**
+	 * Il costruttore delle FaithTile
+	 * @param id The id of the FaithTile
+	 * @param age	The age of the FaithTile
+	 * */
 	public FaithTile(int id, int age) {
 		this.id=id;
 		this.age = age;
-		this.faithEffect = new FaithEffect();
 	}
 
+	/**
+	 * Adds malus to the player
+	 * @param player Player hit by malus
+	 */
 	public void execute(Player player) {
 		player.addMalus(this.malus);
 	}
-	public void createFaithEffect(){
-		//TODO inserire i relativi valori nella class
-	}
+
 	@Override
 	public String toString() {
 		ObjectMapper mapper = new ObjectMapper();
@@ -56,9 +61,6 @@ public class FaithTile {
 		return age;
 	}
 	public int getId() { return this.id;}
-	public FaithEffect getFaithEffect() {
-		return faithEffect;
-	}
 	public void setAge(int age) {
 		this.age = age;
 	}
@@ -115,6 +117,9 @@ public class FaithTile {
 		this.malus = malus;
 	}
 
+	/**
+	 * Creating the Json for the Cli of the FaithTile.
+	 * */
 	public ObjectNode toJson() {
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -132,84 +137,51 @@ public class FaithTile {
 
 			for (Resource resource :this.gainFewerStack){
 				gainFewer.put(resource.getResourceName().toString().toLowerCase(),resource.getNumOf());
-				description+="You will get("+resource.getNumOf()+") less "+resource.getResourceName()+" for each faithEffect that comes from an action space or from one development card. ";
+				description+="You will get( "+resource.getNumOf()+" ) less "+resource.getResourceName()+" for each faithEffect that comes from an action space or from one development card";
 			}
-			effect.set("gainFewer",gainFewer);
-			effect.put("description",description);
-			faithObjectNode.set("faithEffect",effect);
+			faithObjectNode.put("description",description);
 		}
 
 		if(this.harvestFewer!=0){
-
-
-			effect.put("harvestFewer",this.harvestFewer);
-			faithObjectNode.set("faithEffect",effect);
-
 			description+="Harvest's dice value now will be decrease by "+this.harvestFewer+" points";
-            faithObjectNode.put("description"," " + description);
+			faithObjectNode.put("description"," " + description);
 		}
 
 		if(this.productionFewer!=0){
-
-			effect.put("productionFewer",this.productionFewer);
-			faithObjectNode.set("faithEffect",effect);
-
-			description += "Production's dice value now will be decrease by "+ this.productionFewer+ " points.";
+			description += "Production's dice value now will be decrease by "+ this.productionFewer+ " points";
             faithObjectNode.put("description"," " + description);
 		}
 
 		if(this.diceFewer!=0){
-
-			effect.put("diceFewer",this.diceFewer);
-			faithObjectNode.set("faithEffect",effect);
-
-			description+="All your colored Family Members receive a -" + this.diceFewer + " reduction of their value each time you place them.";
+			description+="All your colored Family Members receive a -" + this.diceFewer + " reduction of their value each time you place them";
             faithObjectNode.put("description"," " + description);
 
 		}
 
 		if(this.fewerDiceCardColor !=null){
-			ObjectNode fewerDiceCard= mapper.createObjectNode();
-			fewerDiceCard.put("cardColor",this.fewerDiceCardColor.toString());
-			fewerDiceCard.put("diceValue",this.fewerDiceCardValue);
-
 			description+="Each time you take a"+ this.fewerDiceCardColor.toString() +" Card your action receives a -"+this.fewerDiceCardValue+" reduction of its value.";
             faithObjectNode.put("description"," " + description);
-
-			effect.set("fewerDiceCard",fewerDiceCard);
-			faithObjectNode.set("faithEffect",effect);
 		}
 
 		if(this.noMarket){
-			effect.put("noMarket",true);
 			description+="You can’t place your Family Members in the Market action spaces.";
             faithObjectNode.put("description"," " + description);
-			faithObjectNode.set("faithEffect",effect);
 		}
 
 		if(this.doubleServants){
 			description+="You have to spend 2 servants to increase your action value by 1";
 			faithObjectNode.put("description"," " + description);
-
-			effect.put("doubleServants",true);
-			faithObjectNode.set("faithEffect",effect);
-
 		}
 
 		if(this.skipFirstRound){
-			effect.put("noSkipFirstRound",true);
-			description+="Each round, you skip your first turn. You start taking actions from the second turn. When all players have taken all their turns, you may still place your last Family Member.";
+			description+="Each round, you skip your first turn. You start taking actions from the second turn. When all players have taken all their turns, you may still place your last Family Member";
 
             faithObjectNode.put("description"," " + description);
-			faithObjectNode.set("faithEffect",effect);
 		}
 
 		if(this.noEndGamePointsCardColor!=null){
-			effect.put("cardColor",this.noEndGamePointsCardColor.toString());
-
-			description+="No more end game effects for"+this.noEndGamePointsCardColor.toString()+" card";
+			description+="No more end game effects for "+this.noEndGamePointsCardColor.toString()+" card";
             faithObjectNode.put("description"," " + description);
-			faithObjectNode.set("faithEffect",effect);
 		}
 
 		if(this.loseForEveryResource){
