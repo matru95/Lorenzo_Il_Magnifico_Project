@@ -29,82 +29,82 @@
                         <Cursor fx:constant="DEFAULT" />
                       </cursor>
                     </ImageView>
-                    <ImageView fx:id="green0" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="787.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="green0" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="787.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="green1" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="539.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="green1" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="539.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="green2" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="289.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="green2" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="green3" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="41.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="green3" fitHeight="219.0" fitWidth="143.0" layoutX="14.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="blue0" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="787.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="blue0" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="787.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="blue1" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="539.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="blue1" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="539.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="blue2" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="289.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="blue2" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="blue3" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="41.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="blue3" fitHeight="219.0" fitWidth="143.0" layoutX="283.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="yellow0" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="787.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="yellow0" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="787.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="yellow1" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="539.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="yellow1" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="539.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="yellow2" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="289.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="yellow2" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="yellow3" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="41.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="yellow3" fitHeight="219.0" fitWidth="143.0" layoutX="551.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="purple0" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="787.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="purple0" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="787.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="purple1" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="539.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="purple1" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="539.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="purple2" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="289.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="purple2" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
                     </ImageView>
-                    <ImageView fx:id="purple3" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="41.0" onMouseClicked="#onClick" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="purple3" fitHeight="219.0" fitWidth="143.0" layoutX="819.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                         <Image url="@cards/cardID0.png" />
                       </image>
@@ -139,37 +139,37 @@
                         <Image url="@faithTiles/excomm_back_3.png" />
                       </image>
                     </ImageView>
-                    <Circle fx:id="space1" fill="#ffffff00" layoutX="214.0" layoutY="893.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space2" fill="#ffffff00" layoutX="214.0" layoutY="645.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space3" fill="#ffffff00" layoutX="214.0" layoutY="395.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space4" fill="#ffffff00" layoutX="214.0" layoutY="147.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space5" fill="#ffffff00" layoutX="483.0" layoutY="893.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space6" fill="#ffffff00" layoutX="483.0" layoutY="645.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space7" fill="#ffffff00" layoutX="483.0" layoutY="395.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space8" fill="#ffffff00" layoutX="483.0" layoutY="147.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space9" fill="#ffffff00" layoutX="752.0" layoutY="893.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space10" fill="#ffffff00" layoutX="752.0" layoutY="645.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space11" fill="#ffffff00" layoutX="752.0" layoutY="395.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space12" fill="#ffffff00" layoutX="752.0" layoutY="147.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space13" fill="#ffffff00" layoutX="1020.0" layoutY="893.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space14" fill="#ffffff00" layoutX="1020.0" layoutY="645.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space15" fill="#ffffff00" layoutX="1020.0" layoutY="395.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space16" fill="#ffffff00" layoutX="1020.0" layoutY="147.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space17" fill="#ffffff00" layoutX="1153.0" layoutY="772.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space18" fill="#ffffff00" layoutX="1153.0" layoutY="930.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space19" fill="#ffffff00" layoutX="1780.0" layoutY="744.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space20" fill="#ffffff00" layoutX="1900.0" layoutY="744.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space21" fill="#ffffff00" layoutX="2012.0" layoutY="776.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Circle fx:id="space22" fill="#ffffff00" layoutX="2099.0" layoutY="864.0" onMouseClicked="#onSpaceSelected" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Rectangle fx:id="space23" arcHeight="30.0" arcWidth="30.0" fill="#ffffff00" height="120.0" layoutX="1643.0" layoutY="243.0" onMouseClicked="#onSpaceSelected" stroke="#00ff007e" strokeType="INSIDE" strokeWidth="5.0" width="326.0" />
+                    <Circle fx:id="space1" fill="#ffffff00" layoutX="214.0" layoutY="893.0" onMouseClicked="#onClickSpace1" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space2" fill="#ffffff00" layoutX="214.0" layoutY="645.0" onMouseClicked="#onClickSpace2" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space3" fill="#ffffff00" layoutX="214.0" layoutY="395.0" onMouseClicked="#onClickSpace3" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space4" fill="#ffffff00" layoutX="214.0" layoutY="147.0" onMouseClicked="#onClickSpace4" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space5" fill="#ffffff00" layoutX="483.0" layoutY="893.0" onMouseClicked="#onClickSpace5" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space6" fill="#ffffff00" layoutX="483.0" layoutY="645.0" onMouseClicked="#onClickSpace6" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space7" fill="#ffffff00" layoutX="483.0" layoutY="395.0" onMouseClicked="#onClickSpace7" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space8" fill="#ffffff00" layoutX="483.0" layoutY="147.0" onMouseClicked="#onClickSpace8" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space9" fill="#ffffff00" layoutX="752.0" layoutY="893.0" onMouseClicked="#onClickSpace9" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space10" fill="#ffffff00" layoutX="752.0" layoutY="645.0" onMouseClicked="#onClickSpace10" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space11" fill="#ffffff00" layoutX="752.0" layoutY="395.0" onMouseClicked="#onClickSpace11" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space12" fill="#ffffff00" layoutX="752.0" layoutY="147.0" onMouseClicked="#onClickSpace12" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space13" fill="#ffffff00" layoutX="1020.0" layoutY="893.0" onMouseClicked="#onClickSpace13" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space14" fill="#ffffff00" layoutX="1020.0" layoutY="645.0" onMouseClicked="#onClickSpace14" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space15" fill="#ffffff00" layoutX="1020.0" layoutY="395.0" onMouseClicked="#onClickSpace15" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space16" fill="#ffffff00" layoutX="1020.0" layoutY="147.0" onMouseClicked="#onClickSpace16" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space17" fill="#ffffff00" layoutX="1153.0" layoutY="772.0" onMouseClicked="#onClickSpace17" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space18" fill="#ffffff00" layoutX="1153.0" layoutY="930.0" onMouseClicked="#onClickSpace18" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space19" fill="#ffffff00" layoutX="1780.0" layoutY="744.0" onMouseClicked="#onClickSpace19" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space20" fill="#ffffff00" layoutX="1900.0" layoutY="744.0" onMouseClicked="#onClickSpace20" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space21" fill="#ffffff00" layoutX="2012.0" layoutY="776.0" onMouseClicked="#onClickSpace21" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Circle fx:id="space22" fill="#ffffff00" layoutX="2099.0" layoutY="864.0" onMouseClicked="#onClickSpace22" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
+                    <Rectangle fx:id="space23" arcHeight="30.0" arcWidth="30.0" fill="#ffffff00" height="120.0" layoutX="1643.0" layoutY="243.0" onMouseClicked="#onClickSpace23" stroke="#00ff007e" strokeType="INSIDE" strokeWidth="5.0" width="326.0" />
                     <Circle fx:id="order1" fill="#ffffff00" layoutX="2078.0" layoutY="226.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                     <Circle fx:id="order2" fill="#ffffff00" layoutX="2078.0" layoutY="296.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                     <Circle fx:id="order3" fill="#ffffff00" layoutX="2078.0" layoutY="364.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                     <Circle fx:id="order4" fill="#ffffff00" layoutX="2078.0" layoutY="431.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                        <Circle fx:id="myOrange" fill="#ff9e3d" layoutX="2024.0" layoutY="136.0" onMouseClicked="#onMemberSelected" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" />
-                        <Circle fx:id="myBlack" layoutX="2024.0" layoutY="54.0" onMouseClicked="#onMemberSelected" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" />
-                        <Circle fx:id="myNeutral" fill="#7f7f7f" layoutX="2108.0" layoutY="136.0" onMouseClicked="#onMemberSelected" radius="30.0" stroke="#eddcc6" strokeType="INSIDE" strokeWidth="15.0" />
-                        <Circle fx:id="myWhite" fill="WHITE" layoutX="2108.0" layoutY="54.0" onMouseClicked="#onMemberSelected" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" />
+                        <Circle fx:id="myOrange" fill="#ff9e3d" layoutX="2024.0" layoutY="136.0" onMouseClicked="#onClickMemberOrange" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" />
+                        <Circle fx:id="myBlack" layoutX="2024.0" layoutY="54.0" onMouseClicked="#onClickMemberBlack" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" />
+                        <Circle fx:id="myNeutral" fill="#7f7f7f" layoutX="2108.0" layoutY="136.0" onMouseClicked="#onClickMemberNeutral" radius="30.0" stroke="#eddcc6" strokeType="INSIDE" strokeWidth="15.0" />
+                        <Circle fx:id="myWhite" fill="WHITE" layoutX="2108.0" layoutY="54.0" onMouseClicked="#onClickMemberWhite" radius="30.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="15.0" />
                         <TextArea fx:id="textQuery" editable="false" layoutX="1132.0" layoutY="66.0" prefHeight="100.0" prefWidth="800.0" promptText="Waiting player movements ..." />
                         <Text fx:id="header" layoutX="1132.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game is about to start..." textAlignment="CENTER" wrappingWidth="800.0">
                            <font>
