@@ -246,6 +246,7 @@ public class GameServer extends UnicastRemoteObject implements Server {
     }
 
     private void processExcommunicationChoice(String gameID, String playerID, Map<String, String> payload) {
+        System.out.println("Processing excommunication choice");
         UUID gameInstanceID = UUID.fromString(gameID);
 
         GameController gameController = games.get(gameInstanceID);

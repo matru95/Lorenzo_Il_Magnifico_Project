@@ -21,6 +21,7 @@ import it.polimi.ingsw.gc31.model.states.GameAgeState;
 import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.client.Client;
 
+import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -315,6 +316,8 @@ public class ActionController extends Controller implements Runnable {
     }
 
     public void excommunicationChoiceAction(String playerID, Map<String, String> payload) {
+        System.out.println("Excommunication choice action inside actionController\n");
+
         String choice = payload.get("applyExcommunication");
         Player player = getModel().getPlayerFromId(UUID.fromString(playerID));
         GameAgeState gameAgeState = (GameAgeState)  getModel().getState();
