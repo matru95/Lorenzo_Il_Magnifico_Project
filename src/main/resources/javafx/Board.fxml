@@ -13,11 +13,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc31.view.jfx.GameViewFXCtrl">
-  <content>
-      <TabPane tabClosingPolicy="UNAVAILABLE">
-         <tabs>
-            <Tab closable="false" text="BOARD">
+
+<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.gc31.view.jfx.GameViewFXCtrl">
+   <tabs>
+      <Tab closable="false" text="BOARD">
+         <content>
+            <ScrollPane>
                <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0">
                   <children>
@@ -188,8 +189,12 @@
                   </children>
                 </AnchorPane>
                </content>
-            </Tab>
-            <Tab fx:id="blueTab" closable="false" disable="true" text="BLUE PLAYER">
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab fx:id="blueTab" closable="false" disable="true" text="BLUE PLAYER">
+         <content>
+            <ScrollPane>
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: BLUE;">
                      <children>
@@ -331,8 +336,12 @@
                      </children>
                   </AnchorPane>
                </content>
-            </Tab>
-            <Tab fx:id="greenTab" closable="false" disable="true" text="GREEN PLAYER">
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab fx:id="greenTab" closable="false" disable="true" text="GREEN PLAYER">
+         <content>
+            <ScrollPane>
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: GREEN;">
                      <children>
@@ -474,9 +483,13 @@
                      </children>
                   </AnchorPane>
                </content>
-            </Tab>
-            <Tab fx:id="redTab" closable="false" disable="true" text="RED PLAYER">
-              <content>
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab fx:id="redTab" closable="false" disable="true" text="RED PLAYER">
+        <content>
+            <ScrollPane>
+               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: RED;">
                      <children>
                         <ImageView>
@@ -616,9 +629,13 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-              </content>
-            </Tab>
-            <Tab fx:id="yellowTab" closable="false" disable="true" text="YELLOW PLAYER">
+               </content>
+            </ScrollPane>
+        </content>
+      </Tab>
+      <Tab fx:id="yellowTab" closable="false" disable="true" text="YELLOW PLAYER">
+         <content>
+            <ScrollPane>
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: YELLOW;">
                      <children>
@@ -760,8 +777,8 @@
                      </children>
                   </AnchorPane>
                </content>
-            </Tab>
-         </tabs>
-      </TabPane>
-  </content>
-</ScrollPane>
+            </ScrollPane>
+         </content>
+      </Tab>
+   </tabs>
+</TabPane>

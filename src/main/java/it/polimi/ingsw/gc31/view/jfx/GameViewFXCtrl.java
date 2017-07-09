@@ -47,7 +47,6 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private StringBuilder sb;
     private String myPlayerID;
     private String myPlayerName;
-    private final Client client;
     private final ObjectMapper mapper;
     private JsonNode rootInstance;
     private JsonNode rootBoard;
@@ -81,13 +80,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
             if (choice.equalsIgnoreCase("SOCKET")) {
                 this.myPlayerName = "SOCKETFX";
-                this.client = new SocketClient("127.0.0.1", myPlayerName, this);
+                new SocketClient("127.0.0.1", myPlayerName, this);
                 break;
             }
 
             if (choice.equalsIgnoreCase("RMI")) {
                 this.myPlayerName = "RMIFX";
-                this.client = new RMIClient("127.0.0.1", myPlayerName, this);
+                new RMIClient("127.0.0.1", myPlayerName, this);
                 break;
             }
         } while (true);

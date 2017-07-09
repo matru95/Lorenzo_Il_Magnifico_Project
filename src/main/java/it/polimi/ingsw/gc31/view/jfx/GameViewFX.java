@@ -3,7 +3,7 @@ package it.polimi.ingsw.gc31.view.jfx;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -23,7 +23,7 @@ public class GameViewFX extends Application {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/javafx/Board.fxml"));
-        ScrollPane mainPane = loader.load();
+        TabPane mainPane = loader.load();
         primaryStage.setScene(new Scene(mainPane));
         primaryStage.setTitle("LORENZO IL MAGNIFICO");
         primaryStage.getIcons().add(new Image(new File("src/main/resources/javafx/icon.png").toURI().toString()));
