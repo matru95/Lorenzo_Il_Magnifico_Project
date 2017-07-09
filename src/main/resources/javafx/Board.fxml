@@ -185,6 +185,16 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Text>
+                        <Circle fx:id="councPal1" fill="#ffffff00" layoutX="1742.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal2" fill="#ffffff00" layoutX="1790.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal3" fill="#ffffff00" layoutX="1838.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal4" fill="#ffffff00" layoutX="1890.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal5" fill="#ffffff00" layoutX="1940.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal6" fill="#ffffff00" layoutX="1742.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal7" fill="#ffffff00" layoutX="1790.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal8" fill="#ffffff00" layoutX="1838.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal9" fill="#ffffff00" layoutX="1890.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal10" fill="#ffffff00" layoutX="1940.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
                   </children>
                 </AnchorPane>
                </content>
