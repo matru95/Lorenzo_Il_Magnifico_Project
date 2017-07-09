@@ -82,7 +82,9 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
         Set<PlayerColor> uniqueColors = new OrderedHashSet<>();
 
         for(FamilyMember familyMember: familyMembers) {
-            uniqueColors.add(familyMember.getPlayerColor());
+            if(familyMember!=null){
+                uniqueColors.add(familyMember.getPlayerColor());
+            }
         }
 
         return uniqueColors;
