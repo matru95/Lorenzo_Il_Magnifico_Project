@@ -148,7 +148,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private Circle space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22;
 
     @FXML
-    private Rectangle space23;
+    private Circle councPal1, councPal2, councPal3, councPal4, councPal5, councPal6, councPal7, councPal8, councPal9, councPal10;
 
     @FXML
     private Circle order1, order2, order3, order4;
@@ -220,7 +220,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickMemberBlack(MouseEvent event) {
 
         if (this.movementState.get("isMemberChoiceOn")) {
-            movementChoice.put(DICECOLOR, BLACK);
+            movementChoice.put(DICECOLOR, "BLACK");
             myBlack.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
             this.movementState.put("isMemberChoiceOn", false);
@@ -231,7 +231,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickMemberWhite(MouseEvent event) {
 
         if (this.movementState.get("isMemberChoiceOn")) {
-            movementChoice.put(DICECOLOR, WHITE);
+            movementChoice.put(DICECOLOR, "WHITE");
             myWhite.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
             this.movementState.put("isMemberChoiceOn", false);
@@ -242,7 +242,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickMemberOrange(MouseEvent event) {
 
         if (this.movementState.get("isMemberChoiceOn")) {
-            movementChoice.put(DICECOLOR, ORANGE);
+            movementChoice.put(DICECOLOR, "ORANGE");
             myOrange.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
             this.movementState.put("isMemberChoiceOn", false);
@@ -253,7 +253,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickMemberNeutral(MouseEvent event) {
 
         if (this.movementState.get("isMemberChoiceOn")) {
-            movementChoice.put(DICECOLOR, NEUTRAL);
+            movementChoice.put(DICECOLOR, "NEUTRAL");
             myNeutral.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
             this.movementState.put("isMemberChoiceOn", false);
@@ -541,6 +541,71 @@ public class GameViewFXCtrl implements GameViewCtrl {
             spaceShape.setStroke(Paint.valueOf("#00ff0080"));
             spaceShape.setStrokeWidth(5);
         }
+    }
+
+    private void councilPalaceSetter() {
+        JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
+        if (councilPalaceNode.has(0))
+            councilPalaceMemberSetter(councPal1, councilPalaceNode.path(0));
+        else
+            councPal1.setVisible(false);
+
+        if (councilPalaceNode.has(1))
+            councilPalaceMemberSetter(councPal2, councilPalaceNode.path(1));
+        else
+            councPal2.setVisible(false);
+
+        if (councilPalaceNode.has(2))
+            councilPalaceMemberSetter(councPal3, councilPalaceNode.path(2));
+        else
+            councPal3.setVisible(false);
+
+        if (councilPalaceNode.has(3))
+            councilPalaceMemberSetter(councPal4, councilPalaceNode.path(3));
+        else
+            councPal4.setVisible(false);
+
+        if (councilPalaceNode.has(4))
+            councilPalaceMemberSetter(councPal5, councilPalaceNode.path(4));
+        else
+            councPal5.setVisible(false);
+
+        if (councilPalaceNode.has(5))
+            councilPalaceMemberSetter(councPal6, councilPalaceNode.path(5));
+        else
+            councPal6.setVisible(false);
+
+        if (councilPalaceNode.has(6))
+            councilPalaceMemberSetter(councPal7, councilPalaceNode.path(6));
+        else
+            councPal7.setVisible(false);
+
+        if (councilPalaceNode.has(7))
+            councilPalaceMemberSetter(councPal8, councilPalaceNode.path(7));
+        else
+            councPal8.setVisible(false);
+
+        if (councilPalaceNode.has(8))
+            councilPalaceMemberSetter(councPal9, councilPalaceNode.path(8));
+        else
+            councPal9.setVisible(false);
+
+        if (councilPalaceNode.has(9))
+            councilPalaceMemberSetter(councPal10, councilPalaceNode.path(9));
+        else
+            councPal10.setVisible(false);
+    }
+
+    private void councilPalaceMemberSetter(Circle councilSpaceShape, JsonNode node) {
+
+        if (beauty(node.path(COLOR)).equals(NEUTRAL)) {
+            councilSpaceShape.setFill(Paint.valueOf(beauty(node.path(PLCOL))));
+            councilSpaceShape.setStroke(Paint.valueOf("#eddcc6"));
+        } else {
+            councilSpaceShape.setFill(Paint.valueOf(beauty(node.path(COLOR))));
+            councilSpaceShape.setStroke(Paint.valueOf(beauty(node.path(PLCOL))));
+        }
+        councilSpaceShape.setVisible(true);
     }
 
     private void bluePlayerSetter() {
@@ -844,6 +909,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space21, rootBoard.path("boardSpaces").path("21"));
         spaceSetter(space22, rootBoard.path("boardSpaces").path("22"));
 
+        councilPalaceSetter();
         textQuery.setText("Waiting for player's movement ...");
     }
 
