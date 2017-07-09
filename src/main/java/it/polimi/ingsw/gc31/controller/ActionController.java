@@ -18,6 +18,7 @@ import it.polimi.ingsw.gc31.model.effects.Effect;
 import it.polimi.ingsw.gc31.model.effects.ExchangeEffect;
 import it.polimi.ingsw.gc31.model.effects.ParchmentEffect;
 import it.polimi.ingsw.gc31.model.effects.boardeffects.HarvestEffect;
+import it.polimi.ingsw.gc31.model.effects.boardeffects.ProductionEffect;
 import it.polimi.ingsw.gc31.model.parser.SettingsParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.states.GameAgeState;
@@ -375,9 +376,12 @@ public class ActionController extends Controller implements Runnable {
         int servantsToPay = Integer.valueOf(payload.get("servantsToPay"));
         List<ServerMessage> messages = new ArrayList<>();
 
-        if(positionType == "harvest") {
+        if(positionType.equals("harvest")) {
             HarvestEffect harvestEffect = new HarvestEffect();
             messages = harvestEffect.exec(player, servantsToPay);
+        } else {
+            ProductionEffect productionEffect = new ProductionEffect();
+            messages = productionEffect.exec(player, servantsToPay);
         }
 
         sendMessages(playerID, messages);

@@ -2,6 +2,7 @@ package it.polimi.ingsw.gc31.model.effects.boardeffects;
 
 
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.cards.Card;
@@ -35,6 +36,8 @@ public class ProductionEffect implements BoardEffect {
         List<Resource> productionTileResources = player.getPlayerTile().getProductionBonus();
         Effect harvestTile = new AddResEffect(productionTileResources);
         int bonus = player.getProductionBonusValue();
+
+        player.getRes().get(ResourceName.SERVANTS).subNumOf(value);
 
         harvestTile.exec(player);
 
