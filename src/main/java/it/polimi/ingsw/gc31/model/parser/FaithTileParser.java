@@ -69,13 +69,13 @@ public class FaithTileParser {
             int productionFewer=faithTile.path("productionFewer").asInt();
             faithTile1.setProductionFewer(productionFewer);
             //SETTO MALUS NELLA FAITHTILE
-            if(productionFewer!=0)faithTile1.setMalus(new HarvestMalus(MalusEnum.PRODUCTIONMALUS,productionFewer));
+            if(productionFewer!=0)faithTile1.setMalus(new ProductionMalus(MalusEnum.PRODUCTIONMALUS,productionFewer));
 
             int diceFewer=0;
             diceFewer=faithTile.path("diceFewer").asInt();
             faithTile1.setDiceFewer(diceFewer);
             //SETTO MALUS NELLA FAITHTILE
-            if(diceFewer!=0)faithTile1.setMalus(new HarvestMalus(MalusEnum.FAMILYMEMBERMALUS,diceFewer));
+            if(diceFewer!=0)faithTile1.setMalus(new FamilyMemberMalus(MalusEnum.FAMILYMEMBERMALUS,diceFewer));
 
             if(faithTile.has("fewerDiceCard")){
                 JsonNode fewerDiceCard= faithTile.path("fewerDiceCard");
