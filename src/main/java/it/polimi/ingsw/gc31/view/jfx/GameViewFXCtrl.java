@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 
 public class GameViewFXCtrl implements GameViewCtrl {
@@ -52,10 +53,15 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private JsonNode rootBoard;
     private JsonNode rootMe;
 
+    private Map<String, Boolean> movementState;
+    private Map<String, String> movementChoice;
+
     public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException, ClassNotFoundException {
 
         this.sb = new StringBuilder();
-
+        this.movementState = new HashMap<>();
+        this.movementState.put("isMemberChoiceOn", false);
+        this.movementState.put("isSpaceChoiceOn", false);
         this.mapper = new ObjectMapper();
         BufferedReader br;
         System.out.println("Choose between using \"SOCKET\" or \"RMI\":");
@@ -188,23 +194,268 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private ImageView yellowPurple1, yellowPurple2, yellowPurple3, yellowPurple4, yellowPurple5, yellowPurple6;
 
     @FXML
-    void onClick(MouseEvent event) {
+    void onClickMemberBlack(MouseEvent event) {
 
+        if (this.movementState.get("isMemberChoiceOn")) {
+            movementChoice.put("diceColor", "BLACK");
+            myBlack.setStrokeType(StrokeType.valueOf("OUTSIDE"));
+            disableFamilyMembers();
+            this.movementState.put("isMemberChoiceOn", false);
+        }
     }
 
     @FXML
-    void onMemberSelected(MouseEvent event) {
+    void onClickMemberWhite(MouseEvent event) {
 
+        if (this.movementState.get("isMemberChoiceOn")) {
+            movementChoice.put("diceColor", "WHITE");
+            myWhite.setStrokeType(StrokeType.valueOf("OUTSIDE"));
+            disableFamilyMembers();
+            this.movementState.put("isMemberChoiceOn", false);
+        }
     }
 
     @FXML
-    void onSpaceSelected(MouseEvent event) {
+    void onClickMemberOrange(MouseEvent event) {
 
+        if (this.movementState.get("isMemberChoiceOn")) {
+            movementChoice.put("diceColor", "ORANGE");
+            myOrange.setStrokeType(StrokeType.valueOf("OUTSIDE"));
+            disableFamilyMembers();
+            this.movementState.put("isMemberChoiceOn", false);
+        }
     }
 
+    @FXML
+    void onClickMemberNeutral(MouseEvent event) {
+
+        if (this.movementState.get("isMemberChoiceOn")) {
+            movementChoice.put("diceColor", "NEUTRAL");
+            myNeutral.setStrokeType(StrokeType.valueOf("OUTSIDE"));
+            disableFamilyMembers();
+            this.movementState.put("isMemberChoiceOn", false);
+        }
+    }
 
     @FXML
-    void initialize() {
+    void onClickSpace1(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "1");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace2(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "2");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace3(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "3");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace4(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "4");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace5(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "5");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace6(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "6");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace7(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "7");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace8(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "8");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace9(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "9");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace10(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "10");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace11(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "11");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace12(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "12");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace13(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "13");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace14(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "14");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace15(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "15");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace16(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "16");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace17(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "17");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace18(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "18");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace19(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "19");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace20(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "20");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace21(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "21");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace22(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "22");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickSpace23(MouseEvent event) {
+
+        if (this.movementState.get("isSpaceChoiceOn")) {
+            movementChoice.put("positionID", "23");
+            this.movementState.put("isSpaceChoiceOn", false);
+        }
+    }
+
+    private void disableFamilyMembers() {
+        myNeutral.setDisable(true);
+        myOrange.setDisable(true);
+        myBlack.setDisable(true);
+        myWhite.setDisable(true);
+    }
+
+    private void resetFamilyMembers() {
+        myBlack.setStrokeType(StrokeType.valueOf("INSIDE"));
+        myNeutral.setStrokeType(StrokeType.valueOf("INSIDE"));
+        myOrange.setStrokeType(StrokeType.valueOf("INSIDE"));
+        myWhite.setStrokeType(StrokeType.valueOf("INSIDE"));
     }
 
     private void cardSetter(ImageView cardView, Integer cardID) {
@@ -238,9 +489,11 @@ public class GameViewFXCtrl implements GameViewCtrl {
             }
             spaceShape.setRadius(30);
             spaceShape.setStrokeWidth(15);
-            spaceShape.setVisible(true);
-        } else
-            spaceShape.setVisible(false);
+        } else {
+            spaceShape.setRadius(40);
+            spaceShape.setStroke(Paint.valueOf("#00ff0080"));
+            spaceShape.setStrokeWidth(5);
+        }
     }
 
     private void actionSpaceSetter(Circle spaceShape, JsonNode node) {
@@ -258,17 +511,11 @@ public class GameViewFXCtrl implements GameViewCtrl {
             }
             spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("color"))));
             spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path(PLCOL))));
-            spaceShape.setVisible(true);
-        } else
-            spaceShape.setVisible(false);
-    }
-
-    private void spaceSetter(Rectangle spaceShape, JsonNode node) {
-        if (node.path(ISOCCUPIED).toString().equals("true")) {
-            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMember").path(PLCOL))));
-            spaceShape.setVisible(true);
-        } else
-            spaceShape.setVisible(false);
+        } else {
+            spaceShape.setRadius(40);
+            spaceShape.setStroke(Paint.valueOf("#00ff0080"));
+            spaceShape.setStrokeWidth(5);
+        }
     }
 
     private void bluePlayerSetter() {
@@ -469,10 +716,14 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         if (numOfPlayers.equals(2)) {
             board.setImage(new Image(new File("src/main/resources/javafx/boards/board_2.png").toURI().toString()));
+            space21.setVisible(false);
+            space22.setVisible(false);
             space21.setDisable(true);
             space22.setDisable(true);
         } else if (numOfPlayers.equals(3)) {
             board.setImage(new Image(new File("src/main/resources/javafx/boards/board_3.png").toURI().toString()));
+            space21.setVisible(false);
+            space22.setVisible(false);
             space21.setDisable(true);
             space22.setDisable(true);
         }
@@ -488,10 +739,36 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myWhite.setStroke(Paint.valueOf(beauty(rootMe.path(PLCOL))));
         myOrange.setStroke(Paint.valueOf(beauty(rootMe.path(PLCOL))));
         myNeutral.setFill(Paint.valueOf(beauty(rootMe.path(PLCOL))));
-        myBlack.setVisible(true);
-        myWhite.setVisible(true);
-        myOrange.setVisible(true);
-        myNeutral.setVisible(true);
+        myBlack.setDisable(true);
+        myBlack.setVisible(false);
+        myWhite.setDisable(true);
+        myWhite.setVisible(false);
+        myOrange.setDisable(true);
+        myOrange.setVisible(false);
+        myNeutral.setDisable(true);
+        myNeutral.setVisible(false);
+
+        for (JsonNode singleMember: rootMe.path("familyMembers")) {
+            if (beauty(singleMember.path("currentPositionID")).equals("0"))
+                switch (beauty(singleMember.path("color"))) {
+                    case "BLACK":
+                        myBlack.setDisable(false);
+                        myBlack.setVisible(true);
+                        break;
+                    case "WHITE":
+                        myWhite.setDisable(false);
+                        myWhite.setVisible(true);
+                        break;
+                    case "ORANGE":
+                        myOrange.setDisable(false);
+                        myOrange.setVisible(true);
+                        break;
+                    case "NEUTRAL":
+                        myNeutral.setDisable(false);
+                        myNeutral.setVisible(true);
+                        break;
+                }
+        }
 
         cardSetter(green0, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("0").path("card").path(CARDID).asInt());
         cardSetter(green1, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("1").path("card").path(CARDID).asInt());
@@ -540,72 +817,27 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space20, rootBoard.path("boardSpaces").path("20"));
         spaceSetter(space21, rootBoard.path("boardSpaces").path("21"));
         spaceSetter(space22, rootBoard.path("boardSpaces").path("22"));
-        spaceSetter(space23, rootBoard.path("boardSpaces").path("23"));
 
     }
 
     @Override
     public void movementFail(Map<String, String> map) {
-        sb.append("Movement is NOT Valid, try again: \n");
-        printStringBuilder();
+        textQuery.setText("MOVEMENT FAILED, PLS TRY AGAIN !!!");
+        System.out.println("MI VEDI SONO NELLA FAIL????");
     }
 
     @Override
     public Map<String, String> movementQuery() throws IOException {
 
-        HashMap<String, String> result = new HashMap<>();
-        DiceColor color;
-        Integer id;
-        Integer servants;
-
-        sb.append("\nIt's your turn, move a Family Member into a Space:\n")
-                .append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL");
-        printStringBuilder();
-
-        do {
-            try {
-                color = readDiceColor();
-                break;
-            } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid color among these: BLACK, WHITE, ORANGE, NEUTRAL");
-                printStringBuilder();
-            }
-        } while (true);
-        result.put("diceColor", color.toString());
-
-        sb.append("\nEnter the ID of the Space:");
-        printStringBuilder();
-        do {
-            try {
-                id = readInteger();
-                if (id > 0 && id <= 23) break;
-                sb.append("You must insert a valid number between 1 and 23:");
-                printStringBuilder();
-            } catch (NumberFormatException e) {
-                sb.append("You must insert a valid number between 1 and 23:");
-                printStringBuilder();
-            }
-        } while (true);
-        result.put("positionID", id.toString());
-
-        Integer max = getMyServants();
-
-        sb.append("\nEnter the number of servants you'd like to add (if you won't enter 0):");
-        printStringBuilder();
-        do {
-            try {
-                servants = readInteger();
-                if (servants >= 0 && servants <= max) break;
-                sb.append("You must insert a valid number between 0 and ").append(max).append(":");
-                printStringBuilder();
-            } catch (NumberFormatException e) {
-                sb.append("You must insert a valid number between 0 and ").append(max).append(":");
-                printStringBuilder();
-            }
-        } while (true);
-        result.put("servantsToPay", servants.toString());
-
-        return result;
+        textQuery.setText("It's your turn, move a Family Member into a Space.\nSelect a Family Member on the upper-right and then a space.");
+        this.movementChoice = new HashMap<>();
+        this.movementState.put("isMemberChoiceOn", true);
+        while (movementState.get("isMemberChoiceOn"));
+        this.movementState.put("isSpaceChoiceOn", true);
+        while (movementState.get("isSpaceChoiceOn"));
+        this.movementChoice.put("servantsToPay", "0");
+        resetFamilyMembers();
+        return movementChoice;
     }
 
     @Override
