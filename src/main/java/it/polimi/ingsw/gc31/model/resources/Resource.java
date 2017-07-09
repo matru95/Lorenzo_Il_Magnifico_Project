@@ -73,14 +73,7 @@ public class Resource implements Serializable{
     }
 
     public void subNumOf(int value) {
-        try {
-            if (value > 0 && value < this.getNumOf()) {
-                this.setNumOf(this.getNumOf() - value);
-            }
-        } catch (IllegalArgumentException e) {
-            logger.log(Level.SEVERE, e.toString(), e);
-            logger.log(Level.SEVERE, "Value must be greater then zero and smaller then actual value");
-        }
+        this.setNumOf(this.getNumOf() - value);
     }
 }
 

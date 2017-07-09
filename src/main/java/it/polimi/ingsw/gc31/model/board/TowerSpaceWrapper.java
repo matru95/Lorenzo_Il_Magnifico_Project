@@ -244,7 +244,6 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     }
 
     private void paySingleCost(Map<ResourceName, Resource> singleCardCost, Player player) {
-        CardColorBonus playerBonus = player.getBonusByCardColor(this.color);
 
         for(Map.Entry<ResourceName,Resource> singleCardCostEntry: singleCardCost.entrySet()){
             ResourceName cardCostName = singleCardCostEntry.getKey();
@@ -256,7 +255,9 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
             if(value < 0) value = 0;
 
+            System.out.println("Old player resource: "+player.getRes().get(cardCostName));
             player.getRes().get(cardCostName).subNumOf(value);
+            System.out.println("New player resource: " + player.getRes().get(cardCostName));
         }
     }
 
