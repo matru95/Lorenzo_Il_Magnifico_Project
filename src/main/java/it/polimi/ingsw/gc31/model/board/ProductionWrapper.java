@@ -54,7 +54,10 @@ public class ProductionWrapper extends SpaceWrapper {
             ArrayNode familyMembersNode = mapper.createArrayNode();
 
             for(FamilyMember familyMember: familyMembers) {
-                familyMembersNode.add(familyMember.toJson());
+                if(familyMember != null) {
+
+                    familyMembersNode.add(familyMember.toJson());
+                }
             }
 
             productionWrapperNode.set("familyMembers", familyMembersNode);

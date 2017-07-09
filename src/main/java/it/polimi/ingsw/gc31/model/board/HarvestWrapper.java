@@ -57,7 +57,11 @@ public class HarvestWrapper extends SpaceWrapper {
             ArrayNode arrayNode = mapper.createArrayNode();
 
             for(FamilyMember familyMember: familyMembers) {
-                arrayNode.add(familyMember.toJson());
+
+                if(familyMember != null) {
+
+                    arrayNode.add(familyMember.toJson());
+                }
             }
 
             harvestWrapperNode.set("familyMembers", arrayNode);
