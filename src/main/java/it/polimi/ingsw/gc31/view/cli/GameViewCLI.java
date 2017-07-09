@@ -537,7 +537,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
      */
     private String readString() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        br.reset();
         return br.readLine();
     }
 

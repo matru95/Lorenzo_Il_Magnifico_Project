@@ -163,7 +163,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
 
 
     /**
-     * Method that check if a family member has enough gold to occupy an already occupied tower
+     * Method that checks if a family member has enough gold to occupy an already occupied tower
      * @param playerResources
      * @return boolean
      */
@@ -172,7 +172,12 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         List<Map<ResourceName, Resource>> cardCost = this.getCard().getCost();
 
         for(Map<ResourceName, Resource> cardResource: cardCost) {
-            int possibleCost = cardResource.get(ResourceName.GOLD).getNumOf()+3;
+            int possibleCost = 0;
+
+            if(cardResource.get(ResourceName.GOLD) != null) {
+
+                possibleCost = cardResource.get(ResourceName.GOLD).getNumOf()+3;
+            }
 
             if(playerGold < possibleCost) {
                 return false;

@@ -94,6 +94,14 @@ public class MartWrapper extends SpaceWrapper {
 
     @Override
     public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
+        int playerServants = familyMember.getPlayer().getRes().get(ResourceName.SERVANTS).getNumOf();
+        int familyMemberValue = familyMember.getValue();
+        int finalValue = playerServants+familyMemberValue;
+
+        if(this.getDiceBond() < finalValue) {
+            return false;
+        }
+
         if(familyMember.getPlayer().getMaluses()!=null) {
             List<Malus> maluses=familyMember.getPlayer().getMaluses();
             for(Malus malus: maluses){

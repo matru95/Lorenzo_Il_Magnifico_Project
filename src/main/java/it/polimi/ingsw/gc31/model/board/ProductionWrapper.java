@@ -79,6 +79,13 @@ public class ProductionWrapper extends SpaceWrapper {
 
     @Override
     public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
+        int servants = familyMember.getPlayer().getRes().get(ResourceName.SERVANTS).getNumOf();
+        int familyMemberValue = familyMember.getValue();
+        int finalValue = servants+familyMemberValue;
+
+        if(this.getDiceBond() < finalValue) return false;
+
+
 
         if(!isMultiple && familyMembers.size() == 1) {
             return  false;
