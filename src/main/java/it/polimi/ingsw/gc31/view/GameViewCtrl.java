@@ -86,6 +86,14 @@ public interface GameViewCtrl {
     Map<String, String> freeCardQuery(Map<String, String> map) throws IOException;
 
     /**
+     * This method is used to print the query for the player,
+     * in order to print the winner of the game.
+     * @param map Map<String, String>
+     * @throws IOException: Error during input reading.
+     */
+    void endGameQuery(Map<String, String> map) throws IOException;
+
+    /**
      * This method is used to print a timeout message
      */
     void timeoutAlert();

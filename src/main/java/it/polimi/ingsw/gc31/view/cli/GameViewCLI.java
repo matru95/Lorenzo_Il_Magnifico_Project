@@ -384,6 +384,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
             }
         } while (true);
         result.put("servantsToPay", servants.toString());
+        result.put("cardValue", map.get("cardValue"));
         result.put("positionType", map.get("positionType"));
         return result;
     }
@@ -570,6 +571,11 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         result.put(CARDID, choice.toString());
 
         return result;
+    }
+
+    @Override
+    public void endGameQuery(Map<String, String> map) throws IOException {
+
     }
 
     @Override

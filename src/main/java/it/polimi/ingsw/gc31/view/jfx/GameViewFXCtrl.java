@@ -230,6 +230,21 @@ public class GameViewFXCtrl implements GameViewCtrl {
             choice.put("choice", textChoice.getText());
             queryState.put("isExchangeChoiceOn", false);
         }
+
+        if(queryState.get("isServantsQueryOn")) {
+            if (isInteger(textChoice.getText()) && Integer.parseInt(textChoice.getText()) >=0
+                    && Integer.parseInt(textChoice.getText()) <= Integer.parseInt(choice.get("myServants"))) {
+                textChoice.setVisible(false);
+                textChoice.setDisable(true);
+                buttonChoice.setVisible(false);
+                buttonChoice.setDisable(true);
+                choice.put("servantsToPay", textChoice.getText());
+                queryState.put("isServantsQueryOn", false);
+            } else
+                textQuery.setText("You must insert a valid number between 0 and " + choice.get("myServants") + ":");
+        }
+
+
     }
 
     @FXML
@@ -542,6 +557,17 @@ public class GameViewFXCtrl implements GameViewCtrl {
             choice.put(POSITIONID, "23");
             this.queryState.put(ISSCON, false);
         }
+    }
+
+    private boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        return true;
     }
 
     private void disableFamilyMembers() {
@@ -907,6 +933,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState = new HashMap<>();
         queryState.put("isMemberChoiceOn", false);
         queryState.put(ISSCON, false);
+        queryState.put("isServantsQueryOn", false);
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isParchment1On", false);
         queryState.put("isParchment2On", false);
@@ -1066,8 +1093,22 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @Override
-    public Map<String, String> servantsQuery(Map<String, String> map) throws IOException {
-        return null;
+    public Map<String, String> servantsQuery(Map<String, String> map) {
+        choice = new HashMap<>();
+        queryState = new HashMap<>();
+        queryState.put("isExchangeChoiceOn", false);
+        choice.put("cardValue", map.get("cardValue"));
+        choice.put("myServants", map.get("myServants"));
+        textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + choice.get("myServants") + ":");
+        queryState.put("isServantsQueryOn", true);
+        textChoice.setVisible(true);
+        textChoice.setDisable(false);
+        buttonChoice.setVisible(true);
+        buttonChoice.setDisable(false);
+        while (queryState.get("isServantsQueryOn"));
+        choice.put("positionType", map.get("positionType"));
+        choice.remove("myServants", map.get("myServants"));
+        return choice;
     }
 
     @Override
@@ -1171,14 +1212,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
         switch (exchangesNumber) {
             case 2:
                 textQuery.setText("Choose whether or not activate the following exchange effects for the card #"
-                        + map.get(CARDID) + " \"" + "cardName" + "\":\n" + "1st Exchange Effect: " + map.get("1").replace("\n"," ")
-                        + "\n" + "2nd Exchange Effect: " + map.get("2").replace("\n"," ") + "\n"
-                        + "Type 0 to avoid activation of the exchanges;\n" + "Type 1 to activate the first exchange effect;\n" + "Type 2 to activate the second exchange effect.");
+                        + map.get(CARDID) + " \"" + "cardName" + "\":\n" + "Type 0 to avoid activation of the exchanges;\n"
+                        + "Type 1 to activate the first exchange effect;\n" + "Type 2 to activate the second exchange effect.");
                 str = "(0, 1, 2)";
                 break;
             case 1:
                 textQuery.setText("Choose whether or not activate the following exchange effect for the card #"
-                        + map.get(CARDID) + " \"" + map.get("cardName") + "\":\n" + "Exchange Effect: " + map.get("1").replace("\n"," ") + "\n"
+                        + map.get(CARDID) + " \"" + map.get("cardName") + "\":\n"
                         + "Type 0 to avoid activation of the exchange;\n" + "Type 1 to activate the exchange effect.");
                 str = "(0, 1)";
                 break;
@@ -1239,6 +1279,11 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @Override
+    public void endGameQuery(Map<String, String> map) {
+
+    }
+
+    @Override
     public void timeoutAlert() {
 
         textQuery.setText("ALERT: You have exceeded the time limit, you'll skip this movement");
@@ -1275,16 +1320,6 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private void printStringBuilder() {
         System.out.println(this.sb);
         this.sb = new StringBuilder();
-    }
-
-    /**
-     * Method to get my number of servants.
-     */
-    private Integer getMyServants(){
-        for (JsonNode singlePlayer: rootInstance.path(PL))
-            if (beauty(singlePlayer.path("playerID")).equals(myPlayerID))
-                return singlePlayer.path("res").path("SERVANTS").asInt();
-        return 0;
     }
 
     /**
