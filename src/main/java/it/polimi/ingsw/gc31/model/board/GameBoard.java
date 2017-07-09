@@ -234,4 +234,19 @@ public class GameBoard implements Serializable {
 
         return result;
     }
+
+    public SpaceWrapper getPositionByCardID(int cardID) {
+        List<SpaceWrapper> spaceWrappers = getAllSpaces();
+
+        for(SpaceWrapper spaceWrapper: spaceWrappers) {
+            if(spaceWrapper.getClass() == TowerSpaceWrapper.class) {
+                if(((TowerSpaceWrapper) spaceWrapper).getCard().getCardID() == cardID) {
+
+                    return spaceWrapper;
+                }
+            }
+        }
+
+        return null;
+    }
 }

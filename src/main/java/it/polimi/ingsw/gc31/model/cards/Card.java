@@ -178,7 +178,7 @@ public class Card {
         if(costBond != null) {
             costBondAmount = costBond.getNumOf();
 
-            int playerResourceAmount = playerResources.get(costBond).getNumOf();
+            int playerResourceAmount = playerResources.get(costBond.getResourceName()).getNumOf();
 
             if(costBondAmount > playerResourceAmount) {
                 return false;
@@ -208,5 +208,13 @@ public class Card {
         }
 
         return true;
+    }
+
+    public void payCosts(Map<ResourceName, Resource> playerResources) {
+        Map<ResourceName, Resource> singleCost = getCost().get(0);
+
+        for(Map.Entry<ResourceName, Resource> costEntry: singleCost.entrySet()) {
+            playerResources.get(costEntry.getKey()).subNumOf(costEntry.getValue().getNumOf());
+        }
     }
 }

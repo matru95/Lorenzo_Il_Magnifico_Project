@@ -5,6 +5,7 @@ import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
+import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.*;
@@ -251,11 +252,40 @@ public class ActionController extends Controller implements Runnable {
         String cardID = payload.get("cardID");
         List<Card> cards = super.getModel().getGameBoard().getCards();
 
+        SpaceWrapper position = getModel().getGameBoard().getPositionByCardID(Integer.valueOf(cardID));
+
+        ((TowerSpaceWrapper) position).setCard(new Card(null, null, 0, 0));
+
         for(Card card: cards) {
             if(card.getCardID() == Integer.valueOf(cardID)) {
-                card.execInstantEffect(player);
                 player.addCard(card);
+
+                if(card.getCost().size() > 0) {
+
+                    card.payCosts(player.getRes());
+                }
+
+                List<ServerMessage> requests = card.execInstantEffect(player);
+
+                sendMessages(playerID, requests);
             }
+        }
+    }
+
+    private void sendMessages(String playerID, List<ServerMessage> requests) {
+        try {
+            Client client = getClientFromPlayerID(playerID);
+
+            for(ServerMessage message: requests) {
+                if(message != null) {
+
+                    sendMessage(message, client);
+                }
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

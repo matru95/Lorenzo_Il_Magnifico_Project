@@ -127,6 +127,7 @@ public class GameInstance implements Serializable, Runnable {
             player.setPlayerTile(defaultTile);
         } else {
             PlayerTile randomTile = getRandomTile();
+            System.out.println(randomTile.getId());
             player.setPlayerTile(randomTile);
         }
 	}

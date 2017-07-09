@@ -29,6 +29,7 @@ public class FreeCardEffect extends Effect  {
         this.freeCardColor = freeCardColor;
         this.diceActionValue = diceActionValue;
         this.resources = resources;
+        this.positions = new ArrayList<>();
     }
 
     private void setPositions(Player player) {
@@ -38,7 +39,15 @@ public class FreeCardEffect extends Effect  {
             Tower tower = towers.get(this.freeCardColor);
             positions = tower.getTowerSpaces();
         } else {
-            positions = player.getBoard().getAllSpaces();
+
+            for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {
+
+                List<SpaceWrapper> towerSpaces = towerEntry.getValue().getTowerSpaces();
+
+                for(SpaceWrapper towerSpace: towerSpaces) {
+                    positions.add(towerSpace);
+                }
+            }
         }
     }
 
@@ -51,8 +60,6 @@ public class FreeCardEffect extends Effect  {
         int possibleValue = this.diceActionValue + playerServants;
 
         setPositions(player);
-
-//      You can choose from one single card
 
         for (SpaceWrapper spaceWrapper : positions) {
             int spaceDiceBond = spaceWrapper.getDiceBond();

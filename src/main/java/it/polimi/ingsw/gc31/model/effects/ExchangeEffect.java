@@ -28,6 +28,8 @@ public class ExchangeEffect extends Effect{
     @Override
     public ServerMessage exec(Player player){
 
+        System.out.println("Doing exchange!");
+
         Map<ResourceName, Resource> playerResources = player.getRes();
         Map <String,String> payload=new HashMap<>();
         int checkNumOf = 0;
