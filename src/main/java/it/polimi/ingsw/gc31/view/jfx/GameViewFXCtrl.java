@@ -1097,6 +1097,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         choice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
+        choice.put("cardValue", map.get("cardValue"));
         choice.put("myServants", map.get("myServants"));
         textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + choice.get("myServants") + ":");
         queryState.put("isServantsQueryOn", true);
@@ -1275,6 +1276,11 @@ public class GameViewFXCtrl implements GameViewCtrl {
         result.put(CARDID, choice.toString());
 
         return result;
+    }
+
+    @Override
+    public void endGameQuery(Map<String, String> map) {
+
     }
 
     @Override
