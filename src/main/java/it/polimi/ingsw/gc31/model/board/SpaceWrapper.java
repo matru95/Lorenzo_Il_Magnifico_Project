@@ -92,4 +92,6 @@ public abstract class SpaceWrapper implements Serializable{
         return false;
     }
 
+    public abstract void reset();
+
 }

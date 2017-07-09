@@ -44,6 +44,12 @@ public class NullWrapper extends SpaceWrapper {
         this.familyMember = familyMember;
     }
 
+    @Override
+    public void reset() {
+
+        return;
+    }
+
     public FamilyMember getFamilyMember() {
         return familyMember;
     }

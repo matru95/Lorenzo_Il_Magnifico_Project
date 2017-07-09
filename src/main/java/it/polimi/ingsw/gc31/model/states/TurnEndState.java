@@ -21,7 +21,7 @@ public class TurnEndState implements State{
         List<SpaceWrapper> positions = context.getGameBoard().getAllSpaces();
 
         for(SpaceWrapper position: positions) {
-            position.setFamilyMember(null);
+            position.reset();
         }
 
         for(Player player: orderedPlayers) {

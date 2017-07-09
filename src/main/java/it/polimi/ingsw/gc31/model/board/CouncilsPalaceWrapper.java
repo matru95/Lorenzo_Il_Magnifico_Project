@@ -177,6 +177,11 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
         familyMembers.add(familyMember);
     }
 
+    @Override
+    public void reset() {
+        this.familyMembers.clear();
+    }
+
     public List<FamilyMember> getFamilyMembers() {
         return familyMembers;
     }

@@ -208,6 +208,11 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         this.familyMember = familyMember;
     }
 
+    @Override
+    public void reset() {
+        this.familyMember = null;
+    }
+
     public FamilyMember getFamilyMember() {
         return this.familyMember;
     }

@@ -119,6 +119,11 @@ public class MartWrapper extends SpaceWrapper {
         this.familyMember = familyMember;
     }
 
+    @Override
+    public void reset() {
+        familyMember = null;
+    }
+
     public FamilyMember getFamilyMember() {
         return familyMember;
     }

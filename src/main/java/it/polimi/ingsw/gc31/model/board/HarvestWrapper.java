@@ -116,6 +116,11 @@ public class HarvestWrapper extends SpaceWrapper {
         familyMembers.add(familyMember);
     }
 
+    @Override
+    public void reset() {
+        this.familyMembers.clear();
+    }
+
     public void setMalus(int malus) {
         this.malus = malus;
     }

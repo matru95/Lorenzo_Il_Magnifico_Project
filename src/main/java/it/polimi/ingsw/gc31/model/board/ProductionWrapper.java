@@ -104,11 +104,12 @@ public class ProductionWrapper extends SpaceWrapper {
 
     public void setFamilyMember(FamilyMember familyMember) {
 
-        if(familyMember == null) {
-            familyMembers = new ArrayList<>();
-        }
-
         familyMembers.add(familyMember);
+    }
+
+    @Override
+    public void reset() {
+        this.familyMembers.clear();
     }
 
     public List<FamilyMember> getFamilyMembers() {
