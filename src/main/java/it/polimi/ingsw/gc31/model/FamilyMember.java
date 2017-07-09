@@ -14,6 +14,7 @@ import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
 import it.polimi.ingsw.gc31.model.effects.permanent.CardColorBonus;
+import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -196,6 +197,12 @@ public class FamilyMember {
      * @param bonusPoints
      */
 	private void checkAndPayServants(int positionDiceBond, int bonusPoints) {
+	    int finalDiceBond = positionDiceBond;
+
+	    if(player.getMaluses() != null) {
+	        List<Malus> maluses = player.getMaluses();
+        }
+
         if(positionDiceBond > this.value + bonusPoints) {
             Map<ResourceName, Resource> playerResources = player.getRes();
             int currentServants = playerResources.get(ResourceName.SERVANTS).getNumOf();

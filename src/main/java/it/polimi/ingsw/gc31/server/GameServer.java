@@ -245,7 +245,6 @@ public class GameServer extends UnicastRemoteObject implements Server {
                 payload = request.getPayload();
                 playerID = request.getPlayerID();
                 gameID = request.getGameID();
-                client = request.getClient();
 
                 processServantsChoice(gameID, playerID, payload);
                 break;
@@ -262,7 +261,11 @@ public class GameServer extends UnicastRemoteObject implements Server {
         GameController gameController = games.get(gameInstanceID);
         ActionController actionController = (ActionController) gameController.getActionController();
 
-        actionController.servantsChoice(playerID, payload);
+        synchronized (actionController) {
+
+            actionController.servantsChoice(playerID, payload);
+            actionController.notify();
+        }
 
     }
 

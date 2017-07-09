@@ -381,5 +381,13 @@ public class ActionController extends Controller implements Runnable {
         }
 
         sendMessages(playerID, messages);
+
+        try {
+            updateClients();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
