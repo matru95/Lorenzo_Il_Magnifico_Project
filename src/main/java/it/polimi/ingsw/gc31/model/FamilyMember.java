@@ -111,7 +111,6 @@ public class FamilyMember {
      * @param position
      */
     private void moveToTower(TowerSpaceWrapper position) throws MovementInvalidException {
-        checkAndPayExtraGold(position);
         player.addCard(position.getCard());
     }
 
@@ -199,27 +198,6 @@ public class FamilyMember {
 
             playerResources.get(ResourceName.SERVANTS).setNumOf(currentServants - costToPay);
         }
-    }
-
-    /**
-     *
-     * @param position
-     */
-    private void checkAndPayExtraGold(TowerSpaceWrapper position) throws MovementInvalidException {
-        Tower tower = position.getTower();
-
-//      Check if tower is occupied and pay 3 gold in that case
-        if(tower.isOccupied()) {
-            int playerGold = player.getRes().get(ResourceName.GOLD).getNumOf();
-
-            if(playerGold < 3) {
-                throw new MovementInvalidException();
-            } else {
-                player.getRes().get(ResourceName.GOLD).subNumOf(3);
-            }
-
-        }
-
     }
 
     /**
