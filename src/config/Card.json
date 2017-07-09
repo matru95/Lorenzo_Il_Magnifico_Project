@@ -1312,7 +1312,7 @@
     },
     {
       "id": 49,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Warlord",
       "cardColor": "blue",
       "cost": [
@@ -1338,7 +1338,7 @@
     },
     {
       "id": 50,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Stonemason",
       "cardColor": "blue",
       "cost": [
@@ -1367,7 +1367,7 @@
     },
     {
       "id": 51,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Dame",
       "cardColor": "blue",
       "cost": [
@@ -1393,7 +1393,7 @@
     },
     {
       "id": 52,
-      "cardAge": 1,
+      "cardAge": 2,
       "title": "Knight",
       "cardColor": "blue",
       "cost": [

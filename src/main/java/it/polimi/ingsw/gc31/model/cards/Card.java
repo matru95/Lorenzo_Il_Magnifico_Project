@@ -214,6 +214,8 @@ public class Card {
         Map<ResourceName, Resource> singleCost = getCost().get(0);
 
         for(Map.Entry<ResourceName, Resource> costEntry: singleCost.entrySet()) {
+
+            System.out.println("Paying: "+costEntry.getKey());
             playerResources.get(costEntry.getKey()).subNumOf(costEntry.getValue().getNumOf());
         }
     }

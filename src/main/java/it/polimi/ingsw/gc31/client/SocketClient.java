@@ -191,6 +191,7 @@ public class SocketClient implements Client, Serializable {
                         e.printStackTrace();
                     }
                 });
+                inputThread.start();
                 break;
             case FREECARDREQUEST:
                 inputThread = new Thread(() -> {
@@ -200,6 +201,7 @@ public class SocketClient implements Client, Serializable {
                         e.printStackTrace();
                     }
                 });
+                inputThread.start();
                 break;
             default:
                 break;

@@ -130,6 +130,11 @@ public class FamilyMember {
 
 
         if(position.getClass() == TowerSpaceWrapper.class) {
+
+            if(((TowerSpaceWrapper) position).getCard().getCardID() == 0) {
+
+                throw new MovementInvalidException();
+            }
             moveToTower((TowerSpaceWrapper) position);
             bonusAmount += player.getCardColorBonusValue(((TowerSpaceWrapper) position).getColor());
         }
