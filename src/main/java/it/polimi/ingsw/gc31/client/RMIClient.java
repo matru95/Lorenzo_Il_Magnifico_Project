@@ -67,7 +67,7 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
                 server.send(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID.toString(), gameID.toString()));
                 break;
             case SERVANTSREQUEST:
-                server.send(new ClientMessage(ClientMessageEnum.SERVANTSCHOICE, view.servantsQuery(), playerID.toString(), gameID.toString()));
+                server.send(new ClientMessage(ClientMessageEnum.SERVANTSCHOICE, view.servantsQuery(payload), playerID.toString(), gameID.toString()));
                 break;
             case MOVEREQUEST:
                 server.send(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID.toString(), gameID.toString()));

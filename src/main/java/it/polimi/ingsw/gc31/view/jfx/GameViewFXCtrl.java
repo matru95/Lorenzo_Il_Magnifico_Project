@@ -1066,6 +1066,11 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @Override
+    public Map<String, String> servantsQuery(Map<String, String> map) throws IOException {
+        return null;
+    }
+
+    @Override
     public Map<String, String> parchmentQuery(Map<String, String> map) {
 
         choice = new HashMap<>();

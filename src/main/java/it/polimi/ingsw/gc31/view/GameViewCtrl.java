@@ -31,6 +31,16 @@ public interface GameViewCtrl {
 
     /**
      * This method is used to print the query for the player,
+     * in order to choose the number of servants to add for
+     * an harvest or a production.
+     * @param map Map<String, String>
+     * @return Map where key is String and values are String
+     * @throws IOException: Error during input reading.
+     */
+    Map<String, String> servantsQuery(Map<String, String> map) throws IOException;
+
+    /**
+     * This method is used to print the query for the player,
      * in order to choose the bonus of one or more parchments.
      * @param map Map<String, String>
      * @return Map where key is String and values are String

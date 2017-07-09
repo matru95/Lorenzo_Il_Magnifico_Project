@@ -329,7 +329,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         HashMap<String, String> result = new HashMap<>();
         DiceColor color;
         Integer id;
-        Integer servants;
 
         sb.append("\nIt's your turn, move a Family Member into a Space:\n")
                 .append("Insert the FamilyMember's color you'd like to use, between those available: BLACK, WHITE, ORANGE, NEUTRAL");
@@ -360,10 +359,18 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
             }
         } while (true);
         result.put("positionID", id.toString());
-        /*
-        Integer max = getMyServants();
+        result.put("servantsToPay", "0");
+        return result;
+    }
 
-        sb.append("\nEnter the number of servants you'd like to add (if you won't enter 0):");
+    @Override
+    public Map<String, String> servantsQuery(Map<String, String> map) throws IOException {
+
+        HashMap<String, String> result = new HashMap<>();
+        Integer max = Integer.parseInt(map.get("myServants"));
+        Integer servants;
+
+        sb.append("\nEnter the number of servants you'd like to add number between 0 and ").append(max).append(":");
         printStringBuilder();
         do {
             try {
@@ -376,8 +383,8 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
                 printStringBuilder();
             }
         } while (true);
-        result.put("servantsToPay", servants.toString());*/
-        result.put("servantsToPay", "0");
+        result.put("servantsToPay", servants.toString());
+        result.put("positionType", map.get("positionType"));
         return result;
     }
 
@@ -618,16 +625,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private void printStringBuilder() {
         System.out.println(this.sb);
         this.sb = new StringBuilder();
-    }
-
-    /**
-     * Method to get my number of servants.
-     */
-    private Integer getMyServants() {
-        for (JsonNode singlePlayer : rootInstance.path(PL))
-            if (beauty(singlePlayer.path("playerID")).equals(myPlayerID))
-                return singlePlayer.path("res").path("SERVANTS").asInt();
-        return 0;
     }
 
     /**
