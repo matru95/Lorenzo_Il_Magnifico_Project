@@ -180,6 +180,11 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
+                        <Text fx:id="textFail" fill="RED" layoutX="1642.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="INVALID MOVEMENT, TRY AGAIN" textAlignment="CENTER" visible="false" wrappingWidth="327.13671875">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Text>
                   </children>
                 </AnchorPane>
                </content>

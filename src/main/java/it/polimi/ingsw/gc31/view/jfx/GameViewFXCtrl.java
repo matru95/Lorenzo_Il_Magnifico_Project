@@ -131,7 +131,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private Circle myOrange, myBlack, myNeutral, myWhite;
 
     @FXML
-    private Text header, textQuery;
+    private Text header, textQuery, textFail;
 
     @FXML
     private Tab blueTab, greenTab, redTab, yellowTab;
@@ -823,17 +823,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     @Override
     public void movementFail(Map<String, String> map) {
-
-        System.out.println(movementChoice.toString());
-        System.out.println(movementState.toString());
-        textQuery.setText("MOVEMENT FAILED, PLS TRY AGAIN !!!");
-
+        textFail.setVisible(true);
     }
 
     @Override
     public Map<String, String> movementQuery() {
 
-        System.out.println("Sono qui nella query");
         textQuery.setText("It's your turn, move a Family Member into a Space.\nSelect a Family Member on the upper-right and then a space.");
         movementChoice = new HashMap<>();
         movementState.put("isMemberChoiceOn", true);
@@ -843,6 +838,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         movementChoice.put("servantsToPay", "0");
         resetFamilyMembers();
         textQuery.setText("Waiting for player's movement ...");
+        textFail.setVisible(false);
         return movementChoice;
     }
 
