@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
+import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.effects.boardeffects.HarvestEffect;
@@ -14,6 +15,7 @@ import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,9 +37,20 @@ public class HarvestWrapper extends SpaceWrapper {
     @Override
     public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
         int value = familyMember.getValue() + amountOfServants - malus;
-        HarvestEffect harvestEffect = new HarvestEffect();
+        int myServants = familyMember.getPlayer().getRes().get(ResourceName.SERVANTS).getNumOf();
+        List<ServerMessage> messages = new ArrayList<>();
+        ServerMessage message = new ServerMessage();
+        Map<String, String> payload = new HashMap<>();
 
-        List<ServerMessage> messages = harvestEffect.exec(familyMember.getPlayer(), value);
+        payload.put("positionType", "harvest");
+        payload.put("myServants", String.valueOf(myServants));
+
+        message.setMessageType(ServerMessageEnum.SERVANTSREQUEST);
+        message.setPayLoad(payload);
+        messages.add(message);
+
+//        HarvestEffect harvestEffect = new HarvestEffect();
+//        List<ServerMessage> messages = harvestEffect.exec(familyMember.getPlayer(), value);
 
         if (!isMultiple) setOccupied(true);
         return messages;
