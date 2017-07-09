@@ -9,6 +9,7 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.FamilyMember;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.effects.boardeffects.HarvestEffect;
+import it.polimi.ingsw.gc31.model.effects.boardeffects.ProductionEffect;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 
@@ -28,21 +29,17 @@ public class HarvestWrapper extends SpaceWrapper {
         this.familyMembers = new ArrayList<>();
         this.isMultiple = isMultiple;
         this.malus = 0;
+        this.multipleMalus = 0;
     }
 
     @Override
     public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
         int value = familyMember.getValue() + amountOfServants - malus;
-
         HarvestEffect harvestEffect = new HarvestEffect();
+
         List<ServerMessage> messages = harvestEffect.exec(familyMember.getPlayer(), value);
 
         if (!isMultiple) setOccupied(true);
-
-        this.malus = multipleMalus;
-
-        familyMember.getPlayer().getRes().get(ResourceName.SERVANTS).subNumOf(amountOfServants);
-
         return messages;
     }
 
