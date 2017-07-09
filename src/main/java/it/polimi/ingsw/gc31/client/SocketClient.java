@@ -89,6 +89,10 @@ public class SocketClient implements Client, Serializable {
                 logger.info("Received:"+ response.getMessageType());
 
                 send(response);
+
+                if(response.getMessageType() == ServerMessageEnum.ENDGAME) {
+                    condition = false;
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 condition = false;

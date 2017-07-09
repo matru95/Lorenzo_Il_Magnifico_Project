@@ -1,14 +1,13 @@
 package it.polimi.ingsw.gc31.controller;
 
 import it.polimi.ingsw.gc31.client.SocketClient;
+import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
+import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.permanent.MalusEnum;
-import it.polimi.ingsw.gc31.model.states.GameAgeState;
-import it.polimi.ingsw.gc31.model.states.State;
-import it.polimi.ingsw.gc31.model.states.TurnEndState;
-import it.polimi.ingsw.gc31.model.states.TurnState;
+import it.polimi.ingsw.gc31.model.states.*;
 import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.client.Client;
 
@@ -61,7 +60,42 @@ public class GameController extends Controller implements Runnable{
             turn = 1;
         }
 
+        endGame();
 
+    }
+
+    private void endGame() {
+        GameInstance gameInstance = super.getModel();
+        Map<String, String> payload = new HashMap<>();
+
+        State gameEndState = new GameEndState();
+        gameInstance.setState(gameEndState);
+
+        gameEndState.doAction(gameInstance);
+
+        List<Player> players = gameInstance.getPlayers();
+
+        for(Player player: players) {
+            ServerMessage endGameMessage = new ServerMessage();
+            String victoryPoints = String.valueOf(player.getRes().get(ResourceName.VICTORYPOINTS).getNumOf());
+
+            try {
+                Client client = actionController.getClientFromPlayerID(player.getPlayerID().toString());
+
+                payload.put(player.getPlayerID().toString(), victoryPoints);
+                endGameMessage.setMessageType(ServerMessageEnum.ENDGAME);
+                endGameMessage.setPayLoad(payload);
+
+                getServer().sendMessageToClient(client, endGameMessage);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
 
@@ -77,7 +111,6 @@ public class GameController extends Controller implements Runnable{
 
         for(Map.Entry<String, ServerMessage> messageEntry: messages.entrySet()) {
 
-            System.out.println("Sending excommunication message");
             try {
                 Client client = actionController.getClientFromPlayerID(messageEntry.getKey());
                 getServer().sendMessageToClient(client, messageEntry.getValue());

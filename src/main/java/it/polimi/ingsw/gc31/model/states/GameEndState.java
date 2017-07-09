@@ -19,29 +19,31 @@ import java.util.Map;
 public class GameEndState implements State {
 
     private static final ResourceName WP = ResourceName.WARPOINTS;
-    //TODO DOCUMENTAZIONE/TEST
+
     @Override
-        public void doAction(GameInstance context) {
+    public void doAction(GameInstance context) {
 
-            boolean malusGreenCard=true,malusBlueCard=true,malusPurpleCard=true,playerResMalus=true;
-            int numOfTotalStoneAndWoodInYellowCard=0;
-            for(Player p: context.getPlayers()) {
-                List<Malus> maluses=p.getMaluses();
-                //Controllo i Malus dei player
+        boolean malusGreenCard=true,malusBlueCard=true,malusPurpleCard=true,playerResMalus=true;
 
-                for(Malus malus: maluses){
-                     if(malus.getMalusType()== MalusEnum.CARDPOINTSMALUS){
-                         CardColor cardColor=((CardPointsMalus) malus).getNoEndGamePointsCardColor();
-                         switch (cardColor){
-                             case BLUE:
-                                 malusBlueCard=false;
-                                 break;
-                             case GREEN:
-                                 malusGreenCard=false;
-                                 break;
-                             case PURPLE:
-                                 malusPurpleCard=false;
-                                 break;
+        int numOfTotalStoneAndWoodInYellowCard = 0;
+
+        for(Player p: context.getPlayers()) {
+            List<Malus> maluses=p.getMaluses();
+            //Controllo i Malus dei player
+
+            for(Malus malus: maluses){
+                if(malus.getMalusType()== MalusEnum.CARDPOINTSMALUS){
+                     CardColor cardColor=((CardPointsMalus) malus).getNoEndGamePointsCardColor();
+                     switch (cardColor){
+                          case BLUE:
+                              malusBlueCard=false;
+                          break;
+                          case GREEN:
+                             malusGreenCard=false;
+                             break;
+                          case PURPLE:
+                             malusPurpleCard=false;
+                             break;
                          }
                     }
 
