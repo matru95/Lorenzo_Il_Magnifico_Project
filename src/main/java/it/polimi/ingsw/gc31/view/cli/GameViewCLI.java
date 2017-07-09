@@ -23,7 +23,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private static final String CARDS = "cards";
     private static final String CARDID = "cardID";
 
-    private transient Client client;
     private final String myPlayerName;
     private String myPlayerID;
     private final ObjectMapper mapper;
@@ -32,11 +31,11 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private transient JsonNode rootBoard;
 
     public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException {
-        this.client = null;
+
         this.mapper = new ObjectMapper();
         this.myPlayerName = myPlayerName;
         try {
-            this.client = new SocketClient(serverIP, myPlayerName, this);
+            new SocketClient(serverIP, myPlayerName, this);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

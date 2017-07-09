@@ -3,8 +3,8 @@ package it.polimi.ingsw.gc31.controller;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.GameInstance;
+import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.server.GameServer;
-import it.polimi.ingsw.gc31.server.GameServerImpl;
 import it.polimi.ingsw.gc31.server.SocketThread;
 import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.SocketClient;
@@ -18,9 +18,9 @@ import java.util.Map;
 public abstract class Controller {
     private GameInstance model;
     private List<Client> views;
-    private GameServer server;
+    private Server server;
 
-    public Controller(GameInstance model, List<Client> views, GameServer server) {
+    public Controller(GameInstance model, List<Client> views, Server server) {
         this.model = model;
         this.views = views;
         this.server = server;
@@ -44,7 +44,7 @@ public abstract class Controller {
         ServerMessage request = new ServerMessage(ServerMessageEnum.UPDATE, payload);
 
         if(client.getClass() == SocketClient.class) {
-            GameServerImpl gameServer = (GameServerImpl) getServer();
+            GameServer gameServer = (GameServer) getServer();
             SocketThread socketThread = gameServer.getSocketByID(client.getSocketClientID());
 
             if(socketThread != null)
@@ -60,7 +60,7 @@ public abstract class Controller {
 
     protected abstract void updateClients() throws IOException, InterruptedException;
 
-    public GameServer getServer() {
+    public Server getServer() {
         return server;
     }
 

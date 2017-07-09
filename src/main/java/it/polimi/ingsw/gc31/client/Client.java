@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc31.client;
 
 import it.polimi.ingsw.gc31.messages.ServerMessage;
-import it.polimi.ingsw.gc31.server.GameServer;
+import it.polimi.ingsw.gc31.server.Server;
 
 import java.io.IOException;
 import java.rmi.Remote;
@@ -16,7 +16,7 @@ public interface Client extends Remote {
      * @throws IOException
      * @throws InterruptedException
      */
-    void joinServer(GameServer s, String playerName) throws IOException, InterruptedException, ClassNotFoundException;
+    void joinServer(Server s, String playerName) throws IOException, InterruptedException, ClassNotFoundException;
 
     /**
      * Method to ping.

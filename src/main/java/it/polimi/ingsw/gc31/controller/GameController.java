@@ -3,13 +3,12 @@ package it.polimi.ingsw.gc31.controller;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
-import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
 import it.polimi.ingsw.gc31.model.effects.permanent.MalusEnum;
 import it.polimi.ingsw.gc31.model.states.GameAgeState;
 import it.polimi.ingsw.gc31.model.states.State;
 import it.polimi.ingsw.gc31.model.states.TurnEndState;
 import it.polimi.ingsw.gc31.model.states.TurnState;
-import it.polimi.ingsw.gc31.server.GameServer;
+import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.client.Client;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class GameController extends Controller implements Runnable{
     private ActionController actionController;
     private Thread messageThread;
 
-    public GameController(GameInstance model, List<Client> views, GameServer server) {
+    public GameController(GameInstance model, List<Client> views, Server server) {
         super(model, views, server);
         this.actionController = new ActionController(model, views, this, server);
     }

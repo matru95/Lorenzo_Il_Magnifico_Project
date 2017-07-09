@@ -11,14 +11,14 @@ import java.util.Map;
 
 public class SocketThread implements Runnable{
     private Socket clientSocket;
-    private GameServer gameServer;
+    private Server gameServer;
     private String playerID;
     private String gameID;
     private String socketClientID;
     ObjectOutputStream objectOutputStream;
     ObjectInputStream objectInputStream;
 
-    public SocketThread(Socket clientSocket, GameServer gameServer) {
+    public SocketThread(Socket clientSocket, Server gameServer) {
         this.clientSocket = clientSocket;
         this.gameServer = gameServer;
     }
@@ -57,7 +57,7 @@ public class SocketThread implements Runnable{
                     this.socketClientID = request.getPayload().get("socketClientID");
                     sendToServer(request);
                 } else {
-//                  Send to GameServer for processing
+//                  Send to Server for processing
                     sendToServer(request);
                 }
 

@@ -62,21 +62,22 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.movementState.put("isMemberChoiceOn", false);
         this.movementState.put("isSpaceChoiceOn", false);
         this.mapper = new ObjectMapper();
-        BufferedReader br;
-        System.out.println("Choose between using \"SOCKET\" or \"RMI\":");
+        connectionQuery();
+        /*System.out.println("Hello, pls enter your name:");
+        br = new BufferedReader(new InputStreamReader(System.in));
+        this.myPlayerName = br.readLine();
+        System.out.println("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
+        br = new BufferedReader(new InputStreamReader(System.in));
+        String serverIP = br.readLine();*/
+    }
+
+    private void connectionQuery() throws IOException, ClassNotFoundException, InterruptedException, NotBoundException {
+        sb.append("Choose between using \"SOCKET\" or \"RMI\":");
+        printStringBuilder();
         String choice;
-
         do {
-
-            br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             choice = br.readLine();
-
-            /*System.out.println("Hello, pls enter your name:");
-            br = new BufferedReader(new InputStreamReader(System.in));
-            this.myPlayerName = br.readLine();
-            System.out.println("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
-            br = new BufferedReader(new InputStreamReader(System.in));
-            String serverIP = br.readLine();*/
 
             if (choice.equalsIgnoreCase("SOCKET")) {
                 this.myPlayerName = "SOCKETFX";
@@ -89,8 +90,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 new RMIClient("127.0.0.1", myPlayerName, this);
                 break;
             }
+            sb.append("Wrong choose, try again entering one between these:\"SOCKET\" or \"RMI\":");
+            printStringBuilder();
         } while (true);
-
     }
 
     @FXML
