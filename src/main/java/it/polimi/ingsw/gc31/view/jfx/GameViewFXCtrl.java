@@ -131,10 +131,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private Circle myOrange, myBlack, myNeutral, myWhite;
 
     @FXML
-    private TextArea textQuery;
-
-    @FXML
-    private Text header;
+    private Text header, textQuery;
 
     @FXML
     private Tab blueTab, greenTab, redTab, yellowTab;
@@ -456,6 +453,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myNeutral.setStrokeType(StrokeType.valueOf("INSIDE"));
         myOrange.setStrokeType(StrokeType.valueOf("INSIDE"));
         myWhite.setStrokeType(StrokeType.valueOf("INSIDE"));
+        myNeutral.setDisable(false);
+        myOrange.setDisable(false);
+        myBlack.setDisable(false);
+        myWhite.setDisable(false);
     }
 
     private void cardSetter(ImageView cardView, Integer cardID) {
@@ -702,7 +703,6 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 this.rootMe = singlePlayer;
             orderedPlayers.put(singlePlayer.path("playerOrder").asInt(), beauty(singlePlayer.path(PLCOL)));
             numOfPlayers++;
-            System.out.println(singlePlayer);
 
             if (beauty(singlePlayer.path(PLCOL)).equals(BLUE))
                 bluePlayerSetter();
@@ -818,25 +818,31 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space21, rootBoard.path("boardSpaces").path("21"));
         spaceSetter(space22, rootBoard.path("boardSpaces").path("22"));
 
+        textQuery.setText("Waiting for player's movement ...");
     }
 
     @Override
     public void movementFail(Map<String, String> map) {
+
+        System.out.println(movementChoice.toString());
+        System.out.println(movementState.toString());
         textQuery.setText("MOVEMENT FAILED, PLS TRY AGAIN !!!");
-        System.out.println("MI VEDI SONO NELLA FAIL????");
+
     }
 
     @Override
-    public Map<String, String> movementQuery() throws IOException {
+    public Map<String, String> movementQuery() {
 
+        System.out.println("Sono qui nella query");
         textQuery.setText("It's your turn, move a Family Member into a Space.\nSelect a Family Member on the upper-right and then a space.");
-        this.movementChoice = new HashMap<>();
-        this.movementState.put("isMemberChoiceOn", true);
+        movementChoice = new HashMap<>();
+        movementState.put("isMemberChoiceOn", true);
         while (movementState.get("isMemberChoiceOn"));
-        this.movementState.put("isSpaceChoiceOn", true);
+        movementState.put("isSpaceChoiceOn", true);
         while (movementState.get("isSpaceChoiceOn"));
-        this.movementChoice.put("servantsToPay", "0");
+        movementChoice.put("servantsToPay", "0");
         resetFamilyMembers();
+        textQuery.setText("Waiting for player's movement ...");
         return movementChoice;
     }
 
