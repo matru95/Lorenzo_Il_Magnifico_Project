@@ -110,11 +110,8 @@ public class FamilyMember {
      *
      * @param position
      */
-    private void moveToTower(TowerSpaceWrapper position) {
-        try {
-            checkAndPayExtraGold(position);
-        } catch (MovementInvalidException e) {
-        }
+    private void moveToTower(TowerSpaceWrapper position) throws MovementInvalidException {
+        checkAndPayExtraGold(position);
         player.addCard(position.getCard());
     }
 
@@ -128,7 +125,7 @@ public class FamilyMember {
     public List<ServerMessage> moveToPosition(SpaceWrapper position, int numOfServantsPaid) throws MovementInvalidException {
 	    int bonusAmount = 0;
 
-        if(position == null || !isMovementPossible(position)) {
+        if(position == null || !isMovementPossible(position) || !hasEnoughValue(position)) {
 	        throw new MovementInvalidException();
         }
 
@@ -175,6 +172,18 @@ public class FamilyMember {
         }
 
         return position.isAffordable(this, playerResources, playerColor);
+    }
+
+    private boolean hasEnoughValue(SpaceWrapper position) {
+	    int positionValue = position.getDiceBond();
+	    int numOfServants = player.getRes().get(ResourceName.SERVANTS).getNumOf();
+	    int possibleValue = this.value + numOfServants;
+
+	    if(positionValue > possibleValue) {
+	        return false;
+        }
+
+        return true;
     }
 
     /**
