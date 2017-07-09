@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.parser.ParchmentParser;
+import it.polimi.ingsw.gc31.model.parser.PlayerTileParser;
 import it.polimi.ingsw.gc31.model.states.GamePrepState;
 import it.polimi.ingsw.gc31.model.states.State;
 
@@ -20,6 +21,7 @@ public class GameInstance implements Serializable, Runnable {
 	private GameBoard gameBoard;
 	private ArrayList<Player> players;
 	private List<PlayerColor> availableColors;
+	private boolean areDefaultRules;
 
 	private int age;
 	private int turn;
@@ -28,9 +30,10 @@ public class GameInstance implements Serializable, Runnable {
 
 	private State state;
 	private List<Parchment> parchments;
+	private List<PlayerTile> availableTiles;
+	private PlayerTile defaultTile;
 
 	private transient Logger logger = Logger.getLogger(GameInstance.class.getName());
-
 
 	public GameInstance(UUID instanceID) throws IOException {
 
@@ -47,6 +50,13 @@ public class GameInstance implements Serializable, Runnable {
         ParchmentParser parchmentParser = new ParchmentParser("src/config/Settings.json");
         parchmentParser.parse();
         this.parchments = parchmentParser.getParchments();
+
+        PlayerTileParser playerTileParser = new PlayerTileParser("src/config/PlayerTile.json");
+        playerTileParser.parse();
+        availableTiles = playerTileParser.getPlayerTiles();
+        defaultTile = availableTiles.get(0);
+        availableTiles.remove(defaultTile);
+        areDefaultRules = playerTileParser.isDefault();
 	}
 
     /**
@@ -112,7 +122,23 @@ public class GameInstance implements Serializable, Runnable {
         player.setPlayerColor(firstAvailableColor);
         availableColors.remove(firstAvailableColor);
         players.add(player);
+
+        if(areDefaultRules) {
+            player.setPlayerTile(defaultTile);
+        } else {
+            PlayerTile randomTile = getRandomTile();
+            player.setPlayerTile(randomTile);
+        }
 	}
+
+	private PlayerTile getRandomTile() {
+        long seed = System.nanoTime();
+        Collections.shuffle(availableTiles, new Random(seed));
+        PlayerTile chosenTile = availableTiles.get(0);
+        availableTiles.remove(chosenTile);
+
+        return chosenTile;
+    }
 
 	public void generatePlayerOrders() {
 

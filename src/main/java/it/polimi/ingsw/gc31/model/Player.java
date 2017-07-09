@@ -64,11 +64,6 @@ public class Player implements Serializable {
 		res = new HashMap<>();
 		this.cards = new HashMap<>();
 
-//		PlayerTile
-        PlayerTileParser playerTileParser = new PlayerTileParser("src/config/PlayerTile.json");
-        playerTileParser.parse();
-        this.playerTile = playerTileParser.getPlayerTiles().get(0);
-
 		this.familyMembers = new FamilyMember[4];
 
 		this.bonuses = new ArrayList<>();

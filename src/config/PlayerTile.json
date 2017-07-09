@@ -1,4 +1,5 @@
 {
+  "rules": "advanced",
   "playertiles" : [
     {
       "id":0,

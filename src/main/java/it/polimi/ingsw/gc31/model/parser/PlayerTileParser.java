@@ -46,6 +46,17 @@ public class PlayerTileParser {
             this.playerTiles.add(playerTileCurrent);
         }
     }
+
+    public boolean isDefault() {
+        JsonNode settingsNode = rootNode.path("rules");
+
+        if(settingsNode.toString().equals("default")) {
+            return true;
+        }
+
+        return false;
+    }
+
     private List<Resource> parseResources(JsonNode node) {
         List<Resource> exchangeResources = new ArrayList<>();
 
