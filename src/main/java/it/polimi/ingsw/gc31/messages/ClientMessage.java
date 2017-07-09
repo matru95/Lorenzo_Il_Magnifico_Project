@@ -22,6 +22,14 @@ public class ClientMessage implements Message, Serializable {
         this.gameID = gameID;
     }
 
+    public ClientMessage(ClientMessageEnum clientMessageType, Map<String, String> payload, String playerID, String gameID, Client client) {
+        this.clientMessageType = clientMessageType;
+        this.payload = payload;
+        this.playerID = playerID;
+        this.gameID = gameID;
+        this.client = client;
+    }
+
     public ClientMessage() {
 
     }

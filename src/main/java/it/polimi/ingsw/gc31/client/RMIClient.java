@@ -70,7 +70,7 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
                 server.send(new ClientMessage(ClientMessageEnum.PARCHMENTCHOICE, view.parchmentQuery(payload), playerID.toString(), gameID.toString()));
                 break;
             case EXCOMMUNICATIONREQUEST:
-                server.send(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID.toString(), gameID.toString()));
+                server.send(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID.toString(), gameID.toString(), this));
                 break;
             case COSTREQUEST:
                 server.send(new ClientMessage(ClientMessageEnum.COSTCHOICE, view.costQuery(payload), playerID.toString(), gameID.toString()));

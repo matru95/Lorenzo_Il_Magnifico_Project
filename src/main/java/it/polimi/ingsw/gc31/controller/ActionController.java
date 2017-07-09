@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.controller;
 
+import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
@@ -313,7 +314,7 @@ public class ActionController extends Controller implements Runnable {
         return message;
     }
 
-    public void excommunicationChoiceAction(String playerID, Map<String, String> payload) {
+    public void excommunicationChoiceAction(String playerID, Map<String, String> payload, Client client) {
         System.out.println("Excommunication choice action inside actionController\n");
 
         String choice = payload.get("applyExcommunication");
@@ -328,8 +329,11 @@ public class ActionController extends Controller implements Runnable {
             gameAgeState.payFaithPointsForVictoryPoints(player);
         }
 
-        synchronized (gameController) {
-            gameController.notify();
+        if(client.getClass() == SocketClient.class) {
+
+            synchronized (gameController) {
+                gameController.notify();
+            }
         }
 
         return;

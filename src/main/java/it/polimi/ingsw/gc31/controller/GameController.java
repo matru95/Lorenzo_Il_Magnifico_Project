@@ -1,5 +1,6 @@
 package it.polimi.ingsw.gc31.controller;
 
+import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
@@ -81,8 +82,11 @@ public class GameController extends Controller implements Runnable{
                 Client client = actionController.getClientFromPlayerID(messageEntry.getKey());
                 getServer().sendMessageToClient(client, messageEntry.getValue());
 
-                synchronized (this) {
-                    this.wait();
+                if(client.getClass() == SocketClient.class) {
+
+                    synchronized (this) {
+                        this.wait();
+                    }
                 }
             }  catch (RemoteException e) {
                 e.printStackTrace();

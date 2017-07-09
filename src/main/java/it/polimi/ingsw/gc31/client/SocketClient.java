@@ -162,7 +162,7 @@ public class SocketClient implements Client, Serializable {
             case EXCOMMUNICATIONREQUEST:
                 inputThread = new Thread(() -> {
                     try {
-                        sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID, gameID));
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID, gameID, this));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
