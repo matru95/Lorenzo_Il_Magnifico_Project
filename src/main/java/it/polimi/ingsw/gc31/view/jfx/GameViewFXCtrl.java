@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -1197,6 +1199,18 @@ public class GameViewFXCtrl implements GameViewCtrl {
         result.put(CARDID, choice.toString());
 
         return result;
+    }
+
+    @Override
+    public void timeoutAlert() {
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                textQuery.setText("ALERT: You have exceeded the time limit, you'll skip this movement");
+            }
+        };
+        (new Timer()).schedule(timerTask, 5000);
     }
 
     @Override

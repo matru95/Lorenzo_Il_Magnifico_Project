@@ -119,7 +119,7 @@ public class SocketClient implements Client, Serializable {
 
         switch (requestType) {
             case TIMEOUT:
-                threadCloser();
+                view.timeoutAlert();
                 break;
             case REGISTERSUCCESS:
                 createView(payload);

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.vandermeer.asciitable.AsciiTable;
 import de.vandermeer.asciitable.CWC_FixedWidth;
 import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
-import it.polimi.ingsw.gc31.client.Client;
 import it.polimi.ingsw.gc31.client.RMIClient;
 import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
@@ -41,7 +40,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     }
 
-    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException, ClassNotFoundException {
+    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException {
 
         this.mapper = new ObjectMapper();
         this.sb = new StringBuilder();
@@ -66,7 +65,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         return br.readLine();
     }
 
-    private void connectionQuery(String serverIP) throws IOException, ClassNotFoundException, InterruptedException, NotBoundException {
+    private void connectionQuery(String serverIP) throws IOException, InterruptedException, NotBoundException {
         sb.append("Choose between using \"SOCKET\" or \"RMI\":");
         printStringBuilder();
         String choice;
@@ -564,6 +563,14 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         result.put(CARDID, choice.toString());
 
         return result;
+    }
+
+    @Override
+    public void timeoutAlert() {
+
+        sb.append("\nALERT: You have exceeded the time limit, you'll skip this movement\n");
+        printStringBuilder();
+
     }
 
     @Override
