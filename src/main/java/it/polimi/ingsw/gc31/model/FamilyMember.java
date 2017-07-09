@@ -111,7 +111,10 @@ public class FamilyMember {
      * @param position
      */
     private void moveToTower(TowerSpaceWrapper position) {
-        checkAndPayExtraGold(position);
+        try {
+            checkAndPayExtraGold(position);
+        } catch (MovementInvalidException e) {
+        }
         player.addCard(position.getCard());
     }
 
@@ -160,7 +163,11 @@ public class FamilyMember {
         if(position.getClass() == TowerSpaceWrapper.class) {
             cardLimitReached = isCardLimitReached(((TowerSpaceWrapper) position).getColor());
             Tower tower = ((TowerSpaceWrapper) position).getTower();
-            towerHasFamilyMemberSameColor = tower.hasFamilyMemberSameColor(this.playerColor);
+
+            if(getColor() != DiceColor.NEUTRAL) {
+
+                towerHasFamilyMemberSameColor = tower.hasFamilyMemberSameColor(this.playerColor);
+            }
         }
 
         if(position.isOccupied() || cardLimitReached || this.isMovedThisTurn || towerHasFamilyMemberSameColor) {
@@ -189,12 +196,19 @@ public class FamilyMember {
      *
      * @param position
      */
-    private void checkAndPayExtraGold(TowerSpaceWrapper position) {
+    private void checkAndPayExtraGold(TowerSpaceWrapper position) throws MovementInvalidException {
         Tower tower = position.getTower();
-        if(tower.isOccupied()) {
 
-//          Check if tower is occupied and pay 3 gold in that case
-            player.getRes().get(ResourceName.GOLD).subNumOf(3);
+//      Check if tower is occupied and pay 3 gold in that case
+        if(tower.isOccupied()) {
+            int playerGold = player.getRes().get(ResourceName.GOLD).getNumOf();
+
+            if(playerGold < 3) {
+                throw new MovementInvalidException();
+            } else {
+                player.getRes().get(ResourceName.GOLD).subNumOf(3);
+            }
+
         }
 
     }
