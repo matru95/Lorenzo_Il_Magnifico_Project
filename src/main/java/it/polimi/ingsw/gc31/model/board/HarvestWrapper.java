@@ -49,9 +49,6 @@ public class HarvestWrapper extends SpaceWrapper {
         message.setPayLoad(payload);
         messages.add(message);
 
-//        HarvestEffect harvestEffect = new HarvestEffect();
-//        List<ServerMessage> messages = harvestEffect.exec(familyMember.getPlayer(), value);
-
         if (!isMultiple) setOccupied(true);
         return messages;
     }

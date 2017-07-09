@@ -153,6 +153,16 @@ public class SocketClient implements Client, Serializable {
                 });
                 inputThread.start();
                 break;
+            case SERVANTSREQUEST:
+                inputThread = new Thread(() -> {
+                    try {
+                        sendMessageToServer(new ClientMessage(ClientMessageEnum.SERVANTSCHOICE, view.servantsQuery(payload), playerID, gameID));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                inputThread.start();
+                break;
             case PARCHMENTREQUEST:
                 inputThread = new Thread(() -> {
                     try {
