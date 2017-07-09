@@ -13,12 +13,22 @@ public class PlayerTile implements Serializable {
     private List<Resource> harvestBonus, productionBonus;
     private int id;
 
+    /**
+     * Constructor of PlayerTile
+     * @param harvestBonus List of resourse to give for HarvestBonus
+     * @param productionBonus List of resource to give for ProductionBonus
+     * @param id
+     */
     public PlayerTile(List<Resource> harvestBonus, List<Resource> productionBonus,int id) {
         this.harvestBonus = harvestBonus;
         this.productionBonus = productionBonus;
         this.id=id;
     }
 
+    /**
+     * Creating the Json of the Player Tile.
+     * @return ObjectNode
+     */
     public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode playerTileNode = mapper.createObjectNode();

@@ -14,8 +14,12 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class SocketClient implements Client, Serializable{
+public class SocketClient implements Client, Serializable {
+
+    private transient Logger logger = Logger.getLogger(SocketClient.class.getName());
     private static Socket socket;
     private transient ObjectInputStream objIn;
     private transient ObjectOutputStream objOut;
@@ -25,9 +29,9 @@ public class SocketClient implements Client, Serializable{
     private String socketClientID;
     private String playerName;
     private String serverIP;
-    private Thread inputThread;
+    private transient Thread inputThread;
 
-    public SocketClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, InterruptedException, ClassNotFoundException {
+    public SocketClient(String serverIP, String playerName, GameViewCtrl view) throws IOException {
         this.socketClientID = UUID.randomUUID().toString();
         this.serverIP = serverIP;
         this.playerName = playerName;
@@ -76,13 +80,13 @@ public class SocketClient implements Client, Serializable{
     }
 
     private void getResponses() throws ClassNotFoundException, InterruptedException, IOException {
-        System.out.println("Getting responses");
+        logger.info("Getting responses");
         objIn = new ObjectInputStream(socket.getInputStream());
         boolean condition = true;
         while (condition) {
             try {
                 ServerMessage response = (ServerMessage) objIn.readObject();
-                System.out.println("Received:"+ response.getMessageType());
+                logger.info("Received:"+ response.getMessageType());
 
                 send(response);
             } catch (IOException e) {
@@ -90,11 +94,6 @@ public class SocketClient implements Client, Serializable{
                 condition = false;
             }
         }
-
-    }
-
-    @Override
-    public void ping() throws RemoteException {
 
     }
 

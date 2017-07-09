@@ -39,10 +39,6 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
         this.server = s;
     }
 
-    @Override
-    public void ping() {
-        System.out.println("YAY! Joined!");
-    }
 
     private void openView(Map<String, String> payload) {
         this.playerID = UUID.fromString(payload.get("playerID"));
