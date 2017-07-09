@@ -114,7 +114,6 @@ public class ActionController extends Controller implements Runnable {
 
         messageThread = new Thread(() -> {
             try {
-                System.out.println("Sending message: " + request.getMessageType());
                 super.getServer().sendMessageToClient(client, request);
             }  catch (IOException e) {
                 e.printStackTrace();
@@ -324,16 +323,14 @@ public class ActionController extends Controller implements Runnable {
         FaithTile ageFaithTile = gameAgeState.getAgeFaithTile();
 
         if(choice.equals("YES")) {
+            System.out.println("Give the excommunication");
             ageFaithTile.execute(player);
         } else {
             gameAgeState.payFaithPointsForVictoryPoints(player);
         }
 
-        synchronized (gameController) {
-            gameController.notify();
-        }
+        System.out.println("Here");
 
         return;
-
     }
 }

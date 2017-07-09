@@ -11,6 +11,7 @@ import it.polimi.ingsw.gc31.model.states.TurnState;
 import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.client.Client;
 
+import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -77,19 +78,18 @@ public class GameController extends Controller implements Runnable{
 
             try {
                 Client client = actionController.getClientFromPlayerID(messageEntry.getKey());
-                actionController.sendMessage(messageEntry.getValue(), client);
-            } catch (RemoteException e) {
+                getServer().sendMessageToClient(client, messageEntry.getValue());
+            }  catch (RemoteException e) {
+                e.printStackTrace();
             } catch (InterruptedException e) {
-            }
-
-            synchronized (this) {
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                }
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
         }
+
+
     }
 
     private void endTurn() {
