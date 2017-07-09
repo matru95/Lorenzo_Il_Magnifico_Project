@@ -373,8 +373,11 @@ public class ActionController extends Controller implements Runnable {
 
     public void servantsChoice(String playerID, Map<String, String> payload) {
         String positionType = payload.get("positionType");
-        int servantsToPay = Integer.valueOf(payload.get("servantsToPay"));
-        List<ServerMessage> messages = new ArrayList<>();
+        int servantsToPay = Integer.parseInt(payload.get("servantsToPay"));
+        int cardValue = Integer.parseInt(payload.get("cardValue"));
+        servantsToPay += cardValue;
+
+        List<ServerMessage> messages;
 
         if(positionType.equals("harvest")) {
             HarvestEffect harvestEffect = new HarvestEffect();
