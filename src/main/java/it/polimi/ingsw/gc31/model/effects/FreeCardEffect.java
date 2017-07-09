@@ -35,7 +35,8 @@ public class FreeCardEffect extends Effect  {
         List<Card> towerCards = new ArrayList<>();
         List<Card> towerCardsFiltered = new ArrayList<>();
 
-        if(freeCardColor!=null){
+//      You can choose from one single card
+        if(freeCardColor != null){
             Tower tower= towers.get(this.freeCardColor);
 
             for (int i=0;i<3;i++){

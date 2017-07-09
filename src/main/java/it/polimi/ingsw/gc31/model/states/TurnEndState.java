@@ -6,6 +6,9 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.CouncilsPalaceWrapper;
 import it.polimi.ingsw.gc31.model.board.NullWrapper;
+import it.polimi.ingsw.gc31.model.board.SpaceWrapper;
+
+import java.util.List;
 
 public class TurnEndState implements State{
 
@@ -14,6 +17,12 @@ public class TurnEndState implements State{
         CouncilsPalaceWrapper councilsPalaceWrapper = (CouncilsPalaceWrapper) context.getGameBoard().getSpaceById(23);
         Player[] orderedPlayers = councilsPalaceWrapper.getNewPlayerOrder();
         orderPlayers(orderedPlayers);
+
+        List<SpaceWrapper> positions = context.getGameBoard().getAllSpaces();
+
+        for(SpaceWrapper position: positions) {
+            position.setFamilyMember(null);
+        }
 
         for(Player player: orderedPlayers) {
             for(FamilyMember familyMember: player.getFamilyMembers()) {
