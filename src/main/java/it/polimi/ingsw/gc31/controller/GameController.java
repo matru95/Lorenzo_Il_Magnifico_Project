@@ -76,19 +76,23 @@ public class GameController extends Controller implements Runnable{
 
         for(Map.Entry<String, ServerMessage> messageEntry: messages.entrySet()) {
 
+            System.out.println("Sending excommunication message");
             try {
                 Client client = actionController.getClientFromPlayerID(messageEntry.getKey());
                 getServer().sendMessageToClient(client, messageEntry.getValue());
+
+                synchronized (this) {
+                    this.wait();
+                }
             }  catch (RemoteException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
+            }  catch (IOException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
-
 
     }
 

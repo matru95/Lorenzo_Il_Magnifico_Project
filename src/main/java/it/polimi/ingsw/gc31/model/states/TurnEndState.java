@@ -22,6 +22,7 @@ public class TurnEndState implements State{
 
         for(SpaceWrapper position: positions) {
             position.reset();
+            position.setOccupied(false);
         }
 
         for(Player player: orderedPlayers) {

@@ -230,7 +230,6 @@ public class ActionController extends Controller implements Runnable {
             parchment.execParchment(player);
         }
 
-
     }
 
     public void costChoiceAction(String playerID, Map<String, String> payload) {
@@ -319,7 +318,7 @@ public class ActionController extends Controller implements Runnable {
 
         String choice = payload.get("applyExcommunication");
         Player player = getModel().getPlayerFromId(UUID.fromString(playerID));
-        GameAgeState gameAgeState = (GameAgeState)  getModel().getState();
+        GameAgeState gameAgeState = (GameAgeState) getModel().getState();
         FaithTile ageFaithTile = gameAgeState.getAgeFaithTile();
 
         if(choice.equals("YES")) {
@@ -329,7 +328,9 @@ public class ActionController extends Controller implements Runnable {
             gameAgeState.payFaithPointsForVictoryPoints(player);
         }
 
-        System.out.println("Here");
+        synchronized (gameController) {
+            gameController.notify();
+        }
 
         return;
     }
