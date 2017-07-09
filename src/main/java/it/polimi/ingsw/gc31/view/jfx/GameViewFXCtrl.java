@@ -1,14 +1,9 @@
 package it.polimi.ingsw.gc31.view.jfx;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.rmi.NotBoundException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -888,6 +883,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
 
+        queryState = new HashMap<>();
+        queryState.put("isMemberChoiceOn", false);
+        queryState.put(ISSCON, false);
+        queryState.put("isParchment1On", false);
+        queryState.put("isParchment21On", false);
+        queryState.put("isParchment3On", false);
+
         Map<Integer, String> orderedPlayers = new HashMap<>();
         Integer numOfPlayers = 0;
 
@@ -1029,7 +1031,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState.put("isMemberChoiceOn", false);
         queryState.put(ISSCON, false);
 
-        textQuery.setText("It's your turn, move a Family Member into a Space.\nSelect a Family Member on the upper-right and then a space.");
+        textQuery.setText("It's your turn, do a movement: select a Family Member on the upper-right and then a space.");
         queryState.put("isMemberChoiceOn", true);
         while (queryState.get("isMemberChoiceOn"));
         queryState.put(ISSCON, true);
@@ -1221,13 +1223,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @Override
     public void timeoutAlert() {
 
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                textQuery.setText("ALERT: You have exceeded the time limit, you'll skip this movement");
-            }
-        };
-        (new Timer()).schedule(timerTask, 5000);
+        textQuery.setText("ALERT: You have exceeded the time limit, you'll skip this movement");
     }
 
     @Override
