@@ -131,7 +131,9 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
             ArrayNode arrayNode = mapper.createArrayNode();
 
             for(FamilyMember familyMember: familyMembers) {
-                arrayNode.add(familyMember.toJson());
+                if(familyMember != null) {
+                    arrayNode.add(familyMember.toJson());
+                }
             }
 
             councilsPalaceWrapperNode.set("familyMembers", arrayNode);
