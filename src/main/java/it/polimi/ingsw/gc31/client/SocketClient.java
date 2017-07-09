@@ -4,9 +4,8 @@ import it.polimi.ingsw.gc31.messages.ClientMessage;
 import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
-import it.polimi.ingsw.gc31.server.GameServer;
+import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
-import it.polimi.ingsw.gc31.view.cli.GameViewCLI;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -41,7 +40,7 @@ public class SocketClient implements Client, Serializable{
 
 
     @Override
-    public void joinServer(GameServer s, String playerName)  {
+    public void joinServer(Server s, String playerName)  {
         try {
             objOut = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {

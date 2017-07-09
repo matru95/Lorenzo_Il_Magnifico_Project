@@ -1,7 +1,7 @@
 package it.polimi.ingsw.gc31.client;
 
 import it.polimi.ingsw.gc31.messages.*;
-import it.polimi.ingsw.gc31.server.GameServer;
+import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.util.UUID;
 public class RMIClient extends UnicastRemoteObject implements Client, Serializable {
 
     private transient UUID playerID;
-    private transient GameServer server;
+    private transient Server server;
     private transient GameViewCtrl view;
     private UUID gameID;
     private String playerName;
@@ -29,12 +29,12 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
         this.view = view;
 
         Registry registry = LocateRegistry.getRegistry(serverIP, 8080);
-        GameServer gameServer = (GameServer) registry.lookup("game_server");
+        Server gameServer = (Server) registry.lookup("game_server");
         joinServer(gameServer, playerName);
     }
 
     @Override
-    public void joinServer(GameServer s, String playerName) throws IOException, InterruptedException {
+    public void joinServer(Server s, String playerName) throws IOException, InterruptedException {
         s.register(this, playerName);
         this.server = s;
     }

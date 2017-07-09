@@ -1,6 +1,5 @@
 package it.polimi.ingsw.gc31.controller;
 
-import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
@@ -19,7 +18,7 @@ import it.polimi.ingsw.gc31.model.effects.ParchmentEffect;
 import it.polimi.ingsw.gc31.model.parser.SettingsParser;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.model.states.GameAgeState;
-import it.polimi.ingsw.gc31.server.GameServer;
+import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.client.Client;
 
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class ActionController extends Controller implements Runnable {
     private long endTime;
     private Thread messageThread;
 
-    public ActionController(GameInstance model, List<Client> clients, GameController gameController, GameServer server) {
+    public ActionController(GameInstance model, List<Client> clients, GameController gameController, Server server) {
         super(model, clients, server);
         SettingsParser parser = new SettingsParser("src/config/Settings.json");
 
