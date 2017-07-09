@@ -1822,7 +1822,7 @@
         "bonus": {
           "faithPoints": 2
         },
-        "activate": {
+        "productionOrHarvestAction": {
           "harvest": 4
         }
       },
@@ -1845,7 +1845,7 @@
         "bonus": {
           "faithPoints": 1
         },
-        "activate": {
+        "productionOrHarvestAction": {
           "production": 4
         }
       },

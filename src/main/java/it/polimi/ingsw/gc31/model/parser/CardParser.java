@@ -167,6 +167,20 @@ public class CardParser {
             parseProductionOrHarvestBonus(productionOrHarvestBonusNode, card);
         }
 
+        if(instantEffectNode.has("productionOrHarvestAction")) {
+            JsonNode actionNode = instantEffectNode.path("productionOrHarvestAction");
+
+            String actionType = actionNode.fieldNames().next();
+            int value = actionNode.path(actionType).asInt();
+
+            if(actionType == "production") {
+                ProductionActionEffect productionActionEffect = new ProductionActionEffect(value);
+                card.addInstantEffect(productionActionEffect);
+            } else {
+                HarvestActionEffect harvestActionEffect = new HarvestActionEffect(value);
+                card.addInstantEffect(harvestActionEffect);
+            }
+        }
     }
 
     private void parsePurpleCard(JsonNode cardJSON, Card card) {
