@@ -22,8 +22,8 @@ import java.util.*;
 public class GameServer extends UnicastRemoteObject implements Server {
     private transient Map<UUID, GameController> games;
     private UUID openGameID;
-    private Map<UUID, List<Client>> clients;
-    private List<SocketThread> socketThreads;
+    private transient Map<UUID, List<Client>> clients;
+    private transient List<SocketThread> socketThreads;
     private transient Timer timer;
     private int waitTime;
     ObjectMapper mapper;
@@ -109,9 +109,7 @@ public class GameServer extends UnicastRemoteObject implements Server {
                     try {
                         startGame();
                     } catch (IOException e) {
-                        e.printStackTrace();
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
                 }
                 };
@@ -241,6 +239,8 @@ public class GameServer extends UnicastRemoteObject implements Server {
                 client = request.getClient();
 
                 processExcommunicationChoice(gameID, playerID, payload, client);
+                break;
+            default:
                 break;
         }
 
