@@ -83,7 +83,7 @@ public class ProductionWrapper extends SpaceWrapper {
         int familyMemberValue = familyMember.getValue();
         int finalValue = servants+familyMemberValue;
 
-        if(this.getDiceBond() < finalValue) return false;
+        if(this.getDiceBond() > finalValue) return false;
 
 
 

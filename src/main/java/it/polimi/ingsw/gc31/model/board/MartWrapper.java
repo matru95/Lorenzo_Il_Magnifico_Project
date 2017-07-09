@@ -98,7 +98,7 @@ public class MartWrapper extends SpaceWrapper {
         int familyMemberValue = familyMember.getValue();
         int finalValue = playerServants+familyMemberValue;
 
-        if(this.getDiceBond() < finalValue) {
+        if(this.getDiceBond() > finalValue) {
             return false;
         }
 
