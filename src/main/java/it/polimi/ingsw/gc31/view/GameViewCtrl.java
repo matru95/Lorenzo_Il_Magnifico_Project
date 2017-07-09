@@ -1,6 +1,7 @@
 package it.polimi.ingsw.gc31.view;
 
 import java.io.IOException;
+import java.rmi.NotBoundException;
 import java.util.Map;
 
 public interface GameViewCtrl {

@@ -22,13 +22,7 @@ public class ClientApp {
             choice = br.readLine();
 
             if (choice.equalsIgnoreCase("CLI")) {
-                System.out.println("Hello, pls enter your name:");
-                br = new BufferedReader(new InputStreamReader(System.in));
-                String myPlayerName = br.readLine();
-                System.out.println("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
-                br = new BufferedReader(new InputStreamReader(System.in));
-                String serverIP = br.readLine();
-                new GameViewCLI(myPlayerName, serverIP);
+                new GameViewCLI();
                 break;
             }
 

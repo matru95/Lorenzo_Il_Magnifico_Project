@@ -23,26 +23,69 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private static final String CARDS = "cards";
     private static final String CARDID = "cardID";
 
-    private final String myPlayerName;
+    private String myPlayerName;
     private String myPlayerID;
-    private final ObjectMapper mapper;
+    private ObjectMapper mapper;
     private StringBuilder sb;
     private transient JsonNode rootInstance;
     private transient JsonNode rootBoard;
 
-    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException {
+    public GameViewCLI() throws IOException, NotBoundException, InterruptedException, ClassNotFoundException {
 
         this.mapper = new ObjectMapper();
-        this.myPlayerName = myPlayerName;
-        try {
-            new SocketClient(serverIP, myPlayerName, this);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         this.sb = new StringBuilder();
+        myPlayerNameQuery();
+        connectionQuery(serverIPQuery());
         printLogo();
         printStringBuilder();
 
+    }
+
+    public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException, ClassNotFoundException {
+
+        this.mapper = new ObjectMapper();
+        this.sb = new StringBuilder();
+        this.myPlayerName = myPlayerName;
+        connectionQuery(serverIP);
+        printLogo();
+        printStringBuilder();
+
+    }
+
+    private void myPlayerNameQuery() throws IOException {
+        sb.append("Hello, pls enter your name:");
+        printStringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        this.myPlayerName = br.readLine();
+    }
+
+    private String serverIPQuery() throws IOException {
+        sb.append("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
+        printStringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return br.readLine();
+    }
+
+    private void connectionQuery(String serverIP) throws IOException, ClassNotFoundException, InterruptedException, NotBoundException {
+        sb.append("Choose between using \"SOCKET\" or \"RMI\":");
+        printStringBuilder();
+        String choice;
+        do {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            choice = br.readLine();
+
+            if (choice.equalsIgnoreCase("SOCKET")) {
+                new SocketClient(serverIP, this.myPlayerName, this);
+                break;
+            }
+
+            if (choice.equalsIgnoreCase("RMI")) {
+                new RMIClient(serverIP, this.myPlayerName, this);
+                break;
+            }
+            sb.append("Wrong choose, try again entering one between these:\"SOCKET\" or \"RMI\":");
+            printStringBuilder();
+        } while (true);
     }
 
     /**
