@@ -176,7 +176,6 @@ public class GameServer extends UnicastRemoteObject implements Server {
         ServerMessage request = new ServerMessage(ServerMessageEnum.REGISTERSUCCESS, payload);
         sendMessageToClient(client, request);
 
-        client.ping();
     }
 
     @Override

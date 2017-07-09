@@ -19,13 +19,6 @@ public interface Client extends Remote {
     void joinServer(Server s, String playerName) throws IOException, InterruptedException, ClassNotFoundException;
 
     /**
-     * Method to ping.
-     * @throws RemoteException
-     */
-    void ping() throws RemoteException;
-
-
-    /**
      * Method used by the controller and RMI server to send a response to the client
      * @param request The Message request
      */
