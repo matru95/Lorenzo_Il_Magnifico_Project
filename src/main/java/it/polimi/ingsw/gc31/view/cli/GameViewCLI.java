@@ -360,7 +360,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
             }
         } while (true);
         result.put("positionID", id.toString());
-
+        /*
         Integer max = getMyServants();
 
         sb.append("\nEnter the number of servants you'd like to add (if you won't enter 0):");
@@ -376,8 +376,8 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
                 printStringBuilder();
             }
         } while (true);
-        result.put("servantsToPay", servants.toString());
-
+        result.put("servantsToPay", servants.toString());*/
+        result.put("servantsToPay", "0");
         return result;
     }
 

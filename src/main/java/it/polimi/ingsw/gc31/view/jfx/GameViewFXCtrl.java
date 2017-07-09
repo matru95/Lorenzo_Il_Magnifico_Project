@@ -12,8 +12,10 @@ import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.view.GameViewCtrl;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -155,6 +157,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private Text header, textQuery, textFail;
 
     @FXML
+    private TextField textChoice;
+
+    @FXML
+    private Button buttonChoice;
+
+    @FXML
     private Tab blueTab, greenTab, redTab, yellowTab;
 
     @FXML
@@ -210,6 +218,19 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     @FXML
     private ImageView yellowPurple1, yellowPurple2, yellowPurple3, yellowPurple4, yellowPurple5, yellowPurple6;
+
+    @FXML
+    void onButtonClick(MouseEvent event) {
+
+        if(queryState.get("isExchangeChoiceOn")) {
+            textChoice.setVisible(false);
+            textChoice.setDisable(true);
+            buttonChoice.setVisible(false);
+            buttonChoice.setDisable(true);
+            choice.put("choice", textChoice.getText());
+            queryState.put("isExchangeChoiceOn", false);
+        }
+    }
 
     @FXML
     void onClickParchment0(MouseEvent event) {
@@ -886,8 +907,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState = new HashMap<>();
         queryState.put("isMemberChoiceOn", false);
         queryState.put(ISSCON, false);
+        queryState.put("isExchangeChoiceOn", false);
         queryState.put("isParchment1On", false);
-        queryState.put("isParchment21On", false);
+        queryState.put("isParchment2On", false);
         queryState.put("isParchment3On", false);
 
         Map<Integer, String> orderedPlayers = new HashMap<>();
@@ -1135,53 +1157,44 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @Override
     public Map<String, String> exchangeQuery(Map<String, String> map) throws IOException {
 
-        HashMap<String, String> result = new HashMap<>();
+        choice = new HashMap<>();
+        queryState = new HashMap<>();
+        queryState.put("isExchangeChoiceOn", false);
         Integer exchangesNumber = map.size() - 2;
-        Integer choice;
-        String str;
+        String str = "(0)";
 
         switch (exchangesNumber) {
             case 2:
-                sb.append("You've to choose whether or not activate the following exchange effects for the card #")
-                        .append(map.get(CARDID)).append(" \"").append("cardName").append("\":\n")
-                        .append("1st Exchange Effect: ").append(map.get("1").replace("\n"," ")).append("\n")
-                        .append("2nd Exchange Effect: ").append(map.get("2").replace("\n"," ")).append("\n")
-                        .append("Type 0 to avoid activation of the exchanges;\n")
-                        .append("Type 1 to activate the first exchange effect;\n")
-                        .append("Type 2 to activate the second exchange effect.");
-                printStringBuilder();
+                textQuery.setText("Choose whether or not activate the following exchange effects for the card #"
+                        + map.get(CARDID) + " \"" + "cardName" + "\":\n" + "1st Exchange Effect: " + map.get("1").replace("\n"," ")
+                        + "\n" + "2nd Exchange Effect: " + map.get("2").replace("\n"," ") + "\n"
+                        + "Type 0 to avoid activation of the exchanges;\n" + "Type 1 to activate the first exchange effect;\n" + "Type 2 to activate the second exchange effect.");
                 str = "(0, 1, 2)";
                 break;
             case 1:
-            default:
-                sb.append("You've to choose whether or not activate the following exchange effect for the card #")
-                        .append(map.get(CARDID)).append(" \"").append(map.get("cardName")).append("\":\n")
-                        .append("Exchange Effect: ").append(map.get("1").replace("\n"," ")).append("\n")
-                        .append("Type 0 to avoid activation of the exchange;\n")
-                        .append("Type 1 to activate the exchange effect.");
-                printStringBuilder();
+                textQuery.setText("Choose whether or not activate the following exchange effect for the card #"
+                        + map.get(CARDID) + " \"" + map.get("cardName") + "\":\n" + "Exchange Effect: " + map.get("1").replace("\n"," ") + "\n"
+                        + "Type 0 to avoid activation of the exchange;\n" + "Type 1 to activate the exchange effect.");
                 str = "(0, 1)";
+                break;
+            default:
         }
 
         do {
-            try {
-                choice = readInteger();
-
-                if ((exchangesNumber.equals(1) && (choice.equals(0) || choice.equals(1)))
-                        || (exchangesNumber.equals(2) && (choice.equals(0) || choice.equals(1) || choice.equals(2))))
-                    break;
-                sb.append("You must insert a valid number among these: ").append(str);
-                printStringBuilder();
-            } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid number among these: ").append(str);
-                printStringBuilder();
-            }
+            queryState.put("isExchangeChoiceOn", true);
+            textChoice.setVisible(true);
+            textChoice.setDisable(false);
+            buttonChoice.setVisible(true);
+            buttonChoice.setDisable(false);
+            while(queryState.get("isExchangeChoiceOn"));
+            if ((exchangesNumber.equals(1) && (choice.get("choice").equals("0") || choice.get("choice").equals("1")))
+                    || (exchangesNumber.equals(2) && (choice.get("choice").equals("0") || choice.get("choice").equals("1") || choice.get("choice").equals("2"))))
+                break;
+            textQuery.setText("You must insert a valid number among these: " + str);
         } while (true);
 
-        result.put(CARDID, map.get(CARDID));
-        result.put("choice", choice.toString());
-
-        return result;
+        choice.put(CARDID, map.get(CARDID));
+        return choice;
     }
 
     @Override
