@@ -62,16 +62,29 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.movementState.put("isMemberChoiceOn", false);
         this.movementState.put("isSpaceChoiceOn", false);
         this.mapper = new ObjectMapper();
-        connectionQuery();
-        /*System.out.println("Hello, pls enter your name:");
-        br = new BufferedReader(new InputStreamReader(System.in));
-        this.myPlayerName = br.readLine();
-        System.out.println("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
-        br = new BufferedReader(new InputStreamReader(System.in));
-        String serverIP = br.readLine();*/
+
+//        myPlayerNameQuery();
+//        connectionQuery(serverIPQuery());
+
+        this.myPlayerName = "CLIENTFX";
+        connectionQuery("localhost");
     }
 
-    private void connectionQuery() throws IOException, ClassNotFoundException, InterruptedException, NotBoundException {
+    private void myPlayerNameQuery() throws IOException {
+        sb.append("Hello, pls enter your name:");
+        printStringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        this.myPlayerName = br.readLine();
+    }
+
+    private String serverIPQuery() throws IOException {
+        sb.append("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
+        printStringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        return br.readLine();
+    }
+
+    private void connectionQuery(String serverIP) throws IOException, ClassNotFoundException, InterruptedException, NotBoundException {
         sb.append("Choose between using \"SOCKET\" or \"RMI\":");
         printStringBuilder();
         String choice;
@@ -81,13 +94,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
             if (choice.equalsIgnoreCase("SOCKET")) {
                 this.myPlayerName = "SOCKETFX";
-                new SocketClient("127.0.0.1", myPlayerName, this);
+                new SocketClient(serverIP, myPlayerName, this);
                 break;
             }
 
             if (choice.equalsIgnoreCase("RMI")) {
                 this.myPlayerName = "RMIFX";
-                new RMIClient("127.0.0.1", myPlayerName, this);
+                new RMIClient(serverIP, myPlayerName, this);
                 break;
             }
             sb.append("Wrong choose, try again entering one between these:\"SOCKET\" or \"RMI\":");
@@ -501,8 +514,6 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private void actionSpaceSetter(Circle spaceShape, JsonNode node) {
 
         if (node.path(ISOCCUPIED).toString().equals("true")) {
-            spaceShape.setRadius(30);
-            spaceShape.setStrokeWidth(15);
 
             if (beauty(node.path("familyMembers").path(0).path("color")).equals("NEUTRAL")) {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path(PLCOL))));
@@ -511,8 +522,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("color"))));
                 spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path(PLCOL))));
             }
-            spaceShape.setFill(Paint.valueOf(beauty(node.path("familyMembers").path(0).path("color"))));
-            spaceShape.setStroke(Paint.valueOf(beauty(node.path("familyMembers").path(0).path(PLCOL))));
+            spaceShape.setRadius(30);
+            spaceShape.setStrokeWidth(15);
         } else {
             spaceShape.setRadius(40);
             spaceShape.setStroke(Paint.valueOf("#00ff0080"));
