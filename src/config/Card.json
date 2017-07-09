@@ -8,6 +8,8 @@
       "activationValue": 2,
       "cost": [],
       "instantEffect": {
+        "bonus": {},
+        "parchment": 1
       },
       "normalEffect": {
         "bonus": {
@@ -26,7 +28,8 @@
       "instantEffect": {
         "bonus": {
           "wood": 1
-        }
+        },
+        "parchment": 1
       },
       "normalEffect": {
         "bonus": {
@@ -44,7 +47,8 @@
       "cost": [],
       "instantEffect": {
         "bonus": {
-        }
+        },
+        "parchment": 1
       },
       "normalEffect": {
         "bonus": {

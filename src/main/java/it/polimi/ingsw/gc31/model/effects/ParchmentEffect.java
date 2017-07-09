@@ -19,11 +19,10 @@ public class ParchmentEffect extends Effect{
 
     @Override
     public ServerMessage exec(Player player) {
-        System.out.println("Number of parchments: "+ numOfParchments);
         Map<String,String> payload= new HashMap<>();
         payload.put("parchments", String.valueOf(numOfParchments));
         ServerMessage request = new ServerMessage(ServerMessageEnum.PARCHMENTREQUEST, payload);
-    return request;
+        return request;
     }
 
     @Override

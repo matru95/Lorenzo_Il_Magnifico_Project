@@ -49,7 +49,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
             execTowerBonus(familyMember.getPlayer());
         }
 
-        card.execInstantEffect(familyMember.getPlayer());
+        result = card.execInstantEffect(familyMember.getPlayer());
 
         setOccupied(true);
         tower.setOccupied(true);
