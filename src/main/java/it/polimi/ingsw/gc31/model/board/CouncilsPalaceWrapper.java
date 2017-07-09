@@ -168,6 +168,10 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     @Override
     public void setFamilyMember(FamilyMember familyMember) {
 
+        if(familyMember == null) {
+            familyMembers = new ArrayList<>();
+        }
+
         familyMembers.add(familyMember);
     }
 

@@ -101,6 +101,10 @@ public class ProductionWrapper extends SpaceWrapper {
 
     public void setFamilyMember(FamilyMember familyMember) {
 
+        if(familyMember == null) {
+            familyMembers = new ArrayList<>();
+        }
+
         familyMembers.add(familyMember);
     }
 

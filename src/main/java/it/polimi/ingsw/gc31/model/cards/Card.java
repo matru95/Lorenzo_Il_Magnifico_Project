@@ -170,4 +170,43 @@ public class Card {
         return instantEffects;
     }
 
+    public boolean isAffordable(Map<ResourceName, Resource> playerResources) {
+        int costBondAmount = 0;
+        int costLength = cost.size();
+        int unaffordableIndex = 0;
+
+        if(costBond != null) {
+            costBondAmount = costBond.getNumOf();
+
+            int playerResourceAmount = playerResources.get(costBond).getNumOf();
+
+            if(costBondAmount > playerResourceAmount) {
+                return false;
+            }
+        }
+
+        if(costLength == 0) {
+
+            return true;
+        }
+
+        for(Map<ResourceName, Resource> singleCost: cost) {
+
+            for(Map.Entry<ResourceName, Resource> singleCostEntry: singleCost.entrySet()) {
+                Resource playerResource = playerResources.get(singleCostEntry.getKey());
+                int playerResourceAmount = playerResource.getNumOf();
+                int costResourceAmount = singleCostEntry.getValue().getNumOf();
+
+                if(costResourceAmount > playerResourceAmount) {
+                    unaffordableIndex++;
+                }
+            }
+        }
+
+        if(unaffordableIndex == costLength) {
+            return false;
+        }
+
+        return true;
+    }
 }
