@@ -75,6 +75,11 @@ public interface GameViewCtrl {
      */
     Map<String, String> freeCardQuery(Map<String, String> map) throws IOException;
 
+    /**
+     * This method is used to print a timeout message
+     */
+    void timeoutAlert();
+
     void setPlayerID(String playerID);
 
 }

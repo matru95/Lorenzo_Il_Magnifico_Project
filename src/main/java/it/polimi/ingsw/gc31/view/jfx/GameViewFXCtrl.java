@@ -5,9 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +24,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Text;
 
@@ -64,15 +64,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private JsonNode rootBoard;
     private JsonNode rootMe;
 
-    private Map<String, Boolean> movementState;
-    private Map<String, String> movementChoice;
+    private Map<String, Boolean> queryState;
+    private Map<String, String> choice;
 
     public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException, ClassNotFoundException {
 
         this.sb = new StringBuilder();
-        this.movementState = new HashMap<>();
-        this.movementState.put("isMemberChoiceOn", false);
-        this.movementState.put(ISSCON, false);
         this.mapper = new ObjectMapper();
 
 //        myPlayerNameQuery();
@@ -151,6 +148,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private Circle councPal1, councPal2, councPal3, councPal4, councPal5, councPal6, councPal7, councPal8, councPal9, councPal10;
 
     @FXML
+    private Circle parchment0, parchment1, parchment2, parchment3, parchment4;
+
+    @FXML
     private Circle order1, order2, order3, order4;
 
     @FXML
@@ -217,253 +217,309 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private ImageView yellowPurple1, yellowPurple2, yellowPurple3, yellowPurple4, yellowPurple5, yellowPurple6;
 
     @FXML
+    void onClickParchment0(MouseEvent event) {
+
+        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+            if (this.queryState.get("isParchment" + i + "On")) {
+                choice.put(i.toString(), "0");
+                this.queryState.put("isParchment" + i + "On", false);
+            }
+        }
+
+    }
+
+    @FXML
+    void onClickParchment1(MouseEvent event) {
+
+        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+            if (this.queryState.get("isParchment" + i + "On")) {
+                choice.put(i.toString(), "1");
+                this.queryState.put("isParchment" + i + "On", false);
+            }
+        }
+    }
+
+    @FXML
+    void onClickParchment2(MouseEvent event) {
+
+        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+            if (this.queryState.get("isParchment" + i + "On")) {
+                choice.put(i.toString(), "2");
+                this.queryState.put("isParchment" + i + "On", false);
+            }
+        }
+    }
+
+    @FXML
+    void onClickParchment3(MouseEvent event) {
+
+        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+            if (this.queryState.get("isParchment" + i + "On")) {
+                choice.put(i.toString(), "3");
+                this.queryState.put("isParchment" + i + "On", false);
+            }
+        }
+    }
+
+    @FXML
+    void onClickParchment4(MouseEvent event) {
+
+        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+            if (this.queryState.get("isParchment" + i + "On")) {
+                choice.put(i.toString(), "4");
+                this.queryState.put("isParchment" + i + "On", false);
+            }
+        }
+    }
+
+    @FXML
     void onClickMemberBlack(MouseEvent event) {
 
-        if (this.movementState.get("isMemberChoiceOn")) {
-            movementChoice.put(DICECOLOR, "BLACK");
+        if (this.queryState.get("isMemberChoiceOn")) {
+            choice.put(DICECOLOR, "BLACK");
             myBlack.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.movementState.put("isMemberChoiceOn", false);
+            this.queryState.put("isMemberChoiceOn", false);
         }
     }
 
     @FXML
     void onClickMemberWhite(MouseEvent event) {
 
-        if (this.movementState.get("isMemberChoiceOn")) {
-            movementChoice.put(DICECOLOR, "WHITE");
+        if (this.queryState.get("isMemberChoiceOn")) {
+            choice.put(DICECOLOR, "WHITE");
             myWhite.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.movementState.put("isMemberChoiceOn", false);
+            this.queryState.put("isMemberChoiceOn", false);
         }
     }
 
     @FXML
     void onClickMemberOrange(MouseEvent event) {
 
-        if (this.movementState.get("isMemberChoiceOn")) {
-            movementChoice.put(DICECOLOR, "ORANGE");
+        if (this.queryState.get("isMemberChoiceOn")) {
+            choice.put(DICECOLOR, "ORANGE");
             myOrange.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.movementState.put("isMemberChoiceOn", false);
+            this.queryState.put("isMemberChoiceOn", false);
         }
     }
 
     @FXML
     void onClickMemberNeutral(MouseEvent event) {
 
-        if (this.movementState.get("isMemberChoiceOn")) {
-            movementChoice.put(DICECOLOR, "NEUTRAL");
+        if (this.queryState.get("isMemberChoiceOn")) {
+            choice.put(DICECOLOR, "NEUTRAL");
             myNeutral.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.movementState.put("isMemberChoiceOn", false);
+            this.queryState.put("isMemberChoiceOn", false);
         }
     }
 
     @FXML
     void onClickSpace1(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "1");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "1");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace2(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "2");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "2");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace3(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "3");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "3");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace4(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "4");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "4");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace5(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "5");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "5");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace6(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "6");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "6");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace7(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "7");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "7");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace8(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "8");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "8");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace9(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "9");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "9");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace10(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "10");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "10");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace11(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "11");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "11");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace12(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "12");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "12");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace13(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "13");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "13");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace14(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "14");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "14");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace15(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "15");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "15");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace16(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "16");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "16");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace17(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "17");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "17");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace18(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "18");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "18");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace19(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "19");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+           choice.put(POSITIONID, "19");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace20(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "20");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "20");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace21(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "21");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "21");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace22(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "22");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "22");
+            this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
     void onClickSpace23(MouseEvent event) {
 
-        if (this.movementState.get(ISSCON)) {
-            movementChoice.put(POSITIONID, "23");
-            this.movementState.put(ISSCON, false);
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "23");
+            this.queryState.put(ISSCON, false);
         }
     }
 
@@ -484,6 +540,35 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myBlack.setDisable(false);
         myWhite.setDisable(false);
     }
+
+    private void enableParchments() {
+
+        parchment0.setVisible(true);
+        parchment0.setDisable(false);
+        parchment1.setVisible(true);
+        parchment1.setDisable(false);
+        parchment2.setVisible(true);
+        parchment2.setDisable(false);
+        parchment3.setVisible(true);
+        parchment3.setDisable(false);
+        parchment4.setVisible(true);
+        parchment4.setDisable(false);
+    }
+
+    private void disableParchments() {
+
+        parchment0.setVisible(false);
+        parchment0.setDisable(true);
+        parchment1.setVisible(false);
+        parchment1.setDisable(true);
+        parchment2.setVisible(false);
+        parchment2.setDisable(true);
+        parchment3.setVisible(false);
+        parchment3.setDisable(true);
+        parchment4.setVisible(false);
+        parchment4.setDisable(true);
+    }
+
 
     private void cardSetter(ImageView cardView, Integer cardID) {
         cardView.setImage(new Image(new File("src/main/resources/javafx/cards/cardID" + cardID + ".png").toURI().toString()));
@@ -520,6 +605,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             spaceShape.setRadius(40);
             spaceShape.setStroke(Paint.valueOf("#00ff0080"));
             spaceShape.setStrokeWidth(5);
+            spaceShape.setFill(Paint.valueOf("#ffffff00"));
         }
     }
 
@@ -540,6 +626,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             spaceShape.setRadius(40);
             spaceShape.setStroke(Paint.valueOf("#00ff0080"));
             spaceShape.setStrokeWidth(5);
+            spaceShape.setFill(Paint.valueOf("#ffffff00"));
         }
     }
 
@@ -921,54 +1008,50 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @Override
     public Map<String, String> movementQuery() {
 
+        choice = new HashMap<>();
+        queryState = new HashMap<>();
+        queryState.put("isMemberChoiceOn", false);
+        queryState.put(ISSCON, false);
+
         textQuery.setText("It's your turn, move a Family Member into a Space.\nSelect a Family Member on the upper-right and then a space.");
-        movementChoice = new HashMap<>();
-        movementState.put("isMemberChoiceOn", true);
-        while (movementState.get("isMemberChoiceOn"));
-        movementState.put(ISSCON, true);
-        while (movementState.get(ISSCON));
-        movementChoice.put("servantsToPay", "0");
+        queryState.put("isMemberChoiceOn", true);
+        while (queryState.get("isMemberChoiceOn"));
+        queryState.put(ISSCON, true);
+        while (queryState.get(ISSCON));
+        choice.put("servantsToPay", "0");
         resetFamilyMembers();
         textQuery.setText("Waiting for player's movement ...");
         textFail.setVisible(false);
-        return movementChoice;
+        return choice;
     }
 
     @Override
-    public Map<String, String> parchmentQuery(Map<String, String> map) throws IOException {
+    public Map<String, String> parchmentQuery(Map<String, String> map) {
 
-        HashMap<String, String> result = new HashMap<>();
-        int numOfParchments = Integer.parseInt(map.get("parchments"));
-        ArrayList<Integer> lastChoices = new ArrayList<>();
-        if (numOfParchments > 1)
-            sb.append("Now you'll have to choose ").append(numOfParchments).append(" different parchments.\n");
+        choice = new HashMap<>();
+        queryState = new HashMap<>();
 
-        for (int i = 1; i <= numOfParchments; i++) {
-            sb.append("Choose a parchment's bonus between this: \n" +
-                    "Type 0 for: 1 Wood && 1 Stone \n" +
-                    "Type 1 for: 2 Servants \n" +
-                    "Type 2 for: 2 Golds \n" +
-                    "Type 3 for: 2 Military Points \n" +
-                    "Type 4 for: 1 Faith Points ");
-            printStringBuilder();
+        choice.put("numOfParchments", map.get("parchments"));
+        queryState.put("isOpenChoice1", true);
+        queryState.put("isOpenChoice2", true);
+        queryState.put("isOpenChoice3", true);
+        queryState.put("isOpenChoice4", true);
 
-            Integer choice;
-            do {
-                try {
-                    choice = readInteger();
-                    if (choice >= 0 && choice <= 4 && !lastChoices.contains(choice)) break;
-                    sb.append("You must insert a valid number between 0 and 4 and different from previous choices:");
-                    printStringBuilder();
-                } catch (IllegalArgumentException e) {
-                    sb.append("You must insert a valid number between 0 and 4 and different from previous choices:");
-                    printStringBuilder();
-                }
-            } while (true);
-            result.put(String.valueOf(i), choice.toString());
-            lastChoices.add(choice);
+        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++)
+            queryState.put("isParchment" + i + "On", false);
+        if (Integer.parseInt(choice.get("numOfParchments")) > 1)
+            textQuery.setText("Now you'll have to choose " + choice.get("numOfParchments") + " different parchments.");
+        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+            queryState.put("isParchment" + i + "On", true);
+            textQuery.setText("Choose parchment bonus #" + i +", between the ones available, highlighted in green");
+            enableParchments();
+            while (queryState.get("isParchment" + i + "On"));
+            disableParchments();
         }
 
-        return result;
+        textQuery.setText("Waiting for player's movement ...");
+        choice.remove("numOfParchments");
+        return choice;
     }
 
     @Override
@@ -1116,6 +1199,18 @@ public class GameViewFXCtrl implements GameViewCtrl {
         result.put(CARDID, choice.toString());
 
         return result;
+    }
+
+    @Override
+    public void timeoutAlert() {
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                textQuery.setText("ALERT: You have exceeded the time limit, you'll skip this movement");
+            }
+        };
+        (new Timer()).schedule(timerTask, 5000);
     }
 
     @Override

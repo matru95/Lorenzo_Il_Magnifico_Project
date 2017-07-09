@@ -53,6 +53,9 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
         Map<String, String> payload = request.getPayload();
 
         switch (requestType) {
+            case TIMEOUT:
+                view.timeoutAlert();
+                break;
             case REGISTERSUCCESS:
                 openView(payload);
                 break;

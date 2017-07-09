@@ -161,7 +161,7 @@
                     <Circle fx:id="space20" fill="#ffffff00" layoutX="1900.0" layoutY="744.0" onMouseClicked="#onClickSpace20" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
                     <Circle fx:id="space21" fill="#ffffff00" layoutX="2012.0" layoutY="776.0" onMouseClicked="#onClickSpace21" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
                     <Circle fx:id="space22" fill="#ffffff00" layoutX="2099.0" layoutY="864.0" onMouseClicked="#onClickSpace22" radius="40.0" stroke="#00ff007f" strokeType="INSIDE" strokeWidth="5.0" />
-                    <Rectangle fx:id="space23" arcHeight="30.0" arcWidth="30.0" fill="#ffffff00" height="120.0" layoutX="1643.0" layoutY="243.0" onMouseClicked="#onClickSpace23" stroke="#00ff007e" strokeType="INSIDE" strokeWidth="5.0" width="326.0" />
+                    <Rectangle fx:id="space23" arcHeight="30.0" arcWidth="30.0" fill="#ffffff00" height="120.0" layoutX="1642.0" layoutY="245.0" onMouseClicked="#onClickSpace23" stroke="#00ff007d" strokeType="INSIDE" strokeWidth="5.0" width="326.0" />
                     <Circle fx:id="order1" fill="#ffffff00" layoutX="2078.0" layoutY="226.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                     <Circle fx:id="order2" fill="#ffffff00" layoutX="2078.0" layoutY="296.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                     <Circle fx:id="order3" fill="#ffffff00" layoutX="2078.0" layoutY="364.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
@@ -185,16 +185,21 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Text>
-                        <Circle fx:id="councPal1" fill="#ffffff00" layoutX="1742.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal2" fill="#ffffff00" layoutX="1790.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal3" fill="#ffffff00" layoutX="1838.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal4" fill="#ffffff00" layoutX="1890.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal5" fill="#ffffff00" layoutX="1940.0" layoutY="289.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal6" fill="#ffffff00" layoutX="1742.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal7" fill="#ffffff00" layoutX="1790.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal8" fill="#ffffff00" layoutX="1838.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal9" fill="#ffffff00" layoutX="1890.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
-                        <Circle fx:id="councPal10" fill="#ffffff00" layoutX="1940.0" layoutY="332.0" onMouseClicked="#onClickMemberWhite" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal1" fill="#ffffff00" layoutX="1742.0" layoutY="289.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal2" fill="#ffffff00" layoutX="1790.0" layoutY="289.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal3" fill="#ffffff00" layoutX="1838.0" layoutY="289.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal4" fill="#ffffff00" layoutX="1890.0" layoutY="289.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal5" fill="#ffffff00" layoutX="1940.0" layoutY="289.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal6" fill="#ffffff00" layoutX="1742.0" layoutY="332.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal7" fill="#ffffff00" layoutX="1790.0" layoutY="332.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal8" fill="#ffffff00" layoutX="1838.0" layoutY="332.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal9" fill="#ffffff00" layoutX="1890.0" layoutY="332.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="councPal10" fill="#ffffff00" layoutX="1940.0" layoutY="332.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="parchment0" disable="true" fill="#ffffff00" layoutX="1761.0" layoutY="420.0" onMouseClicked="#onClickParchment0" radius="18.0" stroke="#00ff0080" strokeType="INSIDE" strokeWidth="4.0" visible="false" />
+                        <Circle fx:id="parchment1" disable="true" fill="#ffffff00" layoutX="1801.0" layoutY="420.0" onMouseClicked="#onClickParchment1" radius="18.0" stroke="#00ff0080" strokeType="INSIDE" strokeWidth="4.0" visible="false" />
+                        <Circle fx:id="parchment2" disable="true" fill="#ffffff00" layoutX="1838.0" layoutY="420.0" onMouseClicked="#onClickParchment2" radius="18.0" stroke="#00ff0080" strokeType="INSIDE" strokeWidth="4.0" visible="false" />
+                        <Circle fx:id="parchment3" disable="true" fill="#ffffff00" layoutX="1879.0" layoutY="420.0" onMouseClicked="#onClickParchment3" radius="18.0" stroke="#00ff0080" strokeType="INSIDE" strokeWidth="4.0" visible="false" />
+                        <Circle fx:id="parchment4" disable="true" fill="#ffffff00" layoutX="1917.0" layoutY="420.0" onMouseClicked="#onClickParchment4" radius="18.0" stroke="#00ff0080" strokeType="INSIDE" strokeWidth="4.0" visible="false" />
                   </children>
                 </AnchorPane>
                </content>
