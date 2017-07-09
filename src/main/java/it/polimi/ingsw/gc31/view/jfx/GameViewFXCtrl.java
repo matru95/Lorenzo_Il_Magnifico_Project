@@ -223,6 +223,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "0");
                 this.queryState.put("isParchment" + i + "On", false);
+                this.queryState.put("isOpenChoice0", false);
             }
         }
 
@@ -235,6 +236,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "1");
                 this.queryState.put("isParchment" + i + "On", false);
+                this.queryState.put("isOpenChoice1", false);
             }
         }
     }
@@ -246,6 +248,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "2");
                 this.queryState.put("isParchment" + i + "On", false);
+                this.queryState.put("isOpenChoice2", false);
             }
         }
     }
@@ -257,6 +260,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "3");
                 this.queryState.put("isParchment" + i + "On", false);
+                this.queryState.put("isOpenChoice3", false);
             }
         }
     }
@@ -268,6 +272,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "4");
                 this.queryState.put("isParchment" + i + "On", false);
+                this.queryState.put("isOpenChoice4", false);
             }
         }
     }
@@ -543,16 +548,27 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     private void enableParchments() {
 
-        parchment0.setVisible(true);
-        parchment0.setDisable(false);
-        parchment1.setVisible(true);
-        parchment1.setDisable(false);
-        parchment2.setVisible(true);
-        parchment2.setDisable(false);
-        parchment3.setVisible(true);
-        parchment3.setDisable(false);
-        parchment4.setVisible(true);
-        parchment4.setDisable(false);
+        if (queryState.get("isOpenChoice0").equals(true)) {
+            parchment0.setVisible(true);
+            parchment0.setDisable(false);
+        }
+        if (queryState.get("isOpenChoice1").equals(true)) {
+            parchment1.setVisible(true);
+            parchment1.setDisable(false);
+        }
+        if (queryState.get("isOpenChoice2").equals(true)) {
+            parchment2.setVisible(true);
+            parchment2.setDisable(false);
+        }
+        if (queryState.get("isOpenChoice3").equals(true)) {
+            parchment3.setVisible(true);
+            parchment3.setDisable(false);
+        }
+        if (queryState.get("isOpenChoice4").equals(true)) {
+            parchment4.setVisible(true);
+            parchment4.setDisable(false);
+        }
+
     }
 
     private void disableParchments() {
@@ -1032,6 +1048,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState = new HashMap<>();
 
         choice.put("numOfParchments", map.get("parchments"));
+        queryState.put("isOpenChoice0", true);
         queryState.put("isOpenChoice1", true);
         queryState.put("isOpenChoice2", true);
         queryState.put("isOpenChoice3", true);
