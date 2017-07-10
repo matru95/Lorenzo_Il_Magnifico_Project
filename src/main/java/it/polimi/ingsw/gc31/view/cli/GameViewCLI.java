@@ -21,6 +21,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private static final String PL = "players";
     private static final String CARDS = "cards";
     private static final String CARDID = "cardID";
+    private static final String MALUSES = "maluses";
 
     private String myPlayerName;
     private String myPlayerID;
@@ -255,6 +256,9 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
             }
 
             atp.addRow("PLAYER TILE:", null, null, null, null, null, beauty(singlePlayer.path("playerTile")));
+            atp.addRule();
+            atp.addRow("EXCOMMUNICATIONS:", null, "[AGE1]:" + beauty(singlePlayer.path(MALUSES).path(0)), null,
+                    "[AGE2]:" + beauty(singlePlayer.path(MALUSES).path(1)), null, "[AGE2]:" + beauty(singlePlayer.path(MALUSES).path(2)));
             atp.addRule();
             atp.setTextAlignment(TextAlignment.CENTER);
             atp.getRenderer().setCWC(new CWC_FixedWidth().add(20).add(20).add(20).add(20).add(20).add(20).add(20));
