@@ -1879,7 +1879,6 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space21, rootBoard.path(BOARDSPACES).path("21"));
         spaceSetter(space22, rootBoard.path(BOARDSPACES).path("22"));
 
-        System.out.println(rootInstance.path(PL));
         councilPalaceSetter();
         productionMultipleSetter();
         harvestMultipleSetter();
