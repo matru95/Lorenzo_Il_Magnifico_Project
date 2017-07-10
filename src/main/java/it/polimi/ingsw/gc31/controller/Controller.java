@@ -19,7 +19,7 @@ public abstract class Controller {
     private GameInstance model;
     private List<Client> views;
     private Server server;
-    //TODO DOCUMENTAZIONE
+
     /**
      * Constructor of Controller
      * @param model

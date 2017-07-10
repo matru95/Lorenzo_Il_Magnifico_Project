@@ -309,7 +309,7 @@ public class GameServer extends UnicastRemoteObject implements Server {
         ActionController actionController = (ActionController) gameController.getActionController();
 
         synchronized (actionController) {
-            actionController.costChoiceAction(playerID, payload);
+            actionController.costChoiceAction(payload);
             actionController.notify();
         }
     }
@@ -321,7 +321,7 @@ public class GameServer extends UnicastRemoteObject implements Server {
         ActionController actionController = (ActionController) gameController.getActionController();
 
         synchronized (actionController) {
-            actionController.parchmentAction(playerID, payload);
+            actionController.parchmentAction(payload);
             actionController.notify();
         }
 
