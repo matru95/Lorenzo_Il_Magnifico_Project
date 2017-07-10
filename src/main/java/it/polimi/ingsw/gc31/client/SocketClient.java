@@ -61,6 +61,7 @@ public class SocketClient implements Client, Serializable {
             getResponses();
         } catch (IOException e) {
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         } catch (ClassNotFoundException e) {
         }
 
