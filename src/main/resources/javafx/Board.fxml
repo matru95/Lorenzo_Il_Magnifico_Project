@@ -212,6 +212,11 @@
                               <Font size="15.0" />
                            </font>
                         </Button>
+                        <Button fx:id="cancelMove" disable="true" layoutX="1103.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#onClickCancelMove" prefHeight="50.0" prefWidth="180.0" style="-fx-background-color: red;" text="CANCEL MOVE" textAlignment="CENTER" textFill="WHITE" visible="false">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Button>
                   </children>
                 </AnchorPane>
                </content>

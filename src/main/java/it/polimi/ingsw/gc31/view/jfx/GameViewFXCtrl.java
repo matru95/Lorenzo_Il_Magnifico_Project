@@ -71,11 +71,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.sb = new StringBuilder();
         this.mapper = new ObjectMapper();
 
-//        myPlayerNameQuery();
-//        connectionQuery(serverIPQuery());
+        myPlayerNameQuery();
+        connectionQuery(serverIPQuery());
 
-        this.myPlayerName = "CLIENTFX";
-        connectionQuery("localhost");
     }
 
     private void myPlayerNameQuery() throws IOException {
@@ -162,7 +160,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private TextField textChoice;
 
     @FXML
-    private Button buttonChoice;
+    private Button buttonChoice, cancelMove;
 
     @FXML
     private Tab blueTab, greenTab, redTab, yellowTab;
@@ -259,7 +257,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         if (queryState.get("isCostQueryOn"))
             if (isInteger(textChoice.getText()) && (textChoice.getText().equals("1") || textChoice.getText().equals("2"))) {
                 disableChoice();
-                choice.put("cardCostChoice", choice.toString());
+                choice.put("cardCostChoice", textChoice.getText());
                 queryState.put("isCostQueryOn", false);
             }
 
@@ -367,6 +365,15 @@ public class GameViewFXCtrl implements GameViewCtrl {
             myNeutral.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
             this.queryState.put("isMemberChoiceOn", false);
+        }
+    }
+
+    @FXML
+    void onClickCancelMove(MouseEvent event) {
+
+        if (this.queryState.get(ISSCON)) {
+            choice.put(POSITIONID, "0");
+            this.queryState.put(ISSCON, false);
         }
     }
 
@@ -784,8 +791,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (beauty(singlePlayer.path(PLCOL)).equals("BLUE"))
                 bluePlayer = singlePlayer;
         blueTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(bluePlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+
         blueText.setText("[" + beauty(bluePlayer.path(PLCOL)) + "] " + beauty(bluePlayer.path(PLNAME)) + ": " + beauty(bluePlayer.path("res"))
-        + "\n" + beauty(bluePlayer.path("maluses")));
+        + "\n" + "Excommunications:    [AGE1]=" + beauty(bluePlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(bluePlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(bluePlayer.path("maluses").path(2)));
+
         JsonNode bluePlayerCards = bluePlayer.path(CARDS);
 
         cardSetter(blueBlue1, bluePlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -828,7 +837,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 greenPlayer = singlePlayer;
 
         greenTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(greenPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
-        greenText.setText("[" + beauty(greenPlayer.path(PLCOL)) + "] " + beauty(greenPlayer.path(PLNAME)) + ": " + beauty(greenPlayer.path("res")));
+        greenText.setText("[" + beauty(greenPlayer.path(PLCOL)) + "] " + beauty(greenPlayer.path(PLNAME)) + ": " + beauty(greenPlayer.path("res"))
+                + "\n" + "Excommunications:    [AGE1]=" + beauty(greenPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(greenPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(greenPlayer.path("maluses").path(2)));
         JsonNode greenPlayerCards = greenPlayer.path(CARDS);
 
         cardSetter(greenBlue1, greenPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -871,7 +881,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 redPlayer = singlePlayer;
 
         redTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(redPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
-        redText.setText("[" + beauty(redPlayer.path(PLCOL)) + "] " + beauty(redPlayer.path(PLNAME)) + ": " + beauty(redPlayer.path("res")));
+        redText.setText("[" + beauty(redPlayer.path(PLCOL)) + "] " + beauty(redPlayer.path(PLNAME)) + ": " + beauty(redPlayer.path("res"))
+                + "\n" + "Excommunications:    [AGE1]=" + beauty(redPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(redPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(redPlayer.path("maluses").path(2)));
         JsonNode redPlayerCards = redPlayer.path(CARDS);
 
         cardSetter(redBlue1, redPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -914,7 +925,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 yellowPlayer = singlePlayer;
 
         yellowTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(yellowPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
-        yellowText.setText("[" + beauty(yellowPlayer.path(PLCOL)) + "] " + beauty(yellowPlayer.path(PLNAME)) + ": " + beauty(yellowPlayer.path("res")));
+        yellowText.setText("[" + beauty(yellowPlayer.path(PLCOL)) + "] " + beauty(yellowPlayer.path(PLNAME)) + ": " + beauty(yellowPlayer.path("res"))
+                + "\n" + "Excommunications:    [AGE1]=" + beauty(yellowPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(yellowPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(yellowPlayer.path("maluses").path(2)));
         JsonNode yellowPlayerCards = yellowPlayer.path(CARDS);
 
         cardSetter(yellowBlue1, yellowPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -954,6 +966,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.rootInstance = mapper.readTree(gameState.get("GameInstance"));
         this.rootBoard = mapper.readTree(gameState.get("GameBoard"));
 
+        cancelMove.setDisable(true);
+        cancelMove.setVisible(false);
         queryState = new HashMap<>();
         queryState.put("isMemberChoiceOn", false);
         queryState.put(ISSCON, false);
@@ -1110,8 +1124,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
         textQuery.setText("It's your turn, do a movement: select a Family Member on the upper-right and then a space.");
         queryState.put("isMemberChoiceOn", true);
         while (queryState.get("isMemberChoiceOn"));
+        cancelMove.setDisable(false);
+        cancelMove.setVisible(true);
         queryState.put(ISSCON, true);
         while (queryState.get(ISSCON));
+        cancelMove.setDisable(true);
+        cancelMove.setVisible(false);
         choice.put("servantsToPay", "0");
         resetFamilyMembers();
         textQuery.setText("Waiting for player's movement ...");
@@ -1211,9 +1229,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
 
-        for (JsonNode singlePurpleCard: rootBoard.path(CARDS).path("PURPLE"))
+        for (JsonNode singlePurpleCard: rootBoard.path(CARDS).path(PURPLE))
             if (beauty(singlePurpleCard.path(CARDID)).equals(map.get(CARDID)))
-                textQuery.setText("Choose which cost to pay between those (1, 2):\n" + "\n{("
+                textQuery.setText("Choose which cost to pay between those (1, 2):\n" + "{("
                 + beauty(singlePurpleCard.path("cost").path(0)) + ") OR (" + beauty(singlePurpleCard.path("cost").path(1)) + ")}");
 
         queryState.put("isCostQueryOn", true);
