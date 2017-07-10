@@ -9,7 +9,6 @@ import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.parser.FaithPointParser;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class GameAgeState implements State {
