@@ -1465,12 +1465,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     @Override
     public void endGameQuery(Map<String, String> map) throws IOException {
-        sb.append("Here is the leaderboard for this game:");
+
+        sb.append("Here is the leaderboard for this game:\n");
         JsonNode sortedPlayers = mapper.readTree(map.get("players"));
         Integer i = 0;
         for (JsonNode singlePlayer: sortedPlayers) {
             sb.append(i).append(") ").append(singlePlayer.path("playerName")).append("    ")
-                    .append(sortedPlayers.get(i)).append(" VictoryPoints\n");
+                    .append(singlePlayer.path("res").path("VICTORYPOINTS")).append(" VictoryPoints\n");
             i++;
         }
         textQuery.setText(sb.toString());

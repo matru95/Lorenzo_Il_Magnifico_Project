@@ -35,6 +35,14 @@ The project adopts a Model View Controller (MVC) Pattern and is divided into sev
     * messages
     * view    
   
+ You can find UML's diagrams for this project:
+ 
+   * uml_diagram1: only classes and relationships;
+   
+   * uml_diagram2: classes with methods;
+   
+   * uml_diagram3: classes with methods and attributes (Not package "view", because is too big).   
+ 
 ## Configuration Files:
 
 Configuration files can be found in `src/config`. 
