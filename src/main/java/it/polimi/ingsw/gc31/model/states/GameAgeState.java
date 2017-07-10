@@ -30,7 +30,7 @@ public class GameAgeState implements State {
             Integer myFaithPoints = p.getRes().get(ResourceName.FAITHPOINTS).getNumOf();
 
             if(myFaithPoints < minimalFaithPoints) {
-                ageFaithTile.execute(p);
+                if(ageFaithTile!=null)ageFaithTile.execute(p);
             } else {
                 ServerMessage request = new ServerMessage(ServerMessageEnum.EXCOMMUNICATIONREQUEST, new HashMap<>());
                 serverMessages.put(p.getPlayerID().toString(), request);
