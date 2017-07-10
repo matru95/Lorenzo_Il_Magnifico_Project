@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.FamilyMember;
@@ -107,7 +108,7 @@ public class ProductionWrapper extends SpaceWrapper {
         }
 
 //      Check if there's already a FM with the same color
-        if(hasFamilyMemberSameColor(playerColor, familyMembers)) {
+        if(hasFamilyMemberSameColor(playerColor, familyMembers) && familyMember.getColor() != DiceColor.NEUTRAL) {
             return false;
         }
 

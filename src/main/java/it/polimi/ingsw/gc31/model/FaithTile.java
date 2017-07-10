@@ -232,4 +232,8 @@ public class FaithTile {
 		}
 		return faithObjectNode;
 	}
+
+	public Malus getMalus() {
+		return malus;
+	}
 }

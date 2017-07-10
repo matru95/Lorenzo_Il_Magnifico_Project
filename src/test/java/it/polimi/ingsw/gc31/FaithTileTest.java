@@ -32,10 +32,18 @@ public class FaithTileTest extends TestCase{
         assertNotNull(faithTile);
     }
 
-//    @Test
-//    public void testFaithTileShouldExecute() {
-//        Malus faithTileMalus = faithTile.
-//    }
+    @Test
+    public void testFaithTileShouldExecute() {
+        Malus faithTileMalus = faithTile.getMalus();
+        faithTile.execute(player);
+
+        assertEquals(faithTileMalus, player.getMaluses().get(0));
+    }
+
+    @Test
+    public void testFaithTileShouldHaveID() {
+//        assertNotNull();
+    }
 
     @Override
     public void tearDown() {

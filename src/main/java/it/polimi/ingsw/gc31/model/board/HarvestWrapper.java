@@ -106,7 +106,7 @@ public class HarvestWrapper extends SpaceWrapper {
         }
 
 //      Check if there's already a FM with the same color
-        if(hasFamilyMemberSameColor(playerColor, familyMembers)) {
+        if(hasFamilyMemberSameColor(playerColor, familyMembers) && familyMember.getColor() != DiceColor.NEUTRAL) {
             return false;
         }
 
