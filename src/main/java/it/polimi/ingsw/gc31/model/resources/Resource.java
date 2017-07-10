@@ -15,11 +15,20 @@ public class Resource implements Serializable{
     private int numOf;
     private transient Logger logger = Logger.getLogger(Resource.class.getName());
 
+    /**
+     * Constructor of a Resource
+     * @param resourceName name of the resource
+     * @param numOf quantity of the resource
+     */
     public Resource(ResourceName resourceName, int numOf) {
         this.numOf = numOf;
         this.resourceName = resourceName;
     }
 
+    /**
+     * Creating the Json for the Resource
+     * @return ObjectNode
+     */
     public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode resourceNode = mapper.createObjectNode();
@@ -29,7 +38,6 @@ public class Resource implements Serializable{
 
         return resourceNode;
     }
-
     @Override
     public String toString() {
         ObjectMapper mapper = new ObjectMapper();
@@ -52,7 +60,6 @@ public class Resource implements Serializable{
     }
 
     public void setNumOf(int numOf) {
-        System.out.println("Setting "+resourceName+" to "+numOf);
         this.numOf = numOf;
     }
 

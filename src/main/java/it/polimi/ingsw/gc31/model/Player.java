@@ -55,7 +55,7 @@ public class Player implements Serializable {
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
 	/**
-	 * Constructor
+	 * Constructor of Player
  	 * @param playerID id for player.
 	 * @param playerName Name of the player.
 	 */
@@ -80,7 +80,7 @@ public class Player implements Serializable {
 	}
 
 	/**
-	 *
+	 * Creating a Json for a player.
 	 * @return ObjectNode
 	 */
 	public ObjectNode toJson() {

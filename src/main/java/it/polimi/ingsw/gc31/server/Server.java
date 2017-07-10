@@ -18,10 +18,9 @@ public interface Server extends Remote {
     void join(UUID playerID, String playerName, Client client) throws IOException, InterruptedException;
 
     /**
-     *
+     * Registers client to the server
      * @param client the Client that is being registered
      * @param playerName
-     * @return
      * @throws RemoteException
      */
     void register(Client client, String playerName) throws IOException, InterruptedException;

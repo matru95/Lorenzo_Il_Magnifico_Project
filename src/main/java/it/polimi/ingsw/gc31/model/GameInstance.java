@@ -117,6 +117,10 @@ public class GameInstance implements Serializable, Runnable {
 
 	}
 
+	/**
+	 * Add the player to the game
+	 * @param player the player
+	 */
     public void addPlayer(Player player) {
         PlayerColor firstAvailableColor = availableColors.get(0);
         player.setPlayerColor(firstAvailableColor);
@@ -132,6 +136,10 @@ public class GameInstance implements Serializable, Runnable {
         }
 	}
 
+	/**
+	 * Give a random PlayerTile to the player
+	 * @return PlayerTile
+	 */
 	private PlayerTile getRandomTile() {
         long seed = System.nanoTime();
         Collections.shuffle(availableTiles, new Random(seed));
@@ -141,6 +149,9 @@ public class GameInstance implements Serializable, Runnable {
         return chosenTile;
     }
 
+	/**
+	 * Generate the player orders
+	 */
 	public void generatePlayerOrders() {
 
         ArrayList<Integer> generatedNumbers = new ArrayList<>();
@@ -211,6 +222,11 @@ public class GameInstance implements Serializable, Runnable {
 		this.turn = turn;
 	}
 
+	/**
+	 *
+	 * @param parchmentID
+	 * @return Parchement
+	 */
 	public Parchment getParchmentByID(String parchmentID) {
 	    for(Parchment parchment: parchments) {
 	        if(parchment.getParchmentID() == Integer.valueOf(parchmentID)) {
