@@ -60,9 +60,9 @@ public class GameController extends Controller implements Runnable{
 
                 endTurn();
             }
+            endAge();
             age++;
             gameInstance.setAge(age);
-            endAge();
             turn = 1;
         }
 
