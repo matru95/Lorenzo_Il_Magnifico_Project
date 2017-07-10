@@ -110,11 +110,11 @@ public class Player implements Serializable {
         playerNode.set("playerTile", playerTile.toJson());
 
         ArrayNode playerMalus= mapper.createArrayNode();
-        Map<Integer,FaithTile> boardFaithTiles= board.getFaithTiles();
+        Map<Integer,FaithTile> boardFaithTiles= this.board.getFaithTiles();
         for(Map.Entry<Integer,FaithTile> boardFaith : boardFaithTiles.entrySet()){
         	int age= boardFaith.getValue().getAge();
-        	if(!faithTiles.isEmpty()){
-				for(FaithTile faithTile : faithTiles){
+        	if(faithTiles.size()!=0){
+				for(FaithTile faithTile : this.faithTiles){
 					if (faithTile.getAge()==age){
 						playerMalus.add(true);
 					}else{
@@ -122,9 +122,7 @@ public class Player implements Serializable {
 					}
 				}
 			}else{
-				for(int i=1; i<4; i++){
 					playerMalus.add(false);
-				}
 			}
 
 		}
