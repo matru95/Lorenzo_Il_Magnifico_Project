@@ -4,7 +4,6 @@ import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 
-import java.util.List;
 import java.util.Map;
 
 public class CardColorBonus implements Bonus{
@@ -12,6 +11,9 @@ public class CardColorBonus implements Bonus{
     private CardColor cardColor;
     private Map<ResourceName, Resource> resources;
 
+    /**
+     * Empty constructor
+     */
     public CardColorBonus() {
     }
 

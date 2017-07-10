@@ -12,7 +12,6 @@ public class ClientMessage implements Message, Serializable {
     private String playerID;
     private String gameID;
 
-
     private Client client;
 
     /**

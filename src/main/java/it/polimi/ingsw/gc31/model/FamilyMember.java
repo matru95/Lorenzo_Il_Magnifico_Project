@@ -6,7 +6,6 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
@@ -30,7 +29,6 @@ public class FamilyMember {
     private SpaceWrapper currentPosition;
 	private GameBoard board;
 	private boolean isMovedThisTurn;
-    //TODO DOCUMENTATION
 
     /**
      *

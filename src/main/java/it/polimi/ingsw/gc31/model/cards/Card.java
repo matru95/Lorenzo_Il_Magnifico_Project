@@ -77,9 +77,8 @@ public class Card {
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(cardObjectNode);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
-
 
     }
 
@@ -104,7 +103,6 @@ public class Card {
     }
 
     public List<ServerMessage> execNormalEffect(Player player) {
-        System.out.println("executing normal effect inside card");
         List<ServerMessage> messages = new ArrayList<>();
 
         for(Effect effect: normalEffects) {
@@ -204,9 +202,8 @@ public class Card {
             }
         }
 
-        if(unaffordableIndex == costLength) {
+        if(unaffordableIndex == costLength)
             return false;
-        }
 
         return true;
     }
@@ -216,7 +213,6 @@ public class Card {
 
         for(Map.Entry<ResourceName, Resource> costEntry: singleCost.entrySet()) {
 
-            System.out.println("Paying: "+costEntry.getKey());
             playerResources.get(costEntry.getKey()).subNumOf(costEntry.getValue().getNumOf());
         }
     }
