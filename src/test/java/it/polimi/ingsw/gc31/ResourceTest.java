@@ -28,6 +28,22 @@ public class ResourceTest extends TestCase{
         assertEquals(0, resourceToTest.getNumOf());
     }
 
+    @Test
+    public void testResourceShouldDoAddition() {
+        int amountToAdd = 1;
+        resourceToTest.addNumOf(amountToAdd);
+
+        assertEquals(1, resourceToTest.getNumOf());
+    }
+
+    @Test
+    public void testResourceShouldDoSubstraction() {
+        resourceToTest.setNumOf(3);
+        resourceToTest.subNumOf(1);
+
+        assertEquals(2, resourceToTest.getNumOf());
+    }
+
     @Override
     public void tearDown() {
         this.resourceToTest = null;

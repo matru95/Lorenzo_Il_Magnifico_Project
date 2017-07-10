@@ -13,9 +13,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by leonardo on 28/06/17.
- */
 public class FaithTileParserTest extends TestCase {
     FaithTileParser parser;
     Logger logger = Logger.getLogger(this.getClass().getName());

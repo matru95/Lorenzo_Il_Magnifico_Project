@@ -2,12 +2,24 @@ package it.polimi.ingsw.gc31;
 
 import it.polimi.ingsw.gc31.model.Dice;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class DiceTest {
+public class DiceTest extends TestCase{
+    Dice diceToTest;
+
+    @Override
+    public void setUp() {
+        diceToTest = new Dice(DiceColor.WHITE);
+    }
+
+    @Override
+    public void tearDown() {
+        diceToTest = null;
+    }
 
     @Test
     public void neutralDiceShouldBeZero() {

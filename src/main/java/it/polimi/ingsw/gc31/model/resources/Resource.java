@@ -58,7 +58,6 @@ public class Resource implements Serializable{
     }
 
     public void setNumOf(int numOf) {
-        System.out.println("Setting "+resourceName+" to "+numOf);
         this.numOf = numOf;
     }
 

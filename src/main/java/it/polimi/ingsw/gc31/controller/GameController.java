@@ -1,5 +1,8 @@
 package it.polimi.ingsw.gc31.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
@@ -66,6 +69,8 @@ public class GameController extends Controller implements Runnable{
     }
 
     private void endGame() {
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayNode playersArray = mapper.createArrayNode();
         GameInstance gameInstance = super.getModel();
         Map<String, String> payload = new HashMap<>();
 
@@ -75,15 +80,19 @@ public class GameController extends Controller implements Runnable{
         gameEndState.doAction(gameInstance);
 
         List<Player> players = gameInstance.getPlayers();
+        players.sort(Player.PlayerVictoryPointsComparator);
+
+        for(Player player: players) {
+            playersArray.add(player.toJson());
+        }
 
         for(Player player: players) {
             ServerMessage endGameMessage = new ServerMessage();
-            String victoryPoints = String.valueOf(player.getRes().get(ResourceName.VICTORYPOINTS).getNumOf());
 
             try {
                 Client client = actionController.getClientFromPlayerID(player.getPlayerID().toString());
 
-                payload.put(player.getPlayerID().toString(), victoryPoints);
+                payload.put("players", playersArray.toString());
                 endGameMessage.setMessageType(ServerMessageEnum.ENDGAME);
                 endGameMessage.setPayLoad(payload);
 

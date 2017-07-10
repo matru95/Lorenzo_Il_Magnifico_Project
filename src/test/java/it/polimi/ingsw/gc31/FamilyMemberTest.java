@@ -89,7 +89,7 @@ public class FamilyMemberTest extends TestCase{
     @Test
     public void testFamilyMemberShouldHaveDiceValue() {
         FamilyMember familyMember = playerWithTurn.getSpecificFamilyMember(DiceColor.WHITE);
-        Dice dice = this.gameBoard.getDiceByColor(DiceColor.WHITE);
+        Dice dice = this.gameInstance.getGameBoard().getDiceByColor(DiceColor.WHITE);
 
         int diceValue = dice.getValue();
 
@@ -123,7 +123,6 @@ public class FamilyMemberTest extends TestCase{
 
         try {
             familyMember.moveToPosition(gameBoard.getSpaceById(1), 0);
-            System.out.println("moving");
             check = false;
         } catch (MovementInvalidException e) {
             check = true;

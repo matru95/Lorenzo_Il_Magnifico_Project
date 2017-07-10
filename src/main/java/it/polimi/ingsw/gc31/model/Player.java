@@ -33,6 +33,18 @@ public class Player implements Serializable {
 		return p2WarPoints.compareTo(p1WarPoints);
 	};
 
+	/**
+	 * Comparator to compare Players based on their WarPoints
+	 */
+	public static final Comparator<Player> PlayerVictoryPointsComparator = (p1, p2) -> {
+
+		Integer p1WarPoints = p1.getRes().get(ResourceName.VICTORYPOINTS).getNumOf();
+		Integer p2WarPoints = p2.getRes().get(ResourceName.VICTORYPOINTS).getNumOf();
+
+		//Descending order
+		return p2WarPoints.compareTo(p1WarPoints);
+	};
+
 	private final UUID playerID;
 	private final String playerName;
 	private PlayerColor playerColor;
