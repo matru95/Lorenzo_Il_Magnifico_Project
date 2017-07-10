@@ -38,7 +38,6 @@ public class MartWrapper extends SpaceWrapper {
          * @return messages*/
     @Override
     public List<ServerMessage> execWrapper(FamilyMember familyMember, int amountOfServants) {
-        //TODO CON ENDI SE HA IL MALUS INVIARE MESSAGGIO DI MOSSA NON VALIDA PER VIA DEL MALUS
         setOccupied(true);
         AddResEffect addResEffect = new AddResEffect(res);
         List<ServerMessage> messages = new ArrayList<>();
