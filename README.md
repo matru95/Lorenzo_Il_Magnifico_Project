@@ -1,1 +1,38 @@
 # Lorenzo Il Magnifico
+
+## Team Members:
+* Endi Sukaj - endi.sukaj@mail.polimi.it - 811883
+* Leonardo Panerai - leonardo.panerai@mail.polimi.it - 828473
+* Matteo Rubiu - matteo.rubiu@mail.polimi.it - 827117
+
+## How to play:
+In order to play this game you'll have to run a CLIENT and a SERVER:
+* <b>SERVER</b>: to start server you've to run the main method of GameServer's class
+that can be found in the path: [it.polimi.ingsw.gc31.server].
+* <b>CLIENT</b>: the client can be start in three different classes in the path: [it.polimi.ingsw.gc31.client]
+
+    * ClientApp: start a client and choose to use CLI or JAVAFX;
+    
+    * ClientCLI: start a client using Command Line Interface (CLI);
+    
+    * ClientFX: start a client using JAVAFX;
+  
+  After choosing a UI, independently from where did you start it,
+  you'll be asked to enter a <i>Username</i>, followed by the <i>serverIP</i>
+  to which connect, and finally the <i>Connection Method</i> that can be <i>SOCKET</i> or <i>RMI</i>.
+
+## Project Structure: 
+The project adopts a Model View Controller (MVC) Pattern and is divided into several packages:
+* <b>SERVER</b>: this side uses to following packages in [it.polimi.ingsw.gc31]:
+    * controller
+    * enumerations
+    * exceptions
+    * messages
+    * model
+* <b>CLIENT</b>:
+    * client
+    * enumerations
+    * messages
+    * view    
+  
+## Configuration Files:
