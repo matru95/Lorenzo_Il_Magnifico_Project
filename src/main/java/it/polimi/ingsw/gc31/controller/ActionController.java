@@ -404,7 +404,6 @@ public class ActionController extends Controller implements Runnable {
         int cardValue = Integer.parseInt(payload.get("cardValue"));
         int familyMemberValue = Integer.parseInt(payload.get("familyMemberValue"));
         int movementValue = servantsToPay+cardValue+familyMemberValue;
-        servantsToPay += cardValue;
 
 
         List<ServerMessage> messages;

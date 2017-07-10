@@ -45,7 +45,8 @@ public class ProductionWrapper extends SpaceWrapper {
 
         payload.put("positionType", "production");
         payload.put("myServants", String.valueOf(myServants));
-        payload.put("cardValue", String.valueOf(familyMember.getValue()));
+        payload.put("cardValue", String.valueOf(0));
+        payload.put("familyMemberValue", String.valueOf(familyMember.getValue()));
 
         message.setMessageType(ServerMessageEnum.SERVANTSREQUEST);
         message.setPayLoad(payload);

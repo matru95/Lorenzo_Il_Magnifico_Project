@@ -22,7 +22,6 @@ public class ProductionActionEffect extends Effect{
     @Override
     public ServerMessage exec(Player player) {
         int myServants = player.getRes().get(ResourceName.SERVANTS).getNumOf();
-        List<ServerMessage> messages = new ArrayList<>();
         ServerMessage message = new ServerMessage();
         Map<String, String> payload = new HashMap<>();
 
