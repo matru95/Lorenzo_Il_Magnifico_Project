@@ -148,6 +148,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private Circle parchment0, parchment1, parchment2, parchment3, parchment4;
 
     @FXML
+    private Circle prod2, prod3, prod4, prod5, prod6, prod7, prod8;
+
+    @FXML
+    private Circle harv2, harv3, harv4, harv5, harv6, harv7, harv8;
+
+    @FXML
     private Circle order1, order2, order3, order4;
 
     @FXML
@@ -248,7 +254,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
 
         if (queryState.get("isFaithQueryOn"))
-            if (textChoice.getText().equals("YES") || textChoice.getText().equals("NO")) {
+            if (textChoice.getText().toUpperCase().equals("YES") || textChoice.getText().toUpperCase().equals("NO")) {
                 disableChoice();
                 choice.put("applyExcommunication", textChoice.getText());
                 queryState.put("isFaithQueryOn", false);
@@ -595,6 +601,40 @@ public class GameViewFXCtrl implements GameViewCtrl {
         return true;
     }
 
+    private void hideMultipleActionSpaces() {
+        prod2.setVisible(false);
+        prod3.setVisible(false);
+        prod4.setVisible(false);
+        prod5.setVisible(false);
+        prod6.setVisible(false);
+        prod7.setVisible(false);
+        prod8.setVisible(false);
+        harv2.setVisible(false);
+        harv3.setVisible(false);
+        harv4.setVisible(false);
+        harv5.setVisible(false);
+        harv6.setVisible(false);
+        harv7.setVisible(false);
+        harv8.setVisible(false);
+    }
+
+    private void showMultipleActionSpaces() {
+        prod2.setVisible(true);
+        prod3.setVisible(true);
+        prod4.setVisible(true);
+        prod5.setVisible(true);
+        prod6.setVisible(true);
+        prod7.setVisible(true);
+        prod8.setVisible(true);
+        harv2.setVisible(true);
+        harv3.setVisible(true);
+        harv4.setVisible(true);
+        harv5.setVisible(true);
+        harv6.setVisible(true);
+        harv7.setVisible(true);
+        harv8.setVisible(true);
+    }
+
     private void disableChoice() {
         textChoice.setVisible(false);
         textChoice.setDisable(true);
@@ -700,7 +740,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     private void actionSpaceSetter(Circle spaceShape, JsonNode node) {
 
-        if (node.path(ISOCCUPIED).toString().equals("true")) {
+        if (node.path(FMS).has(0)) {
 
             if (beauty(node.path(FMS).path(0).path(COLOR)).equals(NEUTRAL)) {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FMS).path(0).path(PLCOL))));
@@ -722,66 +762,148 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private void councilPalaceSetter() {
         JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
         if (councilPalaceNode.has(0))
-            councilPalaceMemberSetter(councPal1, councilPalaceNode.path(0));
+            multipleSpaceMemberSetter(councPal1, councilPalaceNode.path(0));
         else
             councPal1.setVisible(false);
 
         if (councilPalaceNode.has(1))
-            councilPalaceMemberSetter(councPal2, councilPalaceNode.path(1));
+            multipleSpaceMemberSetter(councPal2, councilPalaceNode.path(1));
         else
             councPal2.setVisible(false);
 
         if (councilPalaceNode.has(2))
-            councilPalaceMemberSetter(councPal3, councilPalaceNode.path(2));
+            multipleSpaceMemberSetter(councPal3, councilPalaceNode.path(2));
         else
             councPal3.setVisible(false);
 
         if (councilPalaceNode.has(3))
-            councilPalaceMemberSetter(councPal4, councilPalaceNode.path(3));
+            multipleSpaceMemberSetter(councPal4, councilPalaceNode.path(3));
         else
             councPal4.setVisible(false);
 
         if (councilPalaceNode.has(4))
-            councilPalaceMemberSetter(councPal5, councilPalaceNode.path(4));
+            multipleSpaceMemberSetter(councPal5, councilPalaceNode.path(4));
         else
             councPal5.setVisible(false);
 
         if (councilPalaceNode.has(5))
-            councilPalaceMemberSetter(councPal6, councilPalaceNode.path(5));
+            multipleSpaceMemberSetter(councPal6, councilPalaceNode.path(5));
         else
             councPal6.setVisible(false);
 
         if (councilPalaceNode.has(6))
-            councilPalaceMemberSetter(councPal7, councilPalaceNode.path(6));
+            multipleSpaceMemberSetter(councPal7, councilPalaceNode.path(6));
         else
             councPal7.setVisible(false);
 
         if (councilPalaceNode.has(7))
-            councilPalaceMemberSetter(councPal8, councilPalaceNode.path(7));
+            multipleSpaceMemberSetter(councPal8, councilPalaceNode.path(7));
         else
             councPal8.setVisible(false);
 
         if (councilPalaceNode.has(8))
-            councilPalaceMemberSetter(councPal9, councilPalaceNode.path(8));
+            multipleSpaceMemberSetter(councPal9, councilPalaceNode.path(8));
         else
             councPal9.setVisible(false);
 
         if (councilPalaceNode.has(9))
-            councilPalaceMemberSetter(councPal10, councilPalaceNode.path(9));
+            multipleSpaceMemberSetter(councPal10, councilPalaceNode.path(9));
         else
             councPal10.setVisible(false);
     }
 
-    private void councilPalaceMemberSetter(Circle councilSpaceShape, JsonNode node) {
+    private void productionMultipleSetter() {
+
+        JsonNode node = rootBoard.path("boardSpaces").path("17").path(FMS);
+
+        if (node.has(1))
+            multipleSpaceMemberSetter(prod2, node.path(1));
+        else
+            prod2.setVisible(false);
+
+        if (node.has(2))
+            multipleSpaceMemberSetter(prod3, node.path(2));
+        else
+            prod3.setVisible(false);
+
+        if (node.has(3))
+            multipleSpaceMemberSetter(prod4, node.path(3));
+        else
+            prod4.setVisible(false);
+
+        if (node.has(4))
+            multipleSpaceMemberSetter(prod5, node.path(4));
+        else
+            prod5.setVisible(false);
+
+        if (node.has(5))
+            multipleSpaceMemberSetter(prod6, node.path(5));
+        else
+            prod6.setVisible(false);
+
+        if (node.has(6))
+            multipleSpaceMemberSetter(prod7, node.path(6));
+        else
+            prod7.setVisible(false);
+
+        if (node.has(7))
+            multipleSpaceMemberSetter(prod8, node.path(7));
+        else
+            prod8.setVisible(false);
+
+    }
+
+    private void harvestMultipleSetter() {
+
+        JsonNode node = rootBoard.path("boardSpaces").path("18").path(FMS);
+
+        if (node.has(1))
+            multipleSpaceMemberSetter(harv2, node.path(1));
+        else
+            harv2.setVisible(false);
+
+        if (node.has(2))
+            multipleSpaceMemberSetter(harv3, node.path(2));
+        else
+            harv3.setVisible(false);
+
+        if (node.has(3))
+            multipleSpaceMemberSetter(harv4, node.path(3));
+        else
+            harv4.setVisible(false);
+
+        if (node.has(4))
+            multipleSpaceMemberSetter(harv5, node.path(4));
+        else
+            harv5.setVisible(false);
+
+        if (node.has(5))
+            multipleSpaceMemberSetter(harv6, node.path(5));
+        else
+            harv6.setVisible(false);
+
+        if (node.has(6))
+            multipleSpaceMemberSetter(harv7, node.path(6));
+        else
+            harv7.setVisible(false);
+
+        if (node.has(7))
+            multipleSpaceMemberSetter(harv8, node.path(7));
+        else
+            harv8.setVisible(false);
+
+    }
+
+    private void multipleSpaceMemberSetter(Circle memberShape, JsonNode node) {
 
         if (beauty(node.path(COLOR)).equals(NEUTRAL)) {
-            councilSpaceShape.setFill(Paint.valueOf(beauty(node.path(PLCOL))));
-            councilSpaceShape.setStroke(Paint.valueOf("#eddcc6"));
+            memberShape.setFill(Paint.valueOf(beauty(node.path(PLCOL))));
+            memberShape.setStroke(Paint.valueOf("#eddcc6"));
         } else {
-            councilSpaceShape.setFill(Paint.valueOf(beauty(node.path(COLOR))));
-            councilSpaceShape.setStroke(Paint.valueOf(beauty(node.path(PLCOL))));
+            memberShape.setFill(Paint.valueOf(beauty(node.path(COLOR))));
+            memberShape.setStroke(Paint.valueOf(beauty(node.path(PLCOL))));
         }
-        councilSpaceShape.setVisible(true);
+        memberShape.setVisible(true);
     }
 
     private void bluePlayerSetter() {
@@ -1001,16 +1123,24 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         if (numOfPlayers.equals(2)) {
             board.setImage(new Image(new File("src/main/resources/javafx/boards/board_2.png").toURI().toString()));
+            hideMultipleActionSpaces();
             space21.setVisible(false);
             space22.setVisible(false);
             space21.setDisable(true);
             space22.setDisable(true);
         } else if (numOfPlayers.equals(3)) {
             board.setImage(new Image(new File("src/main/resources/javafx/boards/board_3.png").toURI().toString()));
+            showMultipleActionSpaces();
             space21.setVisible(false);
             space22.setVisible(false);
             space21.setDisable(true);
             space22.setDisable(true);
+        } else if (numOfPlayers.equals(4)) {
+            showMultipleActionSpaces();
+            space21.setVisible(true);
+            space22.setVisible(true);
+            space21.setDisable(false);
+            space22.setDisable(false);
         }
 
         header.setText("[" + beauty(rootMe.path(PLCOL)) + "] " + beauty(rootMe.path(PLNAME)) + "   AGE:[" + beauty(rootInstance.path("age")) + "]   TURN:[" + beauty(rootInstance.path("turn")) + "]");
@@ -1105,6 +1235,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space22, rootBoard.path("boardSpaces").path("22"));
 
         councilPalaceSetter();
+        productionMultipleSetter();
+        harvestMultipleSetter();
         textQuery.setText("Waiting for player's movement ...");
     }
 

@@ -4,6 +4,11 @@ public class FirstActionMalus implements Malus {
     private MalusEnum type;
     private boolean skipFirstRound=false;
 
+    /**
+     * Constructor of FirstActionMalus
+     * @param type the type of the Malus
+     * @param skipFirstRound
+     */
     public FirstActionMalus(MalusEnum type, boolean skipFirstRound) {
         this.type = type;
         this.skipFirstRound = skipFirstRound;
