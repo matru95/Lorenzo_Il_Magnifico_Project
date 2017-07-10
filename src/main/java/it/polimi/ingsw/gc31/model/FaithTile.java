@@ -44,6 +44,7 @@ public class FaithTile {
 	 */
 	public void execute(Player player) {
 		player.addMalus(this.malus);
+		player.addFaithTile(this);
 	}
 
 	@Override

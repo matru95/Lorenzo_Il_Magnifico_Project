@@ -2,8 +2,10 @@ package it.polimi.ingsw.gc31.view.jfx;
 
 import java.io.*;
 import java.rmi.NotBoundException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -223,10 +225,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onButtonClick(MouseEvent event) {
 
         if (queryState.get("isExchangeChoiceOn")) {
-            textChoice.setVisible(false);
-            textChoice.setDisable(true);
-            buttonChoice.setVisible(false);
-            buttonChoice.setDisable(true);
+            disableChoice();
             choice.put("choice", textChoice.getText());
             queryState.put("isExchangeChoiceOn", false);
         }
@@ -234,10 +233,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         if (queryState.get("isServantsQueryOn")) {
             if (isInteger(textChoice.getText()) && Integer.parseInt(textChoice.getText()) >=0
                     && Integer.parseInt(textChoice.getText()) <= Integer.parseInt(choice.get("myServants"))) {
-                textChoice.setVisible(false);
-                textChoice.setDisable(true);
-                buttonChoice.setVisible(false);
-                buttonChoice.setDisable(true);
+                disableChoice();
                 choice.put("servantsToPay", textChoice.getText());
                 queryState.put("isServantsQueryOn", false);
             } else
@@ -247,14 +243,26 @@ public class GameViewFXCtrl implements GameViewCtrl {
         if (queryState.get("isFreeCardChoiceOn") && isInteger(textChoice.getText())) {
             for(Integer i = 0; i < choice.size() - 1; i++)
                 if (choice.get("card" + i).equals(textChoice.getText())) {
-                    textChoice.setVisible(false);
-                    textChoice.setDisable(true);
-                    buttonChoice.setVisible(false);
-                    buttonChoice.setDisable(true);
+                    disableChoice();
                     choice.put(CARDID, textChoice.getText());
                     queryState.put("isFreeCardChoiceOn", false);
                 }
         }
+
+        if (queryState.get("isFaithQueryOn"))
+            if (textChoice.getText().equals("YES") || textChoice.getText().equals("NO")) {
+                disableChoice();
+                choice.put("applyExcommunication", textChoice.getText());
+                queryState.put("isFaithQueryOn", false);
+            }
+
+        if (queryState.get("isCostQueryOn"))
+            if (isInteger(textChoice.getText()) && (textChoice.getText().equals("1") || textChoice.getText().equals("2"))) {
+                disableChoice();
+                choice.put("cardCostChoice", choice.toString());
+                queryState.put("isCostQueryOn", false);
+            }
+
     }
 
     @FXML
@@ -580,6 +588,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
         return true;
     }
 
+    private void disableChoice() {
+        textChoice.setVisible(false);
+        textChoice.setDisable(true);
+        buttonChoice.setVisible(false);
+        buttonChoice.setDisable(true);
+    }
+
     private void disableFamilyMembers() {
         myNeutral.setDisable(true);
         myOrange.setDisable(true);
@@ -768,9 +783,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         for (JsonNode singlePlayer: rootInstance.path(PL))
             if (beauty(singlePlayer.path(PLCOL)).equals("BLUE"))
                 bluePlayer = singlePlayer;
-
         blueTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(bluePlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
-        blueText.setText("[" + beauty(bluePlayer.path(PLCOL)) + "] " + beauty(bluePlayer.path(PLNAME)) + ": " + beauty(bluePlayer.path("res")));
+        blueText.setText("[" + beauty(bluePlayer.path(PLCOL)) + "] " + beauty(bluePlayer.path(PLNAME)) + ": " + beauty(bluePlayer.path("res"))
+        + "\n" + beauty(bluePlayer.path("maluses")));
         JsonNode bluePlayerCards = bluePlayer.path(CARDS);
 
         cardSetter(blueBlue1, bluePlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -942,9 +957,11 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState = new HashMap<>();
         queryState.put("isMemberChoiceOn", false);
         queryState.put(ISSCON, false);
-        queryState.put("isServantsQueryOn", false);
         queryState.put("isExchangeChoiceOn", false);
+        queryState.put("isServantsQueryOn", false);
         queryState.put("isFreeCardChoiceOn", false);
+        queryState.put("isFaithQueryOn", false);
+        queryState.put("isCostQueryOn", false);
         queryState.put("isParchment1On", false);
         queryState.put("isParchment2On", false);
         queryState.put("isParchment3On", false);
@@ -1085,10 +1102,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @Override
     public Map<String, String> movementQuery() {
 
-        choice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isMemberChoiceOn", false);
         queryState.put(ISSCON, false);
+        choice = new HashMap<>();
 
         textQuery.setText("It's your turn, do a movement: select a Family Member on the upper-right and then a space.");
         queryState.put("isMemberChoiceOn", true);
@@ -1104,11 +1121,14 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     @Override
     public Map<String, String> servantsQuery(Map<String, String> map) {
+
         choice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
         queryState.put("isFreeCardChoiceOn", false);
+        queryState.put("isFaithQueryOn", false);
+        queryState.put("isCostQueryOn", false);
         choice.put("cardValue", map.get("cardValue"));
         choice.put("myServants", map.get("myServants"));
         textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + choice.get("myServants") + ":");
@@ -1118,6 +1138,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
         while (queryState.get("isServantsQueryOn"));
+        textQuery.setText("Waiting for player's movement ...");
         choice.put("positionType", map.get("positionType"));
         choice.remove("myServants");
         return choice;
@@ -1156,60 +1177,55 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @Override
     public Map<String, String> faithQuery() throws IOException {
 
-        HashMap<String, String> result = new HashMap<>();
-        String choice;
+        choice = new HashMap<>();
+        queryState = new HashMap<>();
+        queryState.put("isExchangeChoiceOn", false);
+        queryState.put("isServantsQueryOn", false);
+        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put("isFaithQueryOn", false);
+        queryState.put("isCostQueryOn", false);
 
         for (JsonNode singleFaithTile: rootBoard.path("faithTiles"))
             if (beauty(singleFaithTile.path("age")).equals(beauty(rootInstance.path("age")))) {
-                sb.append("\nChoose if you wanna take this excommunication (YES/NO):\n")
-                        .append(beauty(singleFaithTile.path("effect"))).append("\n");
-                printStringBuilder();
+                textQuery.setText("\nChoose if you wanna take this excommunication for this age (YES/NO):\n"
+                        + beauty(singleFaithTile.path("effect")));
             }
-
-        do {
-            try {
-                choice = readString().toUpperCase();
-                if (choice.equals("YES") || choice.equals("NO")) break;
-                sb.append("You must insert a valid choice among these: (YES, NO)\n");
-                printStringBuilder();
-            } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid choice among these: (YES, NO)\n");
-                printStringBuilder();
-            }
-        } while (true);
-        result.put("applyExcommunication", choice);
-
-        return result;
+        queryState.put("isFaithQueryOn", true);
+        textChoice.setVisible(true);
+        textChoice.setDisable(false);
+        buttonChoice.setVisible(true);
+        buttonChoice.setDisable(false);
+        while (queryState.get("isFaithQueryOn"));
+        textQuery.setText("Waiting for player's movement ...");
+        return choice;
     }
 
     @Override
     public Map<String, String> costQuery(Map<String, String> map) throws IOException {
 
-        HashMap<String, String> result = new HashMap<>();
-        Integer choice;
+        choice = new HashMap<>();
+        queryState = new HashMap<>();
+        queryState.put("isExchangeChoiceOn", false);
+        queryState.put("isServantsQueryOn", false);
+        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put("isFaithQueryOn", false);
+        queryState.put("isCostQueryOn", false);
 
         for (JsonNode singlePurpleCard: rootBoard.path(CARDS).path("PURPLE"))
             if (beauty(singlePurpleCard.path(CARDID)).equals(map.get(CARDID)))
-                sb.append("\n{(")
-                        .append(beauty(singlePurpleCard.path("cost").path(0))).append(") OR (")
-                        .append(beauty(singlePurpleCard.path("cost").path(1))).append(")}");
-        printStringBuilder();
+                textQuery.setText("Choose which cost to pay between those (1, 2):\n" + "\n{("
+                + beauty(singlePurpleCard.path("cost").path(0)) + ") OR (" + beauty(singlePurpleCard.path("cost").path(1)) + ")}");
 
-        do {
-            try {
-                choice = readInteger();
-                if (choice.equals(1) || choice.equals(2)) break;
-                sb.append("You must insert a valid number among these: (1, 2).\n");
-                printStringBuilder();
-            } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid number among these: (1, 2).\n");
-                printStringBuilder();
-            }
-        } while (true);
-        result.put(CARDID, map.get(CARDID));
-        result.put("cardCostChoice", choice.toString());
+        queryState.put("isCostQueryOn", true);
+        textChoice.setVisible(true);
+        textChoice.setDisable(false);
+        buttonChoice.setVisible(true);
+        buttonChoice.setDisable(false);
+        while (queryState.get("isCostQueryOn"));
 
-        return result;
+        textQuery.setText("Waiting for player's movement ...");
+        choice.put(CARDID, map.get(CARDID));
+        return choice;
     }
 
     @Override
@@ -1220,6 +1236,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
         queryState.put("isFreeCardChoiceOn", false);
+        queryState.put("isFaithQueryOn", false);
+        queryState.put("isCostQueryOn", false);
         Integer exchangesNumber = map.size() - 2;
         String str = "(0)";
 
@@ -1251,7 +1269,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 break;
             textQuery.setText("You must insert a valid number among these: " + str);
         } while (true);
-
+        textQuery.setText("Waiting for player's movement ...");
         choice.put(CARDID, map.get(CARDID));
         return choice;
     }
@@ -1264,6 +1282,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
         queryState.put("isFreeCardChoiceOn", false);
+        queryState.put("isFaithQueryOn", false);
+        queryState.put("isCostQueryOn", false);
 
         StringBuilder str = new StringBuilder();
         Boolean isFirstLoop = true;
@@ -1279,13 +1299,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
         textQuery.setText("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n"
                 + "Here there's a list of possible cards you can pick: " + str);
         queryState.put("isFreeCardChoiceOn", true);
-
         textChoice.setVisible(true);
         textChoice.setDisable(false);
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
         while (queryState.get("isFreeCardChoiceOn"));
-
+        textQuery.setText("Waiting for player's movement ...");
         Integer j = 0;
         for (Map.Entry<String, String> entry: map.entrySet()) {
             choice.remove("card" + j);
@@ -1296,7 +1315,19 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     @Override
     public void endGameQuery(Map<String, String> map) {
-
+        sb.append("Here is the leaderboard for this game:");
+        ValueComparator bvc = new ValueComparator(map);
+        TreeMap<String, String> sortedPlayers = new TreeMap<>(bvc);
+        sortedPlayers.putAll(map);
+        Integer i = 0;
+        for (JsonNode singlePlayer: rootInstance.path("players")) {
+            if (sortedPlayers.containsKey(beauty(singlePlayer.path("playerID"))));
+            sb.append(i).append(") ").append(singlePlayer.path("playerName")).append("    ")
+                    .append(sortedPlayers.get(i)).append(" VictoryPoints\n");
+            i++;
+        }
+        textQuery.setText(sb.toString());
+        printStringBuilder();
     }
 
     @Override
@@ -1310,24 +1341,20 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.myPlayerID = playerID;
     }
 
-    /**
-     * Method to read a String from Input.
-     * @return String
-     * @throws IOException: Error during input reading.
-     */
-    private String readString() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return br.readLine();
-    }
+    class ValueComparator implements Comparator<String> {
+        Map<String, String> base;
 
-    /**
-     * Method to read an Integer from Input.
-     * @return Integer
-     * @throws IOException: Error during input reading.
-     */
-    private int readInteger() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return Integer.valueOf(br.readLine());
+        public ValueComparator(Map<String, String> base) {
+            this.base = base;
+        }
+
+        public int compare(String a, String b) {
+            if (Integer.parseInt(base.get(a)) >= Integer.parseInt(base.get(b))) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
     }
 
     /**

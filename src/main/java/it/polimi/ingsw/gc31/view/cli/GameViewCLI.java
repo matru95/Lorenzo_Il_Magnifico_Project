@@ -461,11 +461,13 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         HashMap<String, String> result = new HashMap<>();
         Integer choice;
 
+        sb.append("Choose which cost to pay between those (1, 2):\n");
+
         for (JsonNode singlePurpleCard : rootBoard.path(CARDS).path("PURPLE"))
             if (beauty(singlePurpleCard.path(CARDID)).equals(map.get(CARDID)))
-                sb.append("\n{(")
+                sb.append("{(")
                         .append(beauty(singlePurpleCard.path("cost").path(0))).append(") OR (")
-                        .append(beauty(singlePurpleCard.path("cost").path(1))).append(")}");
+                        .append(beauty(singlePurpleCard.path("cost").path(1))).append(")}\n");
         printStringBuilder();
 
         do {

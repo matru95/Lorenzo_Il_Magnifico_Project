@@ -4,7 +4,6 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
 import it.polimi.ingsw.gc31.model.effects.permanent.MalusEnum;
-import it.polimi.ingsw.gc31.model.effects.permanent.PlayerResourceMalus;
 import it.polimi.ingsw.gc31.model.effects.permanent.ResourceMalus;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
@@ -17,6 +16,7 @@ import java.util.Map;
 
 public class AddResEffect extends Effect{
     private List<Resource> resourcesToAdd;
+    private boolean done=false;
 
     /**
      * Constructor of AddResEffect
@@ -38,7 +38,9 @@ public class AddResEffect extends Effect{
         List<Malus> maluses= player.getMaluses();
         List<Resource> gainFewerStack = null;
         Map<ResourceName,Resource> resDebuff= new HashMap<>();
+
         if(maluses!=null){
+            System.out.println("I maluses non sono nulli!!!");
             for(Malus malus: maluses) {
                 if(malus.getMalusType()== MalusEnum.RESOURCEMALUS){
                     gainFewerStack = ((ResourceMalus) malus).getGainFewerStack();
@@ -48,14 +50,15 @@ public class AddResEffect extends Effect{
                         resDebuff.put(resource.getResourceName(),resource);
                     }
                 }
-                if(malus.getMalusType()== MalusEnum.SERVANTSMALUS){
-                    for(Resource resource : gainFewerStack){
-                        if(resource.getResourceName()== ResourceName.SERVANTS){
-                            int currentResource= resource.getNumOf();
+                if(malus.getMalusType()== MalusEnum.SERVANTSMALUS && !done){
+                    for(Map.Entry<ResourceName,Resource> resourceEntry: playerResources.entrySet()){
+                        if(resourceEntry.getValue().getResourceName()==ResourceName.SERVANTS){
+                            int currentResource= resourceEntry.getValue().getNumOf();
                             int resultant=currentResource/2;
-                            resource.setNumOf(resultant);
+                            resourceEntry.getValue().setNumOf(resultant);
                         }
                     }
+                    this.done=false;
                 }
             }
         }

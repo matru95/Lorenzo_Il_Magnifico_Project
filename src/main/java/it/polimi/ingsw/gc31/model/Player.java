@@ -48,7 +48,7 @@ public class Player implements Serializable {
 	private FamilyMember[] familyMembers;
 
 	//FaithTiles
-
+	private List<FaithTile> faithTiles=new ArrayList<>();
 	private transient List<Bonus> bonuses;
 	private transient List<Malus> maluses;
 	
@@ -70,6 +70,7 @@ public class Player implements Serializable {
 
 		this.familyMembers = new FamilyMember[4];
 
+		this.faithTiles=new ArrayList<>();
 		this.bonuses = new ArrayList<>();
         this.maluses = new ArrayList<>();
 
@@ -95,7 +96,28 @@ public class Player implements Serializable {
         playerNode.set("familyMembers", createFamilyMembersJson(mapper));
         playerNode.set("cards", createCardsJson(mapper));
         playerNode.set("playerTile", playerTile.toJson());
-        playerNode.put("maluses",maluses.toString());
+
+        ArrayNode playerMalus= mapper.createArrayNode();
+        Map<Integer,FaithTile> boardFaithTiles= board.getFaithTiles();
+        for(Map.Entry<Integer,FaithTile> boardFaith : boardFaithTiles.entrySet()){
+        	int age= boardFaith.getValue().getAge();
+        	if(!faithTiles.isEmpty()){
+				for(FaithTile faithTile : faithTiles){
+					if (faithTile.getAge()==age){
+						playerMalus.add(true);
+					}else{
+						playerMalus.add(false);
+					}
+				}
+			}else{
+				for(int i=1; i<4; i++){
+					playerMalus.add(false);
+				}
+			}
+
+		}
+
+        playerNode.set("maluses",playerMalus);
         return playerNode;
     }
 
@@ -565,4 +587,8 @@ public class Player implements Serializable {
 
         return false;
     }
+
+	public void addFaithTile(FaithTile faithTile) {
+		this.faithTiles.add(faithTile);
+	}
 }
