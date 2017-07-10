@@ -2,9 +2,7 @@ package it.polimi.ingsw.gc31.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.polimi.ingsw.gc31.client.SocketClient;
-import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.GameInstance;
@@ -14,15 +12,13 @@ import it.polimi.ingsw.gc31.model.states.*;
 import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.client.Client;
 
-import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
 
 public class GameController extends Controller implements Runnable{
     private ActionController actionController;
-    private Thread messageThread;
-    //TODO DOCUMENTAZIONE
+
     /**
      * Constructor of GameController
      * @param model

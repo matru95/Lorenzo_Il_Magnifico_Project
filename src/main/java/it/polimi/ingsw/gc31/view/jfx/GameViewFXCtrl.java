@@ -1468,7 +1468,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         sb.append("Here is the leaderboard for this game:\n");
         JsonNode sortedPlayers = mapper.readTree(map.get("players"));
-        Integer i = 0;
+        Integer i = 1;
         for (JsonNode singlePlayer: sortedPlayers) {
             sb.append(i).append(") ").append(singlePlayer.path("playerName")).append("    ")
                     .append(singlePlayer.path("res").path("VICTORYPOINTS")).append(" VictoryPoints\n");
