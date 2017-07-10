@@ -217,6 +217,20 @@
                               <Font size="20.0" />
                            </font>
                         </Button>
+                        <Circle fx:id="harv2" fill="#ffffff00" layoutX="1303.0" layoutY="910.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="harv3" fill="#ffffff00" layoutX="1353.0" layoutY="910.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="harv4" fill="#ffffff00" layoutX="1403.0" layoutY="910.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="harv5" fill="#ffffff00" layoutX="1453.0" layoutY="910.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="harv6" fill="#ffffff00" layoutX="1328.0" layoutY="950.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="harv7" fill="#ffffff00" layoutX="1378.0" layoutY="950.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="harv8" fill="#ffffff00" layoutX="1428.0" layoutY="950.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="prod2" fill="#ffffff00" layoutX="1308.0" layoutY="756.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="prod3" fill="#ffffff00" layoutX="1358.0" layoutY="756.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="prod4" fill="#ffffff00" layoutX="1408.0" layoutY="756.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="prod5" fill="#ffffff00" layoutX="1458.0" layoutY="756.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="prod6" fill="#ffffff00" layoutX="1333.0" layoutY="796.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="prod7" fill="#ffffff00" layoutX="1383.0" layoutY="796.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
+                        <Circle fx:id="prod8" fill="#ffffff00" layoutX="1433.0" layoutY="796.0" radius="20.0" stroke="#7f7f7f" strokeType="INSIDE" strokeWidth="10.0" visible="false" />
                   </children>
                 </AnchorPane>
                </content>
