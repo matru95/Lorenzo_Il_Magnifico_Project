@@ -37,7 +37,7 @@ public class TowerSpaceWrapper extends SpaceWrapper {
      * @param tower the tower of the wrapper
      * @param res the res for the wrapper
      */
-    TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Tower tower, Resource res) {
+    public TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Tower tower, Resource res) {
         super(positionID, diceBond, gameBoard);
         this.color = tower.getTowerColor();
         this.tower = tower;
