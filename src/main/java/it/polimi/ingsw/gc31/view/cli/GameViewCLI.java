@@ -59,7 +59,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     }
 
     private String serverIPQuery() throws IOException {
-        sb.append("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
+        sb.append("Now enter the ip address for the server to which connect (\"localhost\" if server is on the same machine):");
         printStringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return br.readLine();

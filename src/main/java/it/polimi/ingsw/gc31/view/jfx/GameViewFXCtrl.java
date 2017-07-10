@@ -19,7 +19,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
@@ -61,6 +60,15 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private static final String AGE3STR = "    [AGE3]=";
     private static final String WAITINGSTR = "Waiting for player's movement ...";
     private static final String FAITHTILES = "faithTiles";
+    private static final String NUMOFPARCH = "numOfParchments";
+    private static final String ISPARCH = "isParchment";
+    private static final String ISMEMBERCHOICEON = "isMemberChoiceOn";
+    private static final String CHOICE = "choice";
+    private static final String BOARDSPACES = "boardSpaces";
+    private static final String ISEXCHANGECHOICEON = "isExchangeChoiceOn";
+    private static final String ISSERVANTSQUERYON = "isServantsQueryOn";
+    private static final String ISFREECARDCHOICEON = "isFreeCardChoiceOn";
+    private static final String ISFAITHQUERYON = "isFaithQueryOn";
 
     private StringBuilder sb;
     private String myPlayerID;
@@ -71,18 +79,28 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private JsonNode rootMe;
 
     private Map<String, Boolean> queryState;
-    private Map<String, String> choice;
+    private Map<String, String> queryChoice;
 
+    /**
+     * Default constructor.
+     * @throws InterruptedException: exception
+     * @throws NotBoundException: exception
+     * @throws IOException: exception
+     * @throws ClassNotFoundException: exception
+     */
     public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException, ClassNotFoundException {
 
         this.sb = new StringBuilder();
         this.mapper = new ObjectMapper();
-
         myPlayerNameQuery();
         connectionQuery(serverIPQuery());
 
     }
 
+    /**
+     * Query to choose my Player Name.
+     * @throws IOException: exception
+     */
     private void myPlayerNameQuery() throws IOException {
         sb.append("Hello, pls enter your name:");
         printStringBuilder();
@@ -90,13 +108,24 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.myPlayerName = br.readLine();
     }
 
+    /**
+     * Query to choose the server IP.
+     * @throws IOException: exception
+     */
     private String serverIPQuery() throws IOException {
-        sb.append("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
+        sb.append("Now enter the ip address for the server to which connect (\"localhost\" if server is on the same machine):");
         printStringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return br.readLine();
     }
 
+    /**
+     * Query to choose the connection method (SOCKET OR RMI).
+     * @param serverIP
+     * @throws IOException: exception
+     * @throws InterruptedException: exception
+     * @throws NotBoundException: exception
+     */
     private void connectionQuery(String serverIP) throws IOException, InterruptedException, NotBoundException {
         sb.append("Choose between using \"SOCKET\" or \"RMI\":");
         printStringBuilder();
@@ -125,166 +154,658 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private ImageView board;
 
     @FXML
-    private ImageView green0, green1, green2, green3;
+    private ImageView green0;
 
     @FXML
-    private ImageView blue0, blue1, blue2, blue3;
+    private ImageView green1;
 
     @FXML
-    private ImageView yellow0, yellow1, yellow2, yellow3;
+    private ImageView green2;
 
     @FXML
-    private ImageView purple0, purple1, purple2, purple3;
+    private ImageView green3;
 
     @FXML
-    private Text diceBlack, diceWhite, diceOrange;
+    private ImageView blue0;
 
     @FXML
-    private ImageView faithTile1, faithTile2, faithTile3;
+    private ImageView blue1;
 
     @FXML
-    private Circle space1, space2, space3, space4, space5, space6, space7, space8, space9, space10, space11;
+    private ImageView blue2;
 
     @FXML
-    private Circle space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22;
+    private ImageView blue3;
 
     @FXML
-    private Circle councPal1, councPal2, councPal3, councPal4, councPal5, councPal6, councPal7, councPal8, councPal9, councPal10;
+    private ImageView yellow0;
 
     @FXML
-    private Circle parchment0, parchment1, parchment2, parchment3, parchment4;
+    private ImageView yellow1;
 
     @FXML
-    private Circle prod2, prod3, prod4, prod5, prod6, prod7, prod8;
+    private ImageView yellow2;
 
     @FXML
-    private Circle harv2, harv3, harv4, harv5, harv6, harv7, harv8;
+    private ImageView yellow3;
 
     @FXML
-    private Circle order1, order2, order3, order4;
+    private ImageView purple0;
 
     @FXML
-    private Circle myOrange, myBlack, myNeutral, myWhite;
+    private ImageView purple1;
 
     @FXML
-    private Text header, textQuery, textFail;
+    private ImageView purple2;
+
+    @FXML
+    private ImageView purple3;
+
+    @FXML
+    private Text diceBlack;
+
+    @FXML
+    private Text diceWhite;
+
+    @FXML
+    private Text diceOrange;
+
+    @FXML
+    private ImageView faithTile1;
+
+    @FXML
+    private ImageView faithTile2;
+
+    @FXML
+    private ImageView faithTile3;
+
+    @FXML
+    private Circle space1;
+
+    @FXML
+    private Circle space2;
+
+    @FXML
+    private Circle space3;
+
+    @FXML
+    private Circle space4;
+
+    @FXML
+    private Circle space5;
+
+    @FXML
+    private Circle space6;
+
+    @FXML
+    private Circle space7;
+
+    @FXML
+    private Circle space8;
+
+    @FXML
+    private Circle space9;
+
+    @FXML
+    private Circle space10;
+
+    @FXML
+    private Circle space11;
+
+    @FXML
+    private Circle space12;
+
+    @FXML
+    private Circle space13;
+
+    @FXML
+    private Circle space14;
+
+    @FXML
+    private Circle space15;
+
+    @FXML
+    private Circle space16;
+
+    @FXML
+    private Circle space17;
+
+    @FXML
+    private Circle space18;
+
+    @FXML
+    private Circle space19;
+
+    @FXML
+    private Circle space20;
+
+    @FXML
+    private Circle space21;
+
+    @FXML
+    private Circle space22;
+
+    @FXML
+    private Circle order1;
+
+    @FXML
+    private Circle order2;
+
+    @FXML
+    private Circle order3;
+
+    @FXML
+    private Circle order4;
+
+    @FXML
+    private Circle myOrange;
+
+    @FXML
+    private Circle myBlack;
+
+    @FXML
+    private Circle myNeutral;
+
+    @FXML
+    private Circle myWhite;
+
+    @FXML
+    private Text header;
+
+    @FXML
+    private Text textQuery;
+
+    @FXML
+    private Text textFail;
+
+    @FXML
+    private Circle councPal1;
+
+    @FXML
+    private Circle councPal2;
+
+    @FXML
+    private Circle councPal3;
+
+    @FXML
+    private Circle councPal4;
+
+    @FXML
+    private Circle councPal5;
+
+    @FXML
+    private Circle councPal6;
+
+    @FXML
+    private Circle councPal7;
+
+    @FXML
+    private Circle councPal8;
+
+    @FXML
+    private Circle councPal9;
+
+    @FXML
+    private Circle councPal10;
+
+    @FXML
+    private Circle parchment0;
+
+    @FXML
+    private Circle parchment1;
+
+    @FXML
+    private Circle parchment2;
+
+    @FXML
+    private Circle parchment3;
+
+    @FXML
+    private Circle parchment4;
 
     @FXML
     private TextField textChoice;
 
     @FXML
-    private Button buttonChoice, cancelMove;
+    private Button buttonChoice;
 
     @FXML
-    private Tab blueTab, greenTab, redTab, yellowTab;
+    private Button cancelMove;
 
     @FXML
-    private ImageView blueTile, greenTile, redTile, yellowTile;
+    private Circle harv2;
 
     @FXML
-    private TextArea blueText, greenText, redText, yellowText;
+    private Circle harv3;
 
     @FXML
-    private ImageView blueGreen1, blueGreen2, blueGreen3, blueGreen4, blueGreen5, blueGreen6;
+    private Circle harv4;
 
     @FXML
-    private ImageView blueYellow1, blueYellow2, blueYellow3, blueYellow4, blueYellow5, blueYellow6;
+    private Circle harv5;
 
     @FXML
-    private ImageView blueBlue1, blueBlue2, blueBlue3, blueBlue4, blueBlue5, blueBlue6;
+    private Circle harv6;
 
     @FXML
-    private ImageView bluePurple1, bluePurple2, bluePurple3, bluePurple4, bluePurple5, bluePurple6;
+    private Circle harv7;
 
     @FXML
-    private ImageView greenGreen1, greenGreen2, greenGreen3, greenGreen4, greenGreen5, greenGreen6;
+    private Circle harv8;
 
     @FXML
-    private ImageView greenYellow1, greenYellow2, greenYellow3, greenYellow4, greenYellow5, greenYellow6;
+    private Circle prod2;
 
     @FXML
-    private ImageView greenBlue1, greenBlue2, greenBlue3, greenBlue4, greenBlue5, greenBlue6;
+    private Circle prod3;
 
     @FXML
-    private ImageView greenPurple1, greenPurple2, greenPurple3, greenPurple4, greenPurple5, greenPurple6;
+    private Circle prod4;
 
     @FXML
-    private ImageView redGreen1, redGreen2, redGreen3, redGreen4, redGreen5, redGreen6;
+    private Circle prod5;
 
     @FXML
-    private ImageView redYellow1, redYellow2, redYellow3, redYellow4, redYellow5, redYellow6;
+    private Circle prod6;
 
     @FXML
-    private ImageView redBlue1, redBlue2, redBlue3, redBlue4, redBlue5, redBlue6;
+    private Circle prod7;
 
     @FXML
-    private ImageView redPurple1, redPurple2, redPurple3, redPurple4, redPurple5, redPurple6;
+    private Circle prod8;
 
     @FXML
-    private ImageView yellowGreen1, yellowGreen2, yellowGreen3, yellowGreen4, yellowGreen5, yellowGreen6;
+    private Tab blueTab;
 
     @FXML
-    private ImageView yellowYellow1, yellowYellow2, yellowYellow3, yellowYellow4, yellowYellow5, yellowYellow6;
+    private ImageView blueGreen1;
 
     @FXML
-    private ImageView yellowBlue1, yellowBlue2, yellowBlue3, yellowBlue4, yellowBlue5, yellowBlue6;
+    private ImageView blueGreen2;
 
     @FXML
-    private ImageView yellowPurple1, yellowPurple2, yellowPurple3, yellowPurple4, yellowPurple5, yellowPurple6;
+    private ImageView blueGreen3;
 
+    @FXML
+    private ImageView blueGreen4;
+
+    @FXML
+    private ImageView blueGreen5;
+
+    @FXML
+    private ImageView blueGreen6;
+
+    @FXML
+    private ImageView blueYellow1;
+
+    @FXML
+    private ImageView blueYellow2;
+
+    @FXML
+    private ImageView blueYellow3;
+
+    @FXML
+    private ImageView blueYellow4;
+
+    @FXML
+    private ImageView blueYellow5;
+
+    @FXML
+    private ImageView blueYellow6;
+
+    @FXML
+    private ImageView blueBlue1;
+
+    @FXML
+    private ImageView blueBlue2;
+
+    @FXML
+    private ImageView blueBlue3;
+
+    @FXML
+    private ImageView blueBlue4;
+
+    @FXML
+    private ImageView blueBlue5;
+
+    @FXML
+    private ImageView blueBlue6;
+
+    @FXML
+    private ImageView bluePurple1;
+
+    @FXML
+    private ImageView bluePurple2;
+
+    @FXML
+    private ImageView bluePurple3;
+
+    @FXML
+    private ImageView bluePurple4;
+
+    @FXML
+    private ImageView bluePurple5;
+
+    @FXML
+    private ImageView bluePurple6;
+
+    @FXML
+    private TextArea blueText;
+
+    @FXML
+    private ImageView blueTile;
+
+    @FXML
+    private Tab greenTab;
+
+    @FXML
+    private ImageView greenGreen1;
+
+    @FXML
+    private ImageView greenGreen2;
+
+    @FXML
+    private ImageView greenGreen3;
+
+    @FXML
+    private ImageView greenGreen4;
+
+    @FXML
+    private ImageView greenGreen5;
+
+    @FXML
+    private ImageView greenGreen6;
+
+    @FXML
+    private ImageView greenYellow1;
+
+    @FXML
+    private ImageView greenYellow2;
+
+    @FXML
+    private ImageView greenYellow3;
+
+    @FXML
+    private ImageView greenYellow4;
+
+    @FXML
+    private ImageView greenYellow5;
+
+    @FXML
+    private ImageView greenYellow6;
+
+    @FXML
+    private ImageView greenBlue1;
+
+    @FXML
+    private ImageView greenBlue2;
+
+    @FXML
+    private ImageView greenBlue3;
+
+    @FXML
+    private ImageView greenBlue4;
+
+    @FXML
+    private ImageView greenBlue5;
+
+    @FXML
+    private ImageView greenBlue6;
+
+    @FXML
+    private ImageView greenPurple1;
+
+    @FXML
+    private ImageView greenPurple2;
+
+    @FXML
+    private ImageView greenPurple3;
+
+    @FXML
+    private ImageView greenPurple4;
+
+    @FXML
+    private ImageView greenPurple5;
+
+    @FXML
+    private ImageView greenPurple6;
+
+    @FXML
+    private TextArea greenText;
+
+    @FXML
+    private ImageView greenTile;
+
+    @FXML
+    private Tab redTab;
+
+    @FXML
+    private ImageView redGreen1;
+
+    @FXML
+    private ImageView redGreen2;
+
+    @FXML
+    private ImageView redGreen3;
+
+    @FXML
+    private ImageView redGreen4;
+
+    @FXML
+    private ImageView redGreen5;
+
+    @FXML
+    private ImageView redGreen6;
+
+    @FXML
+    private ImageView redYellow1;
+
+    @FXML
+    private ImageView redYellow2;
+
+    @FXML
+    private ImageView redYellow3;
+
+    @FXML
+    private ImageView redYellow4;
+
+    @FXML
+    private ImageView redYellow5;
+
+    @FXML
+    private ImageView redYellow6;
+
+    @FXML
+    private ImageView redBlue1;
+
+    @FXML
+    private ImageView redBlue2;
+
+    @FXML
+    private ImageView redBlue3;
+
+    @FXML
+    private ImageView redBlue4;
+
+    @FXML
+    private ImageView redBlue5;
+
+    @FXML
+    private ImageView redBlue6;
+
+    @FXML
+    private ImageView redPurple1;
+
+    @FXML
+    private ImageView redPurple2;
+
+    @FXML
+    private ImageView redPurple3;
+
+    @FXML
+    private ImageView redPurple4;
+
+    @FXML
+    private ImageView redPurple5;
+
+    @FXML
+    private ImageView redPurple6;
+
+    @FXML
+    private TextArea redText;
+
+    @FXML
+    private ImageView redTile;
+
+    @FXML
+    private Tab yellowTab;
+
+    @FXML
+    private ImageView yellowGreen1;
+
+    @FXML
+    private ImageView yellowGreen2;
+
+    @FXML
+    private ImageView yellowGreen3;
+
+    @FXML
+    private ImageView yellowGreen4;
+
+    @FXML
+    private ImageView yellowGreen5;
+
+    @FXML
+    private ImageView yellowGreen6;
+
+    @FXML
+    private ImageView yellowYellow1;
+
+    @FXML
+    private ImageView yellowYellow2;
+
+    @FXML
+    private ImageView yellowYellow3;
+
+    @FXML
+    private ImageView yellowYellow4;
+
+    @FXML
+    private ImageView yellowYellow5;
+
+    @FXML
+    private ImageView yellowYellow6;
+
+    @FXML
+    private ImageView yellowBlue1;
+
+    @FXML
+    private ImageView yellowBlue2;
+
+    @FXML
+    private ImageView yellowBlue3;
+
+    @FXML
+    private ImageView yellowBlue4;
+
+    @FXML
+    private ImageView yellowBlue5;
+
+    @FXML
+    private ImageView yellowBlue6;
+
+    @FXML
+    private ImageView yellowPurple1;
+
+    @FXML
+    private ImageView yellowPurple2;
+
+    @FXML
+    private ImageView yellowPurple3;
+
+    @FXML
+    private ImageView yellowPurple4;
+
+    @FXML
+    private ImageView yellowPurple5;
+
+    @FXML
+    private ImageView yellowPurple6;
+
+    @FXML
+    private TextArea yellowText;
+
+    @FXML
+    private ImageView yellowTile;
+
+    /**
+     * Check if the choice for the Exchange Query is OK.
+     */
     private void checkExchange() {
 
-        if (queryState.get("isExchangeChoiceOn")) {
+        if (queryState.get(ISEXCHANGECHOICEON)) {
             disableChoice();
-            choice.put("choice", textChoice.getText());
-            queryState.put("isExchangeChoiceOn", false);
+            queryChoice.put(CHOICE, textChoice.getText());
+            queryState.put(ISEXCHANGECHOICEON, false);
         }
     }
 
+    /**
+     * Check if the choice for the Servant To Pay Query is OK.
+     */
     private void checkServants() {
 
-        if (queryState.get("isServantsQueryOn")) {
+        if (queryState.get(ISSERVANTSQUERYON)) {
             if (isInteger(textChoice.getText()) && Integer.parseInt(textChoice.getText()) >=0
-                    && Integer.parseInt(textChoice.getText()) <= Integer.parseInt(choice.get("myServants"))) {
+                    && Integer.parseInt(textChoice.getText()) <= Integer.parseInt(queryChoice.get("myServants"))) {
                 disableChoice();
-                choice.put("servantsToPay", textChoice.getText());
-                queryState.put("isServantsQueryOn", false);
+                queryChoice.put("servantsToPay", textChoice.getText());
+                queryState.put(ISSERVANTSQUERYON, false);
             } else
-                textQuery.setText("You must insert a valid number between 0 and " + choice.get("myServants") + ":");
+                textQuery.setText("You must insert a valid number between 0 and " + queryChoice.get("myServants") + ":");
         }
     }
 
+    /**
+     * Check if the choice for the Free Card Query is OK.
+     */
     private void checkFreeCard () {
 
-        if (queryState.get("isFreeCardChoiceOn") && isInteger(textChoice.getText())) {
-            for(Integer i = 0; i < choice.size() - 1; i++)
-                if (choice.get("card" + i).equals(textChoice.getText())) {
+        if (queryState.get(ISFREECARDCHOICEON) && isInteger(textChoice.getText())) {
+            for(Integer i = 0; i < queryChoice.size() - 1; i++)
+                if (queryChoice.get("card" + i).equals(textChoice.getText())) {
                     disableChoice();
-                    choice.put(CARDID, textChoice.getText());
-                    queryState.put("isFreeCardChoiceOn", false);
+                    queryChoice.put(CARDID, textChoice.getText());
+                    queryState.put(ISFREECARDCHOICEON, false);
                 }
         }
     }
 
+    /**
+     * Check if the choice for the Excommunication Query is OK.
+     */
     private void checkFaith() {
 
-        if (queryState.get("isFaithQueryOn") && textChoice.getText().equalsIgnoreCase("YES") || textChoice.getText().equalsIgnoreCase("NO")) {
+        if (queryState.get(ISFAITHQUERYON) && textChoice.getText().equalsIgnoreCase("YES") || textChoice.getText().equalsIgnoreCase("NO")) {
             disableChoice();
-            choice.put("applyExcommunication", textChoice.getText());
+            queryChoice.put("applyExcommunication", textChoice.getText());
             queryState.put("isFaithQueryOn", false);
         }
     }
 
+    /**
+     * Check if the choice for the Cost Query is OK.
+     */
     private void checkCost() {
         if (queryState.get("isCostQueryOn") && isInteger(textChoice.getText()) && (textChoice.getText().equals("1") || textChoice.getText().equals("2"))) {
             disableChoice();
-            choice.put("cardCostChoice", textChoice.getText());
+            queryChoice.put("cardCostChoice", textChoice.getText());
             queryState.put("isCostQueryOn", false);
         }
     }
 
     @FXML
-    void onButtonClick(MouseEvent event) {
+    void onButtonClick() {
 
         checkExchange();
         checkServants();
@@ -294,12 +815,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickParchment0(MouseEvent event) {
+    void onClickParchment0() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "0");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "0");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice0", false);
             }
         }
@@ -307,322 +828,330 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickParchment1(MouseEvent event) {
+    void onClickParchment1() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "1");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "1");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice1", false);
             }
         }
     }
 
     @FXML
-    void onClickParchment2(MouseEvent event) {
+    void onClickParchment2() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "2");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "2");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice2", false);
             }
         }
     }
 
     @FXML
-    void onClickParchment3(MouseEvent event) {
+    void onClickParchment3() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "3");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "3");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice3", false);
             }
         }
     }
 
     @FXML
-    void onClickParchment4(MouseEvent event) {
+    void onClickParchment4() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "4");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "4");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice4", false);
             }
         }
     }
 
     @FXML
-    void onClickMemberBlack(MouseEvent event) {
+    void onClickMemberBlack() {
 
-        if (this.queryState.get("isMemberChoiceOn")) {
-            choice.put(DICECOLOR, "BLACK");
+        if (this.queryState.get(ISMEMBERCHOICEON)) {
+            queryChoice.put(DICECOLOR, "BLACK");
             myBlack.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.queryState.put("isMemberChoiceOn", false);
+            this.queryState.put(ISMEMBERCHOICEON, false);
         }
     }
 
     @FXML
-    void onClickMemberWhite(MouseEvent event) {
+    void onClickMemberWhite() {
 
-        if (this.queryState.get("isMemberChoiceOn")) {
-            choice.put(DICECOLOR, "WHITE");
+        if (this.queryState.get(ISMEMBERCHOICEON)) {
+            queryChoice.put(DICECOLOR, "WHITE");
             myWhite.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.queryState.put("isMemberChoiceOn", false);
+            this.queryState.put(ISMEMBERCHOICEON, false);
         }
     }
 
     @FXML
-    void onClickMemberOrange(MouseEvent event) {
+    void onClickMemberOrange() {
 
-        if (this.queryState.get("isMemberChoiceOn")) {
-            choice.put(DICECOLOR, "ORANGE");
+        if (this.queryState.get(ISMEMBERCHOICEON)) {
+            queryChoice.put(DICECOLOR, "ORANGE");
             myOrange.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.queryState.put("isMemberChoiceOn", false);
+            this.queryState.put(ISMEMBERCHOICEON, false);
         }
     }
 
     @FXML
-    void onClickMemberNeutral(MouseEvent event) {
+    void onClickMemberNeutral() {
 
-        if (this.queryState.get("isMemberChoiceOn")) {
-            choice.put(DICECOLOR, "NEUTRAL");
+        if (this.queryState.get(ISMEMBERCHOICEON)) {
+            queryChoice.put(DICECOLOR, "NEUTRAL");
             myNeutral.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.queryState.put("isMemberChoiceOn", false);
+            this.queryState.put(ISMEMBERCHOICEON, false);
         }
     }
 
     @FXML
-    void onClickCancelMove(MouseEvent event) {
+    void onClickCancelMove() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "0");
+            queryChoice.put(POSITIONID, "0");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace1(MouseEvent event) {
+    void onClickSpace1() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "1");
+            queryChoice.put(POSITIONID, "1");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace2(MouseEvent event) {
+    void onClickSpace2() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "2");
+            queryChoice.put(POSITIONID, "2");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace3(MouseEvent event) {
+    void onClickSpace3() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "3");
+            queryChoice.put(POSITIONID, "3");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace4(MouseEvent event) {
+    void onClickSpace4() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "4");
+            queryChoice.put(POSITIONID, "4");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace5(MouseEvent event) {
+    void onClickSpace5() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "5");
+            queryChoice.put(POSITIONID, "5");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace6(MouseEvent event) {
+    void onClickSpace6() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "6");
+            queryChoice.put(POSITIONID, "6");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace7(MouseEvent event) {
+    void onClickSpace7() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "7");
+            queryChoice.put(POSITIONID, "7");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace8(MouseEvent event) {
+    void onClickSpace8() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "8");
+            queryChoice.put(POSITIONID, "8");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace9(MouseEvent event) {
+    void onClickSpace9() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "9");
+            queryChoice.put(POSITIONID, "9");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace10(MouseEvent event) {
+    void onClickSpace10() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "10");
+            queryChoice.put(POSITIONID, "10");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace11(MouseEvent event) {
+    void onClickSpace11() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "11");
+            queryChoice.put(POSITIONID, "11");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace12(MouseEvent event) {
+    void onClickSpace12() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "12");
+            queryChoice.put(POSITIONID, "12");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace13(MouseEvent event) {
+    void onClickSpace13() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "13");
+            queryChoice.put(POSITIONID, "13");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace14(MouseEvent event) {
+    void onClickSpace14() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "14");
+            queryChoice.put(POSITIONID, "14");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace15(MouseEvent event) {
+    void onClickSpace15() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "15");
+            queryChoice.put(POSITIONID, "15");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace16(MouseEvent event) {
+    void onClickSpace16() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "16");
+            queryChoice.put(POSITIONID, "16");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace17(MouseEvent event) {
+    void onClickSpace17() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "17");
+            queryChoice.put(POSITIONID, "17");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace18(MouseEvent event) {
+    void onClickSpace18() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "18");
+            queryChoice.put(POSITIONID, "18");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace19(MouseEvent event) {
+    void onClickSpace19() {
 
         if (this.queryState.get(ISSCON)) {
-           choice.put(POSITIONID, "19");
+           queryChoice.put(POSITIONID, "19");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace20(MouseEvent event) {
+    void onClickSpace20() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "20");
+            queryChoice.put(POSITIONID, "20");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace21(MouseEvent event) {
+    void onClickSpace21() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "21");
+            queryChoice.put(POSITIONID, "21");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace22(MouseEvent event) {
+    void onClickSpace22() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "22");
+            queryChoice.put(POSITIONID, "22");
             this.queryState.put(ISSCON, false);
         }
     }
 
     @FXML
-    void onClickSpace23(MouseEvent event) {
+    void onClickSpace23() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "23");
+            queryChoice.put(POSITIONID, "23");
             this.queryState.put(ISSCON, false);
         }
     }
 
-    private boolean isInteger(String s) {
+    /**
+     * Method to discover if a String is an Integer
+     * @param string: String
+     * @return boolean
+     */
+    private boolean isInteger(String string) {
         try {
-            Integer integer = Integer.parseInt(s);
+            Integer integer = Integer.parseInt(string);
         } catch(NumberFormatException|NullPointerException e) {
             return false;
         }
         return true;
     }
 
+    /**
+     * Hide all the Multiple Action Spaces (Produce AND Harvest).
+     */
     private void hideMultipleActionSpaces() {
         prod2.setVisible(false);
         prod3.setVisible(false);
@@ -640,6 +1169,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         harv8.setVisible(false);
     }
 
+    /**
+     * Show all the Multiple Action Spaces (Produce AND Harvest).
+     */
     private void showMultipleActionSpaces() {
         prod2.setVisible(true);
         prod3.setVisible(true);
@@ -657,6 +1189,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         harv8.setVisible(true);
     }
 
+    /**
+     * Disable the editable field and the button to make a choice.
+     */
     private void disableChoice() {
         textChoice.setVisible(false);
         textChoice.setDisable(true);
@@ -664,6 +1199,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setDisable(true);
     }
 
+    /**
+     * Disable all my Family Members.
+     */
     private void disableFamilyMembers() {
         myNeutral.setDisable(true);
         myOrange.setDisable(true);
@@ -671,6 +1209,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myWhite.setDisable(true);
     }
 
+    /**
+     * Reset all my Family Members, setting them enabled and visible.
+     */
     private void resetFamilyMembers() {
         myBlack.setStrokeType(StrokeType.valueOf(INSIDE));
         myNeutral.setStrokeType(StrokeType.valueOf(INSIDE));
@@ -682,6 +1223,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myWhite.setDisable(false);
     }
 
+    /**
+     * Enable all Parchments for the parchmentQuery(), not selected previously.
+     */
     private void enableParchments() {
 
         if (queryState.get("isOpenChoice0").equals(true)) {
@@ -707,6 +1251,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Disable all Parchments for the parchmentQuery().
+     */
     private void disableParchments() {
 
         parchment0.setVisible(false);
@@ -721,24 +1268,39 @@ public class GameViewFXCtrl implements GameViewCtrl {
         parchment4.setDisable(true);
     }
 
+    /**
+     * Set a Card into a Card Space (Tower OR PunchBoard).
+     */
     private void cardSetter(ImageView cardView, Integer cardID) {
         cardView.setImage(new Image(new File("src/main/resources/javafx/cards/cardID" + cardID + ".png").toURI().toString()));
     }
 
+    /**
+     * Set the Dices on Board.
+     */
     private void diceSetter(Text diceText, Integer diceValue) {
         diceText.setText(diceValue.toString());
     }
 
+    /**
+     * Set the Faith Tiles on Board.
+     */
     private void faithTileSetter(ImageView faithTileView, Integer faithTileID) {
         faithTileView.setImage(new Image(new File("src/main/resources/javafx/faithTiles/excomm" + faithTileID + ".png").toURI().toString()));
     }
 
+    /**
+     * Set the Player Order on Board.
+     */
     private void playerOrderColorSetter(Circle circle, String playerColor) {
         if (playerColor != null)
             circle.setFill(Paint.valueOf(playerColor));
         circle.setVisible(true);
     }
 
+    /**
+     * Set a Family Member into a Space Wrapper (TowerSpace OR Mart Space).
+     */
     private void spaceSetter(Circle spaceShape, JsonNode node) {
 
         if (node.path(ISOCCUPIED).toString().equals("true")) {
@@ -760,6 +1322,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
     }
 
+    /**
+     * Set a Family Member into a single Action Space (Harvest OR Produce).
+     */
     private void actionSpaceSetter(Circle spaceShape, JsonNode node) {
 
         if (node.path(FMS).has(0)) {
@@ -781,9 +1346,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
     }
 
+    /**
+     * Sub-method of councilPalaceSetter().
+     */
     private void councilPalaceSetter1() {
 
-        JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
+        JsonNode councilPalaceNode = rootBoard.path(BOARDSPACES).path("23").path(FMS);
         if (councilPalaceNode.has(0))
             multipleSpaceMemberSetter(councPal1, councilPalaceNode.path(0));
         else
@@ -811,9 +1379,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Sub-method of councilPalaceSetter().
+     */
     private void councilPalaceSetter2() {
 
-        JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
+        JsonNode councilPalaceNode = rootBoard.path(BOARDSPACES).path("23").path(FMS);
 
         if (councilPalaceNode.has(5))
             multipleSpaceMemberSetter(councPal6, councilPalaceNode.path(5));
@@ -842,14 +1413,20 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Family Members on Council Palace Space.
+     */
     private void councilPalaceSetter() {
         councilPalaceSetter1();
         councilPalaceSetter2();
     }
 
+    /**
+     * Set Family Members on Production Multiple Space.
+     */
     private void productionMultipleSetter() {
 
-        JsonNode node = rootBoard.path("boardSpaces").path("17").path(FMS);
+        JsonNode node = rootBoard.path(BOARDSPACES).path("17").path(FMS);
 
         if (node.has(1))
             multipleSpaceMemberSetter(prod2, node.path(1));
@@ -888,9 +1465,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Family Members on Harvest Multiple Space.
+     */
     private void harvestMultipleSetter() {
 
-        JsonNode node = rootBoard.path("boardSpaces").path("18").path(FMS);
+        JsonNode node = rootBoard.path(BOARDSPACES).path("18").path(FMS);
 
         if (node.has(1))
             multipleSpaceMemberSetter(harv2, node.path(1));
@@ -929,6 +1509,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set a single Family Member in a multiple Space.
+     */
     private void multipleSpaceMemberSetter(Circle memberShape, JsonNode node) {
 
         if (beauty(node.path(COLOR)).equals(NEUTRAL)) {
@@ -941,6 +1524,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         memberShape.setVisible(true);
     }
 
+    /**
+     * Set Resources, Cards and Maluses for BluePlayer.
+     */
     private void bluePlayerSetter() {
 
         JsonNode bluePlayer = rootMe;
@@ -986,6 +1572,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Resources, Cards and Maluses for Green Player.
+     */
     private void greenPlayerSetter() {
 
         JsonNode greenPlayer = rootMe;
@@ -1030,6 +1619,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Resources, Cards and Maluses for Red Player.
+     */
     private void redPlayerSetter() {
 
         JsonNode redPlayer = rootMe;
@@ -1074,6 +1666,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Resources, Cards and Maluses for Yellow Player.
+     */
     private void yellowPlayerSetter() {
 
         JsonNode yellowPlayer = rootMe;
@@ -1118,6 +1713,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Initialize my Family Members on board.
+     */
     private void initFamilyMembers() {
 
         for (JsonNode singleMember: rootMe.path(FMS)) {
@@ -1152,11 +1750,11 @@ public class GameViewFXCtrl implements GameViewCtrl {
         cancelMove.setDisable(true);
         cancelMove.setVisible(false);
         queryState = new HashMap<>();
-        queryState.put("isMemberChoiceOn", false);
+        queryState.put(ISMEMBERCHOICEON, false);
         queryState.put(ISSCON, false);
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
         queryState.put("isParchment1On", false);
@@ -1267,13 +1865,14 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space14, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("1"));
         spaceSetter(space15, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("2"));
         spaceSetter(space16, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("3"));
-        actionSpaceSetter(space17, rootBoard.path("boardSpaces").path("17"));
-        actionSpaceSetter(space18, rootBoard.path("boardSpaces").path("18"));
-        spaceSetter(space19, rootBoard.path("boardSpaces").path("19"));
-        spaceSetter(space20, rootBoard.path("boardSpaces").path("20"));
-        spaceSetter(space21, rootBoard.path("boardSpaces").path("21"));
-        spaceSetter(space22, rootBoard.path("boardSpaces").path("22"));
+        actionSpaceSetter(space17, rootBoard.path(BOARDSPACES).path("17"));
+        actionSpaceSetter(space18, rootBoard.path(BOARDSPACES).path("18"));
+        spaceSetter(space19, rootBoard.path(BOARDSPACES).path("19"));
+        spaceSetter(space20, rootBoard.path(BOARDSPACES).path("20"));
+        spaceSetter(space21, rootBoard.path(BOARDSPACES).path("21"));
+        spaceSetter(space22, rootBoard.path(BOARDSPACES).path("22"));
 
+        System.out.println(rootInstance.path(PL));
         councilPalaceSetter();
         productionMultipleSetter();
         harvestMultipleSetter();
@@ -1289,90 +1888,90 @@ public class GameViewFXCtrl implements GameViewCtrl {
     public Map<String, String> movementQuery() {
 
         queryState = new HashMap<>();
-        queryState.put("isMemberChoiceOn", false);
+        queryState.put(ISMEMBERCHOICEON, false);
         queryState.put(ISSCON, false);
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
 
         textQuery.setText("It's your turn, do a movement: select a Family Member on the upper-right and then a space.");
-        queryState.put("isMemberChoiceOn", true);
-        while (queryState.get("isMemberChoiceOn"));
+        queryState.put(ISMEMBERCHOICEON, true);
+        while (queryState.get(ISMEMBERCHOICEON));
         cancelMove.setDisable(false);
         cancelMove.setVisible(true);
         queryState.put(ISSCON, true);
         while (queryState.get(ISSCON));
         cancelMove.setDisable(true);
         cancelMove.setVisible(false);
-        choice.put("servantsToPay", "0");
+        queryChoice.put("servantsToPay", "0");
         resetFamilyMembers();
         textQuery.setText(WAITINGSTR);
         textFail.setVisible(false);
-        return choice;
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> servantsQuery(Map<String, String> map) {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
-        choice.put("cardValue", map.get("cardValue"));
-        choice.put("myServants", map.get("myServants"));
-        textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + choice.get("myServants") + ":");
-        queryState.put("isServantsQueryOn", true);
+        queryChoice.put("cardValue", map.get("cardValue"));
+        queryChoice.put("myServants", map.get("myServants"));
+        textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + queryChoice.get("myServants") + ":");
+        queryState.put(ISSERVANTSQUERYON, true);
         textChoice.setVisible(true);
         textChoice.setDisable(false);
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
-        while (queryState.get("isServantsQueryOn"));
+        while (queryState.get(ISSERVANTSQUERYON));
         textQuery.setText(WAITINGSTR);
-        choice.put("positionType", map.get("positionType"));
-        choice.put("familyMemberValue", map.get("familyMemberValue"));
-        choice.remove("myServants");
-        return choice;
+        queryChoice.put("positionType", map.get("positionType"));
+        queryChoice.put("familyMemberValue", map.get("familyMemberValue"));
+        queryChoice.remove("myServants");
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> parchmentQuery(Map<String, String> map) {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
 
-        choice.put("numOfParchments", map.get("parchments"));
+        queryChoice.put(NUMOFPARCH, map.get("parchments"));
         queryState.put("isOpenChoice0", true);
         queryState.put("isOpenChoice1", true);
         queryState.put("isOpenChoice2", true);
         queryState.put("isOpenChoice3", true);
         queryState.put("isOpenChoice4", true);
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++)
-            queryState.put("isParchment" + i + "On", false);
-        if (Integer.parseInt(choice.get("numOfParchments")) > 1)
-            textQuery.setText("Now you'll have to choose " + choice.get("numOfParchments") + " different parchments.");
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
-            queryState.put("isParchment" + i + "On", true);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++)
+            queryState.put(ISPARCH + i + "On", false);
+        if (Integer.parseInt(queryChoice.get(NUMOFPARCH)) > 1)
+            textQuery.setText("Now you'll have to choose " + queryChoice.get(NUMOFPARCH) + " different parchments.");
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            queryState.put(ISPARCH + i + "On", true);
             textQuery.setText("Choose parchment bonus #" + i +", between the ones available, highlighted in green");
             enableParchments();
-            while (queryState.get("isParchment" + i + "On"));
+            while (queryState.get(ISPARCH + i + "On"));
             disableParchments();
         }
 
         textQuery.setText(WAITINGSTR);
-        choice.remove("numOfParchments");
-        return choice;
+        queryChoice.remove(NUMOFPARCH);
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> faithQuery() throws IOException {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
 
@@ -1388,17 +1987,17 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setDisable(false);
         while (queryState.get("isFaithQueryOn"));
         textQuery.setText(WAITINGSTR);
-        return choice;
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> costQuery(Map<String, String> map) throws IOException {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
 
@@ -1415,18 +2014,18 @@ public class GameViewFXCtrl implements GameViewCtrl {
         while (queryState.get("isCostQueryOn"));
 
         textQuery.setText(WAITINGSTR);
-        choice.put(CARDID, map.get(CARDID));
-        return choice;
+        queryChoice.put(CARDID, map.get(CARDID));
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> exchangeQuery(Map<String, String> map) throws IOException {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
         Integer exchangesNumber = map.size() - 2;
@@ -1449,30 +2048,30 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
 
         do {
-            queryState.put("isExchangeChoiceOn", true);
+            queryState.put(ISEXCHANGECHOICEON, true);
             textChoice.setVisible(true);
             textChoice.setDisable(false);
             buttonChoice.setVisible(true);
             buttonChoice.setDisable(false);
-            while(queryState.get("isExchangeChoiceOn"));
-            if ((exchangesNumber.equals(1) && (choice.get("choice").equals("0") || choice.get("choice").equals("1")))
-                    || (exchangesNumber.equals(2) && (choice.get("choice").equals("0") || choice.get("choice").equals("1") || choice.get("choice").equals("2"))))
+            while(queryState.get(ISEXCHANGECHOICEON));
+            if ((exchangesNumber.equals(1) && (queryChoice.get(CHOICE).equals("0") || queryChoice.get(CHOICE).equals("1")))
+                    || (exchangesNumber.equals(2) && (queryChoice.get(CHOICE).equals("0") || queryChoice.get(CHOICE).equals("1") || queryChoice.get(CHOICE).equals("2"))))
                 break;
             textQuery.setText("You must insert a valid number among these: " + str);
         } while (true);
         textQuery.setText(WAITINGSTR);
-        choice.put(CARDID, map.get(CARDID));
-        return choice;
+        queryChoice.put(CARDID, map.get(CARDID));
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> freeCardQuery(Map<String, String> map) throws IOException {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
 
@@ -1483,25 +2082,25 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (isFirstLoop) str.append(entry.getValue());
             else str.append(", ").append(entry.getValue());
             isFirstLoop = false;
-            choice.put("card" + i, entry.getValue());
+            queryChoice.put("card" + i, entry.getValue());
             i++;
         }
 
         textQuery.setText("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n"
                 + "Here there's a list of possible cards you can pick: " + str);
-        queryState.put("isFreeCardChoiceOn", true);
+        queryState.put(ISFREECARDCHOICEON, true);
         textChoice.setVisible(true);
         textChoice.setDisable(false);
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
-        while (queryState.get("isFreeCardChoiceOn"));
+        while (queryState.get(ISFREECARDCHOICEON));
         textQuery.setText(WAITINGSTR);
         Integer j = 0;
         for (Map.Entry<String, String> entry: map.entrySet()) {
-            choice.remove("card" + j);
+            queryChoice.remove("card" + j);
             j++;
         }
-        return choice;
+        return queryChoice;
     }
 
     @Override
@@ -1547,7 +2146,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     /**
-     * Print the actual String Builder and then reinitialize it, throwing off the old one
+     * Print the actual String Builder and then reinitialize it, throwing off the old one.
      */
     private void printStringBuilder() {
         System.out.println(this.sb);
