@@ -23,7 +23,7 @@ public class CostEffect extends Effect {
         String cardID = String.valueOf(card.getCardID());
 
         payload.put("cardID", cardID);
-        ServerMessage request = new ServerMessage(ServerMessageEnum.COSTREQUEST,payload);
+        ServerMessage request = new ServerMessage(ServerMessageEnum.COSTREQUEST, payload);
         return request;
     }
 

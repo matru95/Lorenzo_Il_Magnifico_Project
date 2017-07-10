@@ -190,14 +190,14 @@ public class Player implements Serializable {
             Resource costResource = costResourceEntry.getValue();
             Resource playerResource = res.get(costResource.getResourceName());
             int costAmount = costResource.getNumOf();
+            int costBondAmount = 0;
             int playerResourceAmount = playerResource.getNumOf();
 
             if(cardCostBond != null && cardCostBond.getResourceName() == costResource.getResourceName()) {
-                costAmount += cardCostBond.getNumOf();
+                costBondAmount = cardCostBond.getNumOf();
             }
 
-
-            if(playerResourceAmount < costAmount) {
+            if(playerResourceAmount < costAmount || playerResourceAmount < costBondAmount) {
                 return false;
             }
         }

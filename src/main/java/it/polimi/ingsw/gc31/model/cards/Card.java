@@ -104,6 +104,7 @@ public class Card {
     }
 
     public List<ServerMessage> execNormalEffect(Player player) {
+        System.out.println("executing normal effect inside card");
         List<ServerMessage> messages = new ArrayList<>();
 
         for(Effect effect: normalEffects) {
