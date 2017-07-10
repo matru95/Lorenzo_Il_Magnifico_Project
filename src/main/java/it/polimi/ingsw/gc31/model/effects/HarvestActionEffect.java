@@ -30,6 +30,7 @@ public class HarvestActionEffect extends Effect{
         payload.put("positionType", "harvest");
         payload.put("cardValue", String.valueOf(value));
         payload.put("myServants", String.valueOf(myServants));
+        payload.put("familyMemberValue", String.valueOf(0));
 
         message.setMessageType(ServerMessageEnum.SERVANTSREQUEST);
         message.setPayLoad(payload);

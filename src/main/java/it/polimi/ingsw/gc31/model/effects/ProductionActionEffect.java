@@ -30,6 +30,7 @@ public class ProductionActionEffect extends Effect{
         payload.put("positionType", "production");
         payload.put("cardValue", String.valueOf(value));
         payload.put("myServants", String.valueOf(myServants));
+        payload.put("familyMemberValue", String.valueOf(0));
 
         message.setMessageType(ServerMessageEnum.SERVANTSREQUEST);
         message.setPayLoad(payload);

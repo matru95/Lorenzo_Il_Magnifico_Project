@@ -28,14 +28,14 @@ public class HarvestEffect implements BoardEffect{
      * @return List<ServerMessage>
      */
     @Override
-    public List<ServerMessage> exec(Player player, int value) {
+    public List<ServerMessage> exec(Player player, int value, int amountToPay) {
         List<ServerMessage> messages = new ArrayList<>();
         List<Card> greenCards = player.getCards().get(CardColor.GREEN);
         List<Resource> harvestTileResources = player.getPlayerTile().getHarvestBonus();
         Effect harvestTile = new AddResEffect(harvestTileResources);
         int bonusValue = player.getHarvestBonusValue();
 
-        player.getRes().get(ResourceName.SERVANTS).subNumOf(value);
+        player.getRes().get(ResourceName.SERVANTS).subNumOf(amountToPay);
 
         harvestTile.exec(player);
         int malusValue=0;

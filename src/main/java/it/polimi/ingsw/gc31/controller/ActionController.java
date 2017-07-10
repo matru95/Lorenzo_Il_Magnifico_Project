@@ -402,16 +402,19 @@ public class ActionController extends Controller implements Runnable {
         String positionType = payload.get("positionType");
         int servantsToPay = Integer.parseInt(payload.get("servantsToPay"));
         int cardValue = Integer.parseInt(payload.get("cardValue"));
+        int familyMemberValue = Integer.parseInt(payload.get("familyMemberValue"));
+        int movementValue = servantsToPay+cardValue+familyMemberValue;
         servantsToPay += cardValue;
+
 
         List<ServerMessage> messages;
 
         if(positionType.equals("harvest")) {
             HarvestEffect harvestEffect = new HarvestEffect();
-            messages = harvestEffect.exec(player, servantsToPay);
+            messages = harvestEffect.exec(player, movementValue, servantsToPay);
         } else {
             ProductionEffect productionEffect = new ProductionEffect();
-            messages = productionEffect.exec(player, servantsToPay);
+            messages = productionEffect.exec(player, movementValue, servantsToPay);
         }
 
         sendMessages(playerID, messages);

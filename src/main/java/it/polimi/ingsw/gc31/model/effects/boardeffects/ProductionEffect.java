@@ -30,14 +30,14 @@ public class ProductionEffect implements BoardEffect {
      * @return List<ServerMessage>
      */
     @Override
-    public List<ServerMessage> exec(Player player, int value) {
+    public List<ServerMessage> exec(Player player, int value, int amountToPay) {
         List<ServerMessage> messages = new ArrayList<>();
         List<Card> yellowCards = player.getCards().get(CardColor.YELLOW);
         List<Resource> productionTileResources = player.getPlayerTile().getProductionBonus();
         Effect harvestTile = new AddResEffect(productionTileResources);
         int bonus = player.getProductionBonusValue();
 
-        player.getRes().get(ResourceName.SERVANTS).subNumOf(value);
+        player.getRes().get(ResourceName.SERVANTS).subNumOf(amountToPay);
 
         harvestTile.exec(player);
 

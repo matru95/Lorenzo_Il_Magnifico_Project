@@ -6,5 +6,5 @@ import it.polimi.ingsw.gc31.model.Player;
 import java.util.List;
 
 public interface BoardEffect {
-    List<ServerMessage> exec(Player player, int value);
+    List<ServerMessage> exec(Player player, int value, int amountToPay);
 }
