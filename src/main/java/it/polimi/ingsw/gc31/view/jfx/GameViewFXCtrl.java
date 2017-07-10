@@ -5,7 +5,6 @@ import java.rmi.NotBoundException;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -90,7 +89,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         return br.readLine();
     }
 
-    private void connectionQuery(String serverIP) throws IOException, ClassNotFoundException, InterruptedException, NotBoundException {
+    private void connectionQuery(String serverIP) throws IOException, InterruptedException, NotBoundException {
         sb.append("Choose between using \"SOCKET\" or \"RMI\":");
         printStringBuilder();
         String choice;
@@ -253,19 +252,17 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 }
         }
 
-        if (queryState.get("isFaithQueryOn"))
-            if (textChoice.getText().toUpperCase().equals("YES") || textChoice.getText().toUpperCase().equals("NO")) {
-                disableChoice();
-                choice.put("applyExcommunication", textChoice.getText());
-                queryState.put("isFaithQueryOn", false);
-            }
+        if (queryState.get("isFaithQueryOn") && textChoice.getText().toUpperCase().equals("YES") || textChoice.getText().toUpperCase().equals("NO")) {
+            disableChoice();
+            choice.put("applyExcommunication", textChoice.getText());
+            queryState.put("isFaithQueryOn", false);
+        }
 
-        if (queryState.get("isCostQueryOn"))
-            if (isInteger(textChoice.getText()) && (textChoice.getText().equals("1") || textChoice.getText().equals("2"))) {
-                disableChoice();
-                choice.put("cardCostChoice", textChoice.getText());
-                queryState.put("isCostQueryOn", false);
-            }
+        if (queryState.get("isCostQueryOn") && isInteger(textChoice.getText()) && (textChoice.getText().equals("1") || textChoice.getText().equals("2"))) {
+            disableChoice();
+            choice.put("cardCostChoice", textChoice.getText());
+            queryState.put("isCostQueryOn", false);
+        }
 
     }
 
@@ -1290,6 +1287,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         while (queryState.get("isServantsQueryOn"));
         textQuery.setText("Waiting for player's movement ...");
         choice.put("positionType", map.get("positionType"));
+        choice.put("familyMemberValue", map.get("familyMemberValue"));
         choice.remove("myServants");
         return choice;
     }

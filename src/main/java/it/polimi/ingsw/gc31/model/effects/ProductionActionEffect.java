@@ -17,7 +17,6 @@ public class ProductionActionEffect extends Effect{
 
     public ProductionActionEffect(int value) {
         this.value = value;
-//      TODO ask number of servants and add it to value
     }
 
     @Override

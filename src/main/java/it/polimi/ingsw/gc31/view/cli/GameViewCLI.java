@@ -386,6 +386,7 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         result.put("servantsToPay", servants.toString());
         result.put("cardValue", map.get("cardValue"));
         result.put("positionType", map.get("positionType"));
+        result.put("familyMemberValue", map.get("familyMemberValue"));
         return result;
     }
 
