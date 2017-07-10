@@ -61,6 +61,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private static final String WAITINGSTR = "Waiting for player's movement ...";
     private static final String FAITHTILES = "faithTiles";
     private static final String NUMOFPARCH = "numOfParchments";
+    private static final String ISPARCH = "isParchment";
+    private static final String ISMEMBERCHOICEON = "isMemberChoiceOn";
+    private static final String CHOICE = "choice";
+    private static final String BOARDSPACES = "boardSpaces";
 
     private StringBuilder sb;
     private String myPlayerID;
@@ -71,18 +75,28 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private JsonNode rootMe;
 
     private Map<String, Boolean> queryState;
-    private Map<String, String> choice;
+    private Map<String, String> queryChoice;
 
+    /**
+     * Default constructor.
+     * @throws InterruptedException: exception
+     * @throws NotBoundException: exception
+     * @throws IOException: exception
+     * @throws ClassNotFoundException: exception
+     */
     public GameViewFXCtrl() throws InterruptedException, NotBoundException, IOException, ClassNotFoundException {
 
         this.sb = new StringBuilder();
         this.mapper = new ObjectMapper();
-
         myPlayerNameQuery();
         connectionQuery(serverIPQuery());
 
     }
 
+    /**
+     * Query to choose my Player Name.
+     * @throws IOException: exception
+     */
     private void myPlayerNameQuery() throws IOException {
         sb.append("Hello, pls enter your name:");
         printStringBuilder();
@@ -90,6 +104,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.myPlayerName = br.readLine();
     }
 
+    /**
+     * Query to choose the server IP.
+     * @throws IOException: exception
+     */
     private String serverIPQuery() throws IOException {
         sb.append("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
         printStringBuilder();
@@ -97,6 +115,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
         return br.readLine();
     }
 
+    /**
+     * Query to choose the connection method (SOCKET OR RMI).
+     * @param serverIP
+     * @throws IOException: exception
+     * @throws InterruptedException: exception
+     * @throws NotBoundException: exception
+     */
     private void connectionQuery(String serverIP) throws IOException, InterruptedException, NotBoundException {
         sb.append("Choose between using \"SOCKET\" or \"RMI\":");
         printStringBuilder();
@@ -709,54 +734,68 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     private ImageView yellowTile;
 
-
+    /**
+     * Check if the choice for the Exchange Query is OK.
+     */
     private void checkExchange() {
 
         if (queryState.get("isExchangeChoiceOn")) {
             disableChoice();
-            choice.put("choice", textChoice.getText());
+            queryChoice.put(CHOICE, textChoice.getText());
             queryState.put("isExchangeChoiceOn", false);
         }
     }
 
+    /**
+     * Check if the choice for the Servant To Pay Query is OK.
+     */
     private void checkServants() {
 
         if (queryState.get("isServantsQueryOn")) {
             if (isInteger(textChoice.getText()) && Integer.parseInt(textChoice.getText()) >=0
-                    && Integer.parseInt(textChoice.getText()) <= Integer.parseInt(choice.get("myServants"))) {
+                    && Integer.parseInt(textChoice.getText()) <= Integer.parseInt(queryChoice.get("myServants"))) {
                 disableChoice();
-                choice.put("servantsToPay", textChoice.getText());
+                queryChoice.put("servantsToPay", textChoice.getText());
                 queryState.put("isServantsQueryOn", false);
             } else
-                textQuery.setText("You must insert a valid number between 0 and " + choice.get("myServants") + ":");
+                textQuery.setText("You must insert a valid number between 0 and " + queryChoice.get("myServants") + ":");
         }
     }
 
+    /**
+     * Check if the choice for the Free Card Query is OK.
+     */
     private void checkFreeCard () {
 
         if (queryState.get("isFreeCardChoiceOn") && isInteger(textChoice.getText())) {
-            for(Integer i = 0; i < choice.size() - 1; i++)
-                if (choice.get("card" + i).equals(textChoice.getText())) {
+            for(Integer i = 0; i < queryChoice.size() - 1; i++)
+                if (queryChoice.get("card" + i).equals(textChoice.getText())) {
                     disableChoice();
-                    choice.put(CARDID, textChoice.getText());
+                    queryChoice.put(CARDID, textChoice.getText());
                     queryState.put("isFreeCardChoiceOn", false);
                 }
         }
     }
 
+    /**
+     * Check if the choice for the Excommunication Query is OK.
+     */
     private void checkFaith() {
 
         if (queryState.get("isFaithQueryOn") && textChoice.getText().equalsIgnoreCase("YES") || textChoice.getText().equalsIgnoreCase("NO")) {
             disableChoice();
-            choice.put("applyExcommunication", textChoice.getText());
+            queryChoice.put("applyExcommunication", textChoice.getText());
             queryState.put("isFaithQueryOn", false);
         }
     }
 
+    /**
+     * Check if the choice for the Cost Query is OK.
+     */
     private void checkCost() {
         if (queryState.get("isCostQueryOn") && isInteger(textChoice.getText()) && (textChoice.getText().equals("1") || textChoice.getText().equals("2"))) {
             disableChoice();
-            choice.put("cardCostChoice", textChoice.getText());
+            queryChoice.put("cardCostChoice", textChoice.getText());
             queryState.put("isCostQueryOn", false);
         }
     }
@@ -774,10 +813,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     void onClickParchment0() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "0");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "0");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice0", false);
             }
         }
@@ -787,10 +826,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     void onClickParchment1() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "1");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "1");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice1", false);
             }
         }
@@ -799,10 +838,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     void onClickParchment2() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "2");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "2");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice2", false);
             }
         }
@@ -811,10 +850,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     void onClickParchment3() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "3");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "3");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice3", false);
             }
         }
@@ -823,10 +862,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     void onClickParchment4() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
-            if (this.queryState.get("isParchment" + i + "On")) {
-                choice.put(i.toString(), "4");
-                this.queryState.put("isParchment" + i + "On", false);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            if (this.queryState.get(ISPARCH + i + "On")) {
+                queryChoice.put(i.toString(), "4");
+                this.queryState.put(ISPARCH + i + "On", false);
                 this.queryState.put("isOpenChoice4", false);
             }
         }
@@ -835,44 +874,44 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     void onClickMemberBlack() {
 
-        if (this.queryState.get("isMemberChoiceOn")) {
-            choice.put(DICECOLOR, "BLACK");
+        if (this.queryState.get(ISMEMBERCHOICEON)) {
+            queryChoice.put(DICECOLOR, "BLACK");
             myBlack.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.queryState.put("isMemberChoiceOn", false);
+            this.queryState.put(ISMEMBERCHOICEON, false);
         }
     }
 
     @FXML
     void onClickMemberWhite() {
 
-        if (this.queryState.get("isMemberChoiceOn")) {
-            choice.put(DICECOLOR, "WHITE");
+        if (this.queryState.get(ISMEMBERCHOICEON)) {
+            queryChoice.put(DICECOLOR, "WHITE");
             myWhite.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.queryState.put("isMemberChoiceOn", false);
+            this.queryState.put(ISMEMBERCHOICEON, false);
         }
     }
 
     @FXML
     void onClickMemberOrange() {
 
-        if (this.queryState.get("isMemberChoiceOn")) {
-            choice.put(DICECOLOR, "ORANGE");
+        if (this.queryState.get(ISMEMBERCHOICEON)) {
+            queryChoice.put(DICECOLOR, "ORANGE");
             myOrange.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.queryState.put("isMemberChoiceOn", false);
+            this.queryState.put(ISMEMBERCHOICEON, false);
         }
     }
 
     @FXML
     void onClickMemberNeutral() {
 
-        if (this.queryState.get("isMemberChoiceOn")) {
-            choice.put(DICECOLOR, "NEUTRAL");
+        if (this.queryState.get(ISMEMBERCHOICEON)) {
+            queryChoice.put(DICECOLOR, "NEUTRAL");
             myNeutral.setStrokeType(StrokeType.valueOf(OUTSIDE));
             disableFamilyMembers();
-            this.queryState.put("isMemberChoiceOn", false);
+            this.queryState.put(ISMEMBERCHOICEON, false);
         }
     }
 
@@ -880,7 +919,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickCancelMove() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "0");
+            queryChoice.put(POSITIONID, "0");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -889,7 +928,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace1() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "1");
+            queryChoice.put(POSITIONID, "1");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -898,7 +937,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace2() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "2");
+            queryChoice.put(POSITIONID, "2");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -907,7 +946,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace3() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "3");
+            queryChoice.put(POSITIONID, "3");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -916,7 +955,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace4() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "4");
+            queryChoice.put(POSITIONID, "4");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -925,7 +964,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace5() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "5");
+            queryChoice.put(POSITIONID, "5");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -934,7 +973,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace6() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "6");
+            queryChoice.put(POSITIONID, "6");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -943,7 +982,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace7() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "7");
+            queryChoice.put(POSITIONID, "7");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -952,7 +991,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace8() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "8");
+            queryChoice.put(POSITIONID, "8");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -961,7 +1000,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace9() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "9");
+            queryChoice.put(POSITIONID, "9");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -970,7 +1009,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace10() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "10");
+            queryChoice.put(POSITIONID, "10");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -979,7 +1018,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace11() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "11");
+            queryChoice.put(POSITIONID, "11");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -988,7 +1027,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace12() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "12");
+            queryChoice.put(POSITIONID, "12");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -997,7 +1036,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace13() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "13");
+            queryChoice.put(POSITIONID, "13");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1006,7 +1045,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace14() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "14");
+            queryChoice.put(POSITIONID, "14");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1015,7 +1054,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace15() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "15");
+            queryChoice.put(POSITIONID, "15");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1024,7 +1063,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace16() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "16");
+            queryChoice.put(POSITIONID, "16");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1033,7 +1072,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace17() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "17");
+            queryChoice.put(POSITIONID, "17");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1042,7 +1081,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace18() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "18");
+            queryChoice.put(POSITIONID, "18");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1051,7 +1090,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace19() {
 
         if (this.queryState.get(ISSCON)) {
-           choice.put(POSITIONID, "19");
+           queryChoice.put(POSITIONID, "19");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1060,7 +1099,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace20() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "20");
+            queryChoice.put(POSITIONID, "20");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1069,7 +1108,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace21() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "21");
+            queryChoice.put(POSITIONID, "21");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1078,7 +1117,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace22() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "22");
+            queryChoice.put(POSITIONID, "22");
             this.queryState.put(ISSCON, false);
         }
     }
@@ -1087,20 +1126,28 @@ public class GameViewFXCtrl implements GameViewCtrl {
     void onClickSpace23() {
 
         if (this.queryState.get(ISSCON)) {
-            choice.put(POSITIONID, "23");
+            queryChoice.put(POSITIONID, "23");
             this.queryState.put(ISSCON, false);
         }
     }
 
-    private boolean isInteger(String s) {
+    /**
+     * Method to discover if a String is an Integer
+     * @param string: String
+     * @return boolean
+     */
+    private boolean isInteger(String string) {
         try {
-            Integer integer = Integer.parseInt(s);
+            Integer integer = Integer.parseInt(string);
         } catch(NumberFormatException|NullPointerException e) {
             return false;
         }
         return true;
     }
 
+    /**
+     * Hide all the Multiple Action Spaces (Produce AND Harvest).
+     */
     private void hideMultipleActionSpaces() {
         prod2.setVisible(false);
         prod3.setVisible(false);
@@ -1118,6 +1165,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         harv8.setVisible(false);
     }
 
+    /**
+     * Show all the Multiple Action Spaces (Produce AND Harvest).
+     */
     private void showMultipleActionSpaces() {
         prod2.setVisible(true);
         prod3.setVisible(true);
@@ -1135,6 +1185,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         harv8.setVisible(true);
     }
 
+    /**
+     * Disable the editable field and the button to make a choice.
+     */
     private void disableChoice() {
         textChoice.setVisible(false);
         textChoice.setDisable(true);
@@ -1142,6 +1195,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setDisable(true);
     }
 
+    /**
+     * Disable all my Family Members.
+     */
     private void disableFamilyMembers() {
         myNeutral.setDisable(true);
         myOrange.setDisable(true);
@@ -1149,6 +1205,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myWhite.setDisable(true);
     }
 
+    /**
+     * Reset all my Family Members, setting them enabled and visible.
+     */
     private void resetFamilyMembers() {
         myBlack.setStrokeType(StrokeType.valueOf(INSIDE));
         myNeutral.setStrokeType(StrokeType.valueOf(INSIDE));
@@ -1160,6 +1219,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myWhite.setDisable(false);
     }
 
+    /**
+     * Enable all Parchments for the parchmentQuery(), not selected previously.
+     */
     private void enableParchments() {
 
         if (queryState.get("isOpenChoice0").equals(true)) {
@@ -1185,6 +1247,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Disable all Parchments for the parchmentQuery().
+     */
     private void disableParchments() {
 
         parchment0.setVisible(false);
@@ -1199,24 +1264,39 @@ public class GameViewFXCtrl implements GameViewCtrl {
         parchment4.setDisable(true);
     }
 
+    /**
+     * Set a Card into a Card Space (Tower OR PunchBoard).
+     */
     private void cardSetter(ImageView cardView, Integer cardID) {
         cardView.setImage(new Image(new File("src/main/resources/javafx/cards/cardID" + cardID + ".png").toURI().toString()));
     }
 
+    /**
+     * Set the Dices on Board.
+     */
     private void diceSetter(Text diceText, Integer diceValue) {
         diceText.setText(diceValue.toString());
     }
 
+    /**
+     * Set the Faith Tiles on Board.
+     */
     private void faithTileSetter(ImageView faithTileView, Integer faithTileID) {
         faithTileView.setImage(new Image(new File("src/main/resources/javafx/faithTiles/excomm" + faithTileID + ".png").toURI().toString()));
     }
 
+    /**
+     * Set the Player Order on Board.
+     */
     private void playerOrderColorSetter(Circle circle, String playerColor) {
         if (playerColor != null)
             circle.setFill(Paint.valueOf(playerColor));
         circle.setVisible(true);
     }
 
+    /**
+     * Set a Family Member into a Space Wrapper (TowerSpace OR Mart Space).
+     */
     private void spaceSetter(Circle spaceShape, JsonNode node) {
 
         if (node.path(ISOCCUPIED).toString().equals("true")) {
@@ -1238,6 +1318,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
     }
 
+    /**
+     * Set a Family Member into a single Action Space (Harvest OR Produce).
+     */
     private void actionSpaceSetter(Circle spaceShape, JsonNode node) {
 
         if (node.path(FMS).has(0)) {
@@ -1259,9 +1342,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
     }
 
+    /**
+     * Sub-method of councilPalaceSetter().
+     */
     private void councilPalaceSetter1() {
 
-        JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
+        JsonNode councilPalaceNode = rootBoard.path(BOARDSPACES).path("23").path(FMS);
         if (councilPalaceNode.has(0))
             multipleSpaceMemberSetter(councPal1, councilPalaceNode.path(0));
         else
@@ -1289,9 +1375,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Sub-method of councilPalaceSetter().
+     */
     private void councilPalaceSetter2() {
 
-        JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
+        JsonNode councilPalaceNode = rootBoard.path(BOARDSPACES).path("23").path(FMS);
 
         if (councilPalaceNode.has(5))
             multipleSpaceMemberSetter(councPal6, councilPalaceNode.path(5));
@@ -1320,14 +1409,20 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Family Members on Council Palace Space.
+     */
     private void councilPalaceSetter() {
         councilPalaceSetter1();
         councilPalaceSetter2();
     }
 
+    /**
+     * Set Family Members on Production Multiple Space.
+     */
     private void productionMultipleSetter() {
 
-        JsonNode node = rootBoard.path("boardSpaces").path("17").path(FMS);
+        JsonNode node = rootBoard.path(BOARDSPACES).path("17").path(FMS);
 
         if (node.has(1))
             multipleSpaceMemberSetter(prod2, node.path(1));
@@ -1366,9 +1461,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Family Members on Harvest Multiple Space.
+     */
     private void harvestMultipleSetter() {
 
-        JsonNode node = rootBoard.path("boardSpaces").path("18").path(FMS);
+        JsonNode node = rootBoard.path(BOARDSPACES).path("18").path(FMS);
 
         if (node.has(1))
             multipleSpaceMemberSetter(harv2, node.path(1));
@@ -1407,6 +1505,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set a single Family Member in a multiple Space.
+     */
     private void multipleSpaceMemberSetter(Circle memberShape, JsonNode node) {
 
         if (beauty(node.path(COLOR)).equals(NEUTRAL)) {
@@ -1419,6 +1520,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         memberShape.setVisible(true);
     }
 
+    /**
+     * Set Resources, Cards and Maluses for BluePlayer.
+     */
     private void bluePlayerSetter() {
 
         JsonNode bluePlayer = rootMe;
@@ -1464,6 +1568,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Resources, Cards and Maluses for Green Player.
+     */
     private void greenPlayerSetter() {
 
         JsonNode greenPlayer = rootMe;
@@ -1508,6 +1615,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Resources, Cards and Maluses for Red Player.
+     */
     private void redPlayerSetter() {
 
         JsonNode redPlayer = rootMe;
@@ -1552,6 +1662,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Set Resources, Cards and Maluses for Yellow Player.
+     */
     private void yellowPlayerSetter() {
 
         JsonNode yellowPlayer = rootMe;
@@ -1596,6 +1709,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     }
 
+    /**
+     * Initialize my Family Members on board.
+     */
     private void initFamilyMembers() {
 
         for (JsonNode singleMember: rootMe.path(FMS)) {
@@ -1630,7 +1746,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         cancelMove.setDisable(true);
         cancelMove.setVisible(false);
         queryState = new HashMap<>();
-        queryState.put("isMemberChoiceOn", false);
+        queryState.put(ISMEMBERCHOICEON, false);
         queryState.put(ISSCON, false);
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
@@ -1745,12 +1861,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space14, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("1"));
         spaceSetter(space15, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("2"));
         spaceSetter(space16, rootBoard.path(TOWERS).path(CardColor.PURPLE.toString()).path(TOWERSPACES).path("3"));
-        actionSpaceSetter(space17, rootBoard.path("boardSpaces").path("17"));
-        actionSpaceSetter(space18, rootBoard.path("boardSpaces").path("18"));
-        spaceSetter(space19, rootBoard.path("boardSpaces").path("19"));
-        spaceSetter(space20, rootBoard.path("boardSpaces").path("20"));
-        spaceSetter(space21, rootBoard.path("boardSpaces").path("21"));
-        spaceSetter(space22, rootBoard.path("boardSpaces").path("22"));
+        actionSpaceSetter(space17, rootBoard.path(BOARDSPACES).path("17"));
+        actionSpaceSetter(space18, rootBoard.path(BOARDSPACES).path("18"));
+        spaceSetter(space19, rootBoard.path(BOARDSPACES).path("19"));
+        spaceSetter(space20, rootBoard.path(BOARDSPACES).path("20"));
+        spaceSetter(space21, rootBoard.path(BOARDSPACES).path("21"));
+        spaceSetter(space22, rootBoard.path(BOARDSPACES).path("22"));
+
         System.out.println(rootInstance.path(PL));
         councilPalaceSetter();
         productionMultipleSetter();
@@ -1767,39 +1884,39 @@ public class GameViewFXCtrl implements GameViewCtrl {
     public Map<String, String> movementQuery() {
 
         queryState = new HashMap<>();
-        queryState.put("isMemberChoiceOn", false);
+        queryState.put(ISMEMBERCHOICEON, false);
         queryState.put(ISSCON, false);
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
 
         textQuery.setText("It's your turn, do a movement: select a Family Member on the upper-right and then a space.");
-        queryState.put("isMemberChoiceOn", true);
-        while (queryState.get("isMemberChoiceOn"));
+        queryState.put(ISMEMBERCHOICEON, true);
+        while (queryState.get(ISMEMBERCHOICEON));
         cancelMove.setDisable(false);
         cancelMove.setVisible(true);
         queryState.put(ISSCON, true);
         while (queryState.get(ISSCON));
         cancelMove.setDisable(true);
         cancelMove.setVisible(false);
-        choice.put("servantsToPay", "0");
+        queryChoice.put("servantsToPay", "0");
         resetFamilyMembers();
         textQuery.setText(WAITINGSTR);
         textFail.setVisible(false);
-        return choice;
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> servantsQuery(Map<String, String> map) {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
         queryState.put("isFreeCardChoiceOn", false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
-        choice.put("cardValue", map.get("cardValue"));
-        choice.put("myServants", map.get("myServants"));
-        textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + choice.get("myServants") + ":");
+        queryChoice.put("cardValue", map.get("cardValue"));
+        queryChoice.put("myServants", map.get("myServants"));
+        textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + queryChoice.get("myServants") + ":");
         queryState.put("isServantsQueryOn", true);
         textChoice.setVisible(true);
         textChoice.setDisable(false);
@@ -1807,46 +1924,46 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setDisable(false);
         while (queryState.get("isServantsQueryOn"));
         textQuery.setText(WAITINGSTR);
-        choice.put("positionType", map.get("positionType"));
-        choice.put("familyMemberValue", map.get("familyMemberValue"));
-        choice.remove("myServants");
-        return choice;
+        queryChoice.put("positionType", map.get("positionType"));
+        queryChoice.put("familyMemberValue", map.get("familyMemberValue"));
+        queryChoice.remove("myServants");
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> parchmentQuery(Map<String, String> map) {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
 
-        choice.put(NUMOFPARCH, map.get("parchments"));
+        queryChoice.put(NUMOFPARCH, map.get("parchments"));
         queryState.put("isOpenChoice0", true);
         queryState.put("isOpenChoice1", true);
         queryState.put("isOpenChoice2", true);
         queryState.put("isOpenChoice3", true);
         queryState.put("isOpenChoice4", true);
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++)
-            queryState.put("isParchment" + i + "On", false);
-        if (Integer.parseInt(choice.get(NUMOFPARCH)) > 1)
-            textQuery.setText("Now you'll have to choose " + choice.get(NUMOFPARCH) + " different parchments.");
-        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
-            queryState.put("isParchment" + i + "On", true);
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++)
+            queryState.put(ISPARCH + i + "On", false);
+        if (Integer.parseInt(queryChoice.get(NUMOFPARCH)) > 1)
+            textQuery.setText("Now you'll have to choose " + queryChoice.get(NUMOFPARCH) + " different parchments.");
+        for (Integer i = 1; i <= Integer.parseInt(queryChoice.get(NUMOFPARCH)); i++) {
+            queryState.put(ISPARCH + i + "On", true);
             textQuery.setText("Choose parchment bonus #" + i +", between the ones available, highlighted in green");
             enableParchments();
-            while (queryState.get("isParchment" + i + "On"));
+            while (queryState.get(ISPARCH + i + "On"));
             disableParchments();
         }
 
         textQuery.setText(WAITINGSTR);
-        choice.remove(NUMOFPARCH);
-        return choice;
+        queryChoice.remove(NUMOFPARCH);
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> faithQuery() throws IOException {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
@@ -1866,13 +1983,13 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setDisable(false);
         while (queryState.get("isFaithQueryOn"));
         textQuery.setText(WAITINGSTR);
-        return choice;
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> costQuery(Map<String, String> map) throws IOException {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
@@ -1893,14 +2010,14 @@ public class GameViewFXCtrl implements GameViewCtrl {
         while (queryState.get("isCostQueryOn"));
 
         textQuery.setText(WAITINGSTR);
-        choice.put(CARDID, map.get(CARDID));
-        return choice;
+        queryChoice.put(CARDID, map.get(CARDID));
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> exchangeQuery(Map<String, String> map) throws IOException {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
@@ -1933,20 +2050,20 @@ public class GameViewFXCtrl implements GameViewCtrl {
             buttonChoice.setVisible(true);
             buttonChoice.setDisable(false);
             while(queryState.get("isExchangeChoiceOn"));
-            if ((exchangesNumber.equals(1) && (choice.get("choice").equals("0") || choice.get("choice").equals("1")))
-                    || (exchangesNumber.equals(2) && (choice.get("choice").equals("0") || choice.get("choice").equals("1") || choice.get("choice").equals("2"))))
+            if ((exchangesNumber.equals(1) && (queryChoice.get(CHOICE).equals("0") || queryChoice.get(CHOICE).equals("1")))
+                    || (exchangesNumber.equals(2) && (queryChoice.get(CHOICE).equals("0") || queryChoice.get(CHOICE).equals("1") || queryChoice.get(CHOICE).equals("2"))))
                 break;
             textQuery.setText("You must insert a valid number among these: " + str);
         } while (true);
         textQuery.setText(WAITINGSTR);
-        choice.put(CARDID, map.get(CARDID));
-        return choice;
+        queryChoice.put(CARDID, map.get(CARDID));
+        return queryChoice;
     }
 
     @Override
     public Map<String, String> freeCardQuery(Map<String, String> map) throws IOException {
 
-        choice = new HashMap<>();
+        queryChoice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
         queryState.put("isServantsQueryOn", false);
@@ -1961,7 +2078,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (isFirstLoop) str.append(entry.getValue());
             else str.append(", ").append(entry.getValue());
             isFirstLoop = false;
-            choice.put("card" + i, entry.getValue());
+            queryChoice.put("card" + i, entry.getValue());
             i++;
         }
 
@@ -1976,10 +2093,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
         textQuery.setText(WAITINGSTR);
         Integer j = 0;
         for (Map.Entry<String, String> entry: map.entrySet()) {
-            choice.remove("card" + j);
+            queryChoice.remove("card" + j);
             j++;
         }
-        return choice;
+        return queryChoice;
     }
 
     @Override
@@ -2025,7 +2142,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     /**
-     * Print the actual String Builder and then reinitialize it, throwing off the old one
+     * Print the actual String Builder and then reinitialize it, throwing off the old one.
      */
     private void printStringBuilder() {
         System.out.println(this.sb);

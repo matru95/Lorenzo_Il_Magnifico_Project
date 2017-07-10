@@ -29,6 +29,13 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private transient JsonNode rootInstance;
     private transient JsonNode rootBoard;
 
+    /**
+     * Default Constructor
+     * @throws IOException: exception
+     * @throws NotBoundException: exception
+     * @throws InterruptedException: exception
+     * @throws ClassNotFoundException: exception
+     */
     public GameViewCLI() throws IOException, NotBoundException, InterruptedException, ClassNotFoundException {
 
         this.mapper = new ObjectMapper();
@@ -40,6 +47,15 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     }
 
+    /**
+     * Alternative constructor to create a GameViewCLI,
+     * taking as parameters my Player Name and the server IP.
+     * @param myPlayerName: String
+     * @param serverIP: String
+     * @throws IOException: exception
+     * @throws NotBoundException: exception
+     * @throws InterruptedException: exception
+     */
     public GameViewCLI(String myPlayerName, String serverIP) throws IOException, NotBoundException, InterruptedException {
 
         this.mapper = new ObjectMapper();
@@ -51,6 +67,10 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
 
     }
 
+    /**
+     * Query to choose my Player Name.
+     * @throws IOException: exception
+     */
     private void myPlayerNameQuery() throws IOException {
         sb.append("Hello, pls enter your name:");
         printStringBuilder();
@@ -58,6 +78,10 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         this.myPlayerName = br.readLine();
     }
 
+    /**
+     * Query to choose the server IP.
+     * @throws IOException: exception
+     */
     private String serverIPQuery() throws IOException {
         sb.append("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
         printStringBuilder();
@@ -65,6 +89,13 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
         return br.readLine();
     }
 
+    /**
+     * Query to choose the connection method (SOCKET OR RMI).
+     * @param serverIP
+     * @throws IOException: exception
+     * @throws InterruptedException: exception
+     * @throws NotBoundException: exception
+     */
     private void connectionQuery(String serverIP) throws IOException, InterruptedException, NotBoundException {
         sb.append("Choose between using \"SOCKET\" or \"RMI\":");
         printStringBuilder();

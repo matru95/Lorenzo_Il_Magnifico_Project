@@ -98,6 +98,10 @@ public interface GameViewCtrl {
      */
     void timeoutAlert();
 
+    /**
+     * Setter for playerID attribute
+     * @param playerID
+     */
     void setPlayerID(String playerID);
 
 }
