@@ -22,7 +22,13 @@ import java.util.*;
 public class GameController extends Controller implements Runnable{
     private ActionController actionController;
     private Thread messageThread;
-
+    //TODO DOCUMENTAZIONE
+    /**
+     * Constructor of GameController
+     * @param model
+     * @param views
+     * @param server
+     */
     public GameController(GameInstance model, List<Client> views, Server server) {
         super(model, views, server);
         this.actionController = new ActionController(model, views, this, server);
@@ -68,6 +74,9 @@ public class GameController extends Controller implements Runnable{
 
     }
 
+    /**
+     *
+     */
     private void endGame() {
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode playersArray = mapper.createArrayNode();
@@ -108,7 +117,9 @@ public class GameController extends Controller implements Runnable{
         }
     }
 
-
+    /**
+     *
+     */
     private void endAge() {
         GameInstance gameInstance = super.getModel();
 
@@ -143,6 +154,9 @@ public class GameController extends Controller implements Runnable{
 
     }
 
+    /**
+     *
+     */
     private void endTurn() {
         GameInstance gameInstance = super.getModel();
 
@@ -152,6 +166,11 @@ public class GameController extends Controller implements Runnable{
         turnEndState.doAction(gameInstance);
     }
 
+    /**
+     *
+     * @throws IOException
+     * @throws InterruptedException
+     */
     private void doTurn() throws IOException, InterruptedException {
         State turnState = new TurnState();
         GameInstance gameInstance = super.getModel();
@@ -201,7 +220,12 @@ public class GameController extends Controller implements Runnable{
 
     }
 
-
+    /**
+     *
+     * @param player
+     * @param client
+     * @throws RemoteException
+     */
     public void addPlayer(Player player, Client client) throws RemoteException {
         client.setPlayerID(player.getPlayerID().toString());
         super.getModel().addPlayer(player);
@@ -218,6 +242,10 @@ public class GameController extends Controller implements Runnable{
         }
     }
 
+    /**
+     *
+     * @param state
+     */
     private void executeState(State state) {
         GameInstance context = super.getModel();
 
