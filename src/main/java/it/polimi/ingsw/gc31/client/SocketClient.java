@@ -223,10 +223,18 @@ public class SocketClient implements Client, Serializable {
         return socketClientID;
     }
 
+    /**
+     *
+     * @param gameID
+     */
     public void setGameID(String gameID) {
         this.gameID = gameID;
     }
 
+    /**
+     *
+     * @param playerID
+     */
     public void setPlayerID(String playerID) {
         this.playerID = playerID;
     }

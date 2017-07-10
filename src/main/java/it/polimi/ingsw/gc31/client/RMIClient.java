@@ -23,6 +23,15 @@ public class RMIClient extends UnicastRemoteObject implements Client, Serializab
     private String playerName;
     private String serverIP;
 
+    /**
+     *
+     * @param serverIP
+     * @param playerName
+     * @param view
+     * @throws IOException
+     * @throws NotBoundException
+     * @throws InterruptedException
+     */
     public RMIClient(String serverIP, String playerName, GameViewCtrl view) throws IOException, NotBoundException, InterruptedException {
         this.serverIP = serverIP;
         this.playerName = playerName;

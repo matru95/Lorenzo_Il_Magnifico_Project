@@ -579,12 +579,9 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     public void endGameQuery(Map<String, String> map) throws IOException {
 
         sb.append("Here is the leaderboard for this game:");
-        ValueComparator bvc = new ValueComparator(map);
-        TreeMap<String, String> sortedPlayers = new TreeMap<>(bvc);
-        sortedPlayers.putAll(map);
+        JsonNode sortedPlayers = mapper.readTree(map.get("players"));
         Integer i = 0;
-        for (JsonNode singlePlayer: rootInstance.path("players")) {
-            if (sortedPlayers.containsKey(beauty(singlePlayer.path("playerID"))));
+        for (JsonNode singlePlayer: sortedPlayers) {
                 sb.append(i).append(") ").append(singlePlayer.path("playerName")).append("    ")
                         .append(sortedPlayers.get(i)).append(" VictoryPoints\n");
             i++;
@@ -614,22 +611,6 @@ public class GameViewCLI implements GameViewCtrl, Serializable {
     private String readString() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return br.readLine();
-    }
-
-    class ValueComparator implements Comparator<String> {
-        Map<String, String> base;
-
-        public ValueComparator(Map<String, String> base) {
-            this.base = base;
-        }
-
-        public int compare(String a, String b) {
-            if (Integer.parseInt(base.get(a)) >= Integer.parseInt(base.get(b))) {
-                return -1;
-            } else {
-                return 1;
-            }
-        }
     }
 
     /**

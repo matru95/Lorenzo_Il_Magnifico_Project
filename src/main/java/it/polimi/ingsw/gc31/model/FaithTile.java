@@ -73,7 +73,7 @@ public class FaithTile {
 	}
 
 	/**
-	 * Setting RESOURCEMALUS
+	 *
 	 * @param gainFewerStack
 	 */
 	public void setGainFewerStack(List<Resource> gainFewerStack) {

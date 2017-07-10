@@ -105,10 +105,10 @@ public abstract class SpaceWrapper implements Serializable{
     }
 
     /**
-     *
-     * @param playerColor
-     * @param familyMembers
-     * @return
+     * Return true if already has a family member with that color.
+     * @param playerColor playercolor
+     * @param familyMembers the family member
+     * @return boolean
      */
     protected boolean hasFamilyMemberSameColor(PlayerColor playerColor, List<FamilyMember> familyMembers) {
         for(FamilyMember familyMember: familyMembers) {
@@ -123,6 +123,9 @@ public abstract class SpaceWrapper implements Serializable{
         return false;
     }
 
+    /**
+     * Resets the wrapper to the initial state
+     */
     public abstract void reset();
 
 }

@@ -51,18 +51,34 @@ public class Resource implements Serializable{
         }
     }
 
+    /**
+     * Return the name of the resource
+     * @return ResourceName
+     */
     public ResourceName getResourceName() {
         return resourceName;
     }
 
+    /**
+     * Return the value of the resource
+     * @return int
+     */
     public int getNumOf() {
         return numOf;
     }
 
+    /**
+     * Set the value of the resource
+     * @param numOf the value to set
+     */
     public void setNumOf(int numOf) {
         this.numOf = numOf;
     }
 
+    /**
+     * Add a value 'value' to the value of the resource
+     * @param value value to add
+     */
     public void addNumOf(int value) {
         try {
             if (value > 0) {
@@ -74,6 +90,10 @@ public class Resource implements Serializable{
         }
     }
 
+    /**
+     * Sub a value 'value' to the value of the resource
+     * @param value value to sub
+     */
     public void subNumOf(int value) {
         this.setNumOf(this.getNumOf() - value);
     }

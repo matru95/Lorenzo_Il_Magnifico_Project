@@ -28,6 +28,12 @@ public class Tower implements Serializable{
     private GameBoard gameBoard;
     private Stack<Card> deck;
 
+    /**
+     * Constructor of Tower
+     * @param towerColor the tower color
+     * @param gameBoard the game board of the tower
+     * @param floors the floors of the tower
+     */
     public Tower(CardColor towerColor, GameBoard gameBoard, JsonNode floors) {
         this.towerColor = towerColor;
         this.isOccupied = false;
@@ -36,6 +42,10 @@ public class Tower implements Serializable{
         initFloors(floors);
     }
 
+    /**
+     * Creating the Json fot Tower
+     * @return ObjectNode
+     */
     public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode towerNode = mapper.createObjectNode();
@@ -90,6 +100,11 @@ public class Tower implements Serializable{
         }
     }
 
+    /**
+     * Return true if already has a family member with that color.
+     * @param playerColor playercolor
+     * @return boolean
+     */
     public boolean hasFamilyMemberSameColor(PlayerColor playerColor) {
 
         for(Map.Entry<Integer, TowerSpaceWrapper> towerSpaceWrapperEntry: towerSpaces.entrySet()) {
