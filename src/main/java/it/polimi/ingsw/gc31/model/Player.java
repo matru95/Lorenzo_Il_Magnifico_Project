@@ -54,7 +54,11 @@ public class Player implements Serializable {
 	
 	private final transient Logger logger = Logger.getLogger(Player.class.getName());
 
-
+	/**
+	 * Constructor
+ 	 * @param playerID id for player.
+	 * @param playerName Name of the player.
+	 */
 	public Player(UUID playerID, String playerName) {
 		this.playerID = playerID;
 		this.playerName = playerName;
@@ -74,6 +78,10 @@ public class Player implements Serializable {
 
 	}
 
+	/**
+	 *
+	 * @return ObjectNode
+	 */
 	public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode playerNode = mapper.createObjectNode();
@@ -82,13 +90,12 @@ public class Player implements Serializable {
         playerNode.put("playerName", playerName);
         playerNode.put("playerColor", playerColor.toString());
         playerNode.put("playerOrder", playerOrder);
-        playerNode.put("playerOrder", playerOrder);
         playerNode.put("isMovedThisTurn", isMovedThisTurn);
         playerNode.set("res", createResourceJson(mapper));
         playerNode.set("familyMembers", createFamilyMembersJson(mapper));
         playerNode.set("cards", createCardsJson(mapper));
         playerNode.set("playerTile", playerTile.toJson());
-
+        playerNode.put("maluses",maluses.toString());
         return playerNode;
     }
 
@@ -106,6 +113,11 @@ public class Player implements Serializable {
 
 	}
 
+	/**
+	 *
+	 * @param mapper
+	 * @return
+	 */
 	private ArrayNode createFamilyMembersJson(ObjectMapper mapper) {
 	    ArrayNode familyMembersArray = mapper.createArrayNode();
 
@@ -116,6 +128,11 @@ public class Player implements Serializable {
         return familyMembersArray;
     }
 
+	/**
+	 *
+	 * @param mapper
+	 * @return
+	 */
 	private ObjectNode createResourceJson(ObjectMapper mapper) {
 		ObjectNode playerResourceNode = mapper.createObjectNode();
 
@@ -128,6 +145,11 @@ public class Player implements Serializable {
 		return playerResourceNode;
 	}
 
+	/**
+	 *
+	 * @param mapper
+	 * @return
+	 */
 	private ObjectNode createCardsJson(ObjectMapper mapper) {
 	    ObjectNode cardsNode = mapper.createObjectNode();
 
@@ -155,6 +177,12 @@ public class Player implements Serializable {
 		return cardsNode;
 	}
 
+	/**
+	 *
+	 * @param cardCost
+	 * @param card
+	 * @return
+	 */
 	public boolean canPayCardCost(Map<ResourceName, Resource> cardCost, Card card) {
         Resource cardCostBond = card.getCostBond();
 
@@ -425,6 +453,10 @@ public class Player implements Serializable {
 		return result;
 	}
 
+	/**
+	 *
+	 * @param malus
+	 */
 	public void addMalus(Malus malus) {
 	    maluses.add(malus);
     }

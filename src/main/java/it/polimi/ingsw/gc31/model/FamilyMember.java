@@ -6,12 +6,14 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.PlayerColor;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
+import it.polimi.ingsw.gc31.model.effects.permanent.*;
 import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
 import it.polimi.ingsw.gc31.model.effects.permanent.CardColorBonus;
 import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
@@ -143,7 +145,7 @@ public class FamilyMember {
 	    int positionDiceBond = position.getDiceBond();
 
 //	    Check if I should pay servants and pay them
-	    checkAndPayServants(positionDiceBond, bonusAmount);
+	    checkAndPayServants(position,positionDiceBond, bonusAmount);
 
 		this.currentPosition = position;
 		position.setFamilyMember(this);
@@ -183,6 +185,18 @@ public class FamilyMember {
 	    int positionValue = position.getDiceBond();
 	    int numOfServants = player.getRes().get(ResourceName.SERVANTS).getNumOf();
 	    int possibleValue = this.value + numOfServants;
+        if(position.getClass() == TowerSpaceWrapper.class && player.getMaluses()!=null ){
+            List<Malus> maluses= player.getMaluses();
+            for(Malus malus: maluses){
+                if(malus.getMalusType()== MalusEnum.CARDDICEMALUS){
+                    CardColor cardColor=((CardDiceMalus)malus).getFewerDiceCardColor();
+                    int fewerDiceCardValue=((CardDiceMalus)malus).getFewerDiceCardValue();
+                    if(((TowerSpaceWrapper)position).getColor()==cardColor){
+                        possibleValue-=fewerDiceCardValue;
+                    }
+                }
+            }
+        }
 
 	    if(positionValue > possibleValue) {
 	        return false;
@@ -196,17 +210,27 @@ public class FamilyMember {
      * @param positionDiceBond
      * @param bonusPoints
      */
-	private void checkAndPayServants(int positionDiceBond, int bonusPoints) {
+	private void checkAndPayServants(SpaceWrapper position,int positionDiceBond, int bonusPoints) {
 	    int finalDiceBond = positionDiceBond;
 
 	    if(player.getMaluses() != null) {
 	        List<Malus> maluses = player.getMaluses();
-        }
+            for(Malus malus: maluses){
+                if(malus.getMalusType()==MalusEnum.CARDDICEMALUS){
+                    if(position.getClass()==TowerSpaceWrapper.class) {
+                        if (((TowerSpaceWrapper) position).getColor() == ((CardDiceMalus) malus).getFewerDiceCardColor()) {
+                            finalDiceBond += ((CardDiceMalus) malus).getFewerDiceCardValue();
+                        }
+                    }
 
-        if(positionDiceBond > this.value + bonusPoints) {
+                }
+            }
+	    }
+
+        if(finalDiceBond > this.value + bonusPoints) {
             Map<ResourceName, Resource> playerResources = player.getRes();
             int currentServants = playerResources.get(ResourceName.SERVANTS).getNumOf();
-            int costToPay = positionDiceBond - this.value - bonusPoints;
+            int costToPay = finalDiceBond - this.value - bonusPoints;
 
             playerResources.get(ResourceName.SERVANTS).setNumOf(currentServants - costToPay);
         }

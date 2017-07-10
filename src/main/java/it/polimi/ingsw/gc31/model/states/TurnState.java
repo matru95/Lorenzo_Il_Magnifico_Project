@@ -61,13 +61,12 @@ public class TurnState implements State {
 
                 List<Malus> maluses = currentPlayer.getMaluses();
                 currentPlayer.getSpecificFamilyMember(color).setValueFromDice();
-
+                //Check of FAMILYMEMBERMALUS (less value for the player familymember [dice]) malus in player
                 for(Malus malus: maluses){
                     if( malus.getMalusType()== MalusEnum.FAMILYMEMBERMALUS && color != DiceColor.NEUTRAL){
 
-                        int malusValue= ((FamilyMemberMalus) malus).getDiceFewer();
+                        int malusValue= ((FamilyMemberMalus)malus).getDiceFewer();
                         int currentValue= currentPlayer.getSpecificFamilyMember(color).getValue()-malusValue;
-
                         //family member set value
                         currentPlayer.getSpecificFamilyMember(color).setValue(currentValue);
                     }

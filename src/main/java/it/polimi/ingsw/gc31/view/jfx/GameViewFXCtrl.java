@@ -222,7 +222,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     void onButtonClick(MouseEvent event) {
 
-        if(queryState.get("isExchangeChoiceOn")) {
+        if (queryState.get("isExchangeChoiceOn")) {
             textChoice.setVisible(false);
             textChoice.setDisable(true);
             buttonChoice.setVisible(false);
@@ -231,7 +231,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             queryState.put("isExchangeChoiceOn", false);
         }
 
-        if(queryState.get("isServantsQueryOn")) {
+        if (queryState.get("isServantsQueryOn")) {
             if (isInteger(textChoice.getText()) && Integer.parseInt(textChoice.getText()) >=0
                     && Integer.parseInt(textChoice.getText()) <= Integer.parseInt(choice.get("myServants"))) {
                 textChoice.setVisible(false);
@@ -244,7 +244,17 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 textQuery.setText("You must insert a valid number between 0 and " + choice.get("myServants") + ":");
         }
 
-
+        if (queryState.get("isFreeCardChoiceOn") && isInteger(textChoice.getText())) {
+            for(Integer i = 0; i < choice.size() - 1; i++)
+                if (choice.get("card" + i).equals(textChoice.getText())) {
+                    textChoice.setVisible(false);
+                    textChoice.setDisable(true);
+                    buttonChoice.setVisible(false);
+                    buttonChoice.setDisable(true);
+                    choice.put(CARDID, textChoice.getText());
+                    queryState.put("isFreeCardChoiceOn", false);
+                }
+        }
     }
 
     @FXML
@@ -627,7 +637,6 @@ public class GameViewFXCtrl implements GameViewCtrl {
         parchment4.setDisable(true);
     }
 
-
     private void cardSetter(ImageView cardView, Integer cardID) {
         cardView.setImage(new Image(new File("src/main/resources/javafx/cards/cardID" + cardID + ".png").toURI().toString()));
     }
@@ -935,6 +944,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState.put(ISSCON, false);
         queryState.put("isServantsQueryOn", false);
         queryState.put("isExchangeChoiceOn", false);
+        queryState.put("isFreeCardChoiceOn", false);
         queryState.put("isParchment1On", false);
         queryState.put("isParchment2On", false);
         queryState.put("isParchment3On", false);
@@ -1097,6 +1107,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         choice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
+        queryState.put("isServantsQueryOn", false);
+        queryState.put("isFreeCardChoiceOn", false);
         choice.put("cardValue", map.get("cardValue"));
         choice.put("myServants", map.get("myServants"));
         textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + choice.get("myServants") + ":");
@@ -1107,7 +1119,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setDisable(false);
         while (queryState.get("isServantsQueryOn"));
         choice.put("positionType", map.get("positionType"));
-        choice.remove("myServants", map.get("myServants"));
+        choice.remove("myServants");
         return choice;
     }
 
@@ -1206,6 +1218,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         choice = new HashMap<>();
         queryState = new HashMap<>();
         queryState.put("isExchangeChoiceOn", false);
+        queryState.put("isServantsQueryOn", false);
+        queryState.put("isFreeCardChoiceOn", false);
         Integer exchangesNumber = map.size() - 2;
         String str = "(0)";
 
@@ -1245,37 +1259,39 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @Override
     public Map<String, String> freeCardQuery(Map<String, String> map) throws IOException {
 
-        HashMap<String, String> result = new HashMap<>();
-        StringBuilder str = new StringBuilder();
-        Integer choice;
+        choice = new HashMap<>();
+        queryState = new HashMap<>();
+        queryState.put("isExchangeChoiceOn", false);
+        queryState.put("isServantsQueryOn", false);
+        queryState.put("isFreeCardChoiceOn", false);
 
+        StringBuilder str = new StringBuilder();
         Boolean isFirstLoop = true;
+        Integer i = 0;
         for (Map.Entry<String, String> entry: map.entrySet()) {
             if (isFirstLoop) str.append(entry.getValue());
             else str.append(", ").append(entry.getValue());
             isFirstLoop = false;
-
+            choice.put("card" + i, entry.getValue());
+            i++;
         }
 
-        sb.append("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n")
-                .append("Here there's a list of possible cards you can pick: ").append(str);
-        printStringBuilder();
+        textQuery.setText("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n"
+                + "Here there's a list of possible cards you can pick: " + str);
+        queryState.put("isFreeCardChoiceOn", true);
 
-        do {
-            try {
-                choice = readInteger();
-                if (map.containsValue(choice.toString())) break;
-                sb.append("You must insert a valid number between these: ").append(str);
-                printStringBuilder();
-            } catch (IllegalArgumentException e) {
-                sb.append("You must insert a valid number between these: ").append(str);
-                printStringBuilder();
-            }
-        } while (true);
+        textChoice.setVisible(true);
+        textChoice.setDisable(false);
+        buttonChoice.setVisible(true);
+        buttonChoice.setDisable(false);
+        while (queryState.get("isFreeCardChoiceOn"));
 
-        result.put(CARDID, choice.toString());
-
-        return result;
+        Integer j = 0;
+        for (Map.Entry<String, String> entry: map.entrySet()) {
+            choice.remove("card" + j);
+            j++;
+        }
+        return choice;
     }
 
     @Override
