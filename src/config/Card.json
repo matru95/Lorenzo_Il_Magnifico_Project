@@ -650,7 +650,9 @@
               "wood": 2
             },
             "receive": {
-              "gold": 5
+              "resources": {
+                "gold": 5
+              }
             }
           }
         ]
@@ -692,7 +694,9 @@
               "stone": 2
             },
             "receive": {
-              "gold": 5
+              "resources": {
+                "gold": 5
+              }
             }
           }
         ]

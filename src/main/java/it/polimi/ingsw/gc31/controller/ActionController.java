@@ -331,6 +331,10 @@ public class ActionController extends Controller implements Runnable {
                             Exchange exchange = ((ExchangeEffect) effect).getExchanges().get(choice-1);
                             List<Resource> resourcesToPay = exchange.getResourcesToGive();
                             List<Resource> resourcesToReceive = exchange.getResourcesToReceive();
+
+                            System.out.println("The exchange is: "+exchange.toString());
+                            System.out.println("Resources to receive: "+resourcesToReceive);
+                            System.out.println("Resources to receive has size: "+resourcesToReceive.size());
                             int numOfParchments = exchange.getNumOfParchmentsToReceive();
 
                             player.payResources(resourcesToPay);
