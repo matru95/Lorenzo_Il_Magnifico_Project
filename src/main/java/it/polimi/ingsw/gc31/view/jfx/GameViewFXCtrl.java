@@ -19,7 +19,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeType;
@@ -53,6 +52,15 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private static final String COLOR = "color";
     private static final String PLTILE = "playerTile";
     private static final String PLNAME = "playerName";
+    private static final String NEUTRALCOLOR = "#eddcc6";
+    private static final String TILEBASEPATH = "src/main/resources/javafx/playerTiles/tile";
+    private static final String MALUSES = "maluses";
+    private static final String AGE1STR = "Excommunications:    [AGE1]=";
+    private static final String AGE2STR = "    [AGE2]=";
+    private static final String AGE3STR = "    [AGE3]=";
+    private static final String WAITINGSTR = "Waiting for player's movement ...";
+    private static final String FAITHTILES = "faithTiles";
+    private static final String NUMOFPARCH = "numOfParchments";
 
     private StringBuilder sb;
     private String myPlayerID;
@@ -92,18 +100,18 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private void connectionQuery(String serverIP) throws IOException, InterruptedException, NotBoundException {
         sb.append("Choose between using \"SOCKET\" or \"RMI\":");
         printStringBuilder();
-        String choice;
+        String myChoice;
         do {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            choice = br.readLine();
+            myChoice = br.readLine();
 
-            if (choice.equalsIgnoreCase("SOCKET")) {
+            if (myChoice.equalsIgnoreCase("SOCKET")) {
                 this.myPlayerName = "SOCKETFX";
                 new SocketClient(serverIP, myPlayerName, this);
                 break;
             }
 
-            if (choice.equalsIgnoreCase("RMI")) {
+            if (myChoice.equalsIgnoreCase("RMI")) {
                 this.myPlayerName = "RMIFX";
                 new RMIClient(serverIP, myPlayerName, this);
                 break;
@@ -117,121 +125,601 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private ImageView board;
 
     @FXML
-    private ImageView green0, green1, green2, green3;
+    private ImageView green0;
 
     @FXML
-    private ImageView blue0, blue1, blue2, blue3;
+    private ImageView green1;
 
     @FXML
-    private ImageView yellow0, yellow1, yellow2, yellow3;
+    private ImageView green2;
 
     @FXML
-    private ImageView purple0, purple1, purple2, purple3;
+    private ImageView green3;
 
     @FXML
-    private Text diceBlack, diceWhite, diceOrange;
+    private ImageView blue0;
 
     @FXML
-    private ImageView faithTile1, faithTile2, faithTile3;
+    private ImageView blue1;
 
     @FXML
-    private Circle space1, space2, space3, space4, space5, space6, space7, space8, space9, space10, space11;
+    private ImageView blue2;
 
     @FXML
-    private Circle space12, space13, space14, space15, space16, space17, space18, space19, space20, space21, space22;
+    private ImageView blue3;
 
     @FXML
-    private Circle councPal1, councPal2, councPal3, councPal4, councPal5, councPal6, councPal7, councPal8, councPal9, councPal10;
+    private ImageView yellow0;
 
     @FXML
-    private Circle parchment0, parchment1, parchment2, parchment3, parchment4;
+    private ImageView yellow1;
 
     @FXML
-    private Circle prod2, prod3, prod4, prod5, prod6, prod7, prod8;
+    private ImageView yellow2;
 
     @FXML
-    private Circle harv2, harv3, harv4, harv5, harv6, harv7, harv8;
+    private ImageView yellow3;
 
     @FXML
-    private Circle order1, order2, order3, order4;
+    private ImageView purple0;
 
     @FXML
-    private Circle myOrange, myBlack, myNeutral, myWhite;
+    private ImageView purple1;
 
     @FXML
-    private Text header, textQuery, textFail;
+    private ImageView purple2;
+
+    @FXML
+    private ImageView purple3;
+
+    @FXML
+    private Text diceBlack;
+
+    @FXML
+    private Text diceWhite;
+
+    @FXML
+    private Text diceOrange;
+
+    @FXML
+    private ImageView faithTile1;
+
+    @FXML
+    private ImageView faithTile2;
+
+    @FXML
+    private ImageView faithTile3;
+
+    @FXML
+    private Circle space1;
+
+    @FXML
+    private Circle space2;
+
+    @FXML
+    private Circle space3;
+
+    @FXML
+    private Circle space4;
+
+    @FXML
+    private Circle space5;
+
+    @FXML
+    private Circle space6;
+
+    @FXML
+    private Circle space7;
+
+    @FXML
+    private Circle space8;
+
+    @FXML
+    private Circle space9;
+
+    @FXML
+    private Circle space10;
+
+    @FXML
+    private Circle space11;
+
+    @FXML
+    private Circle space12;
+
+    @FXML
+    private Circle space13;
+
+    @FXML
+    private Circle space14;
+
+    @FXML
+    private Circle space15;
+
+    @FXML
+    private Circle space16;
+
+    @FXML
+    private Circle space17;
+
+    @FXML
+    private Circle space18;
+
+    @FXML
+    private Circle space19;
+
+    @FXML
+    private Circle space20;
+
+    @FXML
+    private Circle space21;
+
+    @FXML
+    private Circle space22;
+
+    @FXML
+    private Circle order1;
+
+    @FXML
+    private Circle order2;
+
+    @FXML
+    private Circle order3;
+
+    @FXML
+    private Circle order4;
+
+    @FXML
+    private Circle myOrange;
+
+    @FXML
+    private Circle myBlack;
+
+    @FXML
+    private Circle myNeutral;
+
+    @FXML
+    private Circle myWhite;
+
+    @FXML
+    private Text header;
+
+    @FXML
+    private Text textQuery;
+
+    @FXML
+    private Text textFail;
+
+    @FXML
+    private Circle councPal1;
+
+    @FXML
+    private Circle councPal2;
+
+    @FXML
+    private Circle councPal3;
+
+    @FXML
+    private Circle councPal4;
+
+    @FXML
+    private Circle councPal5;
+
+    @FXML
+    private Circle councPal6;
+
+    @FXML
+    private Circle councPal7;
+
+    @FXML
+    private Circle councPal8;
+
+    @FXML
+    private Circle councPal9;
+
+    @FXML
+    private Circle councPal10;
+
+    @FXML
+    private Circle parchment0;
+
+    @FXML
+    private Circle parchment1;
+
+    @FXML
+    private Circle parchment2;
+
+    @FXML
+    private Circle parchment3;
+
+    @FXML
+    private Circle parchment4;
 
     @FXML
     private TextField textChoice;
 
     @FXML
-    private Button buttonChoice, cancelMove;
+    private Button buttonChoice;
 
     @FXML
-    private Tab blueTab, greenTab, redTab, yellowTab;
+    private Button cancelMove;
 
     @FXML
-    private ImageView blueTile, greenTile, redTile, yellowTile;
+    private Circle harv2;
 
     @FXML
-    private TextArea blueText, greenText, redText, yellowText;
+    private Circle harv3;
 
     @FXML
-    private ImageView blueGreen1, blueGreen2, blueGreen3, blueGreen4, blueGreen5, blueGreen6;
+    private Circle harv4;
 
     @FXML
-    private ImageView blueYellow1, blueYellow2, blueYellow3, blueYellow4, blueYellow5, blueYellow6;
+    private Circle harv5;
 
     @FXML
-    private ImageView blueBlue1, blueBlue2, blueBlue3, blueBlue4, blueBlue5, blueBlue6;
+    private Circle harv6;
 
     @FXML
-    private ImageView bluePurple1, bluePurple2, bluePurple3, bluePurple4, bluePurple5, bluePurple6;
+    private Circle harv7;
 
     @FXML
-    private ImageView greenGreen1, greenGreen2, greenGreen3, greenGreen4, greenGreen5, greenGreen6;
+    private Circle harv8;
 
     @FXML
-    private ImageView greenYellow1, greenYellow2, greenYellow3, greenYellow4, greenYellow5, greenYellow6;
+    private Circle prod2;
 
     @FXML
-    private ImageView greenBlue1, greenBlue2, greenBlue3, greenBlue4, greenBlue5, greenBlue6;
+    private Circle prod3;
 
     @FXML
-    private ImageView greenPurple1, greenPurple2, greenPurple3, greenPurple4, greenPurple5, greenPurple6;
+    private Circle prod4;
 
     @FXML
-    private ImageView redGreen1, redGreen2, redGreen3, redGreen4, redGreen5, redGreen6;
+    private Circle prod5;
 
     @FXML
-    private ImageView redYellow1, redYellow2, redYellow3, redYellow4, redYellow5, redYellow6;
+    private Circle prod6;
 
     @FXML
-    private ImageView redBlue1, redBlue2, redBlue3, redBlue4, redBlue5, redBlue6;
+    private Circle prod7;
 
     @FXML
-    private ImageView redPurple1, redPurple2, redPurple3, redPurple4, redPurple5, redPurple6;
+    private Circle prod8;
 
     @FXML
-    private ImageView yellowGreen1, yellowGreen2, yellowGreen3, yellowGreen4, yellowGreen5, yellowGreen6;
+    private Tab blueTab;
 
     @FXML
-    private ImageView yellowYellow1, yellowYellow2, yellowYellow3, yellowYellow4, yellowYellow5, yellowYellow6;
+    private ImageView blueGreen1;
 
     @FXML
-    private ImageView yellowBlue1, yellowBlue2, yellowBlue3, yellowBlue4, yellowBlue5, yellowBlue6;
+    private ImageView blueGreen2;
 
     @FXML
-    private ImageView yellowPurple1, yellowPurple2, yellowPurple3, yellowPurple4, yellowPurple5, yellowPurple6;
+    private ImageView blueGreen3;
 
     @FXML
-    void onButtonClick(MouseEvent event) {
+    private ImageView blueGreen4;
+
+    @FXML
+    private ImageView blueGreen5;
+
+    @FXML
+    private ImageView blueGreen6;
+
+    @FXML
+    private ImageView blueYellow1;
+
+    @FXML
+    private ImageView blueYellow2;
+
+    @FXML
+    private ImageView blueYellow3;
+
+    @FXML
+    private ImageView blueYellow4;
+
+    @FXML
+    private ImageView blueYellow5;
+
+    @FXML
+    private ImageView blueYellow6;
+
+    @FXML
+    private ImageView blueBlue1;
+
+    @FXML
+    private ImageView blueBlue2;
+
+    @FXML
+    private ImageView blueBlue3;
+
+    @FXML
+    private ImageView blueBlue4;
+
+    @FXML
+    private ImageView blueBlue5;
+
+    @FXML
+    private ImageView blueBlue6;
+
+    @FXML
+    private ImageView bluePurple1;
+
+    @FXML
+    private ImageView bluePurple2;
+
+    @FXML
+    private ImageView bluePurple3;
+
+    @FXML
+    private ImageView bluePurple4;
+
+    @FXML
+    private ImageView bluePurple5;
+
+    @FXML
+    private ImageView bluePurple6;
+
+    @FXML
+    private TextArea blueText;
+
+    @FXML
+    private ImageView blueTile;
+
+    @FXML
+    private Tab greenTab;
+
+    @FXML
+    private ImageView greenGreen1;
+
+    @FXML
+    private ImageView greenGreen2;
+
+    @FXML
+    private ImageView greenGreen3;
+
+    @FXML
+    private ImageView greenGreen4;
+
+    @FXML
+    private ImageView greenGreen5;
+
+    @FXML
+    private ImageView greenGreen6;
+
+    @FXML
+    private ImageView greenYellow1;
+
+    @FXML
+    private ImageView greenYellow2;
+
+    @FXML
+    private ImageView greenYellow3;
+
+    @FXML
+    private ImageView greenYellow4;
+
+    @FXML
+    private ImageView greenYellow5;
+
+    @FXML
+    private ImageView greenYellow6;
+
+    @FXML
+    private ImageView greenBlue1;
+
+    @FXML
+    private ImageView greenBlue2;
+
+    @FXML
+    private ImageView greenBlue3;
+
+    @FXML
+    private ImageView greenBlue4;
+
+    @FXML
+    private ImageView greenBlue5;
+
+    @FXML
+    private ImageView greenBlue6;
+
+    @FXML
+    private ImageView greenPurple1;
+
+    @FXML
+    private ImageView greenPurple2;
+
+    @FXML
+    private ImageView greenPurple3;
+
+    @FXML
+    private ImageView greenPurple4;
+
+    @FXML
+    private ImageView greenPurple5;
+
+    @FXML
+    private ImageView greenPurple6;
+
+    @FXML
+    private TextArea greenText;
+
+    @FXML
+    private ImageView greenTile;
+
+    @FXML
+    private Tab redTab;
+
+    @FXML
+    private ImageView redGreen1;
+
+    @FXML
+    private ImageView redGreen2;
+
+    @FXML
+    private ImageView redGreen3;
+
+    @FXML
+    private ImageView redGreen4;
+
+    @FXML
+    private ImageView redGreen5;
+
+    @FXML
+    private ImageView redGreen6;
+
+    @FXML
+    private ImageView redYellow1;
+
+    @FXML
+    private ImageView redYellow2;
+
+    @FXML
+    private ImageView redYellow3;
+
+    @FXML
+    private ImageView redYellow4;
+
+    @FXML
+    private ImageView redYellow5;
+
+    @FXML
+    private ImageView redYellow6;
+
+    @FXML
+    private ImageView redBlue1;
+
+    @FXML
+    private ImageView redBlue2;
+
+    @FXML
+    private ImageView redBlue3;
+
+    @FXML
+    private ImageView redBlue4;
+
+    @FXML
+    private ImageView redBlue5;
+
+    @FXML
+    private ImageView redBlue6;
+
+    @FXML
+    private ImageView redPurple1;
+
+    @FXML
+    private ImageView redPurple2;
+
+    @FXML
+    private ImageView redPurple3;
+
+    @FXML
+    private ImageView redPurple4;
+
+    @FXML
+    private ImageView redPurple5;
+
+    @FXML
+    private ImageView redPurple6;
+
+    @FXML
+    private TextArea redText;
+
+    @FXML
+    private ImageView redTile;
+
+    @FXML
+    private Tab yellowTab;
+
+    @FXML
+    private ImageView yellowGreen1;
+
+    @FXML
+    private ImageView yellowGreen2;
+
+    @FXML
+    private ImageView yellowGreen3;
+
+    @FXML
+    private ImageView yellowGreen4;
+
+    @FXML
+    private ImageView yellowGreen5;
+
+    @FXML
+    private ImageView yellowGreen6;
+
+    @FXML
+    private ImageView yellowYellow1;
+
+    @FXML
+    private ImageView yellowYellow2;
+
+    @FXML
+    private ImageView yellowYellow3;
+
+    @FXML
+    private ImageView yellowYellow4;
+
+    @FXML
+    private ImageView yellowYellow5;
+
+    @FXML
+    private ImageView yellowYellow6;
+
+    @FXML
+    private ImageView yellowBlue1;
+
+    @FXML
+    private ImageView yellowBlue2;
+
+    @FXML
+    private ImageView yellowBlue3;
+
+    @FXML
+    private ImageView yellowBlue4;
+
+    @FXML
+    private ImageView yellowBlue5;
+
+    @FXML
+    private ImageView yellowBlue6;
+
+    @FXML
+    private ImageView yellowPurple1;
+
+    @FXML
+    private ImageView yellowPurple2;
+
+    @FXML
+    private ImageView yellowPurple3;
+
+    @FXML
+    private ImageView yellowPurple4;
+
+    @FXML
+    private ImageView yellowPurple5;
+
+    @FXML
+    private ImageView yellowPurple6;
+
+    @FXML
+    private TextArea yellowText;
+
+    @FXML
+    private ImageView yellowTile;
+
+
+    private void checkExchange() {
 
         if (queryState.get("isExchangeChoiceOn")) {
             disableChoice();
             choice.put("choice", textChoice.getText());
             queryState.put("isExchangeChoiceOn", false);
         }
+    }
+
+    private void checkServants() {
 
         if (queryState.get("isServantsQueryOn")) {
             if (isInteger(textChoice.getText()) && Integer.parseInt(textChoice.getText()) >=0
@@ -242,6 +730,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
             } else
                 textQuery.setText("You must insert a valid number between 0 and " + choice.get("myServants") + ":");
         }
+    }
+
+    private void checkFreeCard () {
 
         if (queryState.get("isFreeCardChoiceOn") && isInteger(textChoice.getText())) {
             for(Integer i = 0; i < choice.size() - 1; i++)
@@ -251,25 +742,39 @@ public class GameViewFXCtrl implements GameViewCtrl {
                     queryState.put("isFreeCardChoiceOn", false);
                 }
         }
+    }
 
-        if (queryState.get("isFaithQueryOn") && textChoice.getText().toUpperCase().equals("YES") || textChoice.getText().toUpperCase().equals("NO")) {
+    private void checkFaith() {
+
+        if (queryState.get("isFaithQueryOn") && textChoice.getText().equalsIgnoreCase("YES") || textChoice.getText().equalsIgnoreCase("NO")) {
             disableChoice();
             choice.put("applyExcommunication", textChoice.getText());
             queryState.put("isFaithQueryOn", false);
         }
+    }
 
+    private void checkCost() {
         if (queryState.get("isCostQueryOn") && isInteger(textChoice.getText()) && (textChoice.getText().equals("1") || textChoice.getText().equals("2"))) {
             disableChoice();
             choice.put("cardCostChoice", textChoice.getText());
             queryState.put("isCostQueryOn", false);
         }
-
     }
 
     @FXML
-    void onClickParchment0(MouseEvent event) {
+    void onButtonClick() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+        checkExchange();
+        checkServants();
+        checkFreeCard();
+        checkFaith();
+        checkCost();
+    }
+
+    @FXML
+    void onClickParchment0() {
+
+        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "0");
                 this.queryState.put("isParchment" + i + "On", false);
@@ -280,9 +785,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickParchment1(MouseEvent event) {
+    void onClickParchment1() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "1");
                 this.queryState.put("isParchment" + i + "On", false);
@@ -292,9 +797,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickParchment2(MouseEvent event) {
+    void onClickParchment2() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "2");
                 this.queryState.put("isParchment" + i + "On", false);
@@ -304,9 +809,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickParchment3(MouseEvent event) {
+    void onClickParchment3() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "3");
                 this.queryState.put("isParchment" + i + "On", false);
@@ -316,9 +821,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickParchment4(MouseEvent event) {
+    void onClickParchment4() {
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
             if (this.queryState.get("isParchment" + i + "On")) {
                 choice.put(i.toString(), "4");
                 this.queryState.put("isParchment" + i + "On", false);
@@ -328,7 +833,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickMemberBlack(MouseEvent event) {
+    void onClickMemberBlack() {
 
         if (this.queryState.get("isMemberChoiceOn")) {
             choice.put(DICECOLOR, "BLACK");
@@ -339,7 +844,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickMemberWhite(MouseEvent event) {
+    void onClickMemberWhite() {
 
         if (this.queryState.get("isMemberChoiceOn")) {
             choice.put(DICECOLOR, "WHITE");
@@ -350,7 +855,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickMemberOrange(MouseEvent event) {
+    void onClickMemberOrange() {
 
         if (this.queryState.get("isMemberChoiceOn")) {
             choice.put(DICECOLOR, "ORANGE");
@@ -361,7 +866,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickMemberNeutral(MouseEvent event) {
+    void onClickMemberNeutral() {
 
         if (this.queryState.get("isMemberChoiceOn")) {
             choice.put(DICECOLOR, "NEUTRAL");
@@ -372,7 +877,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickCancelMove(MouseEvent event) {
+    void onClickCancelMove() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "0");
@@ -381,7 +886,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace1(MouseEvent event) {
+    void onClickSpace1() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "1");
@@ -390,7 +895,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace2(MouseEvent event) {
+    void onClickSpace2() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "2");
@@ -399,7 +904,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace3(MouseEvent event) {
+    void onClickSpace3() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "3");
@@ -408,7 +913,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace4(MouseEvent event) {
+    void onClickSpace4() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "4");
@@ -417,7 +922,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace5(MouseEvent event) {
+    void onClickSpace5() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "5");
@@ -426,7 +931,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace6(MouseEvent event) {
+    void onClickSpace6() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "6");
@@ -435,7 +940,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace7(MouseEvent event) {
+    void onClickSpace7() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "7");
@@ -444,7 +949,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace8(MouseEvent event) {
+    void onClickSpace8() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "8");
@@ -453,7 +958,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace9(MouseEvent event) {
+    void onClickSpace9() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "9");
@@ -462,7 +967,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace10(MouseEvent event) {
+    void onClickSpace10() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "10");
@@ -471,7 +976,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace11(MouseEvent event) {
+    void onClickSpace11() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "11");
@@ -480,7 +985,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace12(MouseEvent event) {
+    void onClickSpace12() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "12");
@@ -489,7 +994,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace13(MouseEvent event) {
+    void onClickSpace13() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "13");
@@ -498,7 +1003,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace14(MouseEvent event) {
+    void onClickSpace14() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "14");
@@ -507,7 +1012,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace15(MouseEvent event) {
+    void onClickSpace15() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "15");
@@ -516,7 +1021,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace16(MouseEvent event) {
+    void onClickSpace16() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "16");
@@ -525,7 +1030,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace17(MouseEvent event) {
+    void onClickSpace17() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "17");
@@ -534,7 +1039,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace18(MouseEvent event) {
+    void onClickSpace18() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "18");
@@ -543,7 +1048,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace19(MouseEvent event) {
+    void onClickSpace19() {
 
         if (this.queryState.get(ISSCON)) {
            choice.put(POSITIONID, "19");
@@ -552,7 +1057,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace20(MouseEvent event) {
+    void onClickSpace20() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "20");
@@ -561,7 +1066,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace21(MouseEvent event) {
+    void onClickSpace21() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "21");
@@ -570,7 +1075,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace22(MouseEvent event) {
+    void onClickSpace22() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "22");
@@ -579,7 +1084,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
     }
 
     @FXML
-    void onClickSpace23(MouseEvent event) {
+    void onClickSpace23() {
 
         if (this.queryState.get(ISSCON)) {
             choice.put(POSITIONID, "23");
@@ -589,10 +1094,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     private boolean isInteger(String s) {
         try {
-            Integer.parseInt(s);
-        } catch(NumberFormatException e) {
-            return false;
-        } catch(NullPointerException e) {
+            Integer integer = Integer.parseInt(s);
+        } catch(NumberFormatException|NullPointerException e) {
             return false;
         }
         return true;
@@ -720,7 +1223,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
             if (beauty(node.path(FM).path(COLOR)).equals(NEUTRAL)) {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FM).path(PLCOL))));
-                spaceShape.setStroke(Paint.valueOf("#eddcc6"));
+                spaceShape.setStroke(Paint.valueOf(NEUTRALCOLOR));
             } else {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FM).path(COLOR))));
                 spaceShape.setStroke(Paint.valueOf(beauty(node.path(FM).path(PLCOL))));
@@ -741,7 +1244,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
             if (beauty(node.path(FMS).path(0).path(COLOR)).equals(NEUTRAL)) {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FMS).path(0).path(PLCOL))));
-                spaceShape.setStroke(Paint.valueOf("#eddcc6"));
+                spaceShape.setStroke(Paint.valueOf(NEUTRALCOLOR));
             } else {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FMS).path(0).path(COLOR))));
                 spaceShape.setStroke(Paint.valueOf(beauty(node.path(FMS).path(0).path(PLCOL))));
@@ -756,7 +1259,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
     }
 
-    private void councilPalaceSetter() {
+    private void councilPalaceSetter1() {
+
         JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
         if (councilPalaceNode.has(0))
             multipleSpaceMemberSetter(councPal1, councilPalaceNode.path(0));
@@ -783,6 +1287,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
         else
             councPal5.setVisible(false);
 
+    }
+
+    private void councilPalaceSetter2() {
+
+        JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
+
         if (councilPalaceNode.has(5))
             multipleSpaceMemberSetter(councPal6, councilPalaceNode.path(5));
         else
@@ -807,6 +1317,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
             multipleSpaceMemberSetter(councPal10, councilPalaceNode.path(9));
         else
             councPal10.setVisible(false);
+
+    }
+
+    private void councilPalaceSetter() {
+        councilPalaceSetter1();
+        councilPalaceSetter2();
     }
 
     private void productionMultipleSetter() {
@@ -895,7 +1411,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         if (beauty(node.path(COLOR)).equals(NEUTRAL)) {
             memberShape.setFill(Paint.valueOf(beauty(node.path(PLCOL))));
-            memberShape.setStroke(Paint.valueOf("#eddcc6"));
+            memberShape.setStroke(Paint.valueOf(NEUTRALCOLOR));
         } else {
             memberShape.setFill(Paint.valueOf(beauty(node.path(COLOR))));
             memberShape.setStroke(Paint.valueOf(beauty(node.path(PLCOL))));
@@ -909,10 +1425,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
         for (JsonNode singlePlayer: rootInstance.path(PL))
             if (beauty(singlePlayer.path(PLCOL)).equals("BLUE"))
                 bluePlayer = singlePlayer;
-        blueTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(bluePlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+        blueTile.setImage(new Image(new File(TILEBASEPATH + beauty(bluePlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
 
         blueText.setText("[" + beauty(bluePlayer.path(PLCOL)) + "] " + beauty(bluePlayer.path(PLNAME)) + ": " + beauty(bluePlayer.path("res"))
-        + "\n" + "Excommunications:    [AGE1]=" + beauty(bluePlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(bluePlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(bluePlayer.path("maluses").path(2)));
+        + "\n" + AGE1STR + beauty(bluePlayer.path(MALUSES).path(0)) + AGE2STR + beauty(bluePlayer.path(MALUSES).path(1)) + AGE3STR + beauty(bluePlayer.path(MALUSES).path(2)));
 
         JsonNode bluePlayerCards = bluePlayer.path(CARDS);
 
@@ -955,9 +1471,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (beauty(singlePlayer.path(PLCOL)).equals("GREEN"))
                 greenPlayer = singlePlayer;
 
-        greenTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(greenPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+        greenTile.setImage(new Image(new File(TILEBASEPATH + beauty(greenPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
         greenText.setText("[" + beauty(greenPlayer.path(PLCOL)) + "] " + beauty(greenPlayer.path(PLNAME)) + ": " + beauty(greenPlayer.path("res"))
-                + "\n" + "Excommunications:    [AGE1]=" + beauty(greenPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(greenPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(greenPlayer.path("maluses").path(2)));
+                + "\n" + AGE1STR + beauty(greenPlayer.path(MALUSES).path(0)) + AGE2STR + beauty(greenPlayer.path(MALUSES).path(1)) + AGE3STR + beauty(greenPlayer.path(MALUSES).path(2)));
         JsonNode greenPlayerCards = greenPlayer.path(CARDS);
 
         cardSetter(greenBlue1, greenPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -999,9 +1515,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (beauty(singlePlayer.path(PLCOL)).equals("RED"))
                 redPlayer = singlePlayer;
 
-        redTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(redPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+        redTile.setImage(new Image(new File(TILEBASEPATH + beauty(redPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
         redText.setText("[" + beauty(redPlayer.path(PLCOL)) + "] " + beauty(redPlayer.path(PLNAME)) + ": " + beauty(redPlayer.path("res"))
-                + "\n" + "Excommunications:    [AGE1]=" + beauty(redPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(redPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(redPlayer.path("maluses").path(2)));
+                + "\n" + AGE1STR + beauty(redPlayer.path(MALUSES).path(0)) + AGE2STR + beauty(redPlayer.path(MALUSES).path(1)) + AGE3STR + beauty(redPlayer.path(MALUSES).path(2)));
         JsonNode redPlayerCards = redPlayer.path(CARDS);
 
         cardSetter(redBlue1, redPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -1043,9 +1559,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (beauty(singlePlayer.path(PLCOL)).equals("YELLOW"))
                 yellowPlayer = singlePlayer;
 
-        yellowTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(yellowPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+        yellowTile.setImage(new Image(new File(TILEBASEPATH + beauty(yellowPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
         yellowText.setText("[" + beauty(yellowPlayer.path(PLCOL)) + "] " + beauty(yellowPlayer.path(PLNAME)) + ": " + beauty(yellowPlayer.path("res"))
-                + "\n" + "Excommunications:    [AGE1]=" + beauty(yellowPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(yellowPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(yellowPlayer.path("maluses").path(2)));
+                + "\n" + AGE1STR + beauty(yellowPlayer.path(MALUSES).path(0)) + AGE2STR + beauty(yellowPlayer.path(MALUSES).path(1)) + AGE3STR + beauty(yellowPlayer.path(MALUSES).path(2)));
         JsonNode yellowPlayerCards = yellowPlayer.path(CARDS);
 
         cardSetter(yellowBlue1, yellowPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -1078,6 +1594,32 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         yellowTab.setDisable(false);
 
+    }
+
+    private void initFamilyMembers() {
+
+        for (JsonNode singleMember: rootMe.path(FMS)) {
+            if (beauty(singleMember.path("currentPositionID")).equals("0"))
+                switch (beauty(singleMember.path(COLOR))) {
+                    case BLACK:
+                        myBlack.setDisable(false);
+                        myBlack.setVisible(true);
+                        break;
+                    case WHITE:
+                        myWhite.setDisable(false);
+                        myWhite.setVisible(true);
+                        break;
+                    case ORANGE:
+                        myOrange.setDisable(false);
+                        myOrange.setVisible(true);
+                        break;
+                    case NEUTRAL:
+                        myNeutral.setDisable(false);
+                        myNeutral.setVisible(true);
+                        break;
+                    default:
+                }
+        }
     }
 
     @Override
@@ -1160,28 +1702,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myNeutral.setDisable(true);
         myNeutral.setVisible(false);
 
-        for (JsonNode singleMember: rootMe.path(FMS)) {
-            if (beauty(singleMember.path("currentPositionID")).equals("0"))
-                switch (beauty(singleMember.path(COLOR))) {
-                    case BLACK:
-                        myBlack.setDisable(false);
-                        myBlack.setVisible(true);
-                        break;
-                    case WHITE:
-                        myWhite.setDisable(false);
-                        myWhite.setVisible(true);
-                        break;
-                    case ORANGE:
-                        myOrange.setDisable(false);
-                        myOrange.setVisible(true);
-                        break;
-                    case NEUTRAL:
-                        myNeutral.setDisable(false);
-                        myNeutral.setVisible(true);
-                        break;
-                    default:
-                }
-        }
+        initFamilyMembers();
 
         cardSetter(green0, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("0").path("card").path(CARDID).asInt());
         cardSetter(green1, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("1").path("card").path(CARDID).asInt());
@@ -1204,9 +1725,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         diceSetter(diceWhite, rootBoard.path(DICES).path(WHITE).asInt());
         diceSetter(diceOrange, rootBoard.path(DICES).path(ORANGE).asInt());
 
-        faithTileSetter(faithTile1, rootBoard.path("faithTiles").path("1").path("id").asInt());
-        faithTileSetter(faithTile2, rootBoard.path("faithTiles").path("2").path("id").asInt());
-        faithTileSetter(faithTile3, rootBoard.path("faithTiles").path("3").path("id").asInt());
+        faithTileSetter(faithTile1, rootBoard.path(FAITHTILES).path("1").path("id").asInt());
+        faithTileSetter(faithTile2, rootBoard.path(FAITHTILES).path("2").path("id").asInt());
+        faithTileSetter(faithTile3, rootBoard.path(FAITHTILES).path("3").path("id").asInt());
 
         spaceSetter(space1, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("0"));
         spaceSetter(space2, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("1"));
@@ -1230,11 +1751,11 @@ public class GameViewFXCtrl implements GameViewCtrl {
         spaceSetter(space20, rootBoard.path("boardSpaces").path("20"));
         spaceSetter(space21, rootBoard.path("boardSpaces").path("21"));
         spaceSetter(space22, rootBoard.path("boardSpaces").path("22"));
-
+        System.out.println(rootInstance.path(PL));
         councilPalaceSetter();
         productionMultipleSetter();
         harvestMultipleSetter();
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
     }
 
     @Override
@@ -1261,7 +1782,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         cancelMove.setVisible(false);
         choice.put("servantsToPay", "0");
         resetFamilyMembers();
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         textFail.setVisible(false);
         return choice;
     }
@@ -1285,7 +1806,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
         while (queryState.get("isServantsQueryOn"));
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         choice.put("positionType", map.get("positionType"));
         choice.put("familyMemberValue", map.get("familyMemberValue"));
         choice.remove("myServants");
@@ -1298,18 +1819,18 @@ public class GameViewFXCtrl implements GameViewCtrl {
         choice = new HashMap<>();
         queryState = new HashMap<>();
 
-        choice.put("numOfParchments", map.get("parchments"));
+        choice.put(NUMOFPARCH, map.get("parchments"));
         queryState.put("isOpenChoice0", true);
         queryState.put("isOpenChoice1", true);
         queryState.put("isOpenChoice2", true);
         queryState.put("isOpenChoice3", true);
         queryState.put("isOpenChoice4", true);
 
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++)
+        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++)
             queryState.put("isParchment" + i + "On", false);
-        if (Integer.parseInt(choice.get("numOfParchments")) > 1)
-            textQuery.setText("Now you'll have to choose " + choice.get("numOfParchments") + " different parchments.");
-        for (Integer i = 1; i <= Integer.parseInt(choice.get("numOfParchments")); i++) {
+        if (Integer.parseInt(choice.get(NUMOFPARCH)) > 1)
+            textQuery.setText("Now you'll have to choose " + choice.get(NUMOFPARCH) + " different parchments.");
+        for (Integer i = 1; i <= Integer.parseInt(choice.get(NUMOFPARCH)); i++) {
             queryState.put("isParchment" + i + "On", true);
             textQuery.setText("Choose parchment bonus #" + i +", between the ones available, highlighted in green");
             enableParchments();
@@ -1317,8 +1838,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
             disableParchments();
         }
 
-        textQuery.setText("Waiting for player's movement ...");
-        choice.remove("numOfParchments");
+        textQuery.setText(WAITINGSTR);
+        choice.remove(NUMOFPARCH);
         return choice;
     }
 
@@ -1344,7 +1865,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
         while (queryState.get("isFaithQueryOn"));
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         return choice;
     }
 
@@ -1371,7 +1892,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setDisable(false);
         while (queryState.get("isCostQueryOn"));
 
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         choice.put(CARDID, map.get(CARDID));
         return choice;
     }
@@ -1417,7 +1938,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 break;
             textQuery.setText("You must insert a valid number among these: " + str);
         } while (true);
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         choice.put(CARDID, map.get(CARDID));
         return choice;
     }
@@ -1452,7 +1973,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
         while (queryState.get("isFreeCardChoiceOn"));
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         Integer j = 0;
         for (Map.Entry<String, String> entry: map.entrySet()) {
             choice.remove("card" + j);
