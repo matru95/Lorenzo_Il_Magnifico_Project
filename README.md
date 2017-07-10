@@ -36,3 +36,26 @@ The project adopts a Model View Controller (MVC) Pattern and is divided into sev
     * view    
   
 ## Configuration Files:
+
+Configuration files can be found in `src/config`. 
+They are used to define the various configurable elements of the game such as the 
+cards, board, player tiles and excommunication tiles.
+
+- **Card.json**: defines all the cards with their values.
+- **Settings.json**: 
+    general settings for the game, it has three main parts:
+    - `gameSettings`: in here you can define 
+    the wait time before starting a new game and the wait time for a player move.
+    `serverWait` and `playerWait` respectively
+    - `parchments`: the various parchment effects.
+    - `gameBoard`: the game board.
+- **PlayerTile.json** 
+    defines the five player tiles that can be used. The first one (ID = 0) 
+    is the default one when playing with simplified rules.
+    - `rules`: defines the rules whether to use the default player tile or advanced one. 
+        To use the default player tile for all players, set this to `default`.
+- **FaithTile.json** 
+    defines all the faith tiles.
+    
+- **FaithPoints**
+    Defines the number of victory points you get for an amount of faith points.
