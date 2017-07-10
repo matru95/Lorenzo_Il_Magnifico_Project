@@ -4,8 +4,6 @@ import it.polimi.ingsw.gc31.client.SocketClient;
 import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;
 import it.polimi.ingsw.gc31.exceptions.MovementInvalidException;
-import it.polimi.ingsw.gc31.messages.ClientMessageEnum;
-import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.messages.ServerMessageEnum;
 import it.polimi.ingsw.gc31.model.*;
@@ -25,7 +23,6 @@ import it.polimi.ingsw.gc31.model.states.GameAgeState;
 import it.polimi.ingsw.gc31.server.Server;
 import it.polimi.ingsw.gc31.client.Client;
 
-import javax.sound.midi.SysexMessage;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -33,8 +30,6 @@ import java.util.*;
 public class ActionController extends Controller implements Runnable {
     private GameController gameController;
     private Player player;
-    private ClientMessageEnum waitingMessageType;
-    private String playerWaitingFromID;
     private long waitingTime;
     private long startTime;
     private boolean movementReceived;
@@ -140,9 +135,7 @@ public class ActionController extends Controller implements Runnable {
             try {
                 super.getServer().sendMessageToClient(client, request);
             }  catch (IOException e) {
-                e.printStackTrace();
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         });
 
@@ -199,19 +192,14 @@ public class ActionController extends Controller implements Runnable {
         try {
             sendMessage(request, client);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
-
-        this.waitingMessageType = ClientMessageEnum.MOVE;
-        this.playerWaitingFromID = playerID.toString();
 
         this.startTime = System.currentTimeMillis();
         try {
             waitForMove(playerID, client);
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }  catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -225,14 +213,12 @@ public class ActionController extends Controller implements Runnable {
 
         //      Check if a movement was made
         if(!this.movementReceived) {
-            System.out.println("no movement made");
 
             payload.put("playerID", playerID.toString());
             ServerMessage timeOutRequest = new ServerMessage(ServerMessageEnum.TIMEOUT, payload);
             sendMessage(timeOutRequest, client);
 
             synchronized (gameController) {
-                System.out.println("Notifying game controller");
                 gameController.notify();
             }
         }
@@ -252,7 +238,7 @@ public class ActionController extends Controller implements Runnable {
         this.player = player;
     }
 
-    public void parchmentAction(String playerID, Map<String, String> payload) {
+    public void parchmentAction(Map<String, String> payload) {
         List<Parchment> parchmentsToExecute = new ArrayList<>();
         GameInstance gameInstance = super.getModel();
 
@@ -268,10 +254,9 @@ public class ActionController extends Controller implements Runnable {
 
     /**
      *
-     * @param playerID
      * @param payload
      */
-    public void costChoiceAction(String playerID, Map<String, String> payload) {
+    public void costChoiceAction(Map<String, String> payload) {
         String cardID = payload.get("cardID");
         int cardCostChoice = Integer.valueOf(payload.get("cardCostChoice"));
         Card myCard = player.getCardByID(Integer.valueOf(cardID));
@@ -325,9 +310,7 @@ public class ActionController extends Controller implements Runnable {
                 }
             }
         } catch (RemoteException e) {
-            e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -338,8 +321,8 @@ public class ActionController extends Controller implements Runnable {
      */
     public void exchangeChoiceAction(String playerID, Map<String, String> payload) {
         List<Card> cards = player.getAllCardsAsList();
-        int cardID = Integer.valueOf(payload.get("cardID"));
-        int choice = Integer.valueOf(payload.get("choice"));
+        int cardID = Integer.parseInt(payload.get("cardID"));
+        int choice = Integer.parseInt(payload.get("choice"));
 
         if(choice == 0) {
             return;
@@ -371,9 +354,7 @@ public class ActionController extends Controller implements Runnable {
                                 try {
                                     sendMessage(message, getClientFromPlayerID(playerID));
                                 } catch (InterruptedException e) {
-                                    e.printStackTrace();
                                 } catch (RemoteException e) {
-                                    e.printStackTrace();
                                 }
                             }
                         }
@@ -383,14 +364,6 @@ public class ActionController extends Controller implements Runnable {
         }
     }
 
-    private ServerMessage processExchange(List<Exchange> exchanges, int choice) {
-        Exchange exchange = exchanges.get(choice+1);
-
-        ServerMessage message = exchange.exec(player);
-
-        return message;
-    }
-
     /**
      *
      * @param playerID
@@ -398,18 +371,16 @@ public class ActionController extends Controller implements Runnable {
      * @param client
      */
     public void excommunicationChoiceAction(String playerID, Map<String, String> payload, Client client) {
-        System.out.println("Excommunication choice action inside actionController\n");
 
         String choice = payload.get("applyExcommunication");
-        Player player = getModel().getPlayerFromId(UUID.fromString(playerID));
+        Player myPlayer = getModel().getPlayerFromId(UUID.fromString(playerID));
         GameAgeState gameAgeState = (GameAgeState) getModel().getState();
         FaithTile ageFaithTile = gameAgeState.getAgeFaithTile();
 
         if(choice.equals("YES")) {
-            System.out.println("Give the excommunication");
-            ageFaithTile.execute(player);
+            ageFaithTile.execute(myPlayer);
         } else {
-            gameAgeState.payFaithPointsForVictoryPoints(player);
+            gameAgeState.payFaithPointsForVictoryPoints(myPlayer);
         }
 
         if(client.getClass() == SocketClient.class) {
@@ -448,9 +419,7 @@ public class ActionController extends Controller implements Runnable {
         try {
             updateClients();
         } catch (IOException e) {
-            e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
