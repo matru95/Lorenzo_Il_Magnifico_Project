@@ -53,6 +53,14 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private static final String COLOR = "color";
     private static final String PLTILE = "playerTile";
     private static final String PLNAME = "playerName";
+    private static final String NEUTRALCOLOR = "#eddcc6";
+    private static final String TILEBASEPATH = "src/main/resources/javafx/playerTiles/tile";
+    private static final String MALUSES = "maluses";
+    private static final String AGE1STR = "Excommunications:    [AGE1]=";
+    private static final String AGE2STR = "    [AGE2]=";
+    private static final String AGE3STR = "    [AGE3]=";
+    private static final String WAITINGSTR = "Waiting for player's movement ...";
+    private static final String FAITHTILES = "faithTiles";
 
     private StringBuilder sb;
     private String myPlayerID;
@@ -92,18 +100,18 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private void connectionQuery(String serverIP) throws IOException, InterruptedException, NotBoundException {
         sb.append("Choose between using \"SOCKET\" or \"RMI\":");
         printStringBuilder();
-        String choice;
+        String myChoice;
         do {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            choice = br.readLine();
+            myChoice = br.readLine();
 
-            if (choice.equalsIgnoreCase("SOCKET")) {
+            if (myChoice.equalsIgnoreCase("SOCKET")) {
                 this.myPlayerName = "SOCKETFX";
                 new SocketClient(serverIP, myPlayerName, this);
                 break;
             }
 
-            if (choice.equalsIgnoreCase("RMI")) {
+            if (myChoice.equalsIgnoreCase("RMI")) {
                 this.myPlayerName = "RMIFX";
                 new RMIClient(serverIP, myPlayerName, this);
                 break;
@@ -224,14 +232,16 @@ public class GameViewFXCtrl implements GameViewCtrl {
     @FXML
     private ImageView yellowPurple1, yellowPurple2, yellowPurple3, yellowPurple4, yellowPurple5, yellowPurple6;
 
-    @FXML
-    void onButtonClick(MouseEvent event) {
+    private void checkExchange() {
 
         if (queryState.get("isExchangeChoiceOn")) {
             disableChoice();
             choice.put("choice", textChoice.getText());
             queryState.put("isExchangeChoiceOn", false);
         }
+    }
+
+    private void checkServants() {
 
         if (queryState.get("isServantsQueryOn")) {
             if (isInteger(textChoice.getText()) && Integer.parseInt(textChoice.getText()) >=0
@@ -242,6 +252,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
             } else
                 textQuery.setText("You must insert a valid number between 0 and " + choice.get("myServants") + ":");
         }
+    }
+
+    private void checkFreeCard () {
 
         if (queryState.get("isFreeCardChoiceOn") && isInteger(textChoice.getText())) {
             for(Integer i = 0; i < choice.size() - 1; i++)
@@ -251,19 +264,33 @@ public class GameViewFXCtrl implements GameViewCtrl {
                     queryState.put("isFreeCardChoiceOn", false);
                 }
         }
+    }
 
-        if (queryState.get("isFaithQueryOn") && textChoice.getText().toUpperCase().equals("YES") || textChoice.getText().toUpperCase().equals("NO")) {
+    private void checkFaith() {
+
+        if (queryState.get("isFaithQueryOn") && textChoice.getText().equalsIgnoreCase("YES") || textChoice.getText().equalsIgnoreCase("NO")) {
             disableChoice();
             choice.put("applyExcommunication", textChoice.getText());
             queryState.put("isFaithQueryOn", false);
         }
+    }
 
+    private void checkCost() {
         if (queryState.get("isCostQueryOn") && isInteger(textChoice.getText()) && (textChoice.getText().equals("1") || textChoice.getText().equals("2"))) {
             disableChoice();
             choice.put("cardCostChoice", textChoice.getText());
             queryState.put("isCostQueryOn", false);
         }
+    }
 
+    @FXML
+    void onButtonClick(MouseEvent event) {
+
+        checkExchange();
+        checkServants();
+        checkFreeCard();
+        checkFaith();
+        checkCost();
     }
 
     @FXML
@@ -589,10 +616,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     private boolean isInteger(String s) {
         try {
-            Integer.parseInt(s);
-        } catch(NumberFormatException e) {
-            return false;
-        } catch(NullPointerException e) {
+            Integer integer = Integer.parseInt(s);
+        } catch(NumberFormatException|NullPointerException e) {
             return false;
         }
         return true;
@@ -720,7 +745,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
             if (beauty(node.path(FM).path(COLOR)).equals(NEUTRAL)) {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FM).path(PLCOL))));
-                spaceShape.setStroke(Paint.valueOf("#eddcc6"));
+                spaceShape.setStroke(Paint.valueOf(NEUTRALCOLOR));
             } else {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FM).path(COLOR))));
                 spaceShape.setStroke(Paint.valueOf(beauty(node.path(FM).path(PLCOL))));
@@ -741,7 +766,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
             if (beauty(node.path(FMS).path(0).path(COLOR)).equals(NEUTRAL)) {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FMS).path(0).path(PLCOL))));
-                spaceShape.setStroke(Paint.valueOf("#eddcc6"));
+                spaceShape.setStroke(Paint.valueOf(NEUTRALCOLOR));
             } else {
                 spaceShape.setFill(Paint.valueOf(beauty(node.path(FMS).path(0).path(COLOR))));
                 spaceShape.setStroke(Paint.valueOf(beauty(node.path(FMS).path(0).path(PLCOL))));
@@ -756,7 +781,8 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
     }
 
-    private void councilPalaceSetter() {
+    private void councilPalaceSetter1() {
+
         JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
         if (councilPalaceNode.has(0))
             multipleSpaceMemberSetter(councPal1, councilPalaceNode.path(0));
@@ -783,6 +809,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
         else
             councPal5.setVisible(false);
 
+    }
+
+    private void councilPalaceSetter2() {
+
+        JsonNode councilPalaceNode = rootBoard.path("boardSpaces").path("23").path(FMS);
+
         if (councilPalaceNode.has(5))
             multipleSpaceMemberSetter(councPal6, councilPalaceNode.path(5));
         else
@@ -807,6 +839,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
             multipleSpaceMemberSetter(councPal10, councilPalaceNode.path(9));
         else
             councPal10.setVisible(false);
+
+    }
+
+    private void councilPalaceSetter() {
+        councilPalaceSetter1();
+        councilPalaceSetter2();
     }
 
     private void productionMultipleSetter() {
@@ -895,7 +933,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         if (beauty(node.path(COLOR)).equals(NEUTRAL)) {
             memberShape.setFill(Paint.valueOf(beauty(node.path(PLCOL))));
-            memberShape.setStroke(Paint.valueOf("#eddcc6"));
+            memberShape.setStroke(Paint.valueOf(NEUTRALCOLOR));
         } else {
             memberShape.setFill(Paint.valueOf(beauty(node.path(COLOR))));
             memberShape.setStroke(Paint.valueOf(beauty(node.path(PLCOL))));
@@ -909,10 +947,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
         for (JsonNode singlePlayer: rootInstance.path(PL))
             if (beauty(singlePlayer.path(PLCOL)).equals("BLUE"))
                 bluePlayer = singlePlayer;
-        blueTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(bluePlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+        blueTile.setImage(new Image(new File(TILEBASEPATH + beauty(bluePlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
 
         blueText.setText("[" + beauty(bluePlayer.path(PLCOL)) + "] " + beauty(bluePlayer.path(PLNAME)) + ": " + beauty(bluePlayer.path("res"))
-        + "\n" + "Excommunications:    [AGE1]=" + beauty(bluePlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(bluePlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(bluePlayer.path("maluses").path(2)));
+        + "\n" + AGE1STR + beauty(bluePlayer.path(MALUSES).path(0)) + AGE2STR + beauty(bluePlayer.path(MALUSES).path(1)) + AGE3STR + beauty(bluePlayer.path(MALUSES).path(2)));
 
         JsonNode bluePlayerCards = bluePlayer.path(CARDS);
 
@@ -955,9 +993,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (beauty(singlePlayer.path(PLCOL)).equals("GREEN"))
                 greenPlayer = singlePlayer;
 
-        greenTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(greenPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+        greenTile.setImage(new Image(new File(TILEBASEPATH + beauty(greenPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
         greenText.setText("[" + beauty(greenPlayer.path(PLCOL)) + "] " + beauty(greenPlayer.path(PLNAME)) + ": " + beauty(greenPlayer.path("res"))
-                + "\n" + "Excommunications:    [AGE1]=" + beauty(greenPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(greenPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(greenPlayer.path("maluses").path(2)));
+                + "\n" + AGE1STR + beauty(greenPlayer.path(MALUSES).path(0)) + AGE2STR + beauty(greenPlayer.path(MALUSES).path(1)) + AGE3STR + beauty(greenPlayer.path(MALUSES).path(2)));
         JsonNode greenPlayerCards = greenPlayer.path(CARDS);
 
         cardSetter(greenBlue1, greenPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -999,9 +1037,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (beauty(singlePlayer.path(PLCOL)).equals("RED"))
                 redPlayer = singlePlayer;
 
-        redTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(redPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+        redTile.setImage(new Image(new File(TILEBASEPATH + beauty(redPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
         redText.setText("[" + beauty(redPlayer.path(PLCOL)) + "] " + beauty(redPlayer.path(PLNAME)) + ": " + beauty(redPlayer.path("res"))
-                + "\n" + "Excommunications:    [AGE1]=" + beauty(redPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(redPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(redPlayer.path("maluses").path(2)));
+                + "\n" + AGE1STR + beauty(redPlayer.path(MALUSES).path(0)) + AGE2STR + beauty(redPlayer.path(MALUSES).path(1)) + AGE3STR + beauty(redPlayer.path(MALUSES).path(2)));
         JsonNode redPlayerCards = redPlayer.path(CARDS);
 
         cardSetter(redBlue1, redPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -1043,9 +1081,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
             if (beauty(singlePlayer.path(PLCOL)).equals("YELLOW"))
                 yellowPlayer = singlePlayer;
 
-        yellowTile.setImage(new Image(new File("src/main/resources/javafx/playerTiles/tile" + beauty(yellowPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
+        yellowTile.setImage(new Image(new File(TILEBASEPATH + beauty(yellowPlayer.path(PLTILE).path("id")) + ".png").toURI().toString()));
         yellowText.setText("[" + beauty(yellowPlayer.path(PLCOL)) + "] " + beauty(yellowPlayer.path(PLNAME)) + ": " + beauty(yellowPlayer.path("res"))
-                + "\n" + "Excommunications:    [AGE1]=" + beauty(yellowPlayer.path("maluses").path(0)) + "    [AGE2]=" + beauty(yellowPlayer.path("maluses").path(1)) + "    [AGE3]=" + beauty(yellowPlayer.path("maluses").path(2)));
+                + "\n" + AGE1STR + beauty(yellowPlayer.path(MALUSES).path(0)) + AGE2STR + beauty(yellowPlayer.path(MALUSES).path(1)) + AGE3STR + beauty(yellowPlayer.path(MALUSES).path(2)));
         JsonNode yellowPlayerCards = yellowPlayer.path(CARDS);
 
         cardSetter(yellowBlue1, yellowPlayerCards.path(BLUE).path(0).path(CARDID).asInt());
@@ -1078,6 +1116,32 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         yellowTab.setDisable(false);
 
+    }
+
+    private void initFamilyMembers() {
+
+        for (JsonNode singleMember: rootMe.path(FMS)) {
+            if (beauty(singleMember.path("currentPositionID")).equals("0"))
+                switch (beauty(singleMember.path(COLOR))) {
+                    case BLACK:
+                        myBlack.setDisable(false);
+                        myBlack.setVisible(true);
+                        break;
+                    case WHITE:
+                        myWhite.setDisable(false);
+                        myWhite.setVisible(true);
+                        break;
+                    case ORANGE:
+                        myOrange.setDisable(false);
+                        myOrange.setVisible(true);
+                        break;
+                    case NEUTRAL:
+                        myNeutral.setDisable(false);
+                        myNeutral.setVisible(true);
+                        break;
+                    default:
+                }
+        }
     }
 
     @Override
@@ -1160,28 +1224,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         myNeutral.setDisable(true);
         myNeutral.setVisible(false);
 
-        for (JsonNode singleMember: rootMe.path(FMS)) {
-            if (beauty(singleMember.path("currentPositionID")).equals("0"))
-                switch (beauty(singleMember.path(COLOR))) {
-                    case BLACK:
-                        myBlack.setDisable(false);
-                        myBlack.setVisible(true);
-                        break;
-                    case WHITE:
-                        myWhite.setDisable(false);
-                        myWhite.setVisible(true);
-                        break;
-                    case ORANGE:
-                        myOrange.setDisable(false);
-                        myOrange.setVisible(true);
-                        break;
-                    case NEUTRAL:
-                        myNeutral.setDisable(false);
-                        myNeutral.setVisible(true);
-                        break;
-                    default:
-                }
-        }
+        initFamilyMembers();
 
         cardSetter(green0, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("0").path("card").path(CARDID).asInt());
         cardSetter(green1, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("1").path("card").path(CARDID).asInt());
@@ -1204,9 +1247,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         diceSetter(diceWhite, rootBoard.path(DICES).path(WHITE).asInt());
         diceSetter(diceOrange, rootBoard.path(DICES).path(ORANGE).asInt());
 
-        faithTileSetter(faithTile1, rootBoard.path("faithTiles").path("1").path("id").asInt());
-        faithTileSetter(faithTile2, rootBoard.path("faithTiles").path("2").path("id").asInt());
-        faithTileSetter(faithTile3, rootBoard.path("faithTiles").path("3").path("id").asInt());
+        faithTileSetter(faithTile1, rootBoard.path(FAITHTILES).path("1").path("id").asInt());
+        faithTileSetter(faithTile2, rootBoard.path(FAITHTILES).path("2").path("id").asInt());
+        faithTileSetter(faithTile3, rootBoard.path(FAITHTILES).path("3").path("id").asInt());
 
         spaceSetter(space1, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("0"));
         spaceSetter(space2, rootBoard.path(TOWERS).path(CardColor.GREEN.toString()).path(TOWERSPACES).path("1"));
@@ -1234,7 +1277,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         councilPalaceSetter();
         productionMultipleSetter();
         harvestMultipleSetter();
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
     }
 
     @Override
@@ -1261,7 +1304,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         cancelMove.setVisible(false);
         choice.put("servantsToPay", "0");
         resetFamilyMembers();
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         textFail.setVisible(false);
         return choice;
     }
@@ -1285,7 +1328,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
         while (queryState.get("isServantsQueryOn"));
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         choice.put("positionType", map.get("positionType"));
         choice.put("familyMemberValue", map.get("familyMemberValue"));
         choice.remove("myServants");
@@ -1317,7 +1360,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
             disableParchments();
         }
 
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         choice.remove("numOfParchments");
         return choice;
     }
@@ -1344,7 +1387,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
         while (queryState.get("isFaithQueryOn"));
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         return choice;
     }
 
@@ -1371,7 +1414,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setDisable(false);
         while (queryState.get("isCostQueryOn"));
 
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         choice.put(CARDID, map.get(CARDID));
         return choice;
     }
@@ -1417,7 +1460,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
                 break;
             textQuery.setText("You must insert a valid number among these: " + str);
         } while (true);
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         choice.put(CARDID, map.get(CARDID));
         return choice;
     }
@@ -1452,7 +1495,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
         while (queryState.get("isFreeCardChoiceOn"));
-        textQuery.setText("Waiting for player's movement ...");
+        textQuery.setText(WAITINGSTR);
         Integer j = 0;
         for (Map.Entry<String, String> entry: map.entrySet()) {
             choice.remove("card" + j);
