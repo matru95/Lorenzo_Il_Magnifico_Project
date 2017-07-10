@@ -2,8 +2,10 @@ package it.polimi.ingsw.gc31.view.jfx;
 
 import java.io.*;
 import java.rmi.NotBoundException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -1313,7 +1315,19 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
     @Override
     public void endGameQuery(Map<String, String> map) {
-
+        sb.append("Here is the leaderboard for this game:");
+        ValueComparator bvc = new ValueComparator(map);
+        TreeMap<String, String> sortedPlayers = new TreeMap<>(bvc);
+        sortedPlayers.putAll(map);
+        Integer i = 0;
+        for (JsonNode singlePlayer: rootInstance.path("players")) {
+            if (sortedPlayers.containsKey(beauty(singlePlayer.path("playerID"))));
+            sb.append(i).append(") ").append(singlePlayer.path("playerName")).append("    ")
+                    .append(sortedPlayers.get(i)).append(" VictoryPoints\n");
+            i++;
+        }
+        textQuery.setText(sb.toString());
+        printStringBuilder();
     }
 
     @Override
@@ -1327,24 +1341,20 @@ public class GameViewFXCtrl implements GameViewCtrl {
         this.myPlayerID = playerID;
     }
 
-    /**
-     * Method to read a String from Input.
-     * @return String
-     * @throws IOException: Error during input reading.
-     */
-    private String readString() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return br.readLine();
-    }
+    class ValueComparator implements Comparator<String> {
+        Map<String, String> base;
 
-    /**
-     * Method to read an Integer from Input.
-     * @return Integer
-     * @throws IOException: Error during input reading.
-     */
-    private int readInteger() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        return Integer.valueOf(br.readLine());
+        public ValueComparator(Map<String, String> base) {
+            this.base = base;
+        }
+
+        public int compare(String a, String b) {
+            if (Integer.parseInt(base.get(a)) >= Integer.parseInt(base.get(b))) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
     }
 
     /**
