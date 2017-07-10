@@ -53,7 +53,7 @@ cards, board, player tiles and excommunication tiles.
 - **Settings.json**: 
     general settings for the game, it has three main parts:
     - `gameSettings`: in here you can define 
-    the wait time before starting a new game and the wait time for a player move.
+    the wait time (in seconds) before starting a new game and the wait time for a player move.
     `serverWait` and `playerWait` respectively
     - `parchments`: the various parchment effects.
     - `gameBoard`: the game board.

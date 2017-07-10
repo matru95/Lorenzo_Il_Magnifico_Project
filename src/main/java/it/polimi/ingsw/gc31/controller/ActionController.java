@@ -31,9 +31,7 @@ public class ActionController extends Controller implements Runnable {
     private GameController gameController;
     private Player player;
     private long waitingTime;
-    private long startTime;
     private boolean movementReceived;
-    private long endTime;
     private Thread messageThread;
 
     /**
@@ -106,9 +104,6 @@ public class ActionController extends Controller implements Runnable {
 
         } catch (MovementInvalidException e) {
             ServerMessage request = new ServerMessage();
-
-            this.endTime = System.currentTimeMillis();
-            this.waitingTime = waitingTime - (endTime - startTime);
 
             request.setMessageType(ServerMessageEnum.MOVEMENTFAIL);
             sendMessage(request, client);
@@ -195,7 +190,6 @@ public class ActionController extends Controller implements Runnable {
             Thread.currentThread().interrupt();
         }
 
-        this.startTime = System.currentTimeMillis();
         try {
             waitForMove(playerID, client);
         } catch (InterruptedException e) {
@@ -223,7 +217,6 @@ public class ActionController extends Controller implements Runnable {
             }
         }
 
-        this.endTime = System.currentTimeMillis();
     }
 
     /**

@@ -1,7 +1,7 @@
 {
   "gameSettings": {
     "serverWait": 30,
-    "playerWait": 600
+    "playerWait": 10
   },
   "parchments": [
     {
