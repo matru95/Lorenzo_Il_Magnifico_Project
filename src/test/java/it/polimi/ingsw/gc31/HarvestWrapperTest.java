@@ -8,7 +8,6 @@ import it.polimi.ingsw.gc31.model.GameInstance;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.board.GameBoard;
 import it.polimi.ingsw.gc31.model.board.HarvestWrapper;
-import it.polimi.ingsw.gc31.model.board.ProductionWrapper;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import junit.framework.TestCase;
 import org.junit.Test;
