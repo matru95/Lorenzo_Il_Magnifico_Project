@@ -4,6 +4,11 @@ public class PlayerResourceMalus implements Malus{
     private MalusEnum type;
     private boolean loseForEveryResource;
 
+    /**
+     * Constructor of PlayerResourceMalus
+     * @param type the type of the Malus
+     * @param loseForEveryResource a boolean used to applay the malus
+     */
     public PlayerResourceMalus(MalusEnum type, boolean loseForEveryResource) {
         this.type = type;
         this.loseForEveryResource = loseForEveryResource;

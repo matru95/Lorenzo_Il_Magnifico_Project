@@ -6,6 +6,11 @@ public class CardPointsMalus implements Malus {
     private MalusEnum type;
     private CardColor noEndGamePointsCardColor;
 
+    /**
+     * Constructor of CardPointsMalus.
+     * @param type the type of the Malus.
+     * @param noEndGamePointsCardColor
+     */
     public CardPointsMalus(MalusEnum type, CardColor noEndGamePointsCardColor) {
         this.type = type;
         this.noEndGamePointsCardColor = noEndGamePointsCardColor;

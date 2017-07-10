@@ -20,6 +20,12 @@ public abstract class SpaceWrapper implements Serializable{
     private boolean isOccupied;
     private GameBoard gameBoard;
 
+    /**
+     *
+     * @param positionID
+     * @param diceBond
+     * @param gameBoard
+     */
     public SpaceWrapper(int positionID , int diceBond, GameBoard gameBoard) {
         this.positionID = positionID;
         this.diceBond = diceBond;
@@ -40,20 +46,40 @@ public abstract class SpaceWrapper implements Serializable{
 //  Check whether a player has enough resources to move a familymember here.
     public abstract boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor);
 
+    /**
+     * 
+     * @param familyMember
+     */
     public abstract void setFamilyMember(FamilyMember familyMember);
 
+    /**
+     *
+     * @return
+     */
     public boolean isOccupied() {
         return isOccupied;
     }
 
+    /**
+     *
+     * @param occupied
+     */
     public void setOccupied(boolean occupied) {
         isOccupied = occupied;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPositionID() {
         return positionID;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDiceBond() {
         return diceBond;
     }
@@ -78,7 +104,12 @@ public abstract class SpaceWrapper implements Serializable{
         return spaceWrapperNode;
     }
 
-
+    /**
+     *
+     * @param playerColor
+     * @param familyMembers
+     * @return
+     */
     protected boolean hasFamilyMemberSameColor(PlayerColor playerColor, List<FamilyMember> familyMembers) {
         for(FamilyMember familyMember: familyMembers) {
             PlayerColor familyMemberColor = familyMember.getPlayerColor();

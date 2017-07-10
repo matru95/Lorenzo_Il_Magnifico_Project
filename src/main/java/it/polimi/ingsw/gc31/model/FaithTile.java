@@ -57,58 +57,81 @@ public class FaithTile {
 			return "";
 		}
 	}
+
 	public int getAge() {
 		return age;
 	}
+
 	public int getId() { return this.id;}
+
 	public void setAge(int age) {
 		this.age = age;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	/**
+	 * Setting RESOURCEMALUS
+	 * @param gainFewerStack
+	 */
 	public void setGainFewerStack(List<Resource> gainFewerStack) {
 		this.gainFewerStack = gainFewerStack;
 	}
+
 	public void setHarvestFewer(int harvestFewer) {
 		this.harvestFewer = harvestFewer;
 	}
+
 	public void setProductionFewer(int productionFewer) {
 		this.productionFewer = productionFewer;
 	}
+
 	public void setDiceFewer(int diceFewer) {
 		this.diceFewer = diceFewer;
 	}
+
 	public void setFewerDiceCardColor(CardColor fewerDiceCardColor) {
 		this.fewerDiceCardColor = fewerDiceCardColor;
 	}
+
 	public void setFewerDiceCardValue(int fewerDiceCardValue) {
 		this.fewerDiceCardValue = fewerDiceCardValue;
 	}
+
 	public void setNoMarket(boolean noMarket) {
 		this.noMarket = noMarket;
 	}
+
 	public void setDoubleServants(boolean doubleServants) {
 		this.doubleServants = doubleServants;
 	}
+
 	public void setSkipFirstRound(boolean skipFirstRound) {
 		this.skipFirstRound = skipFirstRound;
 	}
+
 	public void setNoEndGamePointsCardColor(CardColor noEndGamePointsCardColor) {
 		this.noEndGamePointsCardColor = noEndGamePointsCardColor;
 	}
+
 	public void setForEveryRes(List<Resource> forEveryRes) {
 		this.forEveryRes = forEveryRes;
 	}
+
 	public void setLoseRes(List<Resource> loseRes) {
 		this.loseRes = loseRes;
 	}
+
 	public void setLoseForEveryCostCardColor(CardColor loseForEveryCostCardColor) {
 		this.loseForEveryCostCardColor = loseForEveryCostCardColor;
 	}
+
 	public void setLoseForEveryCost(List<Resource> loseForEveryCost) {
 		this.loseForEveryCost = loseForEveryCost;
 	}
+
 	public void setLoseForEveryResource(boolean loseForEveryResource) {
 		this.loseForEveryResource = loseForEveryResource;
 	}
@@ -233,6 +256,10 @@ public class FaithTile {
 		return faithObjectNode;
 	}
 
+	/**
+	 * Return the Malus of the FaithTile
+	 * @return Malus
+	 */
 	public Malus getMalus() {
 		return malus;
 	}
