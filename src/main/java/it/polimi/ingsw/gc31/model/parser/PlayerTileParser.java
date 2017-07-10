@@ -34,7 +34,8 @@ public class PlayerTileParser {
 
     public void parse(){
         JsonNode playerTilesJSON = rootNode.path("playertiles");
-        List<Resource> harvest,production;
+        List<Resource> harvest;
+        List<Resource> production;
         for(JsonNode playerTile : playerTilesJSON){
             JsonNode idNode=playerTile.path("id");
             int id= idNode.asInt();

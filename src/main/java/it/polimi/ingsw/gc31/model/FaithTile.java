@@ -54,7 +54,6 @@ public class FaithTile {
 		try {
 			return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(faithObjectNode);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
 			return "";
 		}
 	}

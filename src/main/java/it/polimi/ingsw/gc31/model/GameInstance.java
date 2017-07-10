@@ -143,7 +143,6 @@ public class GameInstance implements Serializable, Runnable {
 
 	public void generatePlayerOrders() {
 
-	    //TODO We need a list of ints that have already been generated;
         ArrayList<Integer> generatedNumbers = new ArrayList<>();
         int rnd;
 

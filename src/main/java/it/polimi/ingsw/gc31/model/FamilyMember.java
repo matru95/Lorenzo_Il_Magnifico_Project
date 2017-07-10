@@ -14,8 +14,6 @@ import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.board.*;
 import it.polimi.ingsw.gc31.enumerations.CardColor;
 import it.polimi.ingsw.gc31.model.effects.permanent.*;
-import it.polimi.ingsw.gc31.model.effects.permanent.Bonus;
-import it.polimi.ingsw.gc31.model.effects.permanent.CardColorBonus;
 import it.polimi.ingsw.gc31.model.effects.permanent.Malus;
 import it.polimi.ingsw.gc31.model.resources.Resource;
 import it.polimi.ingsw.gc31.enumerations.ResourceName;

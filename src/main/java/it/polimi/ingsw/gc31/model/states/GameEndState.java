@@ -23,7 +23,10 @@ public class GameEndState implements State {
     @Override
     public void doAction(GameInstance context) {
 
-        boolean malusGreenCard=true,malusBlueCard=true,malusPurpleCard=true,playerResMalus=true;
+        boolean malusGreenCard=true;
+        boolean malusBlueCard=true;
+        boolean malusPurpleCard=true;
+        boolean playerResMalus=true;
 
         int numOfTotalStoneAndWoodInYellowCard = 0;
 
@@ -44,6 +47,8 @@ public class GameEndState implements State {
                           case PURPLE:
                              malusPurpleCard=false;
                              break;
+                          default:
+                              break;
                          }
                     }
 

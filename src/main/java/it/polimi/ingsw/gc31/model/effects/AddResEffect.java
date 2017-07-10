@@ -40,7 +40,6 @@ public class AddResEffect extends Effect{
         Map<ResourceName,Resource> resDebuff= new HashMap<>();
 
         if(maluses!=null){
-            System.out.println("I maluses non sono nulli!!!");
             for(Malus malus: maluses) {
                 if(malus.getMalusType()== MalusEnum.RESOURCEMALUS){
                     gainFewerStack = ((ResourceMalus) malus).getGainFewerStack();
