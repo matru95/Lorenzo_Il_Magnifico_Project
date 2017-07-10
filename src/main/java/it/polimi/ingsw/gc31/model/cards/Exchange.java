@@ -1,7 +1,5 @@
 package it.polimi.ingsw.gc31.model.cards;
 
-import com.sun.org.apache.regexp.internal.RE;
-import it.polimi.ingsw.gc31.messages.Message;
 import it.polimi.ingsw.gc31.messages.ServerMessage;
 import it.polimi.ingsw.gc31.model.Player;
 import it.polimi.ingsw.gc31.model.effects.ParchmentEffect;
@@ -81,7 +79,7 @@ public class Exchange {
 
         if(numOfParchmentsToReceive > 0) {
             ParchmentEffect parchmentEffect = new ParchmentEffect(numOfParchmentsToReceive);
-            Message messages = parchmentEffect.exec(player);
+            parchmentEffect.exec(player);
         }
 
         return message;

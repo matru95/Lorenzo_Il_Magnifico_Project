@@ -16,6 +16,7 @@ import java.util.Map;
 
 
 public abstract class Controller {
+
     private GameInstance model;
     private List<Client> views;
     private Server server;

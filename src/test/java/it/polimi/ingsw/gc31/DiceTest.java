@@ -5,10 +5,8 @@ import it.polimi.ingsw.gc31.enumerations.DiceColor;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
+public class DiceTest extends TestCase {
 
-public class DiceTest extends TestCase{
     Dice diceToTest;
 
     @Override

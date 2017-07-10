@@ -35,6 +35,11 @@ public class GameInstance implements Serializable, Runnable {
 
 	private transient Logger logger = Logger.getLogger(GameInstance.class.getName());
 
+	/**
+	 * The main model
+	 * @param instanceID
+	 * @throws IOException
+	 */
 	public GameInstance(UUID instanceID) throws IOException {
 
 		this.instanceID = instanceID;
@@ -223,9 +228,9 @@ public class GameInstance implements Serializable, Runnable {
 	}
 
 	/**
-	 *
+	 * Return the parchment with the same parchementID
 	 * @param parchmentID
-	 * @return Parchement
+	 * @return Parchment
 	 */
 	public Parchment getParchmentByID(String parchmentID) {
 	    for(Parchment parchment: parchments) {

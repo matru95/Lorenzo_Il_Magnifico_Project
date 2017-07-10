@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class FaithPointParser {
     private JsonNode rootNode;
-    private transient Logger logger = Logger.getLogger(this.getClass().getName());
+    private Logger logger = Logger.getLogger(this.getClass().getName());
     private Map<Integer,Integer> faithPoints;
 
     public FaithPointParser(String filePath){
