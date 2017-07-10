@@ -14,12 +14,8 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SocketClient implements Client, Serializable {
-
-    private transient Logger logger = Logger.getLogger(SocketClient.class.getName());
     private static Socket socket;
     private transient ObjectInputStream objIn;
     private transient ObjectOutputStream objOut;
@@ -48,7 +44,6 @@ public class SocketClient implements Client, Serializable {
         try {
             objOut = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
-            e.printStackTrace();
         }
 
         Map<String, String> payload = new HashMap<>();
@@ -65,28 +60,22 @@ public class SocketClient implements Client, Serializable {
             objOut.flush();
             getResponses();
         } catch (IOException e) {
-            e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
 
         try {
             socket.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     private void getResponses() throws ClassNotFoundException, InterruptedException, IOException {
-        logger.info("Getting responses");
         objIn = new ObjectInputStream(socket.getInputStream());
         boolean condition = true;
         while (condition) {
             try {
                 ServerMessage response = (ServerMessage) objIn.readObject();
-                logger.info("Received:"+ response.getMessageType());
 
                 send(response);
 
@@ -94,7 +83,6 @@ public class SocketClient implements Client, Serializable {
                     condition = false;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
                 condition = false;
             }
         }
@@ -110,10 +98,6 @@ public class SocketClient implements Client, Serializable {
         ClientMessage successMessage = new ClientMessage(ClientMessageEnum.REGISTERSUCCESS, null, playerID, gameID);
         objOut.writeObject(successMessage);
         objOut.flush();
-    }
-
-    private void threadCloser() {
-        inputThread = null;
     }
 
     @Override
@@ -136,7 +120,6 @@ public class SocketClient implements Client, Serializable {
                     try {
                         sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
                     } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 });
 
@@ -148,7 +131,6 @@ public class SocketClient implements Client, Serializable {
                     try {
                         sendMessageToServer(new ClientMessage(ClientMessageEnum.MOVE, view.movementQuery(), playerID, gameID));
                     } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 });
                 inputThread.start();
@@ -171,7 +153,6 @@ public class SocketClient implements Client, Serializable {
                     try {
                         sendMessageToServer(new ClientMessage(ClientMessageEnum.PARCHMENTCHOICE, view.parchmentQuery(payload), playerID, gameID));
                     } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 });
                 inputThread.start();
@@ -181,7 +162,6 @@ public class SocketClient implements Client, Serializable {
                     try {
                         sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCOMMUNICATIONCHOICE, view.faithQuery(), playerID, gameID, this));
                     } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 });
                 inputThread.start();
@@ -191,7 +171,6 @@ public class SocketClient implements Client, Serializable {
                     try {
                         sendMessageToServer(new ClientMessage(ClientMessageEnum.COSTCHOICE, view.costQuery(payload), playerID, gameID));
                     } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 });
                 inputThread.start();
@@ -201,7 +180,6 @@ public class SocketClient implements Client, Serializable {
                     try {
                         sendMessageToServer(new ClientMessage(ClientMessageEnum.EXCHANGECHOICES, view.exchangeQuery(payload), playerID, gameID));
                     } catch (IOException e) {
-                        e.printStackTrace();
                     }
                 });
                 inputThread.start();
@@ -226,7 +204,6 @@ public class SocketClient implements Client, Serializable {
             objOut.writeObject(clientMessage);
             objOut.flush();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

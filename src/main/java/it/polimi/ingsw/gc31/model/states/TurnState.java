@@ -18,7 +18,6 @@ public class TurnState implements State {
 
     @Override
     public void doAction(GameInstance context) {
-        System.out.println("Doing turn state action");
         Map<CardColor, Tower> towers= context.getGameBoard().getTowers();
 
         for(Map.Entry<CardColor, Tower> towerEntry: towers.entrySet()) {

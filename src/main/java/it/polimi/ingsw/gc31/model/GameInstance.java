@@ -222,4 +222,8 @@ public class GameInstance implements Serializable, Runnable {
 
         return null;
     }
+
+	public void setAge(int age) {
+		this.age = age;
+	}
 }

@@ -8,14 +8,11 @@
       "activationValue": 2,
       "cost": [],
       "instantEffect": {
-        "bonus": {},
-        "parchment": 1
       },
       "normalEffect": {
         "bonus": {
           "gold": 1
-        },
-        "parchment": 1
+        }
       }
     },
     {
@@ -28,14 +25,12 @@
       "instantEffect": {
         "bonus": {
           "wood": 1
-        },
-        "parchment": 1
+        }
       },
       "normalEffect": {
         "bonus": {
           "wood": 1
-        },
-        "parchment": 1
+        }
       }
     },
     {
@@ -47,15 +42,13 @@
       "cost": [],
       "instantEffect": {
         "bonus": {
-        },
-        "parchment": 1
+        }
       },
       "normalEffect": {
         "bonus": {
           "gold": 1,
           "servants": 1
-        },
-        "parchment": 1
+        }
       }
     },
     {
@@ -74,8 +67,7 @@
         "bonus": {
           "stone": 2
         }
-      },
-      "parchment": 1
+      }
     },
     {
       "id": 5,
@@ -323,7 +315,7 @@
     },
     {
       "id": 18,
-      "cardAge": 3,
+      "cardAge": 1,
       "title": "Farm",
       "cardColor": "green",
       "activationValue": 3,
@@ -615,8 +607,50 @@
             },
             "receive": {
               "resources": {
-              },
-              "parchment": 1
+                "gold": 5
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "cardAge": 1,
+      "title": "Carpenter's Shop",
+      "cardColor": "yellow",
+      "activationValue": 4,
+      "cost": [
+        {
+          "gold": 1,
+          "wood": 2
+        }
+      ],
+      "instantEffect": {
+        "bonus": {
+          "victoryPoints": 3
+        }
+      },
+      "normalEffect": {
+        "bonus": {
+        },
+        "exchange": [
+          {
+            "give": {
+              "wood": 1
+            },
+            "receive": {
+              "resources": {
+                "gold": 3
+              }
+            }
+          },
+          {
+            "give": {
+              "wood": 2
+            },
+            "receive": {
+              "gold": 5
             }
           }
         ]
@@ -649,8 +683,8 @@
             },
             "receive": {
               "resources": {
-              },
-              "parchment": 1
+                "gold": 3
+              }
             }
           },
           {
@@ -658,10 +692,8 @@
               "stone": 2
             },
             "receive": {
-              "resources": {
-              }
-            },
-            "parchment": 1
+              "gold": 5
+            }
           }
         ]
       }
@@ -1312,12 +1344,12 @@
     },
     {
       "id": 49,
-      "cardAge": 2,
+      "cardAge": 1,
       "title": "Warlord",
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 2
         }
       ],
       "instantEffect": {
@@ -1338,12 +1370,12 @@
     },
     {
       "id": 50,
-      "cardAge": 2,
+      "cardAge": 1,
       "title": "Stonemason",
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 4
         }
       ],
       "instantEffect": {
@@ -1367,12 +1399,12 @@
     },
     {
       "id": 51,
-      "cardAge": 2,
+      "cardAge": 1,
       "title": "Dame",
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 4
         }
       ],
       "instantEffect": {
@@ -1393,12 +1425,12 @@
     },
     {
       "id": 52,
-      "cardAge": 2,
+      "cardAge": 1,
       "title": "Knight",
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 2
         }
       ],
       "instantEffect": {
@@ -1424,7 +1456,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 3
         }
       ],
       "instantEffect": {
@@ -1448,7 +1480,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 3
         }
       ],
       "instantEffect": {
@@ -1472,7 +1504,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 2
         }
       ],
       "instantEffect": {
@@ -1495,7 +1527,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 3
         }
       ],
       "instantEffect": {
@@ -1518,7 +1550,7 @@
       "cardColor": "blue",
       "cost": [
         {
-          "gold": 1
+          "gold": 4
         }
       ],
       "instantEffect": {

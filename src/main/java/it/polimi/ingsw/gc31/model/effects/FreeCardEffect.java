@@ -66,7 +66,7 @@ public class FreeCardEffect extends Effect  {
 
             if (spaceDiceBond <= possibleValue) {
 
-                if (((TowerSpaceWrapper) spaceWrapper).getCard() != null) {
+                if (((TowerSpaceWrapper) spaceWrapper).getCard() != null && ((TowerSpaceWrapper) spaceWrapper).getCard().getCardID() != 0) {
                     towerCards.add(((TowerSpaceWrapper) spaceWrapper).getCard());
                 }
             }
