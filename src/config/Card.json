@@ -615,50 +615,6 @@
       }
     },
     {
-      "id": 29,
-      "cardAge": 1,
-      "title": "Carpenter's Shop",
-      "cardColor": "yellow",
-      "activationValue": 4,
-      "cost": [
-        {
-          "gold": 1,
-          "wood": 2
-        }
-      ],
-      "instantEffect": {
-        "bonus": {
-          "victoryPoints": 3
-        }
-      },
-      "normalEffect": {
-        "bonus": {
-        },
-        "exchange": [
-          {
-            "give": {
-              "wood": 1
-            },
-            "receive": {
-              "resources": {
-                "gold": 3
-              }
-            }
-          },
-          {
-            "give": {
-              "wood": 2
-            },
-            "receive": {
-              "resources": {
-                "gold": 5
-              }
-            }
-          }
-        ]
-      }
-    },
-    {
       "id": 30,
       "cardAge": 1,
       "title": "Stonemason's Shop",
