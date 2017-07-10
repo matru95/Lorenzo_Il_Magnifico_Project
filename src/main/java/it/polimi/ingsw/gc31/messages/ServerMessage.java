@@ -7,6 +7,11 @@ public class ServerMessage implements Message, Serializable{
     private Map<String, String> payload;
     private ServerMessageEnum messageType;
 
+    /**
+     * Constructor of ServerMessage
+     * @param messageType the type of the ServerMessage.
+     * @param payload  the payload of the ServerMessage.
+     */
     public ServerMessage(ServerMessageEnum messageType, Map<String, String> payload) {
         this.messageType = messageType;
         this.payload = payload;
@@ -29,6 +34,10 @@ public class ServerMessage implements Message, Serializable{
         return messageType;
     }
 
+    /**
+     * Set the type of the ServerMessage
+     * @param messageType the type that will be see in the ServerMessage
+     */
     public void setMessageType(ServerMessageEnum messageType) {
         this.messageType = messageType;
     }

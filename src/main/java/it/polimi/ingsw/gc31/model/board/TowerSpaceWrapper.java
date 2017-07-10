@@ -29,6 +29,14 @@ public class TowerSpaceWrapper extends SpaceWrapper {
     private Resource res;
     private transient FamilyMember familyMember;
 
+    /**
+     * Constructor of TowerSpaceWrapper
+     * @param positionID the position id of the wrapper
+     * @param diceBond the dice bond of the wrapper
+     * @param gameBoard the gameboard of the wrapper
+     * @param tower the tower of the wrapper
+     * @param res the res for the wrapper
+     */
     TowerSpaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Tower tower, Resource res) {
         super(positionID, diceBond, gameBoard);
         this.color = tower.getTowerColor();
@@ -101,10 +109,16 @@ public class TowerSpaceWrapper extends SpaceWrapper {
         addResEffect.exec(player);
     }
 
+    /**
+     *
+     * @param familyMember
+     * @param playerResources
+     * @param playerColor
+     * @return
+     */
     public boolean isAffordable(FamilyMember familyMember, Map<ResourceName, Resource> playerResources, PlayerColor playerColor) {
 
         if(this.tower.isOccupied() && !isTowerOccupiedAffordable(playerResources)) {
-//          Tower is occupied and familymember can't pay gold
             return false;
         }
 

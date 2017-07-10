@@ -9,6 +9,10 @@ import jdk.nashorn.internal.ir.ObjectNode;
 public class CardColorBonusEffect extends Effect{
     Bonus bonus;
 
+    /**
+     * Constructor of CardColorBonusEffect
+     * @param bonus the bonus of the effect.
+     */
     public CardColorBonusEffect(Bonus bonus) {
         this.bonus = bonus;
     }

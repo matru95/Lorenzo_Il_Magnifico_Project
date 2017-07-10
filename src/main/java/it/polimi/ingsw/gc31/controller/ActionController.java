@@ -41,6 +41,13 @@ public class ActionController extends Controller implements Runnable {
     private long endTime;
     private Thread messageThread;
 
+    /**
+     *
+     * @param model
+     * @param clients
+     * @param gameController
+     * @param server
+     */
     public ActionController(GameInstance model, List<Client> clients, GameController gameController, Server server) {
         super(model, clients, server);
         SettingsParser parser = new SettingsParser("src/config/Settings.json");
@@ -50,6 +57,13 @@ public class ActionController extends Controller implements Runnable {
         this.gameController = gameController;
     }
 
+    /**
+     *
+     * @param playerID
+     * @param movementData
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void movementAction(String playerID, Map<String, String> movementData) throws IOException, InterruptedException {
 //      this.movementReceived is true at this point
 
@@ -110,6 +124,12 @@ public class ActionController extends Controller implements Runnable {
 
     }
 
+    /**
+     *
+     * @param request
+     * @param client
+     * @throws InterruptedException
+     */
     protected void sendMessage(ServerMessage request, Client client) throws InterruptedException {
 //      Destroy thread if exists
         if(this.messageThread != null){
@@ -144,6 +164,12 @@ public class ActionController extends Controller implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param playerID
+     * @return
+     * @throws RemoteException
+     */
     protected Client getClientFromPlayerID(String playerID) throws RemoteException {
 
         for(Client client: super.getViews()) {
@@ -214,6 +240,10 @@ public class ActionController extends Controller implements Runnable {
         this.endTime = System.currentTimeMillis();
     }
 
+    /**
+     *
+     * @param movementReceived
+     */
     public void setMovementReceived(boolean movementReceived) {
         this.movementReceived = movementReceived;
     }
@@ -236,6 +266,11 @@ public class ActionController extends Controller implements Runnable {
 
     }
 
+    /**
+     *
+     * @param playerID
+     * @param payload
+     */
     public void costChoiceAction(String playerID, Map<String, String> payload) {
         String cardID = payload.get("cardID");
         int cardCostChoice = Integer.valueOf(payload.get("cardCostChoice"));
@@ -250,6 +285,11 @@ public class ActionController extends Controller implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param playerID
+     * @param payload
+     */
     public void freeCardChoiceAction(String playerID, Map<String, String> payload) {
         String cardID = payload.get("cardID");
         List<Card> cards = super.getModel().getGameBoard().getCards();
@@ -291,6 +331,11 @@ public class ActionController extends Controller implements Runnable {
         }
     }
 
+    /**
+     *
+     * @param playerID
+     * @param payload
+     */
     public void exchangeChoiceAction(String playerID, Map<String, String> payload) {
         List<Card> cards = player.getAllCardsAsList();
         int cardID = Integer.valueOf(payload.get("cardID"));
@@ -346,6 +391,12 @@ public class ActionController extends Controller implements Runnable {
         return message;
     }
 
+    /**
+     *
+     * @param playerID
+     * @param payload
+     * @param client
+     */
     public void excommunicationChoiceAction(String playerID, Map<String, String> payload, Client client) {
         System.out.println("Excommunication choice action inside actionController\n");
 
@@ -371,6 +422,11 @@ public class ActionController extends Controller implements Runnable {
         return;
     }
 
+    /**
+     *
+     * @param playerID
+     * @param payload
+     */
     public void servantsChoice(String playerID, Map<String, String> payload) {
         String positionType = payload.get("positionType");
         int servantsToPay = Integer.parseInt(payload.get("servantsToPay"));

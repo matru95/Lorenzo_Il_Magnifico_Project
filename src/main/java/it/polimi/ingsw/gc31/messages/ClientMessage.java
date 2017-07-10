@@ -15,6 +15,13 @@ public class ClientMessage implements Message, Serializable {
 
     private Client client;
 
+    /**
+     *
+     * @param clientMessageType
+     * @param payload
+     * @param playerID
+     * @param gameID
+     */
     public ClientMessage(ClientMessageEnum clientMessageType, Map<String, String> payload, String playerID, String gameID) {
         this.clientMessageType = clientMessageType;
         this.payload = payload;
@@ -22,6 +29,14 @@ public class ClientMessage implements Message, Serializable {
         this.gameID = gameID;
     }
 
+    /**
+     *
+     * @param clientMessageType
+     * @param payload
+     * @param playerID
+     * @param gameID
+     * @param client
+     */
     public ClientMessage(ClientMessageEnum clientMessageType, Map<String, String> payload, String playerID, String gameID, Client client) {
         this.clientMessageType = clientMessageType;
         this.payload = payload;
@@ -30,6 +45,9 @@ public class ClientMessage implements Message, Serializable {
         this.client = client;
     }
 
+    /**
+     *
+     */
     public ClientMessage() {
 
     }
@@ -92,10 +110,18 @@ public class ClientMessage implements Message, Serializable {
         this.gameID = gameID;
     }
 
+    /**
+     *
+     * @param client
+     */
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /**
+     *
+     * @return
+     */
     public Client getClient() {
 
         return client;

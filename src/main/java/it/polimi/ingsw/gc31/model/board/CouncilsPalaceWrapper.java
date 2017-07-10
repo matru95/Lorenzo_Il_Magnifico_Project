@@ -22,6 +22,14 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
     private Resource res;
     private int numOfParchments;
 
+    /**
+     * Constructor of ConcilsPalaceWrapper
+     * @param positionID the position id of the wrapper
+     * @param diceBond  the dice bond of the wrapper
+     * @param gameBoard the gameboard of the wrapper
+     * @param res   the resource on the wrapper
+     * @param numOfParchments the number of parchment of the wrapper
+     */
     public CouncilsPalaceWrapper(int positionID, int diceBond, GameBoard gameBoard, Resource res, int numOfParchments) {
         super(positionID, diceBond, gameBoard);
         this.familyMembers = new ArrayList<>();
@@ -30,6 +38,10 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
         this.numOfParchments = numOfParchments;
     }
 
+    /**
+     * Return a new player order
+     * @return Player[]
+     */
     public Player[] getNewPlayerOrder() {
         Player[] orderedPlayers = new Player[getGameBoard().getGameInstance().getNumOfPlayers()];
         Set<PlayerColor> uniqueColors = getUniqueColors();
@@ -122,6 +134,10 @@ public class CouncilsPalaceWrapper extends SpaceWrapper {
         return result;
     }
 
+    /**
+     * Creating the json of the CouncilsPalaceWrapper
+     * @return ObjectNode
+     */
     @Override
     public ObjectNode toJson() {
         ObjectMapper mapper = new ObjectMapper();
