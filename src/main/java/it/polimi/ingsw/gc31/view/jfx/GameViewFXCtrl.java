@@ -66,8 +66,15 @@ public class GameViewFXCtrl implements GameViewCtrl {
     private static final String ISMEMBERCHOICEON = "isMemberChoiceOn";
     private static final String CHOICE = "choice";
     private static final String BOARDSPACES = "boardSpaces";
+<<<<<<< HEAD
 =======
 >>>>>>> 86cf4fe6dec17f38a1431a55d52a05a1cb01a2a6
+=======
+    private static final String ISEXCHANGECHOICEON = "isExchangeChoiceOn";
+    private static final String ISSERVANTSQUERYON = "isServantsQueryOn";
+    private static final String ISFREECARDCHOICEON = "isFreeCardChoiceOn";
+    private static final String ISFAITHQUERYON = "isFaithQueryOn";
+>>>>>>> 297323b1c519e62d0e4d43b2dfc88b179d89e791
 
     private StringBuilder sb;
     private String myPlayerID;
@@ -112,7 +119,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
      * @throws IOException: exception
      */
     private String serverIPQuery() throws IOException {
-        sb.append("Now enter the ip address for the server to which connect (\"127.0.0.1\" for localhost):");
+        sb.append("Now enter the ip address for the server to which connect (\"localhost\" if server is on the same machine):");
         printStringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return br.readLine();
@@ -745,10 +752,10 @@ public class GameViewFXCtrl implements GameViewCtrl {
 >>>>>>> 86cf4fe6dec17f38a1431a55d52a05a1cb01a2a6
     private void checkExchange() {
 
-        if (queryState.get("isExchangeChoiceOn")) {
+        if (queryState.get(ISEXCHANGECHOICEON)) {
             disableChoice();
             queryChoice.put(CHOICE, textChoice.getText());
-            queryState.put("isExchangeChoiceOn", false);
+            queryState.put(ISEXCHANGECHOICEON, false);
         }
     }
 
@@ -760,12 +767,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
 >>>>>>> 86cf4fe6dec17f38a1431a55d52a05a1cb01a2a6
     private void checkServants() {
 
-        if (queryState.get("isServantsQueryOn")) {
+        if (queryState.get(ISSERVANTSQUERYON)) {
             if (isInteger(textChoice.getText()) && Integer.parseInt(textChoice.getText()) >=0
                     && Integer.parseInt(textChoice.getText()) <= Integer.parseInt(queryChoice.get("myServants"))) {
                 disableChoice();
                 queryChoice.put("servantsToPay", textChoice.getText());
-                queryState.put("isServantsQueryOn", false);
+                queryState.put(ISSERVANTSQUERYON, false);
             } else
                 textQuery.setText("You must insert a valid number between 0 and " + queryChoice.get("myServants") + ":");
         }
@@ -779,12 +786,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
 >>>>>>> 86cf4fe6dec17f38a1431a55d52a05a1cb01a2a6
     private void checkFreeCard () {
 
-        if (queryState.get("isFreeCardChoiceOn") && isInteger(textChoice.getText())) {
+        if (queryState.get(ISFREECARDCHOICEON) && isInteger(textChoice.getText())) {
             for(Integer i = 0; i < queryChoice.size() - 1; i++)
                 if (queryChoice.get("card" + i).equals(textChoice.getText())) {
                     disableChoice();
                     queryChoice.put(CARDID, textChoice.getText());
-                    queryState.put("isFreeCardChoiceOn", false);
+                    queryState.put(ISFREECARDCHOICEON, false);
                 }
         }
     }
@@ -797,7 +804,7 @@ public class GameViewFXCtrl implements GameViewCtrl {
 >>>>>>> 86cf4fe6dec17f38a1431a55d52a05a1cb01a2a6
     private void checkFaith() {
 
-        if (queryState.get("isFaithQueryOn") && textChoice.getText().equalsIgnoreCase("YES") || textChoice.getText().equalsIgnoreCase("NO")) {
+        if (queryState.get(ISFAITHQUERYON) && textChoice.getText().equalsIgnoreCase("YES") || textChoice.getText().equalsIgnoreCase("NO")) {
             disableChoice();
             queryChoice.put("applyExcommunication", textChoice.getText());
             queryState.put("isFaithQueryOn", false);
@@ -1800,9 +1807,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
         queryState = new HashMap<>();
         queryState.put(ISMEMBERCHOICEON, false);
         queryState.put(ISSCON, false);
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
         queryState.put("isParchment1On", false);
@@ -1961,20 +1968,20 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
         queryChoice.put("cardValue", map.get("cardValue"));
         queryChoice.put("myServants", map.get("myServants"));
         textQuery.setText("Enter the number of servants you'd like to add number between 0 and " + queryChoice.get("myServants") + ":");
-        queryState.put("isServantsQueryOn", true);
+        queryState.put(ISSERVANTSQUERYON, true);
         textChoice.setVisible(true);
         textChoice.setDisable(false);
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
-        while (queryState.get("isServantsQueryOn"));
+        while (queryState.get(ISSERVANTSQUERYON));
         textQuery.setText(WAITINGSTR);
 <<<<<<< HEAD
         queryChoice.put("positionType", map.get("positionType"));
@@ -2029,9 +2036,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
 
@@ -2059,9 +2066,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
 
@@ -2092,9 +2099,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
         Integer exchangesNumber = map.size() - 2;
@@ -2117,12 +2124,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
         }
 
         do {
-            queryState.put("isExchangeChoiceOn", true);
+            queryState.put(ISEXCHANGECHOICEON, true);
             textChoice.setVisible(true);
             textChoice.setDisable(false);
             buttonChoice.setVisible(true);
             buttonChoice.setDisable(false);
-            while(queryState.get("isExchangeChoiceOn"));
+            while(queryState.get(ISEXCHANGECHOICEON));
             if ((exchangesNumber.equals(1) && (queryChoice.get(CHOICE).equals("0") || queryChoice.get(CHOICE).equals("1")))
                     || (exchangesNumber.equals(2) && (queryChoice.get(CHOICE).equals("0") || queryChoice.get(CHOICE).equals("1") || queryChoice.get(CHOICE).equals("2"))))
                 break;
@@ -2143,9 +2150,9 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         queryChoice = new HashMap<>();
         queryState = new HashMap<>();
-        queryState.put("isExchangeChoiceOn", false);
-        queryState.put("isServantsQueryOn", false);
-        queryState.put("isFreeCardChoiceOn", false);
+        queryState.put(ISEXCHANGECHOICEON, false);
+        queryState.put(ISSERVANTSQUERYON, false);
+        queryState.put(ISFREECARDCHOICEON, false);
         queryState.put("isFaithQueryOn", false);
         queryState.put("isCostQueryOn", false);
 
@@ -2162,12 +2169,12 @@ public class GameViewFXCtrl implements GameViewCtrl {
 
         textQuery.setText("You've to choose whether or not picking a free card due to the BLUE CARD's instantEffect.\n"
                 + "Here there's a list of possible cards you can pick: " + str);
-        queryState.put("isFreeCardChoiceOn", true);
+        queryState.put(ISFREECARDCHOICEON, true);
         textChoice.setVisible(true);
         textChoice.setDisable(false);
         buttonChoice.setVisible(true);
         buttonChoice.setDisable(false);
-        while (queryState.get("isFreeCardChoiceOn"));
+        while (queryState.get(ISFREECARDCHOICEON));
         textQuery.setText(WAITINGSTR);
         Integer j = 0;
         for (Map.Entry<String, String> entry: map.entrySet()) {
