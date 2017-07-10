@@ -114,7 +114,7 @@ public class GameServer extends UnicastRemoteObject implements Server {
                 }
                 };
 
-            timer.schedule(timerTask, 10000);
+            timer.schedule(timerTask, waitTime);
         } else {
             System.out.println("Creating new game");
             createNewGame(player, client);

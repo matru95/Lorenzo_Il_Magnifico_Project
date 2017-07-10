@@ -97,12 +97,12 @@
       "instantEffect": {
         "bonus": {
           "servants": 1,
-          "warpoints": 2
+          "warPoints": 2
         }
       },
       "normalEffect": {
         "bonus": {
-          "faithpoints": 1,
+          "faithPoints": 1,
           "stone": 1
         }
       }
@@ -175,7 +175,7 @@
       },
       "normalEffect": {
         "bonus": {
-          "warpoints": 1,
+          "warPoints": 1,
           "wood": 2
         }
       }

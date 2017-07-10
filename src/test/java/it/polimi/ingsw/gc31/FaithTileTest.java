@@ -42,7 +42,12 @@ public class FaithTileTest extends TestCase{
 
     @Test
     public void testFaithTileShouldHaveID() {
-//        assertNotNull();
+        assertNotNull(faithTile.getId());
+    }
+
+    @Test
+    public void testFaithTileShouldReturnJSON() {
+        assertNotNull(faithTile.toJson());
     }
 
     @Override

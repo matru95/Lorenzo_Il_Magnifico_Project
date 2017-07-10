@@ -22,7 +22,7 @@ public class DiceTest extends TestCase{
     }
 
     @Test
-    public void neutralDiceShouldBeZero() {
+    public void testNeutralDiceShouldBeZero() {
         Dice neutralDiceTester = new Dice(DiceColor.NEUTRAL);
         neutralDiceTester.throwDice();
 
@@ -30,7 +30,7 @@ public class DiceTest extends TestCase{
     }
 
     @Test
-    public void blackDiceShouldBeBetweenOneAndSix() {
+    public void testBlackDiceShouldBeBetweenOneAndSix() {
         boolean isBetweenOneAndSix;
 
         Dice blackDiceTester = new Dice(DiceColor.BLACK);
@@ -42,7 +42,7 @@ public class DiceTest extends TestCase{
     }
 
     @Test
-    public void whiteDiceShouldBeBetweenOneAndSix() {
+    public void testWhiteDiceShouldBeBetweenOneAndSix() {
         boolean isBetweenOneAndSix;
 
         Dice whiteDiceTester = new Dice(DiceColor.WHITE);
@@ -55,7 +55,7 @@ public class DiceTest extends TestCase{
 
 
     @Test
-    public void orangeDiceShouldBeBetweenOneAndSix() {
+    public void testOrangeDiceShouldBeBetweenOneAndSix() {
         boolean isBetweenOneAndSix;
 
         Dice orangeDiceTester = new Dice(DiceColor.ORANGE);
