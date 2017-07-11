@@ -1,7 +1,7 @@
 # Lorenzo Il Magnifico
 
 ## Team Members:
-* Endi Sukaj - endi.sukaj@mail.polimi.it - 811883
+* Endi Sukaj - endi.sukaj@mail.polimi.it - 811819
 * Leonardo Panerai - leonardo.panerai@mail.polimi.it - 828473
 * Matteo Rubiu - matteo.rubiu@mail.polimi.it - 827117
 
